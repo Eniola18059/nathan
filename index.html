@@ -3,1063 +3,274 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Science Explorer Passport — Grade 4 Review Expedition</title>
+<title>Grade 3 Math Quiz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --paper: #EFF6EF;
-    --paper-alt: #FFFFFF;
-    --ink: #16302B;
-    --ink-soft: #4A6B62;
-    --line: #CFE0D6;
-    --line-strong: #9FC2B0;
-
-    --c-plants: #3F8F5D;
-    --c-animals: #D98A22;
-    --c-forces: #C0503C;
-    --c-soil: #8A5A38;
-    --c-rocks: #5C7280;
-    --c-habitats: #2A8F82;
-    --c-light: #6957D6;
-    --c-machines: #3D6C9E;
-    --c-matter: #CF5164;
-    --c-body: #B98A1A;
-
-    --success: #2F8F4E;
-    --error: #C0503C;
-
-    --radius: 16px;
-    --shadow: 0 6px 20px rgba(22, 48, 43, 0.10);
+  :root{
+    --bg: #EAF7F0;
+    --card: #FFFFFF;
+    --navy: #1F2A44;
+    --teal: #2E9E8E;
+    --teal-dark: #248375;
+    --sun: #FFC857;
+    --leaf: #3FAE7A;
+    --leaf-bg: #E4F6EC;
+    --oops-bg: #FDE9E7;
+    --coral-dark: #E85A45;
   }
-
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: #0F221E;
-      --paper-alt: #16302B;
-      --ink: #E9F3EE;
-      --ink-soft: #A9C7BC;
-      --line: #29473F;
-      --line-strong: #3B6357;
-      --shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #10151F;
+      --card: #1B2333;
+      --navy: #EDEFF5;
+      --leaf-bg: #16321F;
+      --oops-bg: #3A1E1A;
     }
   }
-  :root[data-theme="dark"] {
-    --paper: #0F221E;
-    --paper-alt: #16302B;
-    --ink: #E9F3EE;
-    --ink-soft: #A9C7BC;
-    --line: #29473F;
-    --line-strong: #3B6357;
-    --shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
-  }
-
-  * { box-sizing: border-box; }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Nunito', 'Segoe UI', sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  h1, h2, h3, .display {
-    font-family: 'Baloo 2', 'Trebuchet MS', sans-serif;
-    font-weight: 700;
-    line-height: 1.15;
-    margin: 0;
-  }
-
-  button {
-    font-family: inherit;
-    cursor: pointer;
-  }
-
-  #app {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 28px 20px 64px;
-    min-height: 100vh;
-  }
-
-  .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 22px;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .brand-mark {
-    font-size: 28px;
-    display: inline-block;
-  }
-
-  .brand-text {
-    font-family: 'Baloo 2', 'Trebuchet MS', sans-serif;
-    font-weight: 700;
-    font-size: 17px;
-    color: var(--ink);
-  }
-
-  .pill {
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--ink-soft);
-    background: var(--paper-alt);
-    border: 1px solid var(--line);
-    padding: 6px 12px;
-    border-radius: 999px;
-  }
-
-  /* ---------- START SCREEN ---------- */
-
-  .hero {
-    text-align: left;
-    padding: 8px 4px 26px;
-  }
-
-  .hero h1 {
-    font-size: 34px;
-    color: var(--ink);
-    max-width: 15ch;
-  }
-
-  .hero .compass {
-    font-size: 46px;
-    display: inline-block;
-    margin-bottom: 10px;
-    animation: spin-in 0.7s ease-out;
-  }
-
-  @keyframes spin-in {
-    from { transform: rotate(-40deg) scale(0.6); opacity: 0; }
-    to { transform: rotate(0deg) scale(1); opacity: 1; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .compass { animation: none; }
-  }
-
-  .hero p {
-    color: var(--ink-soft);
-    font-size: 16.5px;
-    line-height: 1.55;
-    max-width: 48ch;
-    margin-top: 12px;
-  }
-
-  .name-card {
-    background: var(--paper-alt);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 18px;
-    margin: 22px 0 30px;
-  }
-
-  .name-card label {
-    display: block;
-    font-weight: 700;
-    font-size: 14.5px;
-    color: var(--ink);
-    margin-bottom: 8px;
-  }
-
-  .name-card input {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1.5px solid var(--line-strong);
-    background: var(--paper);
-    color: var(--ink);
-    font-size: 16px;
-    font-family: inherit;
-  }
-
-  .name-card input:focus-visible {
-    outline: 3px solid var(--c-habitats);
-    outline-offset: 1px;
-  }
-
-  .trail-heading {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--ink-soft);
-    margin: 6px 0 14px;
-  }
-
-  .trail {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 26px;
-  }
-
-  @media (min-width: 520px) {
-    .trail { grid-template-columns: repeat(3, 1fr); }
-  }
-
-  .stop {
-    background: var(--paper-alt);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 14px 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    border-left: 5px solid var(--stop-color, var(--c-plants));
-  }
-
-  .stop .stop-icon { font-size: 22px; }
-  .stop .stop-num {
-    font-size: 12px;
-    font-weight: 800;
-    color: var(--ink-soft);
-  }
-  .stop .stop-title {
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 600;
-    font-size: 14.5px;
-    color: var(--ink);
-    line-height: 1.25;
-  }
-  .stop .stop-grade {
-    font-size: 11.5px;
-    color: var(--ink-soft);
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: var(--c-habitats);
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    padding: 15px 22px;
-    font-weight: 800;
-    font-size: 16.5px;
-    font-family: 'Baloo 2', sans-serif;
-    width: 100%;
-    box-shadow: 0 4px 14px rgba(42, 143, 130, 0.35);
-    transition: transform 0.12s ease;
-  }
-  .btn-primary:hover { transform: translateY(-1px); }
-  .btn-primary:active { transform: translateY(0px); }
-  .btn-primary:focus-visible {
-    outline: 3px solid var(--ink);
-    outline-offset: 2px;
-  }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    color: var(--ink);
-    border: 1.5px solid var(--line-strong);
-    border-radius: 12px;
-    padding: 13px 20px;
-    font-weight: 700;
-    font-size: 15px;
-    font-family: 'Nunito', sans-serif;
-    width: 100%;
-  }
-  .btn-secondary:focus-visible {
-    outline: 3px solid var(--ink);
-    outline-offset: 2px;
-  }
-
-  /* ---------- QUESTION SCREEN ---------- */
-
-  .stage-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-  }
-
-  .stage-badge {
-    width: 46px;
-    height: 46px;
-    min-width: 46px;
-    border-radius: 12px;
-    background: var(--stage-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-  }
-
-  .stage-title {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--ink);
-  }
-
-  .stage-sub {
-    font-size: 13px;
-    color: var(--ink-soft);
-    font-weight: 600;
-  }
-
-  .progress-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 22px;
-  }
-
-  .progress-track {
-    flex: 1;
-    height: 8px;
-    background: var(--line);
-    border-radius: 999px;
-    overflow: hidden;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: var(--stage-color);
-    border-radius: 999px;
-    transition: width 0.25s ease;
-  }
-
-  .progress-label {
-    font-size: 12.5px;
-    font-weight: 800;
-    color: var(--ink-soft);
-    white-space: nowrap;
-  }
-
-  .question-card {
-    background: var(--paper-alt);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 22px 20px;
-  }
-
-  .question-text {
-    font-size: 19px;
-    font-weight: 700;
-    font-family: 'Baloo 2', sans-serif;
-    line-height: 1.4;
-    color: var(--ink);
-    margin-bottom: 18px;
-  }
-
-  .options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .option {
-    text-align: left;
-    background: var(--paper);
-    border: 1.5px solid var(--line-strong);
-    border-radius: 12px;
-    padding: 13px 14px;
-    font-size: 15.5px;
-    font-weight: 600;
-    color: var(--ink);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .option .opt-letter {
-    width: 26px;
-    height: 26px;
-    min-width: 26px;
-    border-radius: 8px;
-    background: var(--paper-alt);
-    border: 1.5px solid var(--line-strong);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 13px;
-    font-weight: 800;
-  }
-
-  .option:hover { border-color: var(--stage-color); }
-  .option:focus-visible {
-    outline: 3px solid var(--ink);
-    outline-offset: 2px;
-  }
-
-  .option.correct {
-    background: rgba(47, 143, 78, 0.13);
-    border-color: var(--success);
-  }
-  .option.correct .opt-letter {
-    background: var(--success);
-    border-color: var(--success);
-    color: #fff;
-  }
-
-  .option.incorrect {
-    background: rgba(192, 80, 60, 0.12);
-    border-color: var(--error);
-    animation: shake 0.35s ease;
-  }
-  .option.incorrect .opt-letter {
-    background: var(--error);
-    border-color: var(--error);
-    color: #fff;
-  }
-
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .option.incorrect { animation: none; }
-  }
-
-  .option[disabled] { cursor: default; }
-
-  .explain-box {
-    margin-top: 16px;
-    padding: 14px 15px;
-    border-radius: 12px;
-    background: var(--paper);
-    border: 1px dashed var(--line-strong);
-    font-size: 14.5px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-  }
-  .explain-box strong { color: var(--ink); }
-
-  .next-row { margin-top: 18px; }
-
-  /* ---------- STAGE COMPLETE ---------- */
-
-  .stamp-wrap {
-    text-align: center;
-    padding: 30px 10px 10px;
-  }
-
-  .stamp {
-    width: 108px;
-    height: 108px;
-    border-radius: 50%;
-    background: var(--stage-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 46px;
-    margin: 0 auto 18px;
-    box-shadow: var(--shadow);
-    animation: pop-in 0.4s cubic-bezier(.34,1.56,.64,1);
-  }
-  @keyframes pop-in {
-    from { transform: scale(0.4); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .stamp { animation: none; }
-  }
-
-  .stage-result-title {
-    font-size: 21px;
-    font-family: 'Baloo 2', sans-serif;
-    font-weight: 700;
-    margin-bottom: 6px;
-  }
-
-  .stage-result-score {
-    font-size: 15px;
-    color: var(--ink-soft);
-    font-weight: 700;
-    margin-bottom: 24px;
-  }
-
-  /* ---------- FINAL PASSPORT ---------- */
-
-  .final-score-card {
-    background: var(--paper-alt);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 26px 22px;
-    text-align: center;
-    margin-bottom: 24px;
-  }
-
-  .final-score-num {
-    font-family: 'Baloo 2', sans-serif;
-    font-size: 52px;
-    font-weight: 800;
-    color: var(--ink);
-  }
-
-  .final-score-den {
-    font-size: 18px;
-    color: var(--ink-soft);
-    font-weight: 700;
-  }
-
-  .final-score-pct {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-weight: 800;
-    font-size: 14px;
-    background: var(--c-habitats);
-    color: #fff;
-  }
-
-  .badges-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    margin: 22px 0 26px;
-  }
-  @media (max-width: 420px) {
-    .badges-grid { grid-template-columns: repeat(5, 1fr); gap: 8px; }
-  }
-
-  .mini-badge {
-    aspect-ratio: 1;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    background: var(--badge-color);
-  }
-  .mini-badge.faded {
-    background: var(--paper);
-    border: 1.5px dashed var(--line-strong);
-    opacity: 0.55;
-    filter: grayscale(1);
-  }
-
-  .review-toggle {
-    text-align: center;
-    margin: 6px 0 18px;
-  }
-  .review-toggle button {
-    background: none;
-    border: none;
-    color: var(--c-habitats);
-    font-weight: 800;
-    font-size: 14.5px;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .review-item {
-    background: var(--paper-alt);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 14px 15px;
-    margin-bottom: 10px;
-  }
-  .review-item .rq {
-    font-weight: 700;
-    font-size: 14.5px;
-    margin-bottom: 6px;
-    color: var(--ink);
-  }
-  .review-item .ra {
-    font-size: 13.5px;
-    color: var(--ink-soft);
-    line-height: 1.5;
-  }
-  .review-item .ra b { color: var(--success); }
-
-  .stage-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 24px;
-  }
-  .stage-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--paper-alt);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    padding: 10px 12px;
-  }
-  .stage-row .sr-icon {
-    width: 34px; height: 34px; min-width: 34px;
-    border-radius: 9px;
-    background: var(--row-color);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-  .stage-row .sr-title {
-    font-weight: 700;
-    font-size: 14px;
-    flex: 1;
-  }
-  .stage-row .sr-score {
-    font-weight: 800;
-    font-size: 13.5px;
-    color: var(--ink-soft);
-  }
-
-  .footnote {
-    text-align: center;
-    font-size: 12.5px;
-    color: var(--ink-soft);
-    margin-top: 30px;
+  :root[data-theme="dark"]{
+    --bg: #10151F;
+    --card: #1B2333;
+    --navy: #EDEFF5;
+    --leaf-bg: #16321F;
+    --oops-bg: #3A1E1A;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:var(--bg);
+    font-family:'Nunito',sans-serif;
+    color:var(--navy);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+  }
+  .wrap{ width:100%; max-width:520px; }
+  h1{
+    font-family:'Baloo 2',sans-serif;
+    font-size:clamp(1.5rem,5vw,2rem);
+    text-align:center;
+    margin:0 0 4px;
+  }
+  .sub{ text-align:center; margin:0 0 20px; opacity:.75; font-weight:600; font-size:.95rem;}
+  .track{
+    height:10px; background:rgba(0,0,0,.08); border-radius:999px; overflow:hidden; margin-bottom:24px;
+  }
+  .fill{ height:100%; background:var(--sun); width:0%; transition:width .35s ease; }
+  .card{
+    background:var(--card);
+    border-radius:20px;
+    padding:32px 28px;
+    box-shadow:0 10px 30px rgba(15,30,60,.08);
+  }
+  .qnum{ font-weight:800; color:var(--teal-dark); font-size:.9rem; margin-bottom:10px;}
+  .question{
+    text-align:center;
+    font-family:'Baloo 2',sans-serif; font-size:2rem; margin:14px 0 28px;
+    letter-spacing:.5px;
+  }
+  .options{
+    display:grid; grid-template-columns:1fr 1fr; gap:12px;
+  }
+  .opt{
+    background:var(--bg);
+    border:2px solid transparent;
+    border-radius:14px;
+    padding:16px 8px;
+    font-family:'Nunito',sans-serif;
+    font-weight:800;
+    font-size:1.25rem;
+    cursor:pointer;
+    color:var(--navy);
+    transition:transform .12s ease, border-color .12s ease;
+  }
+  .opt:hover{ transform:translateY(-2px); }
+  .opt:focus-visible{ outline:3px solid var(--teal); outline-offset:2px; }
+  .opt.correct{ background:var(--leaf-bg); border-color:var(--leaf); }
+  .opt.wrong{ background:var(--oops-bg); border-color:var(--coral-dark); }
+  .opt[disabled]{ cursor:default; }
+  .feedback{
+    min-height:26px; text-align:center; font-weight:700; margin-top:16px; font-size:.95rem;
+  }
+  .feedback.good{ color:var(--leaf); }
+  .feedback.bad{ color:var(--coral-dark); }
+  .next-btn{
+    display:block; margin:18px auto 0; background:var(--teal); color:#fff; border:none;
+    padding:12px 28px; border-radius:999px; font-family:'Baloo 2',sans-serif; font-size:1rem;
+    cursor:pointer; opacity:0; pointer-events:none; transition:opacity .2s ease;
+  }
+  .next-btn.show{ opacity:1; pointer-events:auto; }
+  .result{ text-align:center; }
+  .result .big{ font-family:'Baloo 2',sans-serif; font-size:3rem; color:var(--teal-dark); margin:8px 0; }
+  .result p{ font-weight:600; }
+  .restart{
+    margin-top:18px; background:var(--navy); color:var(--card); border:none;
+    padding:12px 30px; border-radius:999px; font-family:'Baloo 2',sans-serif; font-size:1rem; cursor:pointer;
   }
 </style>
 </head>
 <body>
-<div id="app"></div>
+<div class="wrap">
+  <h1>Grade 3 Math Quiz</h1>
+  <p class="sub">50 questions &middot; addition, subtraction, multiplication &amp; division</p>
+  <div class="track"><div class="fill" id="fill"></div></div>
+  <div class="card" id="card"></div>
+</div>
 
 <script>
-(function () {
+// expr shown to the student; correct = right answer; opts = 4 numbers (correct + 3 distractors)
+const questions = [
+  {expr:"45 + 32", correct:77, opts:[77,87,67,76]},
+  {expr:"128 + 56", correct:184, opts:[184,174,194,183]},
+  {expr:"214 + 179", correct:393, opts:[393,383,403,392]},
+  {expr:"67 + 88", correct:155, opts:[155,145,165,154]},
+  {expr:"302 + 145", correct:447, opts:[447,437,457,446]},
+  {expr:"19 + 76", correct:95, opts:[95,85,105,94]},
+  {expr:"456 + 233", correct:689, opts:[689,679,699,688]},
+  {expr:"84 + 59", correct:143, opts:[143,133,153,142]},
+  {expr:"615 + 278", correct:893, opts:[893,883,903,892]},
+  {expr:"37 + 48", correct:85, opts:[85,75,95,84]},
 
-  var STAGES = [
-    {
-      key: "plants", title: "Plant Growth & Structures", grade: "Grade 3 review", icon: "🌱", color: "var(--c-plants)",
-      questions: [
-        { q: "Which part of a plant absorbs water and nutrients from the soil?", opts: ["Leaf", "Root", "Stem", "Flower"], correct: 1, explain: "Roots grow down into the soil and take in water and nutrients the plant needs." },
-        { q: "What is the main job of a plant's leaves?", opts: ["Absorb water from soil", "Make food using sunlight", "Hold the plant upright", "Produce seeds"], correct: 1, explain: "Leaves capture sunlight and use it to make the plant's food." },
-        { q: "What do we call the process plants use to make food from sunlight, water, and air?", opts: ["Respiration", "Photosynthesis", "Pollination", "Germination"], correct: 1, explain: "Photosynthesis lets plants turn sunlight, water, and carbon dioxide into food." },
-        { q: "Which part of the plant carries water from the roots to the rest of the plant?", opts: ["Stem", "Fruit", "Root hair", "Petal"], correct: 0, explain: "The stem acts like a pipeline, moving water upward through the plant." },
-        { q: "What is the first stage of a seed developing into a plant called?", opts: ["Pollination", "Germination", "Photosynthesis", "Decomposition"], correct: 1, explain: "Germination is when a seed begins to sprout and grow." },
-        { q: "What is the main job of a flower?", opts: ["Store food", "Produce seeds", "Absorb sunlight", "Take in water"], correct: 1, explain: "Flowers help plants reproduce by producing seeds." },
-        { q: "Which of these is needed for a seed to germinate?", opts: ["Water", "Ice", "Salt", "Total darkness only"], correct: 0, explain: "Seeds need water (along with warmth and air) to begin sprouting." },
-        { q: "What protects a developing seed?", opts: ["Petal", "Seed coat", "Stem", "Leaf"], correct: 1, explain: "The seed coat is a tough outer layer that protects the seed inside." },
-        { q: "What do we call the stage in a plant's life when it produces flowers and fruit?", opts: ["Seedling stage", "Reproductive stage", "Root stage", "Dormant stage"], correct: 1, explain: "In the reproductive stage, a mature plant flowers and forms fruit or seeds." },
-        { q: "Which condition would most likely stop a healthy plant from growing well?", opts: ["Regular watering", "Enough sunlight", "No sunlight at all", "Fresh air"], correct: 2, explain: "Without sunlight, a plant cannot make the food it needs through photosynthesis." }
-      ]
-    },
-    {
-      key: "animals", title: "Animal Growth & Life Cycles", grade: "Grade 3 review", icon: "🐣", color: "var(--c-animals)",
-      questions: [
-        { q: "What is it called when an animal changes shape completely during its life cycle, like a caterpillar becoming a butterfly?", opts: ["Germination", "Metamorphosis", "Hibernation", "Migration"], correct: 1, explain: "Metamorphosis is a big change in body shape as an animal grows up." },
-        { q: "Which animal begins life as a tadpole?", opts: ["Frog", "Chicken", "Dog", "Butterfly"], correct: 0, explain: "Frogs hatch from eggs as tadpoles before growing legs and losing their tails." },
-        { q: "A baby chicken is called a ___.", opts: ["Cub", "Chick", "Calf", "Kit"], correct: 1, explain: "A baby chicken is called a chick." },
-        { q: "Which of these animals lays eggs?", opts: ["Dog", "Cat", "Bird", "Horse"], correct: 2, explain: "Birds lay eggs, and their babies hatch out of them." },
-        { q: "What do we call an animal's process of resting through winter to save energy?", opts: ["Hibernation", "Migration", "Metamorphosis", "Camouflage"], correct: 0, explain: "During hibernation, an animal's body slows down so it can survive winter without much food." },
-        { q: "Why do some animals migrate?", opts: ["To find food and better weather", "To grow wings", "To change color", "To lay eggs underground"], correct: 0, explain: "Animals often migrate to reach places with more food or milder weather." },
-        { q: "What is a baby dog called?", opts: ["Kit", "Puppy", "Cub", "Fawn"], correct: 1, explain: "A baby dog is called a puppy." },
-        { q: "All living things grow, change, and eventually...", opts: ["Fly", "Reproduce", "Turn into plants", "Stop needing food"], correct: 1, explain: "Growing, changing, and reproducing are all part of a living thing's life cycle." },
-        { q: "Which stage comes right after the egg in a butterfly's life cycle?", opts: ["Adult butterfly", "Caterpillar (larva)", "Empty cocoon", "Pollination"], correct: 1, explain: "A butterfly egg hatches into a caterpillar, also called a larva." },
-        { q: "What do baby animals need from their parents to grow up healthy?", opts: ["Food and protection", "Money", "School supplies", "Nothing at all"], correct: 0, explain: "Most baby animals depend on their parents for food, safety, and care." }
-      ]
-    },
-    {
-      key: "forces", title: "Forces & Movement", grade: "Grade 3 review", icon: "🏀", color: "var(--c-forces)",
-      questions: [
-        { q: "A push or a pull on an object is called a ___.", opts: ["Force", "Mass", "Energy", "Friction"], correct: 0, explain: "Any push or pull on an object is called a force." },
-        { q: "What force pulls objects toward the Earth?", opts: ["Magnetism", "Gravity", "Friction", "Tension"], correct: 1, explain: "Gravity constantly pulls objects down toward Earth." },
-        { q: "What is the force that slows down moving objects when two surfaces rub together?", opts: ["Gravity", "Friction", "Magnetism", "Air pressure"], correct: 1, explain: "Friction happens when surfaces rub together, slowing motion down." },
-        { q: "Which of these would roll farther on a smooth floor than on a rough carpet?", opts: ["A ball", "A rock", "Both roll the same distance", "Neither rolls"], correct: 0, explain: "Smooth floors create less friction, so a ball can roll farther." },
-        { q: "What kind of force can pull or push certain metal objects without touching them?", opts: ["Gravity", "Magnetic force", "Friction", "Air resistance"], correct: 1, explain: "Magnetic force can act on certain metals from a distance, without touching them." },
-        { q: "A heavier object usually needs ___ force to move it than a lighter object.", opts: ["Less", "More", "No", "The exact same"], correct: 1, explain: "Heavier objects generally need a stronger push or pull to get moving." },
-        { q: "Which everyday example shows gravity at work?", opts: ["A magnet picking up a paperclip", "An apple falling from a tree", "Ice melting on a table", "A balloon floating upward"], correct: 1, explain: "An apple falls because gravity pulls it toward the ground." },
-        { q: "If there were no friction or gravity acting on it, a moving object would...", opts: ["Keep moving", "Stop immediately", "Disappear", "Turn around on its own"], correct: 0, explain: "Without any force to slow or stop it, a moving object keeps moving." },
-        { q: "Which surface would create the most friction for a sliding box?", opts: ["Ice", "Wet tile", "Rough carpet", "Polished wood"], correct: 2, explain: "Rough surfaces like carpet create more friction than smooth ones." },
-        { q: "Pushing a swing to make it go higher is an example of using ___.", opts: ["Gravity only", "A force", "Magnetism", "Friction only"], correct: 1, explain: "Pushing the swing is a force that makes it move higher." }
-      ]
-    },
-    {
-      key: "soil", title: "Soils in the Environment", grade: "Grade 3 review", icon: "🪱", color: "var(--c-soil)",
-      questions: [
-        { q: "Which of these is NOT a main component of soil?", opts: ["Sand", "Clay", "Plastic", "Humus"], correct: 2, explain: "Natural soil is made of sand, clay, silt, and humus — not plastic." },
-        { q: "What is humus?", opts: ["Small rocks", "Decayed plant and animal material", "A type of sand", "Liquid water"], correct: 1, explain: "Humus is dark, decayed organic matter that makes soil rich in nutrients." },
-        { q: "Which soil type holds water the longest?", opts: ["Sandy soil", "Clay soil", "Rocky soil", "Gravel"], correct: 1, explain: "Clay has very fine particles packed tightly, so it holds water longer than sand." },
-        { q: "Why is soil important for plants?", opts: ["It provides nutrients and support for roots", "It blocks sunlight", "It makes seeds", "It replaces water completely"], correct: 0, explain: "Soil anchors roots in place and supplies the nutrients plants need to grow." },
-        { q: "Which soil type drains water the fastest?", opts: ["Clay", "Sandy soil", "Peat", "Silt"], correct: 1, explain: "Sandy soil has larger particles with bigger gaps, so water drains through quickly." },
-        { q: "What living things help break down dead plants and animals into soil nutrients?", opts: ["Rocks", "Decomposers like worms and fungi", "Clouds", "Sunlight alone"], correct: 1, explain: "Decomposers such as worms and fungi break down dead matter into nutrients for soil." },
-        { q: "What can happen to soil without plant roots to hold it in place?", opts: ["It stays perfectly still", "It can erode or wash away", "It turns into solid rock", "It disappears into the air"], correct: 1, explain: "Without roots holding it together, soil can be washed or blown away, called erosion." },
-        { q: "Loam soil, which is great for growing plants, is a mix of ___.", opts: ["Sand, silt, and clay", "Only sand", "Only rocks", "Only water"], correct: 0, explain: "Loam blends sand, silt, and clay, giving it a good balance for plant growth." },
-        { q: "What is soil erosion?", opts: ["Soil being formed from rocks", "Soil being worn away by wind or water", "Soil turning into clay", "Soil producing plants"], correct: 1, explain: "Erosion happens when wind or water carries soil away over time." },
-        { q: "Which human activity most helps prevent soil erosion?", opts: ["Cutting down all trees", "Planting trees and plants", "Paving over fields", "Removing all grass"], correct: 1, explain: "Plant roots hold soil in place, so planting more of them helps prevent erosion." }
-      ]
-    },
-    {
-      key: "rocks", title: "Rocks, Minerals & Earth Materials", grade: "Grade 3–4 bridge", icon: "🪨", color: "var(--c-rocks)",
-      questions: [
-        { q: "What are the three main types of rocks?", opts: ["Hard, soft, shiny", "Igneous, sedimentary, metamorphic", "Big, medium, small", "Sand, clay, silt"], correct: 1, explain: "Rocks are grouped as igneous, sedimentary, or metamorphic based on how they form." },
-        { q: "Igneous rock forms when ___.", opts: ["Layers of sediment press together", "Melted rock cools and hardens", "Rocks are exposed to extreme cold", "Plants decay over time"], correct: 1, explain: "Igneous rock forms when magma or lava cools and hardens." },
-        { q: "Sedimentary rock usually forms from ___.", opts: ["Cooling lava", "Layers of sediment compressed over time", "Melted minerals", "Volcanic ash alone"], correct: 1, explain: "Sedimentary rock builds up as layers of sediment are pressed together over a long time." },
-        { q: "A mineral is a ___.", opts: ["Living organism", "Naturally occurring solid with a set structure", "Type of plant", "Liquid found in oceans"], correct: 1, explain: "Minerals are natural, non-living solids with a specific crystal structure." },
-        { q: "What is a fossil?", opts: ["A living animal", "Preserved remains or traces of ancient life", "A type of soil", "A kind of rain"], correct: 1, explain: "Fossils are the preserved remains or traces of plants and animals from long ago." },
-        { q: "Which test can help identify a mineral by looking at the color of its powder?", opts: ["Streak test", "Taste test", "Smell test", "Sound test"], correct: 0, explain: "A streak test shows the color of a mineral's powder, which helps identify it." },
-        { q: "Metamorphic rock forms when existing rock is changed by ___.", opts: ["Cold water only", "Heat and pressure", "Sunlight", "Wind alone"], correct: 1, explain: "Heat and pressure deep underground can change rock into metamorphic rock." },
-        { q: "Which of these is the hardest, based on a common mineral hardness scale?", opts: ["Talc", "Diamond", "Gypsum", "Calcite"], correct: 1, explain: "Diamond is the hardest known natural mineral." },
-        { q: "What is weathering?", opts: ["The breaking down of rocks by wind, water, or ice", "The forming of new rocks from lava", "Rocks growing larger over time", "Rocks turning into soil instantly"], correct: 0, explain: "Weathering slowly breaks rocks apart through wind, water, or ice." },
-        { q: "Which Earth material formed over millions of years from decayed plants and is burned as fuel?", opts: ["Marble", "Coal", "Sand", "Clay"], correct: 1, explain: "Coal forms over millions of years from the remains of ancient plants." }
-      ]
-    },
-    {
-      key: "habitats", title: "Habitats & Communities", grade: "New in Grade 4", icon: "🦋", color: "var(--c-habitats)",
-      questions: [
-        { q: "A habitat is ___.", opts: ["A place where an animal lives that meets its needs", "A type of food", "A group of similar animals", "A weather pattern"], correct: 0, explain: "A habitat provides an animal with what it needs, like food, water, and shelter." },
-        { q: "A community, in science, refers to ___.", opts: ["A single animal", "All the different living things sharing an area", "A type of rock", "A weather system"], correct: 1, explain: "A community includes all the different populations of living things in one area." },
-        { q: "What is a food chain?", opts: ["A chain made of metal", "A sequence showing who eats whom for energy", "A group of predators only", "A type of habitat"], correct: 1, explain: "A food chain shows how energy passes from one living thing to another through eating." },
-        { q: "In a food chain, what do we call an organism that makes its own food, like a plant?", opts: ["Consumer", "Producer", "Decomposer", "Predator"], correct: 1, explain: "Producers, like plants, make their own food using sunlight." },
-        { q: "An animal that eats only plants is called a(n) ___.", opts: ["Carnivore", "Herbivore", "Omnivore", "Decomposer"], correct: 1, explain: "Herbivores eat only plants." },
-        { q: "An animal that eats both plants and other animals is a(n) ___.", opts: ["Herbivore", "Carnivore", "Omnivore", "Producer"], correct: 2, explain: "Omnivores eat both plants and animals." },
-        { q: "What might happen if one species disappears from a habitat?", opts: ["Nothing changes at all", "It can affect the whole food chain", "The habitat grows bigger", "Every other species disappears instantly"], correct: 1, explain: "Because living things depend on each other, losing one species can affect many others." },
-        { q: "What do we call the role an organism plays in its habitat, including what it eats and where it lives?", opts: ["Niche", "Territory", "Migration", "Camouflage"], correct: 0, explain: "An organism's niche is its specific role and way of life within its habitat." },
-        { q: "Which of these is an example of a habitat?", opts: ["A pond", "A calculator", "A birthday party", "A sentence"], correct: 0, explain: "A pond can provide food, water, and shelter for many living things, so it's a habitat." },
-        { q: "Why do some animals have camouflage?", opts: ["To look pretty", "To blend in and avoid predators or sneak up on prey", "To grow faster", "To fly higher"], correct: 1, explain: "Camouflage helps animals hide from predators or sneak closer to prey." }
-      ]
-    },
-    {
-      key: "light-sound", title: "Light & Sound", grade: "New in Grade 4", icon: "🔦", color: "var(--c-light)",
-      questions: [
-        { q: "Light travels in ___ lines.", opts: ["Curvy", "Straight", "Zigzag", "Circular"], correct: 1, explain: "Light travels in straight lines until something reflects, bends, or blocks it." },
-        { q: "What happens when light bounces off a mirror?", opts: ["Absorption", "Reflection", "Refraction", "Vibration"], correct: 1, explain: "Reflection is when light bounces off a surface, like a mirror." },
-        { q: "What is it called when light bends as it passes from one material into another, like from air into water?", opts: ["Reflection", "Refraction", "Vibration", "Echo"], correct: 1, explain: "Refraction happens when light changes direction moving between materials." },
-        { q: "Sound is produced by ___.", opts: ["Vibrations", "Light waves", "Magnetism", "Gravity"], correct: 0, explain: "Sound is created by vibrations traveling through air, water, or solids." },
-        { q: "Sound travels ___ through water than through air.", opts: ["Slower", "Faster", "At the exact same speed", "Not at all"], correct: 1, explain: "Sound moves faster through water than through air." },
-        { q: "What is an echo?", opts: ["A sound that gets fully absorbed", "A sound wave that reflects and repeats", "A type of light", "A silent vibration"], correct: 1, explain: "An echo happens when a sound wave bounces off a surface and comes back." },
-        { q: "A material that lets light pass through clearly, like glass, is called ___.", opts: ["Opaque", "Transparent", "Translucent", "Reflective"], correct: 1, explain: "Transparent materials let light pass through clearly." },
-        { q: "A material that blocks all light, like wood, is called ___.", opts: ["Transparent", "Translucent", "Opaque", "Luminous"], correct: 2, explain: "Opaque materials block light completely, so you can't see through them." },
-        { q: "What creates a shadow?", opts: ["Sound waves", "An object blocking light", "Reflection of sound", "Vibrating air"], correct: 1, explain: "A shadow forms when an object blocks light from reaching a surface." },
-        { q: "Which of these would most likely make a higher-pitched sound?", opts: ["A thick, loose guitar string", "A thin, tight guitar string", "A large drum", "A slow vibration"], correct: 1, explain: "Thin, tight strings vibrate faster, which creates a higher pitch." }
-      ]
-    },
-    {
-      key: "machines", title: "Simple Machines: Pulleys & Gears", grade: "New in Grade 4", icon: "⚙️", color: "var(--c-machines)",
-      questions: [
-        { q: "A simple machine that uses a wheel and a rope to lift objects is called a ___.", opts: ["Lever", "Pulley", "Wedge", "Screw"], correct: 1, explain: "A pulley uses a wheel and rope to make lifting objects easier." },
-        { q: "What is the main purpose of a pulley?", opts: ["To make lifting objects easier", "To create electricity", "To measure weight", "To store water"], correct: 0, explain: "Pulleys are mainly used to make lifting heavy things easier." },
-        { q: "Gears are wheels with ___ around the edge that interlock with other gears.", opts: ["Holes", "Teeth", "Feathers", "Springs"], correct: 1, explain: "Gears have teeth around their edge that lock together with other gears." },
-        { q: "When two connected gears turn, they move in ___ directions.", opts: ["The same", "Opposite", "Random", "No particular"], correct: 1, explain: "Connected gears spin in opposite directions from each other." },
-        { q: "A smaller gear connected to a larger gear will spin ___ than the larger gear.", opts: ["Slower", "Faster", "At the exact same speed", "Not at all"], correct: 1, explain: "Smaller gears spin faster than the larger gears they're connected to." },
-        { q: "What is a fixed pulley mainly used for?", opts: ["Changing the direction of a force", "Multiplying force greatly", "Storing energy", "Making light"], correct: 0, explain: "A fixed pulley changes the direction you pull, like pulling down to lift something up." },
-        { q: "Which everyday object commonly uses a pulley system?", opts: ["A flagpole", "A pencil", "A book", "A ruler"], correct: 0, explain: "Flagpoles use a pulley so you can raise and lower the flag from the ground." },
-        { q: "Bicycles use gears to help riders ___.", opts: ["Change how easy it is to pedal at different speeds", "Stay dry in the rain", "See in the dark", "Balance on one wheel"], correct: 0, explain: "Bike gears let riders pedal more easily uphill or go faster on flat ground." },
-        { q: "A movable pulley, attached to the load itself, helps by ___.", opts: ["Only changing the direction of force", "Reducing the amount of force needed to lift a load", "Making the object heavier", "Stopping all motion"], correct: 1, explain: "A movable pulley helps lift heavy loads using less force." },
-        { q: "Simple machines like pulleys and gears help us by ___.", opts: ["Making work require more effort", "Making work easier by changing force or direction", "Creating new materials", "Removing the need for any force"], correct: 1, explain: "Simple machines make tasks easier by changing the amount or direction of force needed." }
-      ]
-    },
-    {
-      key: "matter", title: "States of Matter & Properties", grade: "New in Grade 4", icon: "🧊", color: "var(--c-matter)",
-      questions: [
-        { q: "Matter that has a fixed shape and a fixed volume is a ___.", opts: ["Solid", "Liquid", "Gas", "Plasma"], correct: 0, explain: "Solids keep both their shape and their volume." },
-        { q: "Matter that takes the shape of its container but keeps a fixed volume is a ___.", opts: ["Solid", "Liquid", "Gas", "None of these"], correct: 1, explain: "Liquids take the shape of their container, but their volume stays the same." },
-        { q: "Matter that has no fixed shape and no fixed volume is a ___.", opts: ["Solid", "Liquid", "Gas", "Rock"], correct: 2, explain: "Gases spread out to fill whatever space they're in." },
-        { q: "What is it called when a solid changes into a liquid?", opts: ["Freezing", "Melting", "Evaporation", "Condensation"], correct: 1, explain: "Melting is when a solid warms up and turns into a liquid." },
-        { q: "What is it called when a liquid changes into a gas?", opts: ["Melting", "Freezing", "Evaporation", "Condensation"], correct: 2, explain: "Evaporation is when a liquid turns into a gas, often as it's heated." },
-        { q: "What is it called when a gas changes back into a liquid?", opts: ["Evaporation", "Condensation", "Melting", "Sublimation"], correct: 1, explain: "Condensation is when a gas cools and turns back into a liquid." },
-        { q: "What is it called when a liquid changes into a solid?", opts: ["Melting", "Evaporation", "Freezing", "Condensation"], correct: 2, explain: "Freezing is when a liquid cools down and becomes a solid." },
-        { q: "Which property describes how much matter is packed into a certain space?", opts: ["Temperature", "Density", "Color", "Sound"], correct: 1, explain: "Density measures how tightly matter is packed into a given space." },
-        { q: "What usually happens to most matter when it is heated?", opts: ["It shrinks", "It expands", "It disappears", "It turns invisible"], correct: 1, explain: "Heating usually makes matter expand as its particles move more and spread out." },
-        { q: "Water vapor turning into tiny droplets on a cold glass is an example of ___.", opts: ["Evaporation", "Condensation", "Freezing", "Melting"], correct: 1, explain: "This is condensation — gas cooling down into liquid droplets." }
-      ]
-    },
-    {
-      key: "body-skills", title: "Human Body & Science Skills", grade: "New in Grade 4", icon: "🔍", color: "var(--c-body)",
-      questions: [
-        { q: "Which sense organ do we use to see?", opts: ["Ears", "Eyes", "Nose", "Skin"], correct: 1, explain: "Eyes are the sense organ used for seeing." },
-        { q: "Which sense organ helps us hear sounds?", opts: ["Eyes", "Ears", "Tongue", "Skin"], correct: 1, explain: "Ears are the sense organ used for hearing." },
-        { q: "Which organ pumps blood through your body?", opts: ["Lungs", "Heart", "Stomach", "Brain"], correct: 1, explain: "The heart pumps blood to every part of the body." },
-        { q: "What do your lungs help you do?", opts: ["Digest food", "Breathe — take in oxygen and release carbon dioxide", "Pump blood", "Think"], correct: 1, explain: "Lungs let you breathe in oxygen and breathe out carbon dioxide." },
-        { q: "What is the first step of a fair scientific test?", opts: ["Guessing the results", "Asking a testable question", "Skipping observations", "Ignoring the data"], correct: 1, explain: "Good science starts by asking a clear, testable question." },
-        { q: "In an experiment, what do we call the one thing you change on purpose?", opts: ["A constant", "The variable being tested", "A conclusion", "A hypothesis only"], correct: 1, explain: "The variable being tested is the one thing you deliberately change to see what happens." },
-        { q: "Why do scientists repeat experiments?", opts: ["To waste time", "To check if results are reliable", "To confuse people", "To skip observations"], correct: 1, explain: "Repeating experiments helps scientists confirm their results are trustworthy." },
-        { q: "Which tool would you use to measure temperature?", opts: ["Ruler", "Thermometer", "Scale", "Microscope"], correct: 1, explain: "A thermometer measures temperature." },
-        { q: "Which tool would you use to measure how much something weighs or its mass?", opts: ["Thermometer", "Balance or scale", "Microscope", "Magnifying glass"], correct: 1, explain: "A balance or scale is used to measure mass or weight." },
-        { q: "What should you always do before touching unknown substances in a science activity?", opts: ["Taste them", "Ask an adult and follow safety rules", "Smell them closely", "Mix them together"], correct: 1, explain: "Always check with an adult and follow safety rules before handling unknown substances." }
-      ]
-    }
-  ];
+  {expr:"90 - 34", correct:56, opts:[56,46,66,124]},
+  {expr:"245 - 118", correct:127, opts:[127,117,137,363]},
+  {expr:"500 - 267", correct:233, opts:[233,223,243,767]},
+  {expr:"76 - 29", correct:47, opts:[47,37,57,105]},
+  {expr:"342 - 156", correct:186, opts:[186,176,196,498]},
+  {expr:"100 - 45", correct:55, opts:[55,45,65,145]},
+  {expr:"623 - 389", correct:234, opts:[234,224,244,1012]},
+  {expr:"84 - 37", correct:47, opts:[47,37,57,121]},
+  {expr:"715 - 428", correct:287, opts:[287,277,297,1143]},
+  {expr:"60 - 22", correct:38, opts:[38,28,48,82]},
 
-  var TOTAL_QUESTIONS = STAGES.reduce(function (sum, s) { return sum + s.questions.length; }, 0);
+  {expr:"4 \u00d7 6", correct:24, opts:[24,20,28,18]},
+  {expr:"7 \u00d7 3", correct:21, opts:[21,18,24,14]},
+  {expr:"5 \u00d7 9", correct:45, opts:[45,40,50,54]},
+  {expr:"8 \u00d7 2", correct:16, opts:[16,14,18,10]},
+  {expr:"6 \u00d7 6", correct:36, opts:[36,30,42,24]},
+  {expr:"9 \u00d7 4", correct:36, opts:[36,32,40,27]},
+  {expr:"3 \u00d7 8", correct:24, opts:[24,21,27,16]},
+  {expr:"7 \u00d7 7", correct:49, opts:[49,42,56,63]},
+  {expr:"5 \u00d7 5", correct:25, opts:[25,20,30,15]},
+  {expr:"10 \u00d7 6", correct:60, opts:[60,50,70,16]},
+  {expr:"2 \u00d7 9", correct:18, opts:[18,16,20,11]},
+  {expr:"8 \u00d7 8", correct:64, opts:[64,56,72,16]},
+  {expr:"4 \u00d7 10", correct:40, opts:[40,14,44,36]},
+  {expr:"6 \u00d7 3", correct:18, opts:[18,15,21,9]},
+  {expr:"9 \u00d7 9", correct:81, opts:[81,72,90,18]},
 
-  var state = {
-    name: "",
-    stageIndex: 0,
-    questionIndex: 0,
-    answered: false,
-    selected: -1,
-    results: [] // { stageIndex, questionIndex, correct }
-  };
+  {expr:"24 \u00f7 6", correct:4, opts:[4,3,5,8]},
+  {expr:"35 \u00f7 5", correct:7, opts:[7,6,8,5]},
+  {expr:"18 \u00f7 3", correct:6, opts:[6,5,7,3]},
+  {expr:"63 \u00f7 7", correct:9, opts:[9,8,10,7]},
+  {expr:"40 \u00f7 8", correct:5, opts:[5,4,6,8]},
+  {expr:"27 \u00f7 9", correct:3, opts:[3,2,4,9]},
+  {expr:"16 \u00f7 4", correct:4, opts:[4,3,5,8]},
+  {expr:"45 \u00f7 5", correct:9, opts:[9,8,10,5]},
+  {expr:"54 \u00f7 6", correct:9, opts:[9,8,10,6]},
+  {expr:"21 \u00f7 3", correct:7, opts:[7,6,8,3]},
 
-  function esc(str) {
-    var d = document.createElement("div");
-    d.textContent = str;
-    return d.innerHTML;
+  {expr:"12 + 8 \u00d7 3", correct:36, opts:[36,60,32,44]},
+  {expr:"50 - 4 \u00d7 5", correct:30, opts:[30,230,26,34]},
+  {expr:"6 \u00d7 7 + 9", correct:51, opts:[51,96,47,55]},
+  {expr:"100 - 6 \u00d7 6", correct:64, opts:[64,564,58,70]},
+  {expr:"3 \u00d7 3 + 10", correct:19, opts:[19,39,15,23]}
+];
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
   }
+  return a;
+}
 
-  function letter(i) { return ["A", "B", "C", "D"][i]; }
+let order = [];
+let current = 0;
+let score = 0;
 
-  function overallCorrect() {
-    return state.results.filter(function (r) { return r.correct; }).length;
-  }
+function renderQuestion(){
+  const card = document.getElementById('card');
+  const q = questions[order[current]];
+  document.getElementById('fill').style.width = ((current)/questions.length*100)+'%';
 
-  function stageResults(stageIndex) {
-    return state.results.filter(function (r) { return r.stageIndex === stageIndex; });
-  }
+  const opts = shuffle(q.opts);
 
-  // ---------- RENDER: START ----------
+  const optsHTML = opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('');
 
-  function renderStart() {
-    var stops = STAGES.map(function (s, i) {
-      return '<div class="stop" style="--stop-color:' + s.color + '">' +
-        '<span class="stop-icon">' + s.icon + '</span>' +
-        '<span class="stop-num">Stop ' + (i + 1) + '</span>' +
-        '<span class="stop-title">' + esc(s.title) + '</span>' +
-        '<span class="stop-grade">' + esc(s.grade) + '</span>' +
-        '</div>';
-    }).join("");
+  card.innerHTML = `
+    <div class="qnum">Question ${current+1} of ${questions.length}</div>
+    <div class="question">${q.expr} = ?</div>
+    <div class="options">${optsHTML}</div>
+    <div class="feedback" id="feedback"></div>
+    <button class="next-btn" id="nextBtn">${current === questions.length-1 ? 'See results' : 'Next question'}</button>
+  `;
 
-    document.getElementById("app").innerHTML =
-      '<div class="topbar">' +
-        '<div class="brand"><span class="brand-mark">🧭</span><span class="brand-text">Science Explorer Passport</span></div>' +
-        '<span class="pill">' + TOTAL_QUESTIONS + ' questions</span>' +
-      '</div>' +
-      '<div class="hero">' +
-        '<span class="compass">🧭</span>' +
-        '<h1>A Grade 4 science expedition, starting with Grade 3 ground</h1>' +
-        '<p>This trail checks what a student already knows from Grade 3 science, then previews a few Grade 4 topics. There are 10 stops with 10 questions each — every answer gets instant, friendly feedback.</p>' +
-      '</div>' +
-      '<div class="name-card">' +
-        '<label for="explorer-name">Explorer\'s name (optional)</label>' +
-        '<input id="explorer-name" type="text" maxlength="30" placeholder="Type a name to personalize the passport" value="' + esc(state.name) + '">' +
-      '</div>' +
-      '<div class="trail-heading">The trail ahead</div>' +
-      '<div class="trail">' + stops + '</div>' +
-      '<button class="btn-primary" id="start-btn">Begin the expedition</button>' +
-      '<div class="footnote">Takes about 20–30 minutes for all 10 stops. Progress isn\'t saved if the page is closed.</div>';
+  const buttons = card.querySelectorAll('.opt');
+  buttons.forEach((btn,i)=>{
+    btn.addEventListener('click', ()=>{
+      buttons.forEach(b=>b.disabled = true);
+      const chosen = opts[i];
+      const isCorrect = chosen === q.correct;
+      const fb = document.getElementById('feedback');
+      if(isCorrect){
+        btn.classList.add('correct');
+        fb.textContent = "That's right! Nicely done.";
+        fb.className = 'feedback good';
+        score++;
+      } else {
+        btn.classList.add('wrong');
+        fb.textContent = "Not quite — check your working.";
+        fb.className = 'feedback bad';
+        buttons.forEach((b,j)=>{
+          if(opts[j] === q.correct) b.classList.add('correct');
+        });
+      }
+      document.getElementById('nextBtn').classList.add('show');
+    });
+  });
 
-    document.getElementById("start-btn").addEventListener("click", function () {
-      var input = document.getElementById("explorer-name");
-      state.name = input.value.trim();
-      state.stageIndex = 0;
-      state.questionIndex = 0;
-      state.results = [];
+  document.getElementById('nextBtn').addEventListener('click', ()=>{
+    current++;
+    if(current < questions.length){
       renderQuestion();
-    });
-  }
-
-  // ---------- RENDER: QUESTION ----------
-
-  function renderQuestion() {
-    var stage = STAGES[state.stageIndex];
-    var q = stage.questions[state.questionIndex];
-    state.answered = false;
-    state.selected = -1;
-
-    var questionsDoneBefore = 0;
-    for (var i = 0; i < state.stageIndex; i++) questionsDoneBefore += STAGES[i].questions.length;
-    var overallDone = questionsDoneBefore + state.questionIndex;
-
-    var optionsHtml = q.opts.map(function (opt, idx) {
-      return '<button class="option" data-idx="' + idx + '">' +
-        '<span class="opt-letter">' + letter(idx) + '</span>' +
-        '<span>' + esc(opt) + '</span>' +
-        '</button>';
-    }).join("");
-
-    document.getElementById("app").innerHTML =
-      '<div class="topbar">' +
-        '<div class="brand"><span class="brand-mark">🧭</span><span class="brand-text">Science Explorer Passport</span></div>' +
-        '<span class="pill">' + (overallDone + 1) + ' of ' + TOTAL_QUESTIONS + '</span>' +
-      '</div>' +
-      '<div class="stage-header">' +
-        '<div class="stage-badge" style="--stage-color:' + stage.color + '">' + stage.icon + '</div>' +
-        '<div><div class="stage-title">' + esc(stage.title) + '</div><div class="stage-sub">' + esc(stage.grade) + '</div></div>' +
-      '</div>' +
-      '<div class="progress-row" style="--stage-color:' + stage.color + '">' +
-        '<div class="progress-track"><div class="progress-fill" style="width:' + ((state.questionIndex) / stage.questions.length * 100) + '%"></div></div>' +
-        '<span class="progress-label">Q' + (state.questionIndex + 1) + ' / ' + stage.questions.length + '</span>' +
-      '</div>' +
-      '<div class="question-card" style="--stage-color:' + stage.color + '">' +
-        '<div class="question-text">' + esc(q.q) + '</div>' +
-        '<div class="options" id="options-wrap">' + optionsHtml + '</div>' +
-        '<div id="explain-slot"></div>' +
-        '<div class="next-row" id="next-slot"></div>' +
-      '</div>';
-
-    var buttons = document.querySelectorAll("#options-wrap .option");
-    buttons.forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        if (state.answered) return;
-        var idx = parseInt(btn.getAttribute("data-idx"), 10);
-        handleAnswer(idx);
-      });
-    });
-  }
-
-  function handleAnswer(idx) {
-    var stage = STAGES[state.stageIndex];
-    var q = stage.questions[state.questionIndex];
-    state.answered = true;
-    state.selected = idx;
-    var isCorrect = idx === q.correct;
-
-    state.results.push({ stageIndex: state.stageIndex, questionIndex: state.questionIndex, correct: isCorrect });
-
-    var buttons = document.querySelectorAll("#options-wrap .option");
-    buttons.forEach(function (btn, i) {
-      btn.setAttribute("disabled", "true");
-      if (i === q.correct) btn.classList.add("correct");
-      if (i === idx && !isCorrect) btn.classList.add("incorrect");
-    });
-
-    document.getElementById("explain-slot").innerHTML =
-      '<div class="explain-box"><strong>' + (isCorrect ? "That's right. " : "Not quite. ") + '</strong>' + esc(q.explain) + '</div>';
-
-    var isLastInStage = state.questionIndex === stage.questions.length - 1;
-    var isLastOverall = isLastInStage && state.stageIndex === STAGES.length - 1;
-
-    document.getElementById("next-slot").innerHTML =
-      '<button class="btn-primary" id="next-btn">' +
-      (isLastOverall ? "See the final passport" : (isLastInStage ? "Finish this stop" : "Next question")) +
-      '</button>';
-
-    document.getElementById("next-btn").addEventListener("click", function () {
-      if (isLastInStage) {
-        renderStageComplete();
-      } else {
-        state.questionIndex += 1;
-        renderQuestion();
-      }
-    });
-  }
-
-  // ---------- RENDER: STAGE COMPLETE ----------
-
-  function renderStageComplete() {
-    var stage = STAGES[state.stageIndex];
-    var results = stageResults(state.stageIndex);
-    var correctCount = results.filter(function (r) { return r.correct; }).length;
-    var isLastStage = state.stageIndex === STAGES.length - 1;
-
-    var message;
-    if (correctCount >= 9) message = "Outstanding! That stop is fully mastered.";
-    else if (correctCount >= 7) message = "Great work! A strong grasp of this topic.";
-    else if (correctCount >= 5) message = "Good effort — a bit more review here will help.";
-    else message = "This topic needs another look before Grade 4 moves on.";
-
-    document.getElementById("app").innerHTML =
-      '<div class="topbar">' +
-        '<div class="brand"><span class="brand-mark">🧭</span><span class="brand-text">Science Explorer Passport</span></div>' +
-      '</div>' +
-      '<div class="stamp-wrap">' +
-        '<div class="stamp" style="--stage-color:' + stage.color + '">' + stage.icon + '</div>' +
-        '<div class="stage-result-title">' + esc(stage.title) + ' — stamped!</div>' +
-        '<div class="stage-result-score">' + correctCount + ' out of ' + stage.questions.length + ' correct</div>' +
-        '<p style="color:var(--ink-soft); max-width:38ch; margin: 0 auto 26px; line-height:1.5;">' + message + '</p>' +
-        '<button class="btn-primary" id="continue-btn">' + (isLastStage ? "Open the final passport" : "Continue to the next stop") + '</button>' +
-      '</div>';
-
-    document.getElementById("continue-btn").addEventListener("click", function () {
-      if (isLastStage) {
-        renderFinal();
-      } else {
-        state.stageIndex += 1;
-        state.questionIndex = 0;
-        renderQuestion();
-      }
-    });
-  }
-
-  // ---------- RENDER: FINAL ----------
-
-  var reviewOpen = false;
-
-  function renderFinal() {
-    var total = overallCorrect();
-    var pct = Math.round((total / TOTAL_QUESTIONS) * 100);
-
-    var badgesHtml = STAGES.map(function (s, i) {
-      var res = stageResults(i);
-      var correctCount = res.filter(function (r) { return r.correct; }).length;
-      var earned = correctCount >= 7;
-      return '<div class="mini-badge' + (earned ? '' : ' faded') + '" style="--badge-color:' + s.color + '" title="' + esc(s.title) + '">' + s.icon + '</div>';
-    }).join("");
-
-    var stageListHtml = STAGES.map(function (s, i) {
-      var res = stageResults(i);
-      var correctCount = res.filter(function (r) { return r.correct; }).length;
-      return '<div class="stage-row" style="--row-color:' + s.color + '">' +
-        '<div class="sr-icon">' + s.icon + '</div>' +
-        '<div class="sr-title">' + esc(s.title) + '</div>' +
-        '<div class="sr-score">' + correctCount + '/' + s.questions.length + '</div>' +
-        '</div>';
-    }).join("");
-
-    var missed = [];
-    state.results.forEach(function (r) {
-      if (!r.correct) {
-        var stage = STAGES[r.stageIndex];
-        var q = stage.questions[r.questionIndex];
-        missed.push({ stage: stage, q: q });
-      }
-    });
-
-    var reviewHtml = "";
-    if (missed.length === 0) {
-      reviewHtml = '<p style="text-align:center; color:var(--ink-soft);">No missed questions to review — every answer was correct.</p>';
     } else {
-      reviewHtml = missed.map(function (m) {
-        return '<div class="review-item">' +
-          '<div class="rq">' + m.stage.icon + ' ' + esc(m.q.q) + '</div>' +
-          '<div class="ra">Correct answer: <b>' + esc(m.q.opts[m.q.correct]) + '</b> — ' + esc(m.q.explain) + '</div>' +
-          '</div>';
-      }).join("");
+      showResults();
     }
+  });
+}
 
-    var greeting = state.name ? esc(state.name) + "'s" : "The explorer's";
+function showResults(){
+  document.getElementById('fill').style.width = '100%';
+  const card = document.getElementById('card');
+  const pct = Math.round((score/questions.length)*100);
+  let msg;
+  if(pct === 100) msg = "Perfect score! You're a math star.";
+  else if(pct >= 80) msg = "Great work — you really know your stuff.";
+  else if(pct >= 50) msg = "Good effort — a bit more practice and you'll have it down.";
+  else msg = "Keep practicing — try again to build your confidence.";
 
-    document.getElementById("app").innerHTML =
-      '<div class="topbar">' +
-        '<div class="brand"><span class="brand-mark">🧭</span><span class="brand-text">Science Explorer Passport</span></div>' +
-      '</div>' +
-      '<div class="hero" style="padding-bottom:10px;">' +
-        '<h1 style="font-size:26px;">' + greeting + ' expedition is complete</h1>' +
-      '</div>' +
-      '<div class="final-score-card">' +
-        '<span class="final-score-num">' + total + '</span><span class="final-score-den"> / ' + TOTAL_QUESTIONS + '</span>' +
-        '<div><span class="final-score-pct">' + pct + '% correct</span></div>' +
-      '</div>' +
-      '<div class="trail-heading">Stamps collected</div>' +
-      '<div class="badges-grid">' + badgesHtml + '</div>' +
-      '<div class="trail-heading">Results by stop</div>' +
-      '<div class="stage-list">' + stageListHtml + '</div>' +
-      '<div class="review-toggle"><button id="review-btn">' + (reviewOpen ? "Hide the questions to review" : "Show the questions to review (" + missed.length + ")") + '</button></div>' +
-      '<div id="review-slot">' + (reviewOpen ? reviewHtml : "") + '</div>' +
-      '<button class="btn-secondary" id="restart-btn" style="margin-top:10px;">Start a new expedition</button>';
+  card.innerHTML = `
+    <div class="result">
+      <div class="qnum">Quiz complete</div>
+      <div class="big">${score} / ${questions.length}</div>
+      <p>${msg}</p>
+      <button class="restart" id="restartBtn">Try again</button>
+    </div>
+  `;
+  document.getElementById('restartBtn').addEventListener('click', startQuiz);
+}
 
-    document.getElementById("review-btn").addEventListener("click", function () {
-      reviewOpen = !reviewOpen;
-      renderFinal();
-    });
+function startQuiz(){
+  order = shuffle(questions.map((_,i)=>i));
+  current = 0;
+  score = 0;
+  renderQuestion();
+}
 
-    document.getElementById("restart-btn").addEventListener("click", function () {
-      reviewOpen = false;
-      state.stageIndex = 0;
-      state.questionIndex = 0;
-      state.results = [];
-      renderStart();
-    });
-  }
-
-  renderStart();
-})();
+startQuiz();
 </script>
 </body>
 </html>
