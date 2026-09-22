@@ -1,1189 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Number Land: Grade 1 Number Sense</title>
+<title>Nathan's Number Trail</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#E8F3FF; --surface:#FFFFFF; --soft:#F1F7FF; --ink:#1B2440; --muted:#4E5877; --line:#1B2440; --on:#1B2440;
-  --red:#FF6B5E; --yellow:#FFC93C; --green:#4BD08B; --blue:#5AA2FF; --purple:#A98BFF;
-  --ok:#1E8E55; --bad:#C23B2E;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){--bg:#12172B;--surface:#1C2340;--soft:#252E52;--ink:#F2F5FF;--muted:#A9B3D6;--line:#05081A;--ok:#63E0A0;--bad:#FF8F84;}
-}
-:root[data-theme="dark"]{--bg:#12172B;--surface:#1C2340;--soft:#252E52;--ink:#F2F5FF;--muted:#A9B3D6;--line:#05081A;--ok:#63E0A0;--bad:#FF8F84;}
-*,*::before,*::after{box-sizing:border-box}
-html{height:100%;scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 84px)}
-body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:18px;line-height:1.55}
-h1,h2,h3,h4{font-family:'Fredoka','Trebuchet MS',system-ui,sans-serif;line-height:1.15;margin:0}
-p{margin:0 0 .8em;max-width:62ch}
-button{font:inherit;color:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--ink);outline-offset:3px;border-radius:8px}
-.wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+  :root{
+    --moss:#3D5A40; --moss-dark:#2A3F2C; --sand:#EFE6D0; --paper:#FAF6EC;
+    --ink:#242A20; --trail:#C1440E; --trail-dark:#9A3409; --ok:#3D7A4A; --bad:#B83B2E;
+    --line: rgba(36,42,32,0.12);
+    box-sizing:border-box;
+    padding-top: env(safe-area-inset-top,0px);
+    padding-bottom: env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:inherit}
+  html{scroll-padding-top: env(safe-area-inset-top,0px);}
+  body{
+    margin:0; min-height:100%; background:var(--sand); color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    display:flex; justify-content:center; padding:32px 16px 48px;
+  }
+  .wrap{width:100%; max-width:560px;}
+  header{margin-bottom:22px; text-align:left;}
+  .kicker{font-size:15px; color:var(--moss); font-weight:600;}
+  h1{
+    font-family:'Fraunces',serif; font-weight:700; font-size:clamp(28px,6vw,38px);
+    margin:2px 0 6px; color:var(--moss-dark); line-height:1.05;
+  }
+  .sub{color:#5B6156; font-size:15px; max-width:44ch;}
 
-/* nav */
-.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:3px solid var(--line)}
-.nav .wrap{display:flex;align-items:center;gap:14px;padding-top:8px;padding-bottom:8px}
-.brand{font-family:'Fredoka',sans-serif;font-weight:700;font-size:22px;color:var(--ink);text-decoration:none;white-space:nowrap}
-.pills{display:flex;gap:8px;overflow-x:auto;flex:1;padding:4px 2px;scrollbar-width:none}
-.pills::-webkit-scrollbar{display:none}
-.pills a{flex:none;text-decoration:none;color:var(--on);background:var(--c);border:3px solid var(--line);border-radius:12px;padding:3px 12px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px}
-.pills a.done::after{content:" ✓"}
-.starrow{display:flex;gap:2px;font-size:22px;white-space:nowrap}
-.starrow .s{color:var(--muted);opacity:.45}
-.starrow .s.on{color:var(--yellow);opacity:1;text-shadow:0 0 0 var(--line),1px 1px 0 var(--line),-1px -1px 0 var(--line),1px -1px 0 var(--line),-1px 1px 0 var(--line)}
+  .track{position:relative; height:10px; background:var(--line); border-radius:6px; margin:22px 0 8px; overflow:hidden;}
+  .track-fill{height:100%; background:var(--trail); width:0%; transition:width .4s ease;}
+  .progress-row{display:flex; justify-content:space-between; font-size:13px; color:#6B7163; font-weight:600;}
 
-/* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:8px 18px;background:var(--c,var(--yellow));color:var(--on);border:3px solid var(--line);border-radius:14px;box-shadow:0 5px 0 var(--line);font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px;transition:transform .08s,box-shadow .08s}
-.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--line)}
-.btn[disabled]{opacity:.45;cursor:not-allowed}
-.btn.ghost{background:var(--surface);color:var(--ink)}
-.btn.sm{min-height:40px;font-size:16px;padding:4px 14px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
-.chip{background:var(--surface);color:var(--ink);border:3px solid var(--line);border-radius:999px;padding:4px 16px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:17px;min-height:42px}
-.chip[aria-pressed="true"]{background:var(--c,var(--yellow));color:var(--on);box-shadow:0 3px 0 var(--line)}
+  .card{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:28px 26px; margin-top:20px; box-shadow:0 1px 0 var(--line);
+  }
+  .tag{display:inline-block; font-size:12.5px; font-weight:600; color:var(--moss); background:rgba(61,90,64,0.1); padding:4px 10px; border-radius:20px; margin-bottom:14px;}
+  .question{font-family:'Fraunces',serif; font-size:clamp(20px,4.6vw,25px); line-height:1.35; margin:0 0 20px; color:var(--ink);}
 
-/* hero */
-.hero{padding:34px 0 26px}
-.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
-.hero h1{font-size:clamp(38px,6vw,64px);font-weight:700}
-.hero .lede{font-size:21px;margin-top:14px}
-.hero .tag{display:inline-block;background:var(--yellow);color:var(--on);border:3px solid var(--line);border-radius:12px;padding:2px 14px;font-family:'Fredoka',sans-serif;font-weight:600;margin-bottom:14px}
-.counter{background:var(--surface);border:3px solid var(--line);border-radius:26px;box-shadow:0 8px 0 var(--line);padding:20px;text-align:center}
-.bigtap{width:100%;background:var(--red);color:var(--on);border:3px solid var(--line);border-radius:22px;box-shadow:0 8px 0 var(--line);padding:6px 10px 10px;transition:transform .08s,box-shadow .08s}
-.bigtap:active{transform:translateY(7px);box-shadow:0 1px 0 var(--line)}
-.bigtap .n{display:block;font-family:'Fredoka',sans-serif;font-weight:700;font-size:clamp(84px,16vw,132px);line-height:1}
-.bigtap .hint{display:block;font-weight:800;font-size:17px}
-.counter .cword{font-family:'Fredoka',sans-serif;font-size:26px;font-weight:600;margin:16px 0 8px;min-height:34px}
-.cubes{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin:8px auto 14px;max-width:340px;min-height:10px}
-.cube{aspect-ratio:1;border-radius:5px;border:2px solid var(--line);background:var(--c)}
+  .options{display:grid; gap:10px;}
+  .opt{
+    text-align:left; font-family:inherit; font-size:16px; font-weight:600; color:var(--ink);
+    background:#fff; border:1.5px solid var(--line); border-radius:10px; padding:13px 16px;
+    cursor:pointer; transition:border-color .15s, background .15s;
+  }
+  .opt:hover:not(:disabled){border-color:var(--moss);}
+  .opt:focus-visible{outline:3px solid var(--moss); outline-offset:2px;}
+  .opt.correct{background:rgba(61,122,74,0.12); border-color:var(--ok); color:var(--moss-dark);}
+  .opt.wrong{background:rgba(184,59,46,0.1); border-color:var(--bad); color:var(--bad);}
+  .opt:disabled{cursor:default;}
 
-/* lessons */
-.lesson{padding:34px 0}
-.lhead{display:flex;gap:18px;align-items:center;background:var(--c);color:var(--on);border:3px solid var(--line);border-radius:26px;box-shadow:0 8px 0 var(--line);padding:18px 22px;margin-bottom:26px}
-.lnum{flex:none;width:72px;height:72px;display:grid;place-items:center;background:var(--surface);color:var(--ink);border:3px solid var(--line);border-radius:16px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:44px}
-.lhead h2{font-size:clamp(28px,4.4vw,40px)}
-.lhead p{margin:4px 0 0;font-weight:800}
-.card{background:var(--surface);border:3px solid var(--line);border-radius:22px;box-shadow:0 6px 0 var(--line);padding:22px;margin-bottom:26px}
-.card h3{font-size:26px;margin-bottom:10px}
-.card h4{font-size:20px;margin:16px 0 6px}
-.card .kick{display:inline-block;background:var(--c);color:var(--on);border:3px solid var(--line);border-radius:10px;padding:0 12px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:16px;margin-bottom:10px}
-.twocol{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
-.eq{display:inline-block;background:var(--soft);border:2px solid var(--line);border-radius:10px;padding:0 10px;font-family:'Fredoka',sans-serif;font-weight:600}
-.steps{margin:0 0 .8em;padding-left:1.2em;max-width:62ch}
-.steps li{margin:.25em 0}
-.say{margin-bottom:12px}
-details.grown{border:3px dashed var(--line);border-radius:18px;padding:10px 16px;background:var(--soft);margin-bottom:26px}
-details.grown summary{cursor:pointer;font-family:'Fredoka',sans-serif;font-weight:600;font-size:19px}
-details.grown p,details.grown ul{margin-top:8px;color:var(--ink)}
-.msg{min-height:30px;font-weight:800;color:var(--ink);margin:10px 0 0}
-.msg.good{color:var(--ok)}
-.msg.bad{color:var(--bad)}
+  .feedback{min-height:24px; margin-top:16px; font-weight:600; font-size:15px;}
+  .feedback.ok{color:var(--ok);}
+  .feedback.bad{color:var(--bad);}
 
-/* counting objects */
-.objs{display:flex;flex-wrap:wrap;gap:8px}
-.obj{position:relative;width:58px;height:58px;font-size:34px;background:var(--soft);border:3px solid var(--line);border-radius:14px;display:grid;place-items:center;padding:0}
-.obj.done{background:var(--yellow)}
-.objn{position:absolute;right:-6px;bottom:-8px;min-width:28px;height:28px;padding:0 5px;background:var(--ink);color:var(--surface);border-radius:999px;font-family:'Fredoka',sans-serif;font-size:16px;font-weight:600;display:grid;place-items:center}
-.qvis .objs span{font-size:34px}
+  .next{
+    margin-top:18px; font-family:inherit; font-weight:700; font-size:15px; color:#fff;
+    background:var(--trail); border:none; border-radius:9px; padding:12px 22px;
+    cursor:pointer; visibility:hidden;
+  }
+  .next:hover{background:var(--trail-dark);}
+  .next:focus-visible{outline:3px solid var(--moss-dark); outline-offset:2px;}
 
-/* number line */
-.nline{display:grid;grid-template-columns:repeat(auto-fill,minmax(50px,1fr));gap:6px;margin:8px 0 12px}
-.hcell{display:grid;place-items:center;min-height:52px;background:var(--soft);border:3px solid var(--line);border-radius:12px;font-family:'Fredoka',sans-serif;font-weight:600;text-align:center;line-height:1.05}
-.hcell.past{background:var(--surface)}
-.hcell.on{background:var(--c);transform:translateY(-3px);box-shadow:0 4px 0 var(--line)}
-.hcell.start{outline:3px dashed var(--ink);outline-offset:2px}
-.bigread{font-family:'Fredoka',sans-serif;font-weight:700;font-size:32px;min-height:44px}
+  .end h2{font-family:'Fraunces',serif; font-size:30px; color:var(--moss-dark); margin:0 0 8px;}
+  .score-big{font-size:52px; font-weight:700; font-family:'Fraunces',serif; color:var(--trail);}
+  .restart{margin-top:18px;}
 
-/* grids */
-.grid100{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;max-width:640px}
-.gcell{aspect-ratio:1;display:grid;place-items:center;background:var(--soft);color:var(--ink);border:2px solid var(--line);border-radius:8px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(12px,2.6vw,20px);padding:0;min-height:0}
-.gcell.hit{background:var(--c);color:var(--on)}
-.gcell.sel{background:var(--ink);color:var(--surface);transform:scale(1.12)}
-.readout{background:var(--soft);border:3px solid var(--line);border-radius:18px;padding:16px;text-align:center}
-.readout .num{font-family:'Fredoka',sans-serif;font-weight:700;font-size:84px;line-height:1}
-.readout .w{font-family:'Fredoka',sans-serif;font-weight:600;font-size:28px}
-
-/* compare */
-.cmp{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:8px 0 16px}
-.cmp .n,.cmp .sym{min-width:110px;text-align:center;font-family:'Fredoka',sans-serif;font-weight:700;font-size:64px;line-height:1.2;background:var(--soft);border:3px solid var(--line);border-radius:18px;padding:4px 10px}
-.cmp .sym{min-width:90px;background:var(--yellow);color:var(--on)}
-.cmp .sym.bad{animation:shake .3s}
-.cmpbtns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.cmpbtns .btn{font-size:34px;min-width:76px}
-@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
-
-/* order */
-.slots,.tiles{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
-.slot{min-width:72px;height:72px;display:grid;place-items:center;border:3px dashed var(--line);border-radius:16px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:32px;background:var(--soft)}
-.slot.filled{border-style:solid;background:var(--green);color:var(--on)}
-.tile{min-width:72px;height:72px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:32px;background:var(--yellow);color:var(--on);border:3px solid var(--line);border-radius:16px;box-shadow:0 5px 0 var(--line)}
-.tile.used{visibility:hidden}
-.tile.bad{animation:shake .3s}
-.ends{display:flex;justify-content:space-between;font-weight:800;color:var(--muted);max-width:420px}
-
-/* place value */
-.pvwrap{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.pvbox{background:var(--soft);border:3px solid var(--line);border-radius:18px;padding:12px;min-height:200px}
-.pvbox h4{margin:0 0 8px;font-size:20px}
-.rods,.units{display:flex;flex-wrap:wrap;gap:6px;align-items:flex-end}
-.rod{width:22px;border:2px solid var(--line);border-radius:5px;background:var(--blue);display:flex;flex-direction:column;overflow:hidden}
-.rod i{height:12px;border-bottom:1.5px solid var(--line);display:block}
-.rod i:last-child{border-bottom:0}
-.unit{width:22px;height:22px;background:var(--yellow);border:2px solid var(--line);border-radius:5px}
-.pvshow{display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap;margin:6px 0 10px}
-.pvchart{display:grid;grid-template-columns:1fr 1fr;border:3px solid var(--line);border-radius:14px;overflow:hidden;text-align:center;margin-top:12px}
-.pvchart div{padding:6px}
-.pvchart .h{background:var(--c);color:var(--on);font-family:'Fredoka',sans-serif;font-weight:600}
-.pvchart .d{font-family:'Fredoka',sans-serif;font-weight:700;font-size:56px;line-height:1.1;background:var(--surface)}
-.pvchart div+div{border-left:3px solid var(--line)}
-.controls{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
-.target{font-family:'Fredoka',sans-serif;font-weight:600;font-size:24px}
-.target b{font-size:36px}
-
-/* ten frame */
-.tframes{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0}
-.tf{display:grid;grid-template-columns:repeat(5,44px);gap:5px;padding:8px;background:var(--soft);border:3px solid var(--line);border-radius:14px;width:max-content}
-.tcell{width:44px;height:44px;background:var(--surface);border:2px solid var(--line);border-radius:8px;padding:0;display:grid;place-items:center}
-.dot{width:30px;height:30px;border-radius:50%;background:var(--red);border:2px solid var(--line);display:block}
-.dot.y{background:var(--yellow)}
-.qvis .tf{margin-right:14px}
-.qvis .tcell{cursor:default}
-.range{width:100%;max-width:420px;accent-color:var(--purple);height:34px}
-select{font:inherit;font-family:'Fredoka',sans-serif;font-weight:600;font-size:18px;background:var(--surface);color:var(--ink);border:3px solid var(--line);border-radius:12px;padding:6px 10px;min-height:44px}
-.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:10px}
-.row label{font-weight:800}
-
-/* fractions */
-.shapebox{display:flex;justify-content:center}
-.shapebox svg,.qsvg{width:220px;max-width:100%;height:auto}
-.qsvg{width:180px}
-.part{fill:var(--surface);stroke:var(--line);stroke-width:3;cursor:pointer;transition:fill .12s}
-.part.on{fill:var(--c)}
-.qsvg .frame{fill:var(--soft);stroke:var(--line);stroke-width:3}
-.qsvg line{stroke:var(--line);stroke-width:3}
-.groups{display:flex;flex-wrap:wrap;gap:12px;margin:10px 0}
-.grp{border:3px dashed var(--line);border-radius:16px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:4px;max-width:200px;font-size:28px;background:var(--soft)}
-.grp.first{border-style:solid;background:var(--c)}
-
-/* quiz */
-.quiz{background:var(--surface);border:3px solid var(--line);border-radius:22px;box-shadow:0 6px 0 var(--line);overflow:hidden;margin-bottom:6px}
-.quiz .qtop{background:var(--c);color:var(--on);border-bottom:3px solid var(--line);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px}
-.quiz .qbody{padding:20px}
-.qbar{height:12px;border:2px solid var(--line);border-radius:999px;overflow:hidden;background:var(--soft);margin-bottom:16px}
-.qbar span{display:block;height:100%;background:var(--ink)}
-.qtext{font-size:26px;margin-bottom:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.qvis{margin:8px 0 16px}
-.seq{font-family:'Fredoka',sans-serif;font-weight:700;font-size:44px}
-.qopts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
-.qopts .btn{background:var(--surface);color:var(--ink);font-size:24px;min-height:60px}
-.qopts .btn.right{background:var(--green);color:var(--on)}
-.qopts .btn.wrong{background:var(--red);color:var(--on)}
-.qfb{min-height:30px;margin-top:14px;font-weight:800}
-.qfb.good{color:var(--ok)} .qfb.bad{color:var(--bad)}
-.result{text-align:center;padding:10px}
-.result .big{font-family:'Fredoka',sans-serif;font-weight:700;font-size:54px}
-.result .st{font-size:46px}
-
-/* star chart */
-.chart{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
-.medal{background:var(--surface);border:3px solid var(--line);border-radius:18px;padding:14px;text-align:center;box-shadow:0 5px 0 var(--line)}
-.medal.on{background:var(--c);color:var(--on)}
-.medal .ic{font-size:40px}
-.medal b{font-family:'Fredoka',sans-serif;font-size:20px;display:block}
-footer{padding:26px 0 40px;color:var(--muted);font-size:16px}
-
-@media (max-width:760px){
-  body{font-size:17px}
-  .hero .wrap,.twocol,.pvwrap{grid-template-columns:1fr}
-  .starrow{display:none}
-  .lhead{padding:14px}
-  .lnum{width:56px;height:56px;font-size:34px}
-  .tf{grid-template-columns:repeat(5,38px)}
-  .tcell{width:38px;height:38px}
-  .dot{width:26px;height:26px}
-}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --sand:#20241C; --paper:#2A2F23; --ink:#EDE9DD; --line: rgba(237,233,221,0.14);
+      --moss:#8FB89A; --moss-dark:#C8E0CD; --trail:#E07A3E; --trail-dark:#C1440E;
+      --ok:#8FCB9C; --bad:#E58C7F;
+    }
+  }
+  :root[data-theme="dark"]{
+    --sand:#20241C; --paper:#2A2F23; --ink:#EDE9DD; --line: rgba(237,233,221,0.14);
+    --moss:#8FB89A; --moss-dark:#C8E0CD; --trail:#E07A3E; --trail-dark:#C1440E;
+    --ok:#8FCB9C; --bad:#E58C7F;
+  }
+  .opt{background:var(--paper);}
+  @media (prefers-color-scheme: dark){ .opt{background:#333827;} }
 </style>
 </head>
-<body id="top">
-
-<nav class="nav" aria-label="Lessons">
-  <div class="wrap">
-    <a class="brand" href="#top">Number Land</a>
-    <div class="pills">
-      <a href="#l1" data-l="l1" style="--c:var(--red)">1 Counting</a>
-      <a href="#l2" data-l="l2" style="--c:var(--yellow)">2 Compare</a>
-      <a href="#l3" data-l="l3" style="--c:var(--green)">3 Tens and ones</a>
-      <a href="#l4" data-l="l4" style="--c:var(--blue)">4 Tools</a>
-      <a href="#l5" data-l="l5" style="--c:var(--purple)">5 Halves</a>
-    </div>
-    <div class="starrow" id="navStars" aria-label="Stars earned"></div>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <div>
-      <span class="tag">Grade 1 Math, Part 1: Number Sense</span>
-      <h1>Let's play with numbers!</h1>
-      <p class="lede">Tap the big red block. Every tap adds one. Listen to the number and watch the blocks grow.</p>
-      <p>There are 5 lessons. Each one has something to learn, things to try, and a quiz. Get 4 out of 5 right to win a star. Tap the <b>🔊</b> buttons to hear it read aloud.</p>
-    </div>
-    <div class="counter">
-      <button class="bigtap" id="bigTap" aria-label="Tap to add one"><span class="n" id="bigNum">0</span><span class="hint">Tap me!</span></button>
-      <div class="cword" id="bigWord" aria-live="polite">zero</div>
-      <div class="cubes" id="bigCubes"></div>
-      <button class="btn ghost sm" id="bigReset">Start again</button>
-    </div>
-  </div>
-</header>
-
-<main>
-
-<!-- LESSON 1 -->
-<section class="lesson" id="l1" style="--c:var(--red)">
+<body>
 <div class="wrap">
-  <div class="lhead"><div class="lnum">1</div><div><h2>Counting</h2><p>I can count forward, count back, and skip count.</p></div></div>
+  <header>
+    <div class="kicker">Nathan's math practice</div>
+    <h1>The Number Trail</h1>
+    <div class="sub">100 questions on numbers &amp; operations — place value, addition, subtraction, times tables, multiplication, division, and mental math.</div>
+  </header>
 
-  <div class="card">
-    <span class="kick">Learn</span>
-    <h3>What is counting?</h3>
-    <button class="btn sm say" data-read="#learn1">🔊 Read this to me</button>
-    <div id="learn1">
-      <p>Counting means saying numbers in order. When you count things, touch each one and say one number. <b>The last number you say tells how many.</b></p>
-      <div class="twocol">
-        <div>
-          <h4>Count forward</h4>
-          <p>Numbers get bigger by one each time: <span class="eq">3, 4, 5, 6</span></p>
-          <h4>Count backward</h4>
-          <p>Numbers get smaller by one each time: <span class="eq">9, 8, 7, 6</span></p>
-        </div>
-        <div>
-          <h4>Skip count</h4>
-          <p>Skip counting means jumping over numbers.</p>
-          <ul class="steps">
-            <li>By <b>2s</b>: 2, 4, 6, 8, 10. These are all even numbers.</li>
-            <li>By <b>5s</b>: 5, 10, 15, 20. The last digit is always 5 or 0.</li>
-            <li>By <b>10s</b>: 10, 20, 30, 40. The last digit is always 0.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="progress-row"><span id="pos">Question 1 of 100</span><span id="scoreLabel">Score: 0</span></div>
+  <div class="track"><div class="track-fill" id="fill"></div></div>
 
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Count the things</h3>
-    <p>Tap each one. Say the number out loud. Each thing only gets counted once!</p>
-    <div class="objs" id="objBox"></div>
-    <p class="msg" id="objMsg" aria-live="polite"></p>
-    <button class="btn" id="objNew">New set</button>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Frog on the number line</h3>
-    <p>Help the frog hop. Hop forward to count up. Hop back to count down.</p>
-    <div class="nline" id="hopLine"></div>
-    <div class="bigread" id="hopSay" aria-live="polite">0: zero</div>
-    <div class="controls">
-      <button class="btn" id="hopBack">Hop back −1</button>
-      <button class="btn" id="hopFwd">Hop forward +1</button>
-      <button class="btn ghost" id="hopUp">Count up to 20</button>
-      <button class="btn ghost" id="hopDown">Count down from 20</button>
-      <button class="btn ghost" id="hopReset">Start again</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Skip counting on the 100 chart</h3>
-    <div class="chips" id="skipChips" role="group" aria-label="Count by">
-      <button class="chip" data-v="2" aria-pressed="true">Count by 2s</button>
-      <button class="chip" data-v="5" aria-pressed="false">Count by 5s</button>
-      <button class="chip" data-v="10" aria-pressed="false">Count by 10s</button>
-    </div>
-    <div class="grid100" id="skipGrid"></div>
-    <p class="bigread" id="skipSeq" style="font-size:24px;margin-top:14px"></p>
-    <div class="controls"><button class="btn" id="skipPlay">▶ Play and count</button></div>
-  </div>
-
-  <details class="grown"><summary>For the grown-up</summary>
-    <p><b>What this lesson covers:</b> counting forward and backward, one-to-one counting (each object gets exactly one number), the idea that the last number said tells how many, and skip counting by 2s, 5s and 10s.</p>
-    <ul>
-      <li>Have your child touch objects as they count. Moving counted objects to a "done" pile helps.</li>
-      <li>If they lose their place, they can start again. Counting strategy matters more than speed.</li>
-      <li>Ask "What comes next?" during everyday moments: stairs, snacks, steps to the door.</li>
-      <li>Skip counting is early groundwork for multiplication, so use the 100 chart to spot the patterns.</li>
-    </ul>
-  </details>
-
-  <div class="quiz" style="--c:var(--red)"><div id="quiz1"></div></div>
+  <div class="card" id="card"></div>
 </div>
-</section>
-
-<!-- LESSON 2 -->
-<section class="lesson" id="l2" style="--c:var(--yellow)">
-<div class="wrap">
-  <div class="lhead"><div class="lnum">2</div><div><h2>Read, write, compare and order</h2><p>I can read numbers, say which is bigger, and put numbers in order.</p></div></div>
-
-  <div class="card">
-    <span class="kick">Learn</span>
-    <h3>Three ways to show a number</h3>
-    <button class="btn sm say" data-read="#learn2">🔊 Read this to me</button>
-    <div id="learn2">
-      <p>Every number can be shown as a <b>numeral</b> (like 36), as a <b>word</b> (thirty-six), and with <b>blocks</b> (3 tens and 6 ones).</p>
-      <div class="twocol">
-        <div>
-          <h4>Comparing two numbers</h4>
-          <p>Bigger numbers are <b>greater than</b> smaller ones. Smaller numbers are <b>less than</b> bigger ones. When they match, they are <b>equal</b>.</p>
-          <ul class="steps">
-            <li><span class="eq">&gt;</span> means greater than: 8 &gt; 5</li>
-            <li><span class="eq">&lt;</span> means less than: 5 &lt; 8</li>
-            <li><span class="eq">=</span> means equal to: 6 = 6</li>
-          </ul>
-          <p>Think of a hungry alligator 🐊. Its mouth always opens toward the <b>bigger</b> number.</p>
-        </div>
-        <div>
-          <h4>Tricks for bigger numbers</h4>
-          <ul class="steps">
-            <li>Look at the <b>tens</b> first. More tens means a bigger number: 52 &gt; 47.</li>
-            <li>If the tens are the same, look at the <b>ones</b>: 63 &gt; 61.</li>
-            <li>Ordering means putting numbers in a line from smallest to biggest, or biggest to smallest.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>The 100 chart: tap any number</h3>
-    <div class="twocol">
-      <div class="grid100" id="hundred"></div>
-      <div class="readout" aria-live="polite">
-        <div class="num" id="hNum">?</div>
-        <div class="w" id="hWord">Tap a number</div>
-        <p id="hTO" style="margin:10px auto 0"></p>
-        <p id="hNear" style="margin:0 auto"></p>
-        <button class="btn sm" id="hSay">🔊 Say it again</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Which is greater?</h3>
-    <div class="chips" id="cmpChips" role="group" aria-label="Number range">
-      <button class="chip" data-v="20" aria-pressed="true">Numbers to 20</button>
-      <button class="chip" data-v="50" aria-pressed="false">Numbers to 50</button>
-      <button class="chip" data-v="100" aria-pressed="false">Numbers to 100</button>
-    </div>
-    <div class="cmp"><div class="n" id="cmpA">0</div><div class="sym" id="cmpSym">?</div><div class="n" id="cmpB">0</div></div>
-    <div class="cmpbtns" id="cmpBtns">
-      <button class="btn" data-v="&lt;" aria-label="less than">&lt;</button>
-      <button class="btn" data-v="=" aria-label="equal to">=</button>
-      <button class="btn" data-v="&gt;" aria-label="greater than">&gt;</button>
-    </div>
-    <p class="msg" id="cmpFb" aria-live="polite"></p>
-    <button class="btn ghost" id="cmpNext">New numbers</button>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Put them in order</h3>
-    <div class="chips" id="ordDir" role="group" aria-label="Order direction">
-      <button class="chip" data-v="up" aria-pressed="true">Smallest first</button>
-      <button class="chip" data-v="down" aria-pressed="false">Biggest first</button>
-    </div>
-    <div class="chips" id="ordRange" role="group" aria-label="Number range">
-      <button class="chip" data-v="20" aria-pressed="true">To 20</button>
-      <button class="chip" data-v="50" aria-pressed="false">To 50</button>
-      <button class="chip" data-v="100" aria-pressed="false">To 100</button>
-    </div>
-    <p id="ordHelp">Tap the numbers below, starting with the smallest.</p>
-    <div class="slots" id="ordSlots"></div>
-    <div class="ends"><span id="ordL">smallest</span><span id="ordR">biggest</span></div>
-    <div class="tiles" id="ordTiles"></div>
-    <p class="msg" id="ordFb" aria-live="polite"></p>
-    <button class="btn ghost" id="ordNew">New numbers</button>
-  </div>
-
-  <details class="grown"><summary>For the grown-up</summary>
-    <p><b>What this lesson covers:</b> reading and writing numerals and number words, comparing with greater than, less than and equal to, and ordering sets of numbers. Most provinces work to 100. Ontario Grade 1 works to 50 and BC works to 20, so use the range buttons to match your province.</p>
-    <ul>
-      <li>Ask "How do you know?" after each answer. Explaining builds understanding.</li>
-      <li>Use "more than" and "fewer than" language in daily life before introducing the symbols.</li>
-      <li>Reversed digits like 41 and 14 are a classic mix-up, so point to the tens digit each time.</li>
-    </ul>
-  </details>
-
-  <div class="quiz" style="--c:var(--yellow)"><div id="quiz2"></div></div>
-</div>
-</section>
-
-<!-- LESSON 3 -->
-<section class="lesson" id="l3" style="--c:var(--green)">
-<div class="wrap">
-  <div class="lhead"><div class="lnum">3</div><div><h2>Tens and ones</h2><p>I know what each digit in a number means.</p></div></div>
-
-  <div class="card">
-    <span class="kick">Learn</span>
-    <h3>Place value</h3>
-    <button class="btn sm say" data-read="#learn3">🔊 Read this to me</button>
-    <div id="learn3">
-      <p>Big numbers are built from <b>tens</b> and <b>ones</b>. A ten is a stick made of 10 little cubes. A one is a single cube.</p>
-      <div class="twocol">
-        <div>
-          <h4>Two digits, two jobs</h4>
-          <p>In <span class="eq">47</span> the <b>4</b> is in the tens place. It means 4 tens, or 40. The <b>7</b> is in the ones place. It means 7 ones.</p>
-          <p><span class="eq">47 = 4 tens + 7 ones = 40 + 7</span></p>
-        </div>
-        <div>
-          <h4>Make a trade</h4>
-          <p><b>10 ones = 1 ten.</b> When you have 10 ones, you trade them for a ten stick. That is why we never write more than 9 in the ones place.</p>
-          <p>Zero holds a place: in <span class="eq">50</span> there are 5 tens and 0 ones.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Build a number with blocks</h3>
-    <div class="pvwrap">
-      <div class="pvbox"><h4>Tens</h4><div class="rods" id="pvTens"></div></div>
-      <div class="pvbox"><h4>Ones</h4><div class="units" id="pvOnes"></div></div>
-    </div>
-    <div class="pvchart">
-      <div class="h">Tens</div><div class="h">Ones</div>
-      <div class="d" id="pvDT">0</div><div class="d" id="pvDO">0</div>
-    </div>
-    <p class="bigread" id="pvEq" aria-live="polite" style="margin-top:12px">0 tens + 0 ones = 0</p>
-    <p class="msg" id="pvMsg" aria-live="polite"></p>
-    <div class="controls">
-      <button class="btn" id="pvAdd10">+ 1 ten</button>
-      <button class="btn" id="pvAdd1">+ 1 one</button>
-      <button class="btn ghost" id="pvSub10">− 1 ten</button>
-      <button class="btn ghost" id="pvSub1">− 1 one</button>
-      <button class="btn ghost" id="pvClear">Clear</button>
-    </div>
-    <h4>Challenge</h4>
-    <p class="target">Build the number <b id="pvTarget">?</b></p>
-    <div class="controls">
-      <button class="btn" id="pvCheck">Check my number</button>
-      <button class="btn ghost" id="pvNewT">New challenge</button>
-    </div>
-    <p class="msg" id="pvCFb" aria-live="polite"></p>
-  </div>
-
-  <details class="grown"><summary>For the grown-up</summary>
-    <p><b>What this lesson covers:</b> the idea that a two-digit number is made of tens and ones, and that 10 ones can be traded for 1 ten. This is the single most important idea in Grade 1 number sense and it supports every later addition and subtraction strategy.</p>
-    <ul>
-      <li>If you have them at home, use real objects: bundle 10 straws or pasta pieces with a rubber band to make a "ten".</li>
-      <li>Ask: "How many tens? How many ones? So what number is that?"</li>
-      <li>Watch for children who read 47 as "4 and 7". Guide them to say "4 tens and 7 ones, forty-seven".</li>
-    </ul>
-  </details>
-
-  <div class="quiz" style="--c:var(--green)"><div id="quiz3"></div></div>
-</div>
-</section>
-
-<!-- LESSON 4 -->
-<section class="lesson" id="l4" style="--c:var(--blue)">
-<div class="wrap">
-  <div class="lhead"><div class="lnum">4</div><div><h2>Number tools</h2><p>I can use ten-frames, number lines and counters.</p></div></div>
-
-  <div class="card">
-    <span class="kick">Learn</span>
-    <h3>Tools that help us see numbers</h3>
-    <button class="btn sm say" data-read="#learn4">🔊 Read this to me</button>
-    <div id="learn4">
-      <p>Mathematicians use tools to make numbers easier to see.</p>
-      <ul class="steps">
-        <li>A <b>ten-frame</b> has 10 boxes in 2 rows of 5. Fill the boxes with counters. You can see the number without counting one by one, and you can see how many more make 10.</li>
-        <li>A <b>number line</b> shows numbers in order. Hop right to add. Hop left to take away.</li>
-        <li><b>Counters</b> are small round chips. Use two colours to show two parts that make a number, like 6 red and 4 yellow make 10.</li>
-      </ul>
-      <p>Numbers from 11 to 19 are <b>10 and some more</b>. A full ten-frame plus 4 more counters is 14.</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Ten-frame</h3>
-    <div class="chips" id="tfMode" role="group" aria-label="Frames">
-      <button class="chip" data-v="1" aria-pressed="true">One frame</button>
-      <button class="chip" data-v="2" aria-pressed="false">Two frames</button>
-    </div>
-    <p>Tap a box to add or remove a counter.</p>
-    <div class="tframes" id="tfWrap"></div>
-    <p class="bigread" id="tfText" aria-live="polite">0 counters</p>
-    <div class="controls">
-      <button class="btn" id="tfRand">Show me a number</button>
-      <button class="btn ghost" id="tfClear">Clear</button>
-    </div>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Make 10 with two colours</h3>
-    <p>Slide to change how many red counters. The yellow ones fill the rest.</p>
-    <input type="range" class="range" id="m10" min="0" max="10" value="4" aria-label="Number of red counters">
-    <div class="tframes" id="m10Frame"></div>
-    <p class="bigread" id="m10Text" aria-live="polite"></p>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Jump on the number line</h3>
-    <div class="row">
-      <label for="jStart">Start at</label>
-      <select id="jStart"></select>
-      <div class="chips" id="jOp" role="group" aria-label="Add or take away" style="margin:0">
-        <button class="chip" data-v="+" aria-pressed="true">Add</button>
-        <button class="chip" data-v="-" aria-pressed="false">Take away</button>
-      </div>
-      <label for="jAmt">Jump</label>
-      <select id="jAmt"></select>
-    </div>
-    <div class="nline" id="jLine"></div>
-    <div class="bigread" id="jEq" aria-live="polite">Pick a start and a jump.</div>
-    <div class="controls"><button class="btn" id="jGo">Jump!</button></div>
-  </div>
-
-  <details class="grown"><summary>For the grown-up</summary>
-    <p><b>What this lesson covers:</b> using ten-frames, number lines and counters to represent numbers to 20, seeing number pairs that make 10, and understanding teen numbers as "10 and some more".</p>
-    <ul>
-      <li>Number pairs that make 10 (1 and 9, 2 and 8, and so on) are the most useful facts to know by heart.</li>
-      <li>Use two colours of any small objects at home, such as coins, buttons or bricks, to explore all the ways to make 10.</li>
-      <li>Let your child point at the frame rather than counting one by one. Fast "seeing" of 5 and 10 is the goal.</li>
-    </ul>
-  </details>
-
-  <div class="quiz" style="--c:var(--blue)"><div id="quiz4"></div></div>
-</div>
-</section>
-
-<!-- LESSON 5 -->
-<section class="lesson" id="l5" style="--c:var(--purple)">
-<div class="wrap">
-  <div class="lhead"><div class="lnum">5</div><div><h2>Halves and quarters</h2><p>I can share things into equal parts.</p></div></div>
-
-  <div class="card">
-    <span class="kick">Learn</span>
-    <h3>Equal parts</h3>
-    <button class="btn sm say" data-read="#learn5">🔊 Read this to me</button>
-    <div id="learn5">
-      <p>A fraction is a part of a whole. For parts to count, they must be <b>equal</b>. That means the same size. Fair sharing is equal sharing!</p>
-      <div class="twocol">
-        <div>
-          <h4>Halves</h4>
-          <p>Cut a whole into <b>2 equal parts</b>. Each part is <b>one half</b>. Two halves make one whole.</p>
-          <p>Half of 8 cookies is 4 cookies, because 4 + 4 = 8.</p>
-        </div>
-        <div>
-          <h4>Quarters</h4>
-          <p>Cut a whole into <b>4 equal parts</b>. Each part is <b>one quarter</b>. Four quarters make one whole. Quarters are also called fourths.</p>
-          <p>A quarter of 8 cookies is 2 cookies, because 2 + 2 + 2 + 2 = 8.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Cut and shade a shape</h3>
-    <div class="chips" id="shShape" role="group" aria-label="Shape">
-      <button class="chip" data-v="circle" aria-pressed="true">Circle</button>
-      <button class="chip" data-v="square" aria-pressed="false">Square</button>
-      <button class="chip" data-v="rect" aria-pressed="false">Rectangle</button>
-    </div>
-    <div class="chips" id="shMode" role="group" aria-label="Cut into">
-      <button class="chip" data-v="1" aria-pressed="false">Whole</button>
-      <button class="chip" data-v="2" aria-pressed="true">Halves</button>
-      <button class="chip" data-v="4" aria-pressed="false">Quarters</button>
-    </div>
-    <p>Tap the parts to shade them.</p>
-    <div class="shapebox"><svg id="shSvg" viewBox="0 0 200 200" role="img" aria-label="Shape cut into equal parts"></svg></div>
-    <p class="bigread" id="shText" aria-live="polite" style="text-align:center;font-size:24px"></p>
-  </div>
-
-  <div class="card">
-    <span class="kick">Try it</span>
-    <h3>Share the cookies</h3>
-    <div class="chips" id="shN" role="group" aria-label="Number of cookies">
-      <button class="chip" data-v="4" aria-pressed="false">4</button>
-      <button class="chip" data-v="6" aria-pressed="false">6</button>
-      <button class="chip" data-v="8" aria-pressed="true">8</button>
-      <button class="chip" data-v="10" aria-pressed="false">10</button>
-      <button class="chip" data-v="12" aria-pressed="false">12</button>
-      <button class="chip" data-v="16" aria-pressed="false">16</button>
-      <button class="chip" data-v="20" aria-pressed="false">20</button>
-    </div>
-    <div class="chips" id="shK" role="group" aria-label="Share into">
-      <button class="chip" data-v="2" aria-pressed="true">Share into 2 (halves)</button>
-      <button class="chip" data-v="4" aria-pressed="false">Share into 4 (quarters)</button>
-    </div>
-    <div class="groups" id="shGroups"></div>
-    <p class="bigread" id="shShareText" aria-live="polite" style="font-size:24px"></p>
-  </div>
-
-  <details class="grown"><summary>For the grown-up</summary>
-    <p><b>What this lesson covers:</b> understanding that fractions need equal parts, naming halves and quarters of shapes, and finding halves and quarters of small sets of objects.</p>
-    <ul>
-      <li>Fold paper, cut sandwiches and share snacks. Ask "Are the parts fair?"</li>
-      <li>Children often think any two pieces make halves. Show an unequal split and ask if it is fair.</li>
-      <li>Point out that two quarters together make one half. It is an early taste of equivalent fractions.</li>
-    </ul>
-  </details>
-
-  <div class="quiz" style="--c:var(--purple)"><div id="quiz5"></div></div>
-</div>
-</section>
-
-<!-- STAR CHART -->
-<section class="lesson" id="stars">
-<div class="wrap">
-  <div class="card">
-    <h3>My star chart</h3>
-    <p id="chartMsg">Finish each quiz with 4 or more right answers to win a star.</p>
-    <div class="chart" id="chartBox"></div>
-    <div class="controls"><button class="btn ghost sm" id="resetProg">Clear my stars</button></div>
-  </div>
-</div>
-</section>
-
-</main>
-
-<footer><div class="wrap">Number Land covers Number Sense for Grade 1, based on common Canadian provincial curriculum strands. Number ranges differ by province, so check your ministry of education for exact expectations.</div></footer>
 
 <script>
-(function(){
-'use strict';
-const $=(s,r=document)=>r.querySelector(s);
-const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
-const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
-const pick=a=>a[rnd(0,a.length-1)];
-const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=rnd(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
-const ONES=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen'];
-const TENS=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety'];
-function word(n){
-  if(n<20) return ONES[n];
-  if(n===100) return 'one hundred';
-  const t=Math.floor(n/10),o=n%10;
-  return TENS[t]+(o?'-'+ONES[o]:'');
+// ---------- helpers ----------
+function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+function uniqueDistractors(correct,gen,count){
+  const set=new Set([correct]);
+  let tries=0;
+  while(set.size<count+1 && tries<50){set.add(gen()); tries++;}
+  return [...set];
 }
-function tensOnes(n){
-  if(n===100) return '1 hundred';
-  const t=Math.floor(n/10),o=n%10;
-  return t+(t===1?' ten':' tens')+' and '+o+(o===1?' one':' ones');
+function makeQ(tag,text,correct,gen){
+  const opts=shuffle(uniqueDistractors(correct,gen,3).map(String));
+  return {tag,text,answer:String(correct),options:opts};
 }
-function say(t){
-  try{
-    if(!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const u=new SpeechSynthesisUtterance(t);
-    u.rate=.85;u.pitch=1.1;
-    window.speechSynthesis.speak(u);
-  }catch(e){}
+
+// ---------- category generators ----------
+function qPlaceValue(){
+  const n=ri(1000,9999);
+  const digits=String(n).split('').map(Number);
+  const places=['ones','tens','hundreds','thousands'];
+  const idx=ri(0,3);
+  const place=places[idx];
+  const val=digits[3-idx]*Math.pow(10,idx);
+  if(Math.random()<0.5){
+    return makeQ('Place value',`In the number ${n}, what is the value of the digit in the ${place} place?`,val,
+      ()=>ri(0,9)*Math.pow(10,ri(0,3)));
+  }
+  const other=ri(1000,9999);
+  const bigger = n>other ? n : other;
+  return makeQ('Comparing numbers',`Which number is greater: ${n} or ${other}?`,bigger,
+    ()=> Math.random()<0.5? n : other);
 }
-function chips(root,cb){
-  root.addEventListener('click',e=>{
-    const b=e.target.closest('.chip');
-    if(!b||!root.contains(b))return;
-    $$('.chip',root).forEach(c=>c.setAttribute('aria-pressed',String(c===b)));
-    cb(b.dataset.v);
+function qAddition(){
+  const a=ri(100,9999), b=ri(100,9999);
+  const sum=a+b;
+  return makeQ('Addition',`${a} + ${b} = ?`,sum,()=>sum+ri(-20,20)*(ri(0,1)?1:10));
+}
+function qSubtraction(){
+  let a=ri(200,9999), b=ri(100,a-1);
+  const diff=a-b;
+  return makeQ('Subtraction',`${a} − ${b} = ?`,diff,()=>diff+ri(-20,20)*(ri(0,1)?1:10));
+}
+function qTimesTable(){
+  const a=ri(6,9), b=ri(2,12);
+  const prod=a*b;
+  return makeQ('Times tables',`${a} × ${b} = ?`,prod,()=>prod+ri(-2,2)*a);
+}
+function qMultiDigitMult(){
+  const a=ri(11,99), b=ri(2,9);
+  const prod=a*b;
+  return makeQ('Multiplication',`${a} × ${b} = ?`,prod,()=>prod+ri(-1,1)*b*ri(1,3));
+}
+function qDivision(){
+  const clean = Math.random()<0.6;
+  const b=ri(2,9);
+  if(clean){
+    const q=ri(3,30); const a=b*q;
+    return makeQ('Division',`${a} ÷ ${b} = ?`,q,()=>q+ri(-2,2));
+  } else {
+    const q=ri(3,20); const r=ri(1,b-1); const a=b*q+r;
+    return makeQ('Division with remainder',`${a} ÷ ${b} = ? (give the remainder)`,r,()=>ri(1,b-1));
+  }
+}
+function qMentalMath(){
+  const type=ri(0,2);
+  if(type===0){
+    const n=ri(10,900); const step=[10,100][ri(0,1)];
+    return makeQ('Mental math',`What is ${n} + ${step}?`,n+step,()=>n+step+ri(-5,5));
+  } else if(type===1){
+    const n=ri(200,999); const round=Math.round(n/100)*100;
+    return makeQ('Rounding',`Round ${n} to the nearest hundred.`,round,()=>round+ri(-2,2)*100);
+  } else {
+    const start=ri(2,50); const step=ri(2,9);
+    const seq=[start,start+step,start+2*step,start+3*step];
+    const next=start+4*step;
+    return makeQ('Number patterns',`What comes next? ${seq.join(', ')}, ___`,next,()=>next+ri(-3,3)*step);
+  }
+}
+
+const gens=[qPlaceValue,qAddition,qSubtraction,qTimesTable,qMultiDigitMult,qDivision,qMentalMath];
+
+function buildQuestions(total){
+  const out=[];
+  let i=0;
+  while(out.length<total){
+    out.push(gens[i % gens.length]());
+    i++;
+  }
+  return out;
+}
+
+const TOTAL=100;
+let questions=buildQuestions(TOTAL);
+let current=0, score=0, answered=false;
+
+const card=document.getElementById('card');
+const fill=document.getElementById('fill');
+const pos=document.getElementById('pos');
+const scoreLabel=document.getElementById('scoreLabel');
+
+function render(){
+  fill.style.width=(current/TOTAL*100)+'%';
+  pos.textContent=`Question ${Math.min(current+1,TOTAL)} of ${TOTAL}`;
+  scoreLabel.textContent=`Score: ${score}`;
+
+  if(current>=TOTAL){
+    card.innerHTML=`
+      <div class="end">
+        <h2>Trail complete, Nathan!</h2>
+        <div class="score-big">${score} / ${TOTAL}</div>
+        <p class="sub" style="margin-top:8px;">${score>=90?"Outstanding work — you know your numbers cold.":score>=70?"Great job! A little more practice and you'll be unstoppable.":"Nice effort — replay the trail to sharpen the tricky spots."}</p>
+        <button class="next restart" style="visibility:visible" onclick="restart()">Walk the trail again</button>
+      </div>`;
+    return;
+  }
+
+  const q=questions[current];
+  answered=false;
+  card.innerHTML=`
+    <span class="tag">${q.tag}</span>
+    <p class="question">${q.text}</p>
+    <div class="options" id="opts"></div>
+    <div class="feedback" id="fb"></div>
+    <button class="next" id="nextBtn" onclick="nextQ()">Next</button>
+  `;
+  const optsEl=document.getElementById('opts');
+  q.options.forEach(opt=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.textContent=opt;
+    b.onclick=()=>select(b,opt,q.answer);
+    optsEl.appendChild(b);
   });
 }
-function chipVal(root){const b=$('.chip[aria-pressed="true"]',root);return b?b.dataset.v:null}
 
-/* read-aloud buttons */
-document.addEventListener('click',e=>{
-  const b=e.target.closest('[data-read]');
-  if(b){const el=$(b.dataset.read);if(el)say(el.innerText.replace(/\s+/g,' '));}
-});
-
-/* progress */
-const KEY='numberland-g1-number-sense';
-let prog={l1:0,l2:0,l3:0,l4:0,l5:0};
-try{const s=JSON.parse(localStorage.getItem(KEY)||'null');if(s&&typeof s==='object')prog=Object.assign(prog,s);}catch(e){}
-function saveProg(){try{localStorage.setItem(KEY,JSON.stringify(prog))}catch(e){}}
-const LESSONS=[
-  {id:'l1',name:'Counting',ic:'🐸',c:'var(--red)'},
-  {id:'l2',name:'Compare and order',ic:'🐊',c:'var(--yellow)'},
-  {id:'l3',name:'Tens and ones',ic:'🧱',c:'var(--green)'},
-  {id:'l4',name:'Number tools',ic:'🔟',c:'var(--blue)'},
-  {id:'l5',name:'Halves and quarters',ic:'🍪',c:'var(--purple)'}
-];
-function renderProg(){
-  const earned=LESSONS.filter(l=>prog[l.id]>=4).length;
-  $('#navStars').innerHTML=LESSONS.map(l=>'<span class="s'+(prog[l.id]>=4?' on':'')+'">★</span>').join('');
-  $$('.pills a').forEach(a=>a.classList.toggle('done',prog[a.dataset.l]>=4));
-  $('#chartBox').innerHTML=LESSONS.map(l=>{
-    const ok=prog[l.id]>=4;
-    return '<div class="medal'+(ok?' on':'')+'" style="--c:'+l.c+'"><div class="ic">'+(ok?'⭐':l.ic)+'</div><b>'+l.name+'</b>'+(prog[l.id]?'Best: '+prog[l.id]+' out of 5':'Not tried yet')+'</div>';
-  }).join('');
-  $('#chartMsg').textContent=earned===5?'You finished Number Sense! You earned all 5 stars. Amazing work!':'You have '+earned+' of 5 stars. Finish each quiz with 4 or more right answers to win a star.';
-}
-$('#resetProg').onclick=()=>{prog={l1:0,l2:0,l3:0,l4:0,l5:0};saveProg();renderProg();};
-
-/* hero counter */
-(function(){
-  let n=0;
-  const cols=['var(--red)','var(--yellow)','var(--green)','var(--blue)','var(--purple)'];
-  function draw(){
-    $('#bigNum').textContent=n;
-    $('#bigWord').textContent=word(n);
-    const box=$('#bigCubes');
-    box.innerHTML='';
-    for(let i=0;i<n;i++){const d=document.createElement('div');d.className='cube';d.style.setProperty('--c',cols[Math.floor(i/10)%5]);box.appendChild(d);}
-  }
-  $('#bigTap').onclick=()=>{if(n>=100){n=0;}else{n++;}draw();say(word(n));};
-  $('#bigReset').onclick=()=>{n=0;draw();};
-  draw();
-})();
-
-/* LESSON 1 */
-const EMOJIS=['🍎','⭐','🐟','🚗','🌼','🐞','🎈','🍪'];
-(function(){
-  const box=$('#objBox'),msg=$('#objMsg');
-  function newSet(){
-    const n=rnd(3,20),e=pick(EMOJIS);let c=0;
-    box.innerHTML='';msg.textContent='Tap each one and count out loud.';msg.className='msg';
-    for(let i=0;i<n;i++){
-      const b=document.createElement('button');
-      b.className='obj';b.textContent=e;b.setAttribute('aria-label','Count one');
-      b.onclick=()=>{
-        if(b.dataset.done)return;
-        b.dataset.done='1';c++;
-        b.classList.add('done');
-        b.innerHTML=e+'<span class="objn">'+c+'</span>';
-        if(c===n){msg.textContent='There are '+n+' in all! '+word(n)+'!';msg.className='msg good';say(word(c)+'. There are '+word(n)+' in all!');}
-        else say(word(c));
-      };
-      box.appendChild(b);
-    }
-  }
-  $('#objNew').onclick=newSet;newSet();
-})();
-
-(function(){
-  const line=$('#hopLine');let pos=0,timer=null;
-  for(let i=0;i<=20;i++){const d=document.createElement('div');d.className='hcell';d.style.setProperty('--c','var(--red)');line.appendChild(d);}
-  const cells=$$('.hcell',line);
-  function show(speak){
-    cells.forEach((c,i)=>{
-      c.classList.toggle('on',i===pos);c.classList.toggle('past',i<pos);
-      c.innerHTML=i===pos?'🐸<br>'+i:String(i);
-    });
-    $('#hopSay').textContent=pos+': '+word(pos);
-    if(speak)say(word(pos));
-  }
-  function stop(){if(timer){clearInterval(timer);timer=null;}}
-  function run(from,to){
-    stop();pos=from;show(true);
-    const dir=to>from?1:-1;
-    timer=setInterval(()=>{
-      if(pos===to){stop();return;}
-      pos+=dir;show(true);
-      if(pos===to)stop();
-    },900);
-  }
-  $('#hopFwd').onclick=()=>{stop();if(pos<20)pos++;show(true);};
-  $('#hopBack').onclick=()=>{stop();if(pos>0)pos--;show(true);};
-  $('#hopReset').onclick=()=>{stop();pos=0;show(false);};
-  $('#hopUp').onclick=()=>run(0,20);
-  $('#hopDown').onclick=()=>run(20,0);
-  show(false);
-})();
-
-(function(){
-  let step=2,timer=null;
-  const grid=$('#skipGrid');
-  for(let i=1;i<=100;i++){const d=document.createElement('div');d.className='gcell';d.textContent=i;d.style.setProperty('--c','var(--red)');grid.appendChild(d);}
-  const cells=$$('.gcell',grid);
-  function seq(){const a=[];for(let i=step;i<=100;i+=step)a.push(i);return a;}
-  function paint(upTo){cells.forEach((c,i)=>{const n=i+1;c.classList.toggle('hit',n%step===0&&n<=upTo);});}
-  function setStep(s){
-    step=s;if(timer){clearInterval(timer);timer=null;}
-    paint(100);
-    const a=seq();
-    $('#skipSeq').textContent='Count by '+step+'s: '+a.slice(0,10).join(', ')+(a.length>10?', ...':'');
-  }
-  chips($('#skipChips'),v=>setStep(+v));
-  $('#skipPlay').onclick=()=>{
-    if(timer)clearInterval(timer);
-    const a=seq();let k=0;paint(0);
-    timer=setInterval(()=>{
-      if(k>=a.length||k>=20){clearInterval(timer);timer=null;paint(100);return;}
-      paint(a[k]);say(String(a[k]));k++;
-    },900);
-  };
-  setStep(2);
-})();
-
-/* LESSON 2 */
-(function(){
-  const g=$('#hundred');
-  for(let i=1;i<=100;i++){
-    const b=document.createElement('button');b.className='gcell';b.textContent=i;b.setAttribute('aria-label',String(i));
-    b.onclick=()=>pickN(i);g.appendChild(b);
-  }
-  const cells=$$('.gcell',g);let cur=0;
-  function pickN(n){
-    cur=n;
-    cells.forEach((c,i)=>c.classList.toggle('sel',i+1===n));
-    $('#hNum').textContent=n;$('#hWord').textContent=word(n);
-    $('#hTO').textContent=tensOnes(n);
-    $('#hNear').textContent='One less is '+(n>1?n-1:'none')+'. One more is '+(n<100?n+1:'none')+'.';
-    say(word(n));
-  }
-  $('#hSay').onclick=()=>{if(cur)say(word(cur));};
-})();
-
-(function(){
-  let range=20,a=0,b=0;
-  const sym=$('#cmpSym'),fb=$('#cmpFb');
-  function next(){
-    a=rnd(1,range);b=Math.random()<.15?a:rnd(1,range);
-    $('#cmpA').textContent=a;$('#cmpB').textContent=b;
-    sym.textContent='?';sym.classList.remove('bad');
-    fb.textContent='Which symbol goes in the middle?';fb.className='msg';
-  }
-  chips($('#cmpChips'),v=>{range=+v;next();});
-  $$('#cmpBtns .btn').forEach(bt=>bt.onclick=()=>{
-    const s=bt.dataset.v,right=a<b?'<':a>b?'>':'=';
-    sym.textContent=s;sym.classList.remove('bad');
-    if(s===right){
-      const rel=a<b?'less than':a>b?'greater than':'equal to';
-      fb.textContent='Yes! '+a+' is '+rel+' '+b+'.';fb.className='msg good';
-      say(word(a)+' is '+rel+' '+word(b));
-    }else{
-      void sym.offsetWidth;sym.classList.add('bad');
-      fb.textContent='Not quite. Look at the tens first, then the ones.';fb.className='msg bad';
-    }
+function select(btn,chosen,correctAns){
+  if(answered) return;
+  answered=true;
+  const fb=document.getElementById('fb');
+  const allBtns=document.querySelectorAll('.opt');
+  allBtns.forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===correctAns) b.classList.add('correct');
   });
-  $('#cmpNext').onclick=next;next();
-})();
-
-(function(){
-  let dir='up',range=20,expected=[],nextI=0;
-  const slots=$('#ordSlots'),tiles=$('#ordTiles'),fb=$('#ordFb');
-  function newSet(){
-    const pool=new Set();while(pool.size<5)pool.add(rnd(1,range));
-    const nums=Array.from(pool);
-    expected=nums.slice().sort((x,y)=>dir==='up'?x-y:y-x);nextI=0;
-    slots.innerHTML='';tiles.innerHTML='';
-    for(let i=0;i<5;i++){const s=document.createElement('div');s.className='slot';s.textContent='?';slots.appendChild(s);}
-    shuffle(nums).forEach(n=>{
-      const t=document.createElement('button');t.className='tile';t.textContent=n;
-      t.onclick=()=>{
-        if(t.classList.contains('used'))return;
-        if(n===expected[nextI]){
-          t.classList.add('used');
-          const s=slots.children[nextI];s.textContent=n;s.classList.add('filled');nextI++;
-          if(nextI===5){fb.textContent='You did it! They are in order.';fb.className='msg good';say('Great job! They are in order.');}
-          else{fb.textContent='Good! Keep going.';fb.className='msg good';}
-        }else{
-          t.classList.remove('bad');void t.offsetWidth;t.classList.add('bad');
-          fb.textContent=dir==='up'?'Look for the smallest number that is left.':'Look for the biggest number that is left.';fb.className='msg bad';
-        }
-      };
-      tiles.appendChild(t);
-    });
-    fb.textContent='';fb.className='msg';
-    $('#ordL').textContent=dir==='up'?'smallest':'biggest';
-    $('#ordR').textContent=dir==='up'?'biggest':'smallest';
-    $('#ordHelp').textContent='Tap the numbers below, starting with the '+(dir==='up'?'smallest':'biggest')+'.';
+  if(chosen===correctAns){
+    score++;
+    fb.textContent='Correct!';
+    fb.className='feedback ok';
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent=`Not quite — the answer is ${correctAns}.`;
+    fb.className='feedback bad';
   }
-  chips($('#ordDir'),v=>{dir=v;newSet();});
-  chips($('#ordRange'),v=>{range=+v;newSet();});
-  $('#ordNew').onclick=newSet;newSet();
-})();
-
-/* LESSON 3 */
-function rodHTML(){let s='<div class="rod">';for(let i=0;i<10;i++)s+='<i></i>';return s+'</div>';}
-function blocksHTML(t,o){
-  return '<div class="pvshow"><div class="rods">'+rodHTML().repeat(t)+'</div><div class="units">'+'<div class="unit"></div>'.repeat(o)+'</div></div>';
-}
-(function(){
-  let t=0,o=0,target=0;
-  const msg=$('#pvMsg');
-  function draw(){
-    $('#pvTens').innerHTML=rodHTML().repeat(t);
-    $('#pvOnes').innerHTML='<div class="unit"></div>'.repeat(o);
-    $('#pvDT').textContent=t;$('#pvDO').textContent=o;
-    const n=t*10+o;
-    $('#pvEq').textContent=t+(t===1?' ten':' tens')+' + '+o+(o===1?' one':' ones')+' = '+n;
-  }
-  function m(text,cls){msg.textContent=text;msg.className='msg '+(cls||'');}
-  $('#pvAdd1').onclick=()=>{
-    if(t*10+o>=99){m('99 is the biggest number we can build here.','bad');return;}
-    o++;
-    if(o===10){o=0;t++;m('10 ones make 1 ten! We trade them for a ten stick.','good');say('Ten ones make one ten!');}
-    else m('');
-    draw();
-  };
-  $('#pvSub1').onclick=()=>{
-    if(t===0&&o===0)return;
-    if(o===0){t--;o=9;m('Trade 1 ten for 10 ones, then take 1 one away.','good');}
-    else{o--;m('');}
-    draw();
-  };
-  $('#pvAdd10').onclick=()=>{if(t>=9){m('9 tens is the most we can build here.','bad');return;}t++;m('');draw();};
-  $('#pvSub10').onclick=()=>{if(t>0){t--;m('');draw();}};
-  $('#pvClear').onclick=()=>{t=0;o=0;m('');draw();};
-  function newT(){target=rnd(11,99);$('#pvTarget').textContent=target;$('#pvCFb').textContent='';$('#pvCFb').className='msg';}
-  $('#pvNewT').onclick=newT;
-  $('#pvCheck').onclick=()=>{
-    const n=t*10+o,f=$('#pvCFb');
-    if(n===target){f.textContent='Yes! '+Math.floor(target/10)+' tens and '+(target%10)+' ones is '+target+'.';f.className='msg good';say('Yes! '+word(target));}
-    else{f.textContent='You built '+n+'. You need '+Math.floor(target/10)+' tens and '+(target%10)+' ones.';f.className='msg bad';}
-  };
-  newT();draw();
-})();
-
-/* LESSON 4 */
-function frameHTML(n,total,cls){
-  let s='<div class="tf">';
-  for(let i=0;i<total;i++)s+='<div class="tcell">'+(i<n?'<span class="dot '+(cls||'')+'"></span>':'')+'</div>';
-  return s+'</div>';
-}
-(function(){
-  let cells=new Array(20).fill(false),mode=1;
-  const wrap=$('#tfWrap');
-  function draw(){
-    wrap.innerHTML='';
-    for(let f=0;f<mode;f++){
-      const fr=document.createElement('div');fr.className='tf';
-      for(let i=0;i<10;i++){
-        const idx=f*10+i;
-        const b=document.createElement('button');b.className='tcell';b.setAttribute('aria-label','Box '+(idx+1));
-        if(cells[idx])b.innerHTML='<span class="dot"></span>';
-        b.onclick=()=>{cells[idx]=!cells[idx];draw();};
-        fr.appendChild(b);
-      }
-      wrap.appendChild(fr);
-    }
-    const count=cells.slice(0,mode*10).filter(Boolean).length;
-    let txt=count+(count===1?' counter':' counters');
-    if(mode===1)txt+='. '+(10-count)+' empty. '+count+' + '+(10-count)+' = 10';
-    else if(count>10&&cells.slice(0,10).every(Boolean))txt+='. That is 10 and '+(count-10)+' more.';
-    $('#tfText').textContent=txt;
-  }
-  function fill(n){cells=new Array(20).fill(false);for(let i=0;i<n;i++)cells[i]=true;draw();}
-  chips($('#tfMode'),v=>{mode=+v;cells=new Array(20).fill(false);draw();});
-  $('#tfRand').onclick=()=>{const n=mode===1?rnd(1,10):rnd(11,20);fill(n);say(word(n));};
-  $('#tfClear').onclick=()=>fill(0);
-  draw();
-})();
-
-(function(){
-  const r=$('#m10');
-  function draw(){
-    const n=+r.value;
-    let s='<div class="tf">';
-    for(let i=0;i<10;i++)s+='<div class="tcell"><span class="dot'+(i<n?'':' y')+'"></span></div>';
-    $('#m10Frame').innerHTML=s+'</div>';
-    $('#m10Text').textContent=n+' red + '+(10-n)+' yellow = 10';
-  }
-  r.oninput=draw;draw();
-})();
-
-(function(){
-  const st=$('#jStart'),am=$('#jAmt'),line=$('#jLine');let op='+',timers=[];
-  for(let i=0;i<=20;i++)st.add(new Option(i,i));
-  for(let i=1;i<=10;i++)am.add(new Option(i,i));
-  st.value='3';am.value='4';
-  for(let i=0;i<=20;i++){const d=document.createElement('div');d.className='hcell';d.style.setProperty('--c','var(--blue)');line.appendChild(d);}
-  const cells=$$('.hcell',line);
-  function paint(pos,start){
-    cells.forEach((c,i)=>{c.classList.toggle('on',i===pos);c.classList.toggle('start',i===start);c.textContent=i;});
-  }
-  function clear(){timers.forEach(clearTimeout);timers=[];}
-  function reset(){clear();paint(+st.value,+st.value);$('#jEq').textContent='Pick a start and a jump.';}
-  chips($('#jOp'),v=>{op=v;reset();});
-  st.onchange=reset;am.onchange=reset;
-  $('#jGo').onclick=()=>{
-    clear();
-    const s=+st.value,a=+am.value,end=op==='+'?s+a:s-a;
-    if(end>20||end<0){$('#jEq').textContent='That jump goes off the line. Try a smaller jump.';paint(s,s);return;}
-    paint(s,s);
-    for(let k=1;k<=a;k++){
-      timers.push(setTimeout(()=>{
-        const p=op==='+'?s+k:s-k;paint(p,s);
-        if(k===a){$('#jEq').textContent=s+(op==='+'?' + ':' − ')+a+' = '+end;say(word(s)+(op==='+'?' plus ':' minus ')+word(a)+' equals '+word(end));}
-      },k*600));
-    }
-  };
-  reset();
-})();
-
-/* LESSON 5 */
-const SHAPES={
-  circle:{1:['M100 10A90 90 0 1 1 100 190A90 90 0 1 1 100 10Z'],
-    2:['M100 10A90 90 0 0 0 100 190Z','M100 10A90 90 0 0 1 100 190Z'],
-    4:['M100 100L100 10A90 90 0 0 1 190 100Z','M100 100L190 100A90 90 0 0 1 100 190Z','M100 100L100 190A90 90 0 0 1 10 100Z','M100 100L10 100A90 90 0 0 1 100 10Z']},
-  square:{1:['M10 10H190V190H10Z'],
-    2:['M10 10H100V190H10Z','M100 10H190V190H100Z'],
-    4:['M10 10H100V100H10Z','M100 10H190V100H100Z','M10 100H100V190H10Z','M100 100H190V190H100Z']},
-  rect:{1:['M10 40H190V160H10Z'],
-    2:['M10 40H100V160H10Z','M100 40H190V160H100Z'],
-    4:['M10 40H100V100H10Z','M100 40H190V100H100Z','M10 100H100V160H10Z','M100 100H190V160H100Z']}
-};
-(function(){
-  let shape='circle',mode=2;
-  const svg=$('#shSvg');
-  svg.style.setProperty('--c','var(--purple)');
-  function draw(){
-    svg.innerHTML=SHAPES[shape][mode].map((d,i)=>'<path class="part" data-i="'+i+'" d="'+d+'" tabindex="0" role="button" aria-label="Part '+(i+1)+'"></path>').join('');
-    text();
-  }
-  function shaded(){return $$('.part.on',svg).length;}
-  function text(){
-    const k=shaded(),el=$('#shText');
-    let t='';
-    if(k===0)t='Tap a part to shade it.';
-    else if(mode===1)t='The whole shape is shaded. That is 1 whole.';
-    else if(mode===2)t=k===1?'1 of 2 equal parts is shaded. That is one half.':'2 halves make 1 whole.';
-    else t=k===1?'1 of 4 equal parts is shaded. That is one quarter.':k===2?'2 quarters shaded. That is the same as one half!':k===3?'3 of 4 equal parts are shaded. That is three quarters.':'4 quarters make 1 whole.';
-    el.textContent=t;
-  }
-  function toggle(p){p.classList.toggle('on');text();}
-  svg.addEventListener('click',e=>{const p=e.target.closest('.part');if(p)toggle(p);});
-  svg.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const p=e.target.closest('.part');if(p){e.preventDefault();toggle(p);}}});
-  chips($('#shShape'),v=>{shape=v;draw();});
-  chips($('#shMode'),v=>{mode=+v;draw();});
-  draw();
-})();
-
-(function(){
-  let n=8,k=2;
-  const box=$('#shGroups'),txt=$('#shShareText');
-  function draw(){
-    box.innerHTML='';
-    if(n%k!==0){txt.textContent=n+' cookies cannot be shared into '+k+' equal groups. Try 4, 8, 12, 16 or 20.';return;}
-    const per=n/k;
-    for(let i=0;i<k;i++){
-      const g=document.createElement('div');g.className='grp'+(i===0?' first':'');g.style.setProperty('--c','var(--purple)');
-      g.innerHTML='🍪'.repeat(per);box.appendChild(g);
-    }
-    txt.textContent=(k===2?'Half':'A quarter')+' of '+n+' is '+per+'. There are '+k+' equal groups of '+per+'.';
-  }
-  chips($('#shN'),v=>{n=+v;draw();});
-  chips($('#shK'),v=>{k=+v;draw();});
-  draw();
-})();
-
-/* QUIZ ENGINE */
-function opts(correct,cands){
-  const set=[correct];
-  for(const c of cands){if(!set.includes(c))set.push(c);if(set.length===4)break;}
-  const sh=shuffle(set);
-  return {options:sh,answer:sh.indexOf(correct)};
-}
-function near(n,lo,hi){
-  return shuffle([-1,1,-2,2,3,-3,10,-10].map(d=>n+d).filter(v=>v>=lo&&v<=hi&&v!==n));
-}
-function objs(n,e){return '<div class="objs">'+('<span>'+e+'</span>').repeat(n)+'</div>';}
-function makeQuiz(id,key,gens){
-  const root=$('#'+id);let qs,i,score,locked;
-  function start(){qs=shuffle(gens).map(g=>g());i=0;score=0;locked=false;render();}
-  function render(){
-    const q=qs[i];
-    root.innerHTML='<div class="qtop"><span>Quiz</span><span>Question '+(i+1)+' of 5</span></div><div class="qbody"><div class="qbar"><span style="width:'+(i/5*100)+'%"></span></div>'
-      +'<h4 class="qtext"><span>'+q.text+'</span><button class="btn sm ghost" data-q="say" aria-label="Read the question aloud">🔊</button></h4>'
-      +'<div class="qvis">'+(q.visual||'')+'</div>'
-      +'<div class="qopts">'+q.options.map((o,j)=>'<button class="btn" data-j="'+j+'">'+o+'</button>').join('')+'</div>'
-      +'<div class="qfb" aria-live="polite"></div><div class="qnext"></div></div>';
-    locked=false;
-    $('[data-q="say"]',root).onclick=()=>say(q.text.replace(/<[^>]+>/g,' ')+(q.say?' '+q.say:''));
-    $$('.qopts .btn',root).forEach(b=>b.onclick=()=>answer(+b.dataset.j));
-  }
-  function answer(j){
-    if(locked)return;locked=true;
-    const q=qs[i],btns=$$('.qopts .btn',root),fb=$('.qfb',root);
-    btns.forEach((b,x)=>{if(x===q.answer)b.classList.add('right');});
-    if(j===q.answer){score++;fb.textContent='Correct! '+q.explain;fb.className='qfb good';}
-    else{btns[j].classList.add('wrong');fb.textContent='Not quite. '+q.explain;fb.className='qfb bad';}
-    const nx=document.createElement('button');nx.className='btn';nx.style.setProperty('--c','var(--yellow)');
-    nx.textContent=i<4?'Next question':'See my stars';
-    nx.onclick=()=>{if(i<4){i++;render();}else finish();};
-    $('.qnext',root).appendChild(nx);nx.focus({preventScroll:true});
-  }
-  function finish(){
-    const won=score>=4;
-    if(score>prog[key])prog[key]=score;
-    saveProg();renderProg();
-    root.innerHTML='<div class="qtop"><span>Quiz finished</span><span>'+score+' out of 5</span></div><div class="qbody result"><div class="st">'+(won?'⭐':'💪')+'</div><div class="big">'+score+' out of 5</div>'
-      +'<p style="margin:8px auto 16px">'+(won?'You earned a star for this lesson. Great job!':'So close! Look at the lesson again, then try new questions. You can do it.')+'</p>'
-      +'<button class="btn" style="--c:var(--yellow)" id="'+id+'Again">Try new questions</button></div>';
-    if(won)say('Great job! You earned a star!');
-    $('#'+id+'Again').onclick=start;
-  }
-  start();
+  document.getElementById('nextBtn').style.visibility='visible';
+  scoreLabel.textContent=`Score: ${score}`;
 }
 
-/* quiz question makers */
-const G1=[
-  ()=>{const n=rnd(4,20),e=pick(EMOJIS);return Object.assign({text:'How many are there?',visual:objs(n,e),explain:'Count each one once. There are '+n+'.'},opts(n,near(n,1,22)));},
-  ()=>{const s=rnd(1,17);return Object.assign({text:'What comes next?',visual:'<div class="seq">'+s+', '+(s+1)+', '+(s+2)+', ?</div>',say:s+', '+(s+1)+', '+(s+2)+', what?',explain:'Counting forward adds 1 each time. After '+(s+2)+' comes '+(s+3)+'.'},opts(s+3,[s+2,s+4,s+1,s+5]));},
-  ()=>{const n=rnd(5,20);return Object.assign({text:'Count backward. What number is missing?',visual:'<div class="seq">'+n+', '+(n-1)+', ?, '+(n-3)+'</div>',explain:'Counting backward takes away 1 each time. After '+(n-1)+' comes '+(n-2)+'.'},opts(n-2,[n-1,n-3,n,n-4]));},
-  ()=>{const st=pick([2,5,10]),a=rnd(1,3);const ans=st*(a+2);return Object.assign({text:'Skip count by '+st+'s. What number is missing?',visual:'<div class="seq">'+st*a+', '+st*(a+1)+', ?, '+st*(a+3)+'</div>',explain:'When we count by '+st+'s we add '+st+' each time. '+st*(a+1)+' + '+st+' = '+ans+'.'},opts(ans,[ans+1,ans-1,ans+st,ans-st].filter(v=>v>=0)));},
-  ()=>{const n=rnd(2,19),more=Math.random()<.5;const ans=more?n+1:n-1;return Object.assign({text:'What is one '+(more?'more':'less')+' than '+n+'?',explain:(more?'One more than ':'One less than ')+n+' is '+ans+'.'},opts(ans,[n,more?n-1:n+1,more?n+2:n-2,n+(more?3:-3)].filter(v=>v>=0)));}
-];
-const G2=[
-  ()=>{const n=pick([13,14,15,16,17,18,19,21,23,24,26,32,34,37,41,45,52,58,63,67,72,76,84,89,95,98]);const sw=(n%10)*10+Math.floor(n/10);return Object.assign({text:'Which number is '+word(n)+'?',explain:word(n)+' is written '+n+'.'},opts(n,[sw!==n&&sw>=10?sw:n+1,n+1,n-1,n+10].filter(v=>v!==n)));},
-  ()=>{const n=pick([12,17,25,31,38,42,46,53,59,64,71,78,83,97]);const sw=(n%10)*10+Math.floor(n/10);return Object.assign({text:'How do we write '+n+' in words?',explain:n+' is '+word(n)+'.'},opts(word(n),[word(sw),word(n+1),word(n-10),word(n+10)].filter(v=>v!==word(n))));},
-  ()=>{let a=rnd(10,99),b=rnd(10,99);while(a===b)b=rnd(10,99);const big=Math.max(a,b),sm=Math.min(a,b);const o=opts(big,[sm]);return Object.assign({text:'Which number is greater?',explain:big+' is greater than '+sm+'. Compare the tens first.'},o);},
-  ()=>{const s=new Set();while(s.size<3)s.add(rnd(5,99));const a=Array.from(s),m=Math.min(...a);const sh=shuffle(a);return {text:'Which number is the smallest?',options:sh,answer:sh.indexOf(m),explain:m+' is the smallest. It has the fewest tens.'};},
-  ()=>{let a=rnd(10,99),b=rnd(10,99);if(Math.random()<.2)b=a;const right=a<b?'<':a>b?'>':'=';const o=['<','=','>'];return {text:'Which symbol makes this true?',visual:'<div class="seq">'+a+' &nbsp;?&nbsp; '+b+'</div>',say:a+' and '+b,options:o,answer:o.indexOf(right),explain:a+' is '+(a<b?'less than':a>b?'greater than':'equal to')+' '+b+'.'};}
-];
-const G3=[
-  ()=>{const t=rnd(1,9),o=rnd(0,9),n=t*10+o,sw=o*10+t;return Object.assign({text:'What number do the blocks show?',visual:blocksHTML(t,o),explain:t+' tens and '+o+' ones is '+n+'.'},opts(n,[sw!==n&&sw>=10?sw:n+1,n+10,n-10,n+1].filter(v=>v>0&&v!==n)));},
-  ()=>{const t=rnd(2,9);return Object.assign({text:'How many tens are in '+t*10+'?',explain:t*10+' is '+t+' tens.'},opts(t,[t+1,t-1,t*10,t+2]));},
-  ()=>{let t=rnd(2,9),o=rnd(1,9);while(o===t)o=rnd(1,9);const n=t*10+o;return Object.assign({text:'In the number '+n+', what does the '+t+' mean?',explain:'The '+t+' is in the tens place, so it means '+t+' tens, or '+t*10+'.'},opts(t+' tens ('+t*10+')',[t+' ones',o+' tens',o+' ones ('+o+')']));},
-  ()=>{const t=rnd(1,9),o=rnd(1,9),n=t*10+o,sw=o*10+t;return Object.assign({text:t+' tens and '+o+' ones is the same as...?',explain:t+' tens is '+t*10+'. Add '+o+' ones to make '+n+'.'},opts(n,[sw!==n?sw:n+1,n+10,n-10,n+1]));},
-  ()=>Object.assign({text:'How many ones make 1 ten?',explain:'10 ones make 1 ten. We trade them for a ten stick.'},opts(10,[1,5,100]))
-];
-const G4=[
-  ()=>{const n=rnd(1,10);return Object.assign({text:'How many counters are in the ten-frame?',visual:frameHTML(n,10),explain:'There are '+n+' counters.'},opts(n,near(n,0,10)));},
-  ()=>{const n=rnd(1,9);return Object.assign({text:'How many more counters make 10?',visual:frameHTML(n,10),explain:'There are '+(10-n)+' empty boxes. '+n+' + '+(10-n)+' = 10.'},opts(10-n,near(10-n,0,10)));},
-  ()=>{const s=rnd(0,10),j=rnd(1,6),a=s+j;return Object.assign({text:'Start at '+s+' on the number line. Hop forward '+j+'. Where do you land?',explain:'Count up '+j+' from '+s+'. You land on '+a+'.'},opts(a,near(a,0,20)));},
-  ()=>{const k=rnd(1,9);return Object.assign({text:'What number is 10 and '+k+' more?',explain:'10 and '+k+' more is '+(10+k)+'.'},opts(10+k,[k,10+k+1,10+k-1,20-k]));},
-  ()=>{const n=rnd(11,20);return Object.assign({text:'How many counters are there in all?',visual:frameHTML(10,10)+frameHTML(n-10,10),explain:'One full frame is 10. Then '+(n-10)+' more makes '+n+'.'},opts(n,near(n,10,20)));}
-];
-function splitSvg(kind,equal){
-  const f='<rect class="frame" x="10" y="10" width="180" height="180"/>';
-  if(kind==='half'){const x=equal?100:65;return '<svg class="qsvg" viewBox="0 0 200 200" role="img" aria-label="Square cut into two parts">'+f+'<line x1="'+x+'" y1="10" x2="'+x+'" y2="190"/></svg>';}
-  const x=equal?100:65,y=equal?100:135;
-  return '<svg class="qsvg" viewBox="0 0 200 200" role="img" aria-label="Square cut into four parts">'+f+'<line x1="'+x+'" y1="10" x2="'+x+'" y2="190"/><line x1="10" y1="'+y+'" x2="190" y2="'+y+'"/></svg>';
-}
-const G5=[
-  ()=>{const eq=Math.random()<.5;const o=['Yes, equal parts','No, not equal parts'];return {text:'Is this square cut into two equal parts?',visual:splitSvg('half',eq),options:o,answer:eq?0:1,explain:eq?'Both parts are the same size, so these are halves.':'One part is bigger, so these are not halves.'};},
-  ()=>{const n=pick([4,6,8,10,12,14,16,18,20]);return Object.assign({text:'What is half of '+n+'?',visual:objs(n,'🍪'),explain:'Half of '+n+' is '+n/2+', because '+n/2+' + '+n/2+' = '+n+'.'},opts(n/2,near(n/2,1,10)));},
-  ()=>{const n=pick([4,8,12,16,20]);return Object.assign({text:'What is one quarter of '+n+'?',visual:objs(n,'🍪'),explain:'Share '+n+' into 4 equal groups. Each group has '+n/4+'.'},opts(n/4,near(n/4,1,10)));},
-  ()=>{const half=Math.random()<.5;const a=half?2:4;return Object.assign({text:'How many '+(half?'halves':'quarters')+' make one whole?',explain:a+' '+(half?'halves':'quarters')+' make 1 whole.'},opts(a,[1,2,3,4,5,6].filter(v=>v!==a)));},
-  ()=>{const eq=Math.random()<.5;const o=['Yes, equal parts','No, not equal parts'];return {text:'Is this square cut into four equal parts?',visual:splitSvg('quarter',eq),options:o,answer:eq?0:1,explain:eq?'All four parts are the same size, so these are quarters.':'The parts are different sizes, so these are not quarters.'};}
-];
-makeQuiz('quiz1','l1',G1);
-makeQuiz('quiz2','l2',G2);
-makeQuiz('quiz3','l3',G3);
-makeQuiz('quiz4','l4',G4);
-makeQuiz('quiz5','l5',G5);
-renderProg();
-})();
+function nextQ(){ current++; render(); }
+function restart(){ questions=buildQuestions(TOTAL); current=0; score=0; render(); }
+
+render();
 </script>
 </body>
 </html>
