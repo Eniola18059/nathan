@@ -1,266 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Nathan's Number Trail</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade 4 English Quiz – 100 Questions</title>
 <style>
-  :root{
-    --moss:#3D5A40; --moss-dark:#2A3F2C; --sand:#EFE6D0; --paper:#FAF6EC;
-    --ink:#242A20; --trail:#C1440E; --trail-dark:#9A3409; --ok:#3D7A4A; --bad:#B83B2E;
-    --line: rgba(36,42,32,0.12);
-    box-sizing:border-box;
-    padding-top: env(safe-area-inset-top,0px);
-    padding-bottom: env(safe-area-inset-bottom,0px);
-  }
-  *{box-sizing:inherit}
-  html{scroll-padding-top: env(safe-area-inset-top,0px);}
-  body{
-    margin:0; min-height:100%; background:var(--sand); color:var(--ink);
-    font-family:'Inter',system-ui,sans-serif;
-    display:flex; justify-content:center; padding:32px 16px 48px;
-  }
-  .wrap{width:100%; max-width:560px;}
-  header{margin-bottom:22px; text-align:left;}
-  .kicker{font-size:15px; color:var(--moss); font-weight:600;}
-  h1{
-    font-family:'Fraunces',serif; font-weight:700; font-size:clamp(28px,6vw,38px);
-    margin:2px 0 6px; color:var(--moss-dark); line-height:1.05;
-  }
-  .sub{color:#5B6156; font-size:15px; max-width:44ch;}
-
-  .track{position:relative; height:10px; background:var(--line); border-radius:6px; margin:22px 0 8px; overflow:hidden;}
-  .track-fill{height:100%; background:var(--trail); width:0%; transition:width .4s ease;}
-  .progress-row{display:flex; justify-content:space-between; font-size:13px; color:#6B7163; font-weight:600;}
-
-  .card{
-    background:var(--paper); border:1px solid var(--line); border-radius:14px;
-    padding:28px 26px; margin-top:20px; box-shadow:0 1px 0 var(--line);
-  }
-  .tag{display:inline-block; font-size:12.5px; font-weight:600; color:var(--moss); background:rgba(61,90,64,0.1); padding:4px 10px; border-radius:20px; margin-bottom:14px;}
-  .question{font-family:'Fraunces',serif; font-size:clamp(20px,4.6vw,25px); line-height:1.35; margin:0 0 20px; color:var(--ink);}
-
-  .options{display:grid; gap:10px;}
-  .opt{
-    text-align:left; font-family:inherit; font-size:16px; font-weight:600; color:var(--ink);
-    background:#fff; border:1.5px solid var(--line); border-radius:10px; padding:13px 16px;
-    cursor:pointer; transition:border-color .15s, background .15s;
-  }
-  .opt:hover:not(:disabled){border-color:var(--moss);}
-  .opt:focus-visible{outline:3px solid var(--moss); outline-offset:2px;}
-  .opt.correct{background:rgba(61,122,74,0.12); border-color:var(--ok); color:var(--moss-dark);}
-  .opt.wrong{background:rgba(184,59,46,0.1); border-color:var(--bad); color:var(--bad);}
-  .opt:disabled{cursor:default;}
-
-  .feedback{min-height:24px; margin-top:16px; font-weight:600; font-size:15px;}
-  .feedback.ok{color:var(--ok);}
-  .feedback.bad{color:var(--bad);}
-
-  .next{
-    margin-top:18px; font-family:inherit; font-weight:700; font-size:15px; color:#fff;
-    background:var(--trail); border:none; border-radius:9px; padding:12px 22px;
-    cursor:pointer; visibility:hidden;
-  }
-  .next:hover{background:var(--trail-dark);}
-  .next:focus-visible{outline:3px solid var(--moss-dark); outline-offset:2px;}
-
-  .end h2{font-family:'Fraunces',serif; font-size:30px; color:var(--moss-dark); margin:0 0 8px;}
-  .score-big{font-size:52px; font-weight:700; font-family:'Fraunces',serif; color:var(--trail);}
-  .restart{margin-top:18px;}
-
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --sand:#20241C; --paper:#2A2F23; --ink:#EDE9DD; --line: rgba(237,233,221,0.14);
-      --moss:#8FB89A; --moss-dark:#C8E0CD; --trail:#E07A3E; --trail-dark:#C1440E;
-      --ok:#8FCB9C; --bad:#E58C7F;
-    }
-  }
-  :root[data-theme="dark"]{
-    --sand:#20241C; --paper:#2A2F23; --ink:#EDE9DD; --line: rgba(237,233,221,0.14);
-    --moss:#8FB89A; --moss-dark:#C8E0CD; --trail:#E07A3E; --trail-dark:#C1440E;
-    --ok:#8FCB9C; --bad:#E58C7F;
-  }
-  .opt{background:var(--paper);}
-  @media (prefers-color-scheme: dark){ .opt{background:#333827;} }
-</style>
-</head>
-<body>
-<div class="wrap">
-  <header>
-    <div class="kicker">Nathan's math practice</div>
-    <h1>The Number Trail</h1>
-    <div class="sub">100 questions on numbers &amp; operations — place value, addition, subtraction, times tables, multiplication, division, and mental math.</div>
-  </header>
-
-  <div class="progress-row"><span id="pos">Question 1 of 100</span><span id="scoreLabel">Score: 0</span></div>
-  <div class="track"><div class="track-fill" id="fill"></div></div>
-
-  <div class="card" id="card"></div>
-</div>
-
+:root{--bg:#f2f6fb;--card:#fff;--ink:#1b2a49;--mute:#5b6784;--line:#d5deec;--gold:#f2b705;--ok:#1f9d6b;--bad:#d64550;--okbg:#e2f5ec;--badbg:#fbe6e8}
+@media(prefers-color-scheme:dark){:root{--bg:#141b2d;--card:#1e2740;--ink:#eaf0ff;--mute:#9aa8c9;--line:#33406101;--line:#334061;--okbg:#17382d;--badbg:#42202a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Verdana,"Trebuchet MS",sans-serif;line-height:1.55}
+main{max-width:720px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:1.5rem;margin:8px 0 4px}
+.sub{color:var(--mute);margin:0 0 18px;font-size:.9rem}
+.bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin:10px 0 6px}
+.bar i{display:block;height:100%;background:var(--gold);width:0;transition:width .3s}
+.meta{display:flex;justify-content:space-between;font-size:.85rem;color:var(--mute)}
+.card{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:20px;margin-top:14px}
+.pass{border-left:6px solid var(--gold);background:var(--bg);padding:12px 16px;border-radius:8px;margin:0 0 16px}
+.pass h3{margin:0 0 6px;font-size:1.05rem}.pass p{margin:0;font-size:.95rem}
+.q{font-size:1.1rem;font-weight:bold;margin:0 0 14px}
+.o{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:10px;padding:11px 14px;margin:8px 0;cursor:pointer}
+.o:hover:not(:disabled){border-color:var(--gold)}
+.o:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.o.ok{background:var(--okbg);border-color:var(--ok)}.o.bad{background:var(--badbg);border-color:var(--bad)}
+.o:disabled{cursor:default}
+.btn{font:inherit;font-weight:bold;background:var(--gold);color:#1b2a49;border:0;border-radius:10px;padding:11px 22px;cursor:pointer;margin-top:12px}
+.fb{margin:10px 0 0;font-weight:bold}
+.big{font-size:2.6rem;font-weight:bold;margin:0}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.95rem}
+td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+.miss{font-size:.9rem;margin:10px 0}.miss b{color:var(--bad)}
+</style></head><body><main>
+<h1>Grade 4 English Quiz</h1>
+<p class="sub">100 questions · Vocabulary, Grammar, Spelling &amp; Punctuation, Word Skills, Reading Comprehension</p>
+<div class="bar"><i id="pb"></i></div>
+<div class="meta"><span id="sec"></span><span id="cnt"></span></div>
+<div class="card" id="box"></div>
+</main>
 <script>
-// ---------- helpers ----------
-function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
-function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
-function uniqueDistractors(correct,gen,count){
-  const set=new Set([correct]);
-  let tries=0;
-  while(set.size<count+1 && tries<50){set.add(gen()); tries++;}
-  return [...set];
+const S=[
+{n:"Vocabulary",q:[
+["Which word means the same as happy?",["glad","angry","tired","slow"],0],
+["Which word is the opposite of brave?",["fearless","timid","strong","loud"],1],
+["Enormous means:",["tiny","very big","quick","quiet"],1],
+["Which word means the same as begin?",["end","start","stop","wait"],1],
+["Which word is the opposite of ancient?",["old","modern","broken","dusty"],1],
+["Silent means:",["noisy","quiet","angry","fast"],1],
+["Which word means the same as quick?",["slow","rapid","heavy","late"],1],
+["Which word is the opposite of generous?",["kind","selfish","wealthy","cheerful"],1],
+["Fragile means:",["easily broken","very heavy","colourful","cheap"],0],
+["Which word means the same as tidy?",["messy","neat","loud","dirty"],1],
+["Which word is the opposite of increase?",["grow","decrease","add","lift"],1],
+["Exhausted means:",["very tired","very hungry","very happy","very cold"],0],
+["Which word means the same as choose?",["pick","drop","lose","hide"],0],
+["Which word is the opposite of victory?",["win","defeat","race","prize"],1],
+["A curious child is:",["eager to learn","sleepy","afraid","rude"],0],
+["Which word means the same as shout?",["whisper","yell","sing","mumble"],1],
+["Which word is the opposite of smooth?",["rough","flat","soft","shiny"],0],
+["Delicious means:",["tasty","spicy","cold","sour"],0],
+["A group of fish is called a:",["herd","school","pack","flock"],1],
+["Something sparkling:",["shines brightly","smells bad","is very old","feels rough"],0]]},
+{n:"Grammar",q:[
+["Which word is a noun?",["run","happy","table","quickly"],2],
+["Find the verb: The dog barked loudly.",["dog","barked","loudly","The"],1],
+["Find the adjective: The red kite flew high.",["kite","red","flew","high"],1],
+["Which pronoun can replace \"Ada and I\"?",["They","We","She","You"],1],
+["She ___ to school every day.",["go","goes","going","gone"],1],
+["What is the past tense of run?",["runned","ran","running","runs"],1],
+["There ___ three books on the desk.",["is","are","was","be"],1],
+["Find the adverb: He walked slowly home.",["He","walked","slowly","home"],2],
+["Complete: ___ apple a day keeps the doctor away.",["A","An","One","Some"],1],
+["The cat sat ___ the table. Which is a preposition?",["under","soft","and","ran"],0],
+["Which pronoun is plural?",["he","they","it","she"],1],
+["Which sentence is correct?",["Me and Tom went to the park.","Tom and me went to the park.","Tom and I went to the park.","I and Tom went to the park."],2],
+["Which sentence is in the future tense?",["I visited my aunt.","I visit my aunt.","I will visit my aunt.","I have visited my aunt."],2],
+["Which word is a proper noun?",["city","Lagos","river","school"],1],
+["They ___ playing football now.",["is","am","are","be"],2],
+["He ___ like rice.",["doesn't","don't","not","aren't"],0],
+["Tall, ___, tallest.",["taller","more tall","tallier","tallerest"],0],
+["Which word is an action word?",["jump","blue","soft","above"],0],
+["This is ___ book. (It belongs to Ada.)",["Ada","Adas","Ada's","Adas'"],2],
+["The children ___ in the garden yesterday.",["play","plays","played","playing"],2]]},
+{n:"Spelling & Punctuation",q:[
+["Which spelling is correct?",["becaus","because","becuase","becouse"],1],
+["Which spelling is correct?",["freind","friend","frend","firend"],1],
+["Which spelling is correct?",["beautiful","beutiful","beatiful","beautifull"],0],
+["Which spelling is correct?",["necesary","neccessary","necessary","necesarry"],2],
+["Which spelling is correct?",["tommorow","tomorow","tomorrow","tomarrow"],2],
+["Which spelling is correct?",["sissors","scissors","scisors","scizzors"],1],
+["Which spelling is correct?",["Wensday","Wednsday","Wednesday","Wedensday"],2],
+["Which spelling is correct?",["seperate","separate","separete","seprate"],1],
+["Which sentence uses capital letters correctly?",["my brother lives in abuja.","My brother lives in Abuja.","My Brother lives in abuja.","my Brother lives in Abuja."],1],
+["Which mark ends this sentence? Where do you live__",[".","?","!",","],1],
+["Which mark ends this sentence? Wow, what a great goal__",[".","?","!",","],2],
+["Which sentence uses commas correctly?",["I bought apples oranges, and bananas.","I bought, apples oranges and bananas.","I bought apples, oranges, and bananas.","I bought apples oranges and bananas,"],2],
+["Which is the correct short form of \"do not\"?",["dont'","d'ont","don't","do'nt"],2],
+["Which is the short form of \"it is\"?",["its","it's","its'","i'ts"],1],
+["___ raining outside.",["Its","It's","Its'","Is"],1],
+["Which sentence uses quotation marks correctly?",["She said, \"I am ready.\"","She said, I am ready.\"","She said \"I am ready.","\"She said, I am ready\""],0],
+["Which day is written correctly?",["monday","Monday","MONday","mOnday"],1],
+["Which spelling is correct?",["enuff","enough","enouf","inough"],1],
+["Which mark separates items in a list?",["comma","period","question mark","exclamation mark"],0],
+["Which spelling is correct?",["anser","answer","ansuer","anwser"],1]]},
+{n:"Sentences & Word Skills",q:[
+["What is the plural of child?",["childs","children","childrens","childes"],1],
+["What is the plural of box?",["boxs","boxes","boxen","boxies"],1],
+["What is the plural of baby?",["babys","babies","babyes","babis"],1],
+["What is the plural of leaf?",["leafs","leaves","leafes","leavs"],1],
+["The ___ is shining today.",["son","sun","sunn","sung"],1],
+["___ going to the market.",["Their","There","They're","Them"],2],
+["\"Close the door.\" is a:",["statement","question","command","exclamation"],2],
+["\"What is your name?\" is a:",["statement","question","command","exclamation"],1],
+["Which word is a compound word?",["sunflower","happy","running","quickly"],0],
+["The prefix un- in \"unhappy\" means:",["not","again","very","before"],0],
+["The prefix re- in \"redo\" means:",["not","again","under","after"],1],
+["The suffix -ful in \"helpful\" means:",["without","full of","again","before"],1],
+["The suffix -less in \"careless\" means:",["full of","without","more","again"],1],
+["Which is a complete sentence?",["Running in the park.","The boy kicked the ball.","Because it rained.","Under the bed."],1],
+["Which word has two syllables?",["cat","water","dog","sun"],1],
+["Which word comes first in the dictionary?",["mango","apple","orange","kiwi"],1],
+["Which word rhymes with light?",["night","lick","lamp","late"],0],
+["Which sentence is a simile?",["He is a rock.","He is as strong as a rock.","The wind whispered.","Time flies."],1],
+["\"It is raining cats and dogs\" means:",["raining heavily","animals are falling","a small drizzle","pets are outside"],0],
+["Which word does not belong?",["apple","mango","carrot","banana"],2]]},
+{n:"Reading Comprehension",ps:[
+{h:"Passage 1: Ade and the Lost Puppy",t:"On Saturday morning, Ade heard a soft cry behind the market. He looked under a wooden crate and found a tiny brown puppy shivering in the rain. Ade took off his jacket and wrapped the puppy in it. He carried it home and gave it warm milk. His mother smiled and said they must find its owner. Ade made posters and pinned them around the neighbourhood. Two days later, a girl named Bisi knocked on the door. The puppy jumped into her arms and wagged its tail happily.",q:[
+["Where did Ade find the puppy?",["In his garden","Under a crate behind the market","At school","Inside a shop"],1],
+["Why was the puppy shivering?",["It was cold and wet","It was angry","It was hungry for meat","It was playing"],0],
+["How did Ade try to find the owner?",["He asked the police","He made posters","He sold the puppy","He waited at the market"],1],
+["In this passage, shivering means:",["jumping","shaking with cold","sleeping","running"],1],
+["What is the best title for this passage?",["A Rainy Market","Ade Helps a Lost Puppy","Bisi's New Jacket","Warm Milk"],1]]},
+{h:"Passage 2: Honey Bees",t:"Honey bees live together in a hive. Each bee has a job. The queen lays eggs, and the worker bees collect nectar from flowers. They carry it back to the hive and turn it into honey. When a worker finds many flowers, it does a special dance to tell the others where to go. Bees are important because they help plants grow by spreading pollen from flower to flower. Without bees, many fruits and vegetables would disappear.",q:[
+["What does the queen bee do?",["Collects nectar","Lays eggs","Makes honey","Guards flowers"],1],
+["What do worker bees collect from flowers?",["Pollen only","Water","Nectar","Seeds"],2],
+["How do bees tell others where the flowers are?",["They sing","They do a dance","They buzz loudly","They leave a trail"],1],
+["Why are bees important?",["They make wax","They help plants grow by spreading pollen","They scare pests","They live in hives"],1],
+["In this passage, a hive is:",["a flower","a home for bees","a type of honey","a tool"],1]]},
+{h:"Passage 3: The School Garden",t:"Class 4 decided to start a garden behind their school. Each child brought a small tool from home. Mr. Okoro showed them how to dig holes and plant seeds. Every morning, they took turns watering the plants. After three weeks, small green shoots appeared. Tunde was so excited that he jumped up and cheered. By the end of the term, the class had grown tomatoes, peppers and beans. They shared the vegetables with families in their neighbourhood.",q:[
+["Where did the class plant the garden?",["At home","Behind their school","At the market","In a park"],1],
+["Who showed the children how to plant seeds?",["Tunde","Mr. Okoro","Their parents","A farmer"],1],
+["How long did it take for shoots to appear?",["one day","one week","three weeks","one term"],2],
+["What can you tell about Class 4?",["They gave up easily","They worked well together","They did not like plants","They sold everything"],1],
+["Which word means small new plants?",["tools","turns","shoots","families"],2]]},
+{h:"Passage 4: The Water Cycle",t:"Water on Earth is always moving. The sun heats water in oceans and rivers, and it rises into the air as invisible vapour. High in the sky, the vapour cools and forms clouds. When the clouds become heavy, water falls as rain. The rain flows into rivers, and the journey begins again. This never-ending journey is called the water cycle.",q:[
+["What heats the water in oceans and rivers?",["The wind","The moon","The sun","The clouds"],2],
+["What happens to vapour high in the sky?",["It freezes the sea","It cools and forms clouds","It disappears forever","It turns to sand"],1],
+["What happens after rain flows into rivers?",["The cycle stops","The journey begins again","The sun goes out","The clouds vanish"],1],
+["Never-ending means:",["has no end","ends quickly","is very cold","is hard to see"],0],
+["What is the main idea of the passage?",["Rivers are long","Clouds are heavy","Water moves around Earth in a cycle","The sun is hot"],2]]}]}
+];
+const L=[];
+S.forEach(s=>{(s.q||[]).forEach(x=>L.push({s:s.n,q:x[0],o:x[1],a:x[2]}));(s.ps||[]).forEach(p=>p.q.forEach(x=>L.push({s:s.n,h:p.h,t:p.t,q:x[0],o:x[1],a:x[2]})))});
+let i=0,sc=0,miss=[],by={};
+const $=id=>document.getElementById(id),box=$("box");
+function show(){
+ const x=L[i];$("pb").style.width=(i/L.length*100)+"%";$("sec").textContent=x.s;$("cnt").textContent="Question "+(i+1)+" of "+L.length;
+ box.innerHTML=(x.t?'<div class="pass"><h3>'+x.h+'</h3><p>'+x.t+'</p></div>':'')+'<p class="q">'+(i+1)+'. '+x.q+'</p>'+x.o.map((o,k)=>'<button class="o" data-k="'+k+'"><b>'+"ABCD"[k]+".</b> "+o+'</button>').join("")+'<p class="fb" id="fb" aria-live="polite"></p><div id="nx"></div>';
+ box.querySelectorAll(".o").forEach(b=>b.onclick=()=>pick(+b.dataset.k));
 }
-function makeQ(tag,text,correct,gen){
-  const opts=shuffle(uniqueDistractors(correct,gen,3).map(String));
-  return {tag,text,answer:String(correct),options:opts};
+function pick(k){
+ const x=L[i],bs=box.querySelectorAll(".o");bs.forEach(b=>b.disabled=true);
+ bs[x.a].classList.add("ok");by[x.s]=by[x.s]||[0,0];by[x.s][1]++;
+ if(k==x.a){sc++;by[x.s][0]++;$("fb").textContent="Correct! Well done.";$("fb").style.color="var(--ok)"}
+ else{bs[k].classList.add("bad");miss.push(i);$("fb").textContent="Not quite. The answer is "+"ABCD"[x.a]+": "+x.o[x.a];$("fb").style.color="var(--bad)"}
+ $("nx").innerHTML='<button class="btn" id="b">'+(i==L.length-1?"See my score":"Next question")+'</button>';
+ $("b").focus();$("b").onclick=()=>{i++;i<L.length?show():end()};
 }
-
-// ---------- category generators ----------
-function qPlaceValue(){
-  const n=ri(1000,9999);
-  const digits=String(n).split('').map(Number);
-  const places=['ones','tens','hundreds','thousands'];
-  const idx=ri(0,3);
-  const place=places[idx];
-  const val=digits[3-idx]*Math.pow(10,idx);
-  if(Math.random()<0.5){
-    return makeQ('Place value',`In the number ${n}, what is the value of the digit in the ${place} place?`,val,
-      ()=>ri(0,9)*Math.pow(10,ri(0,3)));
-  }
-  const other=ri(1000,9999);
-  const bigger = n>other ? n : other;
-  return makeQ('Comparing numbers',`Which number is greater: ${n} or ${other}?`,bigger,
-    ()=> Math.random()<0.5? n : other);
+function end(){
+ $("pb").style.width="100%";$("sec").textContent="Finished";$("cnt").textContent="";
+ const p=Math.round(sc/L.length*100);
+ box.innerHTML='<p class="big">'+sc+' / '+L.length+' ('+p+'%)</p><table><tr><th>Section</th><th>Score</th></tr>'+Object.keys(by).map(k=>'<tr><td>'+k+'</td><td>'+by[k][0]+' / '+by[k][1]+'</td></tr>').join("")+'</table>'+
+ (miss.length?'<h3>Questions to review</h3>'+miss.map(m=>'<p class="miss"><b>'+(m+1)+'.</b> '+L[m].q+' <br>Answer: '+L[m].o[L[m].a]+'</p>').join(""):'<p>Perfect score!</p>')+'<button class="btn" onclick="location.reload()">Try again</button>';
 }
-function qAddition(){
-  const a=ri(100,9999), b=ri(100,9999);
-  const sum=a+b;
-  return makeQ('Addition',`${a} + ${b} = ?`,sum,()=>sum+ri(-20,20)*(ri(0,1)?1:10));
-}
-function qSubtraction(){
-  let a=ri(200,9999), b=ri(100,a-1);
-  const diff=a-b;
-  return makeQ('Subtraction',`${a} − ${b} = ?`,diff,()=>diff+ri(-20,20)*(ri(0,1)?1:10));
-}
-function qTimesTable(){
-  const a=ri(6,9), b=ri(2,12);
-  const prod=a*b;
-  return makeQ('Times tables',`${a} × ${b} = ?`,prod,()=>prod+ri(-2,2)*a);
-}
-function qMultiDigitMult(){
-  const a=ri(11,99), b=ri(2,9);
-  const prod=a*b;
-  return makeQ('Multiplication',`${a} × ${b} = ?`,prod,()=>prod+ri(-1,1)*b*ri(1,3));
-}
-function qDivision(){
-  const clean = Math.random()<0.6;
-  const b=ri(2,9);
-  if(clean){
-    const q=ri(3,30); const a=b*q;
-    return makeQ('Division',`${a} ÷ ${b} = ?`,q,()=>q+ri(-2,2));
-  } else {
-    const q=ri(3,20); const r=ri(1,b-1); const a=b*q+r;
-    return makeQ('Division with remainder',`${a} ÷ ${b} = ? (give the remainder)`,r,()=>ri(1,b-1));
-  }
-}
-function qMentalMath(){
-  const type=ri(0,2);
-  if(type===0){
-    const n=ri(10,900); const step=[10,100][ri(0,1)];
-    return makeQ('Mental math',`What is ${n} + ${step}?`,n+step,()=>n+step+ri(-5,5));
-  } else if(type===1){
-    const n=ri(200,999); const round=Math.round(n/100)*100;
-    return makeQ('Rounding',`Round ${n} to the nearest hundred.`,round,()=>round+ri(-2,2)*100);
-  } else {
-    const start=ri(2,50); const step=ri(2,9);
-    const seq=[start,start+step,start+2*step,start+3*step];
-    const next=start+4*step;
-    return makeQ('Number patterns',`What comes next? ${seq.join(', ')}, ___`,next,()=>next+ri(-3,3)*step);
-  }
-}
-
-const gens=[qPlaceValue,qAddition,qSubtraction,qTimesTable,qMultiDigitMult,qDivision,qMentalMath];
-
-function buildQuestions(total){
-  const out=[];
-  let i=0;
-  while(out.length<total){
-    out.push(gens[i % gens.length]());
-    i++;
-  }
-  return out;
-}
-
-const TOTAL=100;
-let questions=buildQuestions(TOTAL);
-let current=0, score=0, answered=false;
-
-const card=document.getElementById('card');
-const fill=document.getElementById('fill');
-const pos=document.getElementById('pos');
-const scoreLabel=document.getElementById('scoreLabel');
-
-function render(){
-  fill.style.width=(current/TOTAL*100)+'%';
-  pos.textContent=`Question ${Math.min(current+1,TOTAL)} of ${TOTAL}`;
-  scoreLabel.textContent=`Score: ${score}`;
-
-  if(current>=TOTAL){
-    card.innerHTML=`
-      <div class="end">
-        <h2>Trail complete, Nathan!</h2>
-        <div class="score-big">${score} / ${TOTAL}</div>
-        <p class="sub" style="margin-top:8px;">${score>=90?"Outstanding work — you know your numbers cold.":score>=70?"Great job! A little more practice and you'll be unstoppable.":"Nice effort — replay the trail to sharpen the tricky spots."}</p>
-        <button class="next restart" style="visibility:visible" onclick="restart()">Walk the trail again</button>
-      </div>`;
-    return;
-  }
-
-  const q=questions[current];
-  answered=false;
-  card.innerHTML=`
-    <span class="tag">${q.tag}</span>
-    <p class="question">${q.text}</p>
-    <div class="options" id="opts"></div>
-    <div class="feedback" id="fb"></div>
-    <button class="next" id="nextBtn" onclick="nextQ()">Next</button>
-  `;
-  const optsEl=document.getElementById('opts');
-  q.options.forEach(opt=>{
-    const b=document.createElement('button');
-    b.className='opt'; b.textContent=opt;
-    b.onclick=()=>select(b,opt,q.answer);
-    optsEl.appendChild(b);
-  });
-}
-
-function select(btn,chosen,correctAns){
-  if(answered) return;
-  answered=true;
-  const fb=document.getElementById('fb');
-  const allBtns=document.querySelectorAll('.opt');
-  allBtns.forEach(b=>{
-    b.disabled=true;
-    if(b.textContent===correctAns) b.classList.add('correct');
-  });
-  if(chosen===correctAns){
-    score++;
-    fb.textContent='Correct!';
-    fb.className='feedback ok';
-  } else {
-    btn.classList.add('wrong');
-    fb.textContent=`Not quite — the answer is ${correctAns}.`;
-    fb.className='feedback bad';
-  }
-  document.getElementById('nextBtn').style.visibility='visible';
-  scoreLabel.textContent=`Score: ${score}`;
-}
-
-function nextQ(){ current++; render(); }
-function restart(){ questions=buildQuestions(TOTAL); current=0; score=0; render(); }
-
-render();
-</script>
-</body>
-</html>
+show();
+</script></body></html>
