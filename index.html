@@ -1,174 +1,453 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grade 4 English Quiz – 100 Questions</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Numbers to One Million — 100 Question Quiz</title>
 <style>
-:root{--bg:#f2f6fb;--card:#fff;--ink:#1b2a49;--mute:#5b6784;--line:#d5deec;--gold:#f2b705;--ok:#1f9d6b;--bad:#d64550;--okbg:#e2f5ec;--badbg:#fbe6e8}
-@media(prefers-color-scheme:dark){:root{--bg:#141b2d;--card:#1e2740;--ink:#eaf0ff;--mute:#9aa8c9;--line:#33406101;--line:#334061;--okbg:#17382d;--badbg:#42202a}}
+:root{
+  --bg:#f6f7fb; --card:#ffffff; --ink:#1f2430; --muted:#6b7280;
+  --brand:#4f46e5; --brand-dark:#3730a3; --good:#16a34a; --bad:#dc2626;
+  --border:#e5e7eb;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14161f; --card:#1e2130; --ink:#eef0f5; --muted:#9aa1b1;
+    --border:#2c3040;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14161f; --card:#1e2130; --ink:#eef0f5; --muted:#9aa1b1; --border:#2c3040;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Verdana,"Trebuchet MS",sans-serif;line-height:1.55}
-main{max-width:720px;margin:0 auto;padding:20px 16px 60px}
-h1{font-size:1.5rem;margin:8px 0 4px}
-.sub{color:var(--mute);margin:0 0 18px;font-size:.9rem}
-.bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin:10px 0 6px}
-.bar i{display:block;height:100%;background:var(--gold);width:0;transition:width .3s}
-.meta{display:flex;justify-content:space-between;font-size:.85rem;color:var(--mute)}
-.card{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:20px;margin-top:14px}
-.pass{border-left:6px solid var(--gold);background:var(--bg);padding:12px 16px;border-radius:8px;margin:0 0 16px}
-.pass h3{margin:0 0 6px;font-size:1.05rem}.pass p{margin:0;font-size:.95rem}
-.q{font-size:1.1rem;font-weight:bold;margin:0 0 14px}
-.o{display:block;width:100%;text-align:left;font:inherit;color:inherit;background:var(--card);border:2px solid var(--line);border-radius:10px;padding:11px 14px;margin:8px 0;cursor:pointer}
-.o:hover:not(:disabled){border-color:var(--gold)}
-.o:focus-visible,.btn:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.o.ok{background:var(--okbg);border-color:var(--ok)}.o.bad{background:var(--badbg);border-color:var(--bad)}
-.o:disabled{cursor:default}
-.btn{font:inherit;font-weight:bold;background:var(--gold);color:#1b2a49;border:0;border-radius:10px;padding:11px 22px;cursor:pointer;margin-top:12px}
-.fb{margin:10px 0 0;font-weight:bold}
-.big{font-size:2.6rem;font-weight:bold;margin:0}
-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.95rem}
-td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
-.miss{font-size:.9rem;margin:10px 0}.miss b{color:var(--bad)}
-</style></head><body><main>
-<h1>Grade 4 English Quiz</h1>
-<p class="sub">100 questions · Vocabulary, Grammar, Spelling &amp; Punctuation, Word Skills, Reading Comprehension</p>
-<div class="bar"><i id="pb"></i></div>
-<div class="meta"><span id="sec"></span><span id="cnt"></span></div>
-<div class="card" id="box"></div>
-</main>
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  background:var(--bg); color:var(--ink); min-height:100%;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.wrap{max-width:640px; margin:0 auto; padding:24px 16px 60px;}
+h1{font-size:1.3rem; margin:0 0 4px;}
+.sub{color:var(--muted); font-size:.9rem; margin:0 0 20px;}
+.bar{height:8px; background:var(--border); border-radius:99px; overflow:hidden; margin-bottom:8px;}
+.bar > div{height:100%; background:var(--brand); transition:width .25s;}
+.meta{display:flex; justify-content:space-between; font-size:.85rem; color:var(--muted); margin-bottom:18px;}
+.card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.tag{display:inline-block; font-size:.7rem; font-weight:600; color:var(--brand); background:rgba(79,70,229,.1); padding:3px 9px; border-radius:99px; margin-bottom:10px;}
+.q{font-size:1.15rem; line-height:1.5; margin:0 0 18px; font-weight:600;}
+.opt{display:block; width:100%; text-align:left; padding:13px 16px; margin:8px 0; border-radius:10px; border:1.5px solid var(--border); background:transparent; color:var(--ink); font-size:1rem; cursor:pointer; transition:border-color .15s, background .15s;}
+.opt:hover{border-color:var(--brand);}
+.opt.correct{border-color:var(--good); background:rgba(22,163,74,.12);}
+.opt.wrong{border-color:var(--bad); background:rgba(220,38,38,.12);}
+.opt:disabled{cursor:default;}
+.feedback{margin-top:14px; font-size:.92rem; padding:12px 14px; border-radius:10px; display:none;}
+.feedback.show{display:block;}
+.feedback.good{background:rgba(22,163,74,.1); color:var(--good);}
+.feedback.bad{background:rgba(220,38,38,.1); color:var(--bad);}
+.next{margin-top:16px; width:100%; padding:13px; border:none; border-radius:10px; background:var(--brand); color:#fff; font-size:1rem; font-weight:600; cursor:pointer; display:none;}
+.next.show{display:block;}
+.next:hover{background:var(--brand-dark);}
+.done{text-align:center; padding:20px 0;}
+.done .score{font-size:2.6rem; font-weight:700; color:var(--brand); margin:10px 0;}
+.restart{margin-top:18px; padding:13px 22px; border:none; border-radius:10px; background:var(--brand); color:#fff; font-weight:600; cursor:pointer;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Numbers to One Million</h1>
+  <p class="sub">100-question quiz — place value, expanded form, comparing, rounding &amp; mental math</p>
+  <div class="bar"><div id="barFill" style="width:0%"></div></div>
+  <div class="meta"><span id="qCount">Question 1 of 100</span><span id="scoreCount">Score: 0</span></div>
+  <div class="card" id="card"></div>
+</div>
+
 <script>
-const S=[
-{n:"Vocabulary",q:[
-["Which word means the same as happy?",["glad","angry","tired","slow"],0],
-["Which word is the opposite of brave?",["fearless","timid","strong","loud"],1],
-["Enormous means:",["tiny","very big","quick","quiet"],1],
-["Which word means the same as begin?",["end","start","stop","wait"],1],
-["Which word is the opposite of ancient?",["old","modern","broken","dusty"],1],
-["Silent means:",["noisy","quiet","angry","fast"],1],
-["Which word means the same as quick?",["slow","rapid","heavy","late"],1],
-["Which word is the opposite of generous?",["kind","selfish","wealthy","cheerful"],1],
-["Fragile means:",["easily broken","very heavy","colourful","cheap"],0],
-["Which word means the same as tidy?",["messy","neat","loud","dirty"],1],
-["Which word is the opposite of increase?",["grow","decrease","add","lift"],1],
-["Exhausted means:",["very tired","very hungry","very happy","very cold"],0],
-["Which word means the same as choose?",["pick","drop","lose","hide"],0],
-["Which word is the opposite of victory?",["win","defeat","race","prize"],1],
-["A curious child is:",["eager to learn","sleepy","afraid","rude"],0],
-["Which word means the same as shout?",["whisper","yell","sing","mumble"],1],
-["Which word is the opposite of smooth?",["rough","flat","soft","shiny"],0],
-["Delicious means:",["tasty","spicy","cold","sour"],0],
-["A group of fish is called a:",["herd","school","pack","flock"],1],
-["Something sparkling:",["shines brightly","smells bad","is very old","feels rough"],0]]},
-{n:"Grammar",q:[
-["Which word is a noun?",["run","happy","table","quickly"],2],
-["Find the verb: The dog barked loudly.",["dog","barked","loudly","The"],1],
-["Find the adjective: The red kite flew high.",["kite","red","flew","high"],1],
-["Which pronoun can replace \"Ada and I\"?",["They","We","She","You"],1],
-["She ___ to school every day.",["go","goes","going","gone"],1],
-["What is the past tense of run?",["runned","ran","running","runs"],1],
-["There ___ three books on the desk.",["is","are","was","be"],1],
-["Find the adverb: He walked slowly home.",["He","walked","slowly","home"],2],
-["Complete: ___ apple a day keeps the doctor away.",["A","An","One","Some"],1],
-["The cat sat ___ the table. Which is a preposition?",["under","soft","and","ran"],0],
-["Which pronoun is plural?",["he","they","it","she"],1],
-["Which sentence is correct?",["Me and Tom went to the park.","Tom and me went to the park.","Tom and I went to the park.","I and Tom went to the park."],2],
-["Which sentence is in the future tense?",["I visited my aunt.","I visit my aunt.","I will visit my aunt.","I have visited my aunt."],2],
-["Which word is a proper noun?",["city","Lagos","river","school"],1],
-["They ___ playing football now.",["is","am","are","be"],2],
-["He ___ like rice.",["doesn't","don't","not","aren't"],0],
-["Tall, ___, tallest.",["taller","more tall","tallier","tallerest"],0],
-["Which word is an action word?",["jump","blue","soft","above"],0],
-["This is ___ book. (It belongs to Ada.)",["Ada","Adas","Ada's","Adas'"],2],
-["The children ___ in the garden yesterday.",["play","plays","played","playing"],2]]},
-{n:"Spelling & Punctuation",q:[
-["Which spelling is correct?",["becaus","because","becuase","becouse"],1],
-["Which spelling is correct?",["freind","friend","frend","firend"],1],
-["Which spelling is correct?",["beautiful","beutiful","beatiful","beautifull"],0],
-["Which spelling is correct?",["necesary","neccessary","necessary","necesarry"],2],
-["Which spelling is correct?",["tommorow","tomorow","tomorrow","tomarrow"],2],
-["Which spelling is correct?",["sissors","scissors","scisors","scizzors"],1],
-["Which spelling is correct?",["Wensday","Wednsday","Wednesday","Wedensday"],2],
-["Which spelling is correct?",["seperate","separate","separete","seprate"],1],
-["Which sentence uses capital letters correctly?",["my brother lives in abuja.","My brother lives in Abuja.","My Brother lives in abuja.","my Brother lives in Abuja."],1],
-["Which mark ends this sentence? Where do you live__",[".","?","!",","],1],
-["Which mark ends this sentence? Wow, what a great goal__",[".","?","!",","],2],
-["Which sentence uses commas correctly?",["I bought apples oranges, and bananas.","I bought, apples oranges and bananas.","I bought apples, oranges, and bananas.","I bought apples oranges and bananas,"],2],
-["Which is the correct short form of \"do not\"?",["dont'","d'ont","don't","do'nt"],2],
-["Which is the short form of \"it is\"?",["its","it's","its'","i'ts"],1],
-["___ raining outside.",["Its","It's","Its'","Is"],1],
-["Which sentence uses quotation marks correctly?",["She said, \"I am ready.\"","She said, I am ready.\"","She said \"I am ready.","\"She said, I am ready\""],0],
-["Which day is written correctly?",["monday","Monday","MONday","mOnday"],1],
-["Which spelling is correct?",["enuff","enough","enouf","inough"],1],
-["Which mark separates items in a list?",["comma","period","question mark","exclamation mark"],0],
-["Which spelling is correct?",["anser","answer","ansuer","anwser"],1]]},
-{n:"Sentences & Word Skills",q:[
-["What is the plural of child?",["childs","children","childrens","childes"],1],
-["What is the plural of box?",["boxs","boxes","boxen","boxies"],1],
-["What is the plural of baby?",["babys","babies","babyes","babis"],1],
-["What is the plural of leaf?",["leafs","leaves","leafes","leavs"],1],
-["The ___ is shining today.",["son","sun","sunn","sung"],1],
-["___ going to the market.",["Their","There","They're","Them"],2],
-["\"Close the door.\" is a:",["statement","question","command","exclamation"],2],
-["\"What is your name?\" is a:",["statement","question","command","exclamation"],1],
-["Which word is a compound word?",["sunflower","happy","running","quickly"],0],
-["The prefix un- in \"unhappy\" means:",["not","again","very","before"],0],
-["The prefix re- in \"redo\" means:",["not","again","under","after"],1],
-["The suffix -ful in \"helpful\" means:",["without","full of","again","before"],1],
-["The suffix -less in \"careless\" means:",["full of","without","more","again"],1],
-["Which is a complete sentence?",["Running in the park.","The boy kicked the ball.","Because it rained.","Under the bed."],1],
-["Which word has two syllables?",["cat","water","dog","sun"],1],
-["Which word comes first in the dictionary?",["mango","apple","orange","kiwi"],1],
-["Which word rhymes with light?",["night","lick","lamp","late"],0],
-["Which sentence is a simile?",["He is a rock.","He is as strong as a rock.","The wind whispered.","Time flies."],1],
-["\"It is raining cats and dogs\" means:",["raining heavily","animals are falling","a small drizzle","pets are outside"],0],
-["Which word does not belong?",["apple","mango","carrot","banana"],2]]},
-{n:"Reading Comprehension",ps:[
-{h:"Passage 1: Ade and the Lost Puppy",t:"On Saturday morning, Ade heard a soft cry behind the market. He looked under a wooden crate and found a tiny brown puppy shivering in the rain. Ade took off his jacket and wrapped the puppy in it. He carried it home and gave it warm milk. His mother smiled and said they must find its owner. Ade made posters and pinned them around the neighbourhood. Two days later, a girl named Bisi knocked on the door. The puppy jumped into her arms and wagged its tail happily.",q:[
-["Where did Ade find the puppy?",["In his garden","Under a crate behind the market","At school","Inside a shop"],1],
-["Why was the puppy shivering?",["It was cold and wet","It was angry","It was hungry for meat","It was playing"],0],
-["How did Ade try to find the owner?",["He asked the police","He made posters","He sold the puppy","He waited at the market"],1],
-["In this passage, shivering means:",["jumping","shaking with cold","sleeping","running"],1],
-["What is the best title for this passage?",["A Rainy Market","Ade Helps a Lost Puppy","Bisi's New Jacket","Warm Milk"],1]]},
-{h:"Passage 2: Honey Bees",t:"Honey bees live together in a hive. Each bee has a job. The queen lays eggs, and the worker bees collect nectar from flowers. They carry it back to the hive and turn it into honey. When a worker finds many flowers, it does a special dance to tell the others where to go. Bees are important because they help plants grow by spreading pollen from flower to flower. Without bees, many fruits and vegetables would disappear.",q:[
-["What does the queen bee do?",["Collects nectar","Lays eggs","Makes honey","Guards flowers"],1],
-["What do worker bees collect from flowers?",["Pollen only","Water","Nectar","Seeds"],2],
-["How do bees tell others where the flowers are?",["They sing","They do a dance","They buzz loudly","They leave a trail"],1],
-["Why are bees important?",["They make wax","They help plants grow by spreading pollen","They scare pests","They live in hives"],1],
-["In this passage, a hive is:",["a flower","a home for bees","a type of honey","a tool"],1]]},
-{h:"Passage 3: The School Garden",t:"Class 4 decided to start a garden behind their school. Each child brought a small tool from home. Mr. Okoro showed them how to dig holes and plant seeds. Every morning, they took turns watering the plants. After three weeks, small green shoots appeared. Tunde was so excited that he jumped up and cheered. By the end of the term, the class had grown tomatoes, peppers and beans. They shared the vegetables with families in their neighbourhood.",q:[
-["Where did the class plant the garden?",["At home","Behind their school","At the market","In a park"],1],
-["Who showed the children how to plant seeds?",["Tunde","Mr. Okoro","Their parents","A farmer"],1],
-["How long did it take for shoots to appear?",["one day","one week","three weeks","one term"],2],
-["What can you tell about Class 4?",["They gave up easily","They worked well together","They did not like plants","They sold everything"],1],
-["Which word means small new plants?",["tools","turns","shoots","families"],2]]},
-{h:"Passage 4: The Water Cycle",t:"Water on Earth is always moving. The sun heats water in oceans and rivers, and it rises into the air as invisible vapour. High in the sky, the vapour cools and forms clouds. When the clouds become heavy, water falls as rain. The rain flows into rivers, and the journey begins again. This never-ending journey is called the water cycle.",q:[
-["What heats the water in oceans and rivers?",["The wind","The moon","The sun","The clouds"],2],
-["What happens to vapour high in the sky?",["It freezes the sea","It cools and forms clouds","It disappears forever","It turns to sand"],1],
-["What happens after rain flows into rivers?",["The cycle stops","The journey begins again","The sun goes out","The clouds vanish"],1],
-["Never-ending means:",["has no end","ends quickly","is very cold","is hard to see"],0],
-["What is the main idea of the passage?",["Rivers are long","Clouds are heavy","Water moves around Earth in a cycle","The sun is hot"],2]]}]}
+function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function fmt(n){return n.toLocaleString('en-US');}
+function placeNames(){return ["ones","tens","hundreds","thousands","ten thousands","hundred thousands"];}
+
+function randNumber(digits){
+  const min = digits===1?1:Math.pow(10,digits-1);
+  const max = Math.pow(10,digits)-1;
+  return randInt(min,max);
+}
+
+function makeOptions(correct, spread){
+  const opts=new Set([correct]);
+  while(opts.size<4){
+    let delta = randInt(1,spread) * (Math.random()<0.5?-1:1);
+    let v = correct+delta;
+    if(v>=0) opts.add(v);
+  }
+  return shuffle([...opts].map(String));
+}
+
+// ---- Question generators ----
+function genPlaceValue(){
+  const digits = randInt(5,6);
+  const n = randNumber(digits);
+  const s = String(n);
+  const pos = randInt(0, s.length-1); // from left
+  const digit = s[pos];
+  const placeIndexFromRight = s.length-1-pos;
+  const names = placeNames();
+  const placeName = names[placeIndexFromRight];
+  const value = Number(digit) * Math.pow(10, placeIndexFromRight);
+  const correct = fmt(value);
+  const opts = makeOptions(value, Math.max(value,10)).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
+  return {
+    tag:"Place Value",
+    q:`In ${fmt(n)}, what is the value of the digit ${digit} (the digit in the ${placeName} place)?`,
+    opts, correct
+  };
+}
+
+function genDigitStands(){
+  const digits = randInt(5,6);
+  const n = randNumber(digits);
+  const s = String(n);
+  const pos = randInt(0, s.length-1);
+  const digit = s[pos];
+  const placeIndexFromRight = s.length-1-pos;
+  const names = placeNames();
+  const placeName = names[placeIndexFromRight];
+  const wrongNames = shuffle(names.filter(x=>x!==placeName)).slice(0,3);
+  const opts = shuffle([placeName,...wrongNames]);
+  return {
+    tag:"Place Value",
+    q:`In ${fmt(n)}, the digit ${digit} stands for ${digit} ___?`,
+    opts, correct: placeName
+  };
+}
+
+function genExpandedToNumeral(){
+  const digits = randInt(4,6);
+  const n = randNumber(digits);
+  const s = String(n);
+  let parts=[];
+  for(let i=0;i<s.length;i++){
+    const d=Number(s[i]);
+    if(d===0) continue;
+    parts.push(d*Math.pow(10,s.length-1-i));
+  }
+  const expanded = parts.map(fmt).join(" + ");
+  const correct = fmt(n);
+  const opts = makeOptions(n, Math.max(Math.pow(10,digits-3),10)).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
+  return {
+    tag:"Expanded Form",
+    q:`What number is ${expanded} written in expanded form?`,
+    opts, correct
+  };
+}
+
+function genNumeralToExpanded(){
+  const digits = randInt(4,6);
+  const n = randNumber(digits);
+  const s = String(n);
+  let parts=[];
+  for(let i=0;i<s.length;i++){
+    const d=Number(s[i]);
+    if(d===0) continue;
+    parts.push(d*Math.pow(10,s.length-1-i));
+  }
+  const correctExp = parts.map(fmt).join(" + ");
+  // generate 3 wrong expansions by tweaking one part's magnitude
+  const wrongs = new Set();
+  let guard=0;
+  while(wrongs.size<3 && guard<30){
+    guard++;
+    let p2 = [...parts];
+    const idx = randInt(0,p2.length-1);
+    const factor = [10,0.1,2][randInt(0,2)];
+    let newVal = Math.round(p2[idx]*factor);
+    if(newVal===0 || newVal===p2[idx]) continue;
+    p2[idx]=newVal;
+    const str = p2.map(fmt).join(" + ");
+    if(str!==correctExp) wrongs.add(str);
+  }
+  while(wrongs.size<3){ wrongs.add(correctExp+" "); } // fallback filler (rare)
+  const opts = shuffle([correctExp, ...wrongs]);
+  return {
+    tag:"Expanded Form",
+    q:`What is the expanded form of ${fmt(n)}?`,
+    opts, correct: correctExp
+  };
+}
+
+const onesWords=["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+const tensWords=["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+function threeDigitWords(n){
+  let out=[];
+  const h=Math.floor(n/100), r=n%100;
+  if(h>0) out.push(onesWords[h]+" hundred");
+  if(r>0){
+    if(r<20) out.push(onesWords[r]);
+    else{
+      let t=Math.floor(r/10), o=r%10;
+      out.push(tensWords[t]+(o>0?"-"+onesWords[o]:""));
+    }
+  }
+  return out.join(" ");
+}
+function numberToWords(n){
+  if(n===0) return "zero";
+  const groups=[[1000000,"million"],[1000,"thousand"],[1,""]];
+  let out=[];
+  let rem=n;
+  for(const [size,label] of groups){
+    const g=Math.floor(rem/size);
+    rem%=size;
+    if(g>0){
+      out.push(threeDigitWords(g)+(label?" "+label:""));
+    }
+  }
+  return out.join(", ");
+}
+
+function genWordsToNumeral(){
+  const digits = randInt(4,6);
+  const n = randNumber(digits);
+  const words = numberToWords(n);
+  const correct = fmt(n);
+  const opts = makeOptions(n, Math.max(Math.pow(10,digits-3),10)).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
+  return {
+    tag:"Numbers in Words",
+    q:`Write this number in numerals: "${words}"`,
+    opts, correct
+  };
+}
+
+function genNumeralToWords(){
+  const digits = randInt(4,6);
+  const n = randNumber(digits);
+  const correct = numberToWords(n);
+  const wrongs=new Set();
+  let guard=0;
+  while(wrongs.size<3 && guard<30){
+    guard++;
+    const delta=randInt(1,9)*Math.pow(10,randInt(1,digits-1));
+    const v=n+delta*(Math.random()<0.5?-1:1);
+    if(v>0 && v!==n) wrongs.add(numberToWords(v));
+  }
+  while(wrongs.size<3){wrongs.add(correct+"");}
+  const opts=shuffle([correct,...wrongs]);
+  return {
+    tag:"Numbers in Words",
+    q:`How do you write ${fmt(n)} in words?`,
+    opts, correct
+  };
+}
+
+function genCompare(){
+  const digits = randInt(5,6);
+  const a = randNumber(digits);
+  let b = a + randInt(-500,500);
+  if(b<0) b = a+randInt(1,500);
+  if(b===a) b=a+1;
+  const correct = a>b ? ">" : "<";
+  return {
+    tag:"Comparing Numbers",
+    q:`Which symbol correctly compares ${fmt(a)} ___ ${fmt(b)}?`,
+    opts:[">","<","=","none of these"],
+    correct
+  };
+}
+
+function genOrder(){
+  const digits = randInt(4,5);
+  let nums = new Set();
+  while(nums.size<4) nums.add(randNumber(digits));
+  const arr=[...nums];
+  const sorted=[...arr].sort((a,b)=>a-b);
+  const correct = sorted.map(fmt).join(", ");
+  const wrongs=new Set();
+  let guard=0;
+  while(wrongs.size<3 && guard<20){
+    guard++;
+    const shuffled=shuffle([...arr]);
+    const str=shuffled.map(fmt).join(", ");
+    if(str!==correct) wrongs.add(str);
+  }
+  while(wrongs.size<3){wrongs.add(shuffle([...arr]).map(fmt).join(", "));}
+  const opts=shuffle([correct,...wrongs]);
+  return {
+    tag:"Ordering Numbers",
+    q:`Which lists these numbers from least to greatest: ${arr.map(fmt).join(", ")}?`,
+    opts, correct
+  };
+}
+
+const roundUnits=[
+  {size:10,name:"ten"},{size:100,name:"hundred"},{size:1000,name:"thousand"},
+  {size:10000,name:"ten thousand"},{size:100000,name:"hundred thousand"}
 ];
-const L=[];
-S.forEach(s=>{(s.q||[]).forEach(x=>L.push({s:s.n,q:x[0],o:x[1],a:x[2]}));(s.ps||[]).forEach(p=>p.q.forEach(x=>L.push({s:s.n,h:p.h,t:p.t,q:x[0],o:x[1],a:x[2]})))});
-let i=0,sc=0,miss=[],by={};
-const $=id=>document.getElementById(id),box=$("box");
-function show(){
- const x=L[i];$("pb").style.width=(i/L.length*100)+"%";$("sec").textContent=x.s;$("cnt").textContent="Question "+(i+1)+" of "+L.length;
- box.innerHTML=(x.t?'<div class="pass"><h3>'+x.h+'</h3><p>'+x.t+'</p></div>':'')+'<p class="q">'+(i+1)+'. '+x.q+'</p>'+x.o.map((o,k)=>'<button class="o" data-k="'+k+'"><b>'+"ABCD"[k]+".</b> "+o+'</button>').join("")+'<p class="fb" id="fb" aria-live="polite"></p><div id="nx"></div>';
- box.querySelectorAll(".o").forEach(b=>b.onclick=()=>pick(+b.dataset.k));
+function genRounding(){
+  const digits=randInt(5,6);
+  const n=randNumber(digits);
+  const unit=roundUnits[randInt(1,roundUnits.length-1)];
+  if(unit.size>=Math.pow(10,digits)) return genRounding();
+  const rounded = Math.round(n/unit.size)*unit.size;
+  const correct=fmt(rounded);
+  const opts=makeOptions(rounded, unit.size).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
+  return {
+    tag:"Rounding",
+    q:`Round ${fmt(n)} to the nearest ${unit.name}.`,
+    opts, correct
+  };
 }
-function pick(k){
- const x=L[i],bs=box.querySelectorAll(".o");bs.forEach(b=>b.disabled=true);
- bs[x.a].classList.add("ok");by[x.s]=by[x.s]||[0,0];by[x.s][1]++;
- if(k==x.a){sc++;by[x.s][0]++;$("fb").textContent="Correct! Well done.";$("fb").style.color="var(--ok)"}
- else{bs[k].classList.add("bad");miss.push(i);$("fb").textContent="Not quite. The answer is "+"ABCD"[x.a]+": "+x.o[x.a];$("fb").style.color="var(--bad)"}
- $("nx").innerHTML='<button class="btn" id="b">'+(i==L.length-1?"See my score":"Next question")+'</button>';
- $("b").focus();$("b").onclick=()=>{i++;i<L.length?show():end()};
+
+function genMentalMath(){
+  const type=randInt(0,3);
+  const mags=[100,1000,10000,100000];
+  const mag=mags[randInt(0,mags.length-1)];
+  let a,b,op,result,qtext;
+  if(type===0){
+    a=randInt(1,90)*mag; b=randInt(1,90)*mag; op="+";
+    result=a+b; qtext=`${fmt(a)} + ${fmt(b)} = ?`;
+  } else if(type===1){
+    a=randInt(20,99)*mag; b=randInt(1,19)*mag; op="-";
+    result=a-b; qtext=`${fmt(a)} − ${fmt(b)} = ?`;
+  } else if(type===2){
+    a=randInt(1,20)*mag; b=randInt(2,9); op="×";
+    result=a*b; qtext=`${fmt(a)} × ${b} = ?`;
+  } else {
+    b=randInt(2,9); const q=randInt(1,20)*mag/1; a=q*b;
+    result=q; qtext=`${fmt(a)} ÷ ${b} = ?`;
+  }
+  const spread = Math.max(mag, 100);
+  const opts=makeOptions(result, spread).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
+  return { tag:"Mental Math", q:qtext, opts, correct: fmt(result) };
 }
-function end(){
- $("pb").style.width="100%";$("sec").textContent="Finished";$("cnt").textContent="";
- const p=Math.round(sc/L.length*100);
- box.innerHTML='<p class="big">'+sc+' / '+L.length+' ('+p+'%)</p><table><tr><th>Section</th><th>Score</th></tr>'+Object.keys(by).map(k=>'<tr><td>'+k+'</td><td>'+by[k][0]+' / '+by[k][1]+'</td></tr>').join("")+'</table>'+
- (miss.length?'<h3>Questions to review</h3>'+miss.map(m=>'<p class="miss"><b>'+(m+1)+'.</b> '+L[m].q+' <br>Answer: '+L[m].o[L[m].a]+'</p>').join(""):'<p>Perfect score!</p>')+'<button class="btn" onclick="location.reload()">Try again</button>';
+
+function genUnitConversion(){
+  const units=[
+    {size:10,name:"tens"},{size:100,name:"hundreds"},{size:1000,name:"thousands"},{size:10000,name:"ten thousands"}
+  ];
+  const u = units[randInt(0,units.length-1)];
+  const multiplier = randInt(2,90);
+  const n = multiplier*u.size;
+  const correct=String(multiplier);
+  const opts=makeOptions(multiplier, Math.max(Math.floor(multiplier/2),3)).map(String);
+  return {
+    tag:"Place Value",
+    q:`${fmt(n)} = ___ ${u.name}`,
+    opts, correct
+  };
 }
-show();
-</script></body></html>
+
+function genPattern(){
+  const digits=randInt(4,6);
+  const start=randNumber(digits);
+  const steps=[10,100,1000,10000];
+  const step=steps[randInt(0,steps.length-1)];
+  const dir = Math.random()<0.5?1:-1;
+  const seqStart = dir===1 ? start : start+step*4;
+  const seq=[seqStart, seqStart+dir*step, seqStart+dir*step*2, seqStart+dir*step*3];
+  const next = seqStart+dir*step*4;
+  if(next<0) return genPattern();
+  const correct=fmt(next);
+  const opts=makeOptions(next, step).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
+  return {
+    tag:"Number Patterns",
+    q:`What comes next in the pattern? ${seq.map(fmt).join(", ")}, ___`,
+    opts, correct
+  };
+}
+
+const generators=[genPlaceValue, genDigitStands, genExpandedToNumeral, genNumeralToExpanded,
+  genWordsToNumeral, genNumeralToWords, genCompare, genOrder, genRounding, genMentalMath,
+  genUnitConversion, genPattern];
+
+function buildQuiz(total){
+  const qs=[];
+  let guardTotal=0;
+  while(qs.length<total && guardTotal<total*5){
+    guardTotal++;
+    const gen=generators[randInt(0,generators.length-1)];
+    try{
+      const q=gen();
+      if(q && q.opts && q.opts.length>=2) qs.push(q);
+    }catch(e){/* skip a failed generation */}
+  }
+  return qs;
+}
+
+// ---- App state ----
+const TOTAL=100;
+let questions=buildQuiz(TOTAL);
+let idx=0, score=0, answered=false;
+
+const card=document.getElementById('card');
+const barFill=document.getElementById('barFill');
+const qCount=document.getElementById('qCount');
+const scoreCount=document.getElementById('scoreCount');
+
+function render(){
+  if(idx>=questions.length){ renderDone(); return; }
+  const q=questions[idx];
+  answered=false;
+  barFill.style.width = ((idx)/questions.length*100)+"%";
+  qCount.textContent = `Question ${idx+1} of ${questions.length}`;
+  scoreCount.textContent = `Score: ${score}`;
+  card.innerHTML = `
+    <span class="tag">${q.tag}</span>
+    <p class="q">${q.q}</p>
+    <div id="opts"></div>
+    <div class="feedback" id="fb"></div>
+    <button class="next" id="nextBtn">Next Question</button>
+  `;
+  const optsDiv=card.querySelector('#opts');
+  q.opts.forEach(opt=>{
+    const btn=document.createElement('button');
+    btn.className='opt'; btn.textContent=opt;
+    btn.onclick=()=>selectAnswer(btn, opt, q.correct);
+    optsDiv.appendChild(btn);
+  });
+  card.querySelector('#nextBtn').onclick=()=>{ idx++; render(); };
+}
+
+function selectAnswer(btn, chosen, correct){
+  if(answered) return;
+  answered=true;
+  const allBtns=card.querySelectorAll('.opt');
+  allBtns.forEach(b=>{
+    b.disabled=true;
+    if(b.textContent===correct) b.classList.add('correct');
+  });
+  const fb=card.querySelector('#fb');
+  const isCorrect = chosen===correct;
+  if(isCorrect){
+    score++;
+    fb.textContent="Correct! 🎉";
+    fb.className="feedback show good";
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent=`Not quite — the correct answer is ${correct}.`;
+    fb.className="feedback show bad";
+  }
+  scoreCount.textContent = `Score: ${score}`;
+  card.querySelector('#nextBtn').classList.add('show');
+}
+
+function renderDone(){
+  barFill.style.width="100%";
+  qCount.textContent=`Question ${questions.length} of ${questions.length}`;
+  const pct=Math.round(score/questions.length*100);
+  card.innerHTML = `
+    <div class="done">
+      <p style="color:var(--muted);margin:0;">Quiz complete!</p>
+      <div class="score">${score} / ${questions.length}</div>
+      <p style="color:var(--muted);margin:0 0 6px;">${pct}% correct</p>
+      <button class="restart" id="restartBtn">Try Again (New Questions)</button>
+    </div>
+  `;
+  card.querySelector('#restartBtn').onclick=()=>{
+    questions=buildQuiz(TOTAL); idx=0; score=0; render();
+  };
+}
+
+render();
+</script>
+</body>
+</html>
