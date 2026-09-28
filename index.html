@@ -1,201 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Grade 2 Number Sense — 100 Question Quiz</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zion's Math Adventure</title>
 <style>
-:root{--bg:#fff7e6;--card:#fff;--ink:#22303c;--muted:#6b7785;--brand:#f97316;--brand2:#ea580c;--good:#16a34a;--bad:#dc2626;--border:#f1dfc2;}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1a17;--card:#26241f;--ink:#f3efe8;--muted:#a49d90;--border:#3a372f;}}
-:root[data-theme="dark"]{--bg:#1b1a17;--card:#26241f;--ink:#f3efe8;--muted:#a49d90;--border:#3a372f;}
+:root{--red:#ff6b6b;--yel:#ffd93d;--grn:#4cc46a;--blu:#4d96ff;--pur:#9b5de5;--ink:#2b2d42}
 *{box-sizing:border-box}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;font-family:"Trebuchet MS",Verdana,Arial,sans-serif;background:var(--bg);color:var(--ink);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-.wrap{max-width:620px;margin:0 auto;padding:22px 16px 60px}
-h1{font-size:1.5rem;margin:0 0 4px}
-.sub{color:var(--muted);margin:0 0 18px}
-.bar{height:12px;background:var(--border);border-radius:99px;overflow:hidden}
-.bar>div{height:100%;background:var(--brand);transition:width .25s}
-.meta{display:flex;justify-content:space-between;color:var(--muted);margin:8px 0 16px;font-weight:bold}
-.card{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:22px}
-.tag{display:inline-block;font-size:.75rem;font-weight:bold;color:var(--brand2);background:rgba(249,115,22,.14);padding:4px 11px;border-radius:99px;margin-bottom:12px}
-.q{font-size:1.35rem;line-height:1.45;margin:0 0 16px;font-weight:bold}
-.vis{font-size:1.6rem;letter-spacing:2px;margin:0 0 14px;line-height:1.5;word-break:break-word}
-.opt{display:block;width:100%;text-align:left;padding:14px 16px;margin:10px 0;border-radius:14px;border:2px solid var(--border);background:transparent;color:var(--ink);font:inherit;font-size:1.2rem;cursor:pointer}
-.opt:hover{border-color:var(--brand)}
-.opt.correct{border-color:var(--good);background:rgba(22,163,74,.14)}
-.opt.wrong{border-color:var(--bad);background:rgba(220,38,38,.14)}
-.opt:disabled{cursor:default}
-.fb{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;font-weight:bold}
-.fb.show{display:block}.fb.good{background:rgba(22,163,74,.12);color:var(--good)}.fb.bad{background:rgba(220,38,38,.12);color:var(--bad)}
-.next,.restart{margin-top:14px;width:100%;padding:14px;border:none;border-radius:14px;background:var(--brand);color:#fff;font:inherit;font-size:1.1rem;font-weight:bold;cursor:pointer}
-.next{display:none}.next.show{display:block}
-.next:hover,.restart:hover{background:var(--brand2)}
-.done{text-align:center;padding:14px 0}.done .score{font-size:3rem;font-weight:bold;color:var(--brand);margin:8px 0}
+body{margin:0;min-height:100vh;font-family:"Comic Sans MS","Chalkboard SE","Trebuchet MS",system-ui,sans-serif;color:var(--ink);background:linear-gradient(#6fcfff,#c9f1ff 55%,#b4f0c0);overflow-x:hidden}
+.bg span{position:fixed;font-size:2.4rem;opacity:.5;animation:fl 7s ease-in-out infinite;pointer-events:none;z-index:0}
+@keyframes fl{50%{transform:translateY(-22px) rotate(12deg)}}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:16px}
+.screen{display:none;animation:pop .4s}.screen.on{display:block}
+@keyframes pop{from{transform:scale(.92);opacity:0}}
+.card{background:#fff;border-radius:28px;padding:22px;box-shadow:0 8px 0 rgba(0,0,0,.12);border:4px solid var(--ink);text-align:center}
+h1{font-size:clamp(2rem,7vw,3.2rem);margin:.2em 0;color:var(--pur);text-shadow:3px 3px 0 var(--yel)}
+.mascot{font-size:5.5rem;display:inline-block;animation:bn 1.2s infinite}
+@keyframes bn{50%{transform:translateY(-16px) rotate(-6deg)}}
+.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0}
+.chip{background:var(--yel);border:3px solid var(--ink);border-radius:99px;padding:6px 14px;font-weight:700}
+.btn{font:inherit;font-weight:800;font-size:1.4rem;color:#fff;background:var(--grn);border:4px solid var(--ink);border-radius:20px;padding:12px 30px;cursor:pointer;box-shadow:0 6px 0 var(--ink);transition:.1s}
+.btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
+.btn.alt{background:var(--blu)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;font-weight:800}
+.pill{background:#fff;border:3px solid var(--ink);border-radius:99px;padding:4px 12px}
+.track{position:relative;height:22px;background:#fff;border:3px solid var(--ink);border-radius:99px;margin:16px 0 20px}
+.fill{height:100%;background:repeating-linear-gradient(45deg,var(--red),var(--red) 10px,var(--yel) 10px,var(--yel) 20px);border-radius:99px;width:0;transition:width .5s}
+.rocket{position:absolute;top:-16px;font-size:1.8rem;transition:left .5s;transform:translateX(-50%) rotate(45deg)}
+.q{font-size:clamp(2.4rem,10vw,4rem);font-weight:900;margin:8px 0;letter-spacing:2px}
+.q.word{font-size:clamp(1.3rem,4.5vw,1.9rem);line-height:1.4;letter-spacing:0}
+.pic{font-size:clamp(1.5rem,6vw,2.1rem);display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px 12px;min-height:44px;margin-bottom:6px}
+.pic .g{display:inline-flex;flex-wrap:wrap;justify-content:center;max-width:46%}
+.pic .gone{opacity:.2;filter:grayscale(1)}
+.say{font:inherit;font-size:1rem;background:#fff;border:3px solid var(--ink);border-radius:99px;padding:4px 14px;cursor:pointer;margin-bottom:8px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.opt{font:inherit;font-size:2.2rem;font-weight:900;color:#fff;border:4px solid var(--ink);border-radius:22px;padding:16px;cursor:pointer;box-shadow:0 6px 0 var(--ink)}
+.opt:nth-child(1){background:var(--red)}.opt:nth-child(2){background:var(--blu)}.opt:nth-child(3){background:var(--pur)}.opt:nth-child(4){background:#ff9f1c}
+.opt:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
+.opt.ok{background:var(--grn)!important;animation:bn .5s}
+.opt.no{background:#8d99ae!important;animation:sh .4s}
+@keyframes sh{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+.fb{min-height:40px;font-size:1.5rem;font-weight:800;margin-top:14px}
+.big{font-size:5rem}
+.stars{font-size:2.6rem;letter-spacing:4px}
+.lv{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:14px 0}
+.lv div{background:#f1f6ff;border:3px solid var(--ink);border-radius:14px;padding:6px;font-weight:700;font-size:.95rem}
+.conf{position:fixed;top:-40px;font-size:2rem;animation:fall 2.6s linear forwards;z-index:9;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+@media(max-width:420px){.opt{font-size:1.8rem;padding:12px}}
 </style>
 </head>
 <body>
+<div class="bg"><span style="left:4%;top:12%">☁️</span><span style="right:6%;top:8%;animation-delay:1s">☀️</span><span style="left:10%;bottom:10%;animation-delay:2s">🌈</span><span style="right:8%;bottom:14%;animation-delay:3s">🎈</span><span style="left:48%;top:3%;animation-delay:4s">⭐</span></div>
 <div class="wrap">
-<h1>⭐ Grade 2 Number Sense</h1>
-<p class="sub">100 questions: counting, place value, comparing, even &amp; odd, rounding</p>
-<div class="bar"><div id="fill" style="width:0%"></div></div>
-<div class="meta"><span id="qc">Question 1 of 100</span><span id="sc">Score: 0</span></div>
-<div class="card" id="card"></div>
-</div>
-<script>
-const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
-const sh=a=>{for(let i=a.length-1;i>0;i--){const j=R(0,i);[a[i],a[j]]=[a[j],a[i]];}return a;};
-const f=n=>String(n);
-const ones=["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
-const tens=["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
-function words(n){
-  if(n===1000)return"one thousand";
-  const h=Math.floor(n/100),r=n%100,o=[];
-  if(h)o.push(ones[h]+" hundred");
-  if(r){o.push(r<20?ones[r]:tens[Math.floor(r/10)]+(r%10?"-"+ones[r%10]:""));}
-  return o.join(" ");
-}
-// build 4 unique numeric options
-function numOpts(c,spread,min=0){
-  const s=new Set([c]);let g=0;
-  while(s.size<4&&g++<200){const v=c+R(1,spread)*(Math.random()<.5?-1:1);if(v>=min)s.add(v);}
-  let k=1;while(s.size<4)s.add(c+k++);
-  return sh([...s].map(f));
-}
-function textOpts(c,pool){const w=sh(pool.filter(x=>x!==c)).slice(0,3);return sh([c,...w]);}
-const dots=(n,e)=>e.repeat(n);
 
-const G=[
-// counting on/back
-()=>{const st=[1,2,5,10,100][R(0,4)];const a=R(1,60)*(st>=10?st:1)+ (st===5?R(0,3)*5:0);
-  const seq=[a,a+st,a+2*st,a+3*st];const nx=a+4*st;
-  return{tag:"Counting",q:`Count by ${st}s. What comes next?`,vis:seq.join(", ")+", ___",opts:numOpts(nx,st*3,1),c:f(nx)};},
-()=>{const st=[1,2,5,10,100][R(0,4)];const a=R(6,90)*(st>=10?st:1)+(st===5?R(0,3)*5:0);
-  const seq=[a,a-st,a-2*st,a-3*st];const nx=a-4*st;if(nx<0)return G[1]();
-  return{tag:"Counting Back",q:`Count back by ${st}s. What comes next?`,vis:seq.join(", ")+", ___",opts:numOpts(nx,st*3,0),c:f(nx)};},
-// missing number in pattern
-()=>{const st=[2,5,10,100][R(0,3)];const a=R(1,20)*st;const m=a+2*st;
-  return{tag:"Counting",q:`Fill in the missing number.`,vis:`${a}, ${a+st}, ___, ${a+3*st}`,opts:numOpts(m,st*3,1),c:f(m)};},
-// numerals from words
-()=>{const n=R(100,999);return{tag:"Numbers in Words",q:`Which number is "${words(n)}"?`,opts:numOpts(n,Math.max(10,R(10,90)),100),c:f(n)};},
-// words from numerals
-()=>{const n=R(100,999);const c=words(n);const w=new Set();let g=0;
-  while(w.size<3&&g++<50){const v=n+R(1,9)*[1,10,100][R(0,2)]*(Math.random()<.5?-1:1);if(v>=100&&v<=999&&v!==n)w.add(words(v));}
-  return{tag:"Numbers in Words",q:`How do you say ${n} in words?`,opts:sh([c,...w]),c};},
-// number words to 100
-()=>{const n=R(11,99);return{tag:"Numbers in Words",q:`Which number is "${words(n)}"?`,opts:numOpts(n,9,10),c:f(n)};},
-// value of digit
-()=>{const n=R(100,999);const s=f(n);const p=R(0,2);const d=+s[p];const pl=[100,10,1][p];
-  const nm=["hundreds","tens","ones"][p];
-  if(d===0)return G[6]();
-  return{tag:"Place Value",q:`In ${n}, what is the value of the digit ${d} (in the ${nm} place)?`,opts:textOpts(f(d*pl),[f(d),f(d*10),f(d*100),f(d*1000),f(d*pl)].filter((v,i,a)=>a.indexOf(v)===i)),c:f(d*pl)};},
-// which place
-()=>{const n=R(100,999);const s=f(n);const p=R(0,2);const d=s[p];if([...s].filter(x=>x===d).length>1)return G[7]();
-  const nm=["hundreds","tens","ones"][p];
-  return{tag:"Place Value",q:`In ${n}, the digit ${d} is in which place?`,opts:sh(["hundreds","tens","ones","thousands"]),c:nm};},
-// how many hundreds/tens/ones digit
-()=>{const n=R(100,999);const p=R(0,2);const nm=["hundreds","tens","ones"][p];const d=+f(n)[p];
-  return{tag:"Place Value",q:`How many ${nm} are in the number ${n}?`,opts:numOpts(d,3,0).map(x=>x),c:f(d)};},
-// blocks: H T O
-()=>{const h=R(1,9),t=R(0,9),o=R(0,9);const n=h*100+t*10+o;
-  return{tag:"Place Value Blocks",q:`Count the blocks. What number is shown?`,vis:`${h} hundreds 🟦, ${t} tens 🟩, ${o} ones 🟨`,opts:numOpts(n,Math.max(9,R(9,90)),100),c:f(n)};},
-// expanded form to number
-()=>{const h=R(1,9),t=R(0,9),o=R(0,9);const n=h*100+t*10+o;
-  const e=[h*100,t*10,o].filter(x=>x).join(" + ");return{tag:"Expanded Form",q:`What number is ${e}?`,opts:numOpts(n,Math.max(9,R(9,90)),100),c:f(n)};},
-// number to expanded
-()=>{const h=R(1,9),t=R(1,9),o=R(1,9);const n=h*100+t*10+o;
-  const c=`${h*100} + ${t*10} + ${o}`;
-  const w=[`${h*10} + ${t*100} + ${o}`,`${h*100} + ${t} + ${o*10}`,`${h} + ${t*10} + ${o*100}`,`${h*100} + ${t*10} + ${o*10}`].filter(x=>x!==c);
-  return{tag:"Expanded Form",q:`What is the expanded form of ${n}?`,opts:sh([c,...sh(w).slice(0,3)]),c};},
-// hundreds/tens/ones in 2-digit
-()=>{const t=R(1,9),o=R(0,9);const n=t*10+o;return{tag:"Place Value",q:`${n} = ___ tens and ${o} ones`,opts:numOpts(t,3,0),c:f(t)};},
-// tens to number
-()=>{const t=R(2,20);return{tag:"Place Value",q:`${t} tens = ___`,opts:numOpts(t*10,30,10),c:f(t*10)};},
-// hundreds to number
-()=>{const h=R(2,9);return{tag:"Place Value",q:`${h} hundreds = ___`,opts:numOpts(h*100,300,100),c:f(h*100)};},
-// compare
-()=>{const a=R(100,999);let b=a+R(-60,60);if(b===a||b<100||b>999)b=a+7>999?a-7:a+7;
-  return{tag:"Comparing",q:`Which symbol goes in the box?`,vis:`${a}  ⬜  ${b}`,opts:[">","<","="],c:a>b?">":"<"};},
-// compare equal or 2-digit
-()=>{const a=R(10,99);let b=Math.random()<.2?a:a+R(-15,15);if(b<10||b>99)b=a;
-  return{tag:"Comparing",q:`Which symbol goes in the box?`,vis:`${a}  ⬜  ${b}`,opts:[">","<","="],c:a>b?">":a<b?"<":"="};},
-// greatest/least
-()=>{const s=new Set();while(s.size<4)s.add(R(100,999));const a=[...s];const big=Math.random()<.5;
-  const c=f(big?Math.max(...a):Math.min(...a));return{tag:"Comparing",q:`Which is the ${big?"greatest":"least"} number?`,opts:sh(a.map(f)),c};},
-// order
-()=>{const s=new Set();while(s.size<3)s.add(R(100,999));const a=[...s];const asc=Math.random()<.5;
-  const so=[...a].sort((x,y)=>asc?x-y:y-x);const c=so.join(", ");const w=new Set();let g=0;
-  while(w.size<3&&g++<40){const x=sh([...a]).join(", ");if(x!==c)w.add(x);}
-  return{tag:"Ordering",q:`Put these numbers in order from ${asc?"least to greatest":"greatest to least"}: ${a.join(", ")}`,opts:sh([c,...w]),c};},
-// even/odd
-()=>{const n=R(2,999);const c=n%2?"odd":"even";return{tag:"Even & Odd",q:`Is ${n} even or odd?`,opts:["even","odd"],c};},
-()=>{const s=new Set();while(s.size<4)s.add(R(10,99));const a=[...s];const ev=Math.random()<.5;
-  if(a.filter(x=>x%2===0).length!==(ev?1:3))return G[20]();
-  const c=f(a.find(x=>ev?x%2===0:x%2===1));return{tag:"Even & Odd",q:`Which number is ${ev?"even":"odd"}?`,opts:sh(a.map(f)),c};},
-// one more / less
-()=>{const n=R(10,998);const t=[["1 more",1],["10 more",10],["100 more",100],["1 less",-1],["10 less",-10],["100 less",-100]][R(0,5)];
-  const v=n+t[1];if(v<0)return G[21]();return{tag:"Counting",q:`What is ${t[0]} than ${n}?`,opts:numOpts(v,Math.max(12,Math.abs(t[1])*2),0),c:f(v)};},
-// number line neighbours: before/between/after
-()=>{const n=R(11,998);const k=["before","after"][R(0,1)];const v=k==="before"?n-1:n+1;
-  return{tag:"Number Line",q:`Which number comes just ${k} ${n}?`,opts:numOpts(v,4,0),c:f(v)};},
-()=>{const a=R(10,99)*10;return{tag:"Number Line",q:`Which number is between ${a} and ${a+2}?`,opts:numOpts(a+1,3,0),c:f(a+1)};},
-// round to nearest 10
-()=>{const n=R(11,99);if(n%10===5)return G[24]();const c=Math.round(n/10)*10;
-  return{tag:"Rounding",q:`Round ${n} to the nearest 10.`,opts:numOpts(c,20,0).map(x=>x),c:f(c)};},
-// 3-digit rounding to 10
-()=>{const n=R(101,995);if(n%10===5)return G[25]();const c=Math.round(n/10)*10;
-  return{tag:"Rounding",q:`Round ${n} to the nearest 10.`,opts:numOpts(c,30,0),c:f(c)};},
-// tens neighbors
-()=>{const n=R(11,98);if(n%10===0)return G[26]();const lo=Math.floor(n/10)*10;
-  return{tag:"Rounding",q:`${n} is between which two tens?`,opts:sh([`${lo} and ${lo+10}`,`${lo-10} and ${lo}`,`${lo+10} and ${lo+20}`,`${lo+20} and ${lo+30}`]),c:`${lo} and ${lo+10}`};},
-// digit-building
-()=>{const h=R(1,9),t=R(1,9),o=R(1,9);if(h===t||t===o||h===o)return G[27]();const ds=[h,t,o];
-  const big=Math.random()<.5;const c=f((big?[...ds].sort((a,b)=>b-a):[...ds].sort((a,b)=>a-b)).join(""));
-  const w=new Set();let g=0;while(w.size<3&&g++<40){const x=sh([...ds]).join("");if(x!==c)w.add(x);}
-  return{tag:"Place Value",q:`Use the digits ${ds.join(", ")} once each. What is the ${big?"greatest":"least"} 3-digit number?`,opts:sh([c,...w]),c};},
-// skip count doubles: how many in groups of tens
-()=>{const g=R(2,9);return{tag:"Counting",q:`There are ${g} bags with 10 apples in each bag. How many apples in all?`,vis:dots(g,"🛍️"),opts:numOpts(g*10,20,10),c:f(g*10)};},
-()=>{const n=R(2,10);return{tag:"Counting",q:`Count by 2s. How many shoes are there in ${n} pairs?`,vis:dots(n,"👟👟 "),opts:numOpts(n*2,6,2),c:f(n*2)};}
-];
-const bad=[];
-function make(){
-  for(let i=0;i<50;i++){
-    const q=G[R(0,G.length-1)]();
-    if(q&&q.opts&&new Set(q.opts).size===q.opts.length&&q.opts.includes(q.c))return q;
-  }
-  return G[3]();
+<section class="screen on" id="s-start"><div class="card">
+<div class="mascot">🦁</div>
+<h1>Zion's Math Adventure</h1>
+<p style="font-size:1.3rem">Hi Zion! Ready to add and take away?<br>Let's blast off with <b>100 fun questions!</b></p>
+<div class="chips"><span class="chip">➕ Adding</span><span class="chip">➖ Taking away</span><span class="chip">🚀 10 levels</span><span class="chip">⭐ Win stars</span></div>
+<button class="btn" onclick="startGame()">Let's Go! 🚀</button>
+<p style="font-size:.95rem;margin-top:16px">Tip: tap 🔊 to hear the question read out loud.</p>
+</div></section>
+
+<section class="screen" id="s-level"><div class="card">
+<div class="big" id="l-icon"></div>
+<h1 id="l-title" style="font-size:2.2rem"></h1>
+<h2 id="l-name" style="margin:.2em 0"></h2>
+<p id="l-tip" style="font-size:1.25rem"></p>
+<button class="btn" onclick="showQ()">Start Level! ▶</button>
+</div></section>
+
+<section class="screen" id="s-quiz">
+<div class="top"><span class="pill" id="q-lv"></span><span class="pill" id="q-streak">🔥 0</span><span class="pill" id="q-score">⭐ 0</span><button class="pill" id="mute" onclick="toggleMute()" style="font:inherit;cursor:pointer">🔔</button></div>
+<div class="track"><div class="fill" id="fill"></div><div class="rocket" id="rocket">🚀</div></div>
+<div class="card">
+<div style="font-weight:700" id="q-num"></div>
+<div class="pic" id="pic"></div>
+<div class="q" id="q"></div>
+<button class="say" onclick="speak()">🔊 Read to me</button>
+<div class="opts" id="opts"></div>
+<div class="fb" id="fb"></div>
+<button class="btn alt" id="nextBtn" style="display:none" onclick="advance()">Next ▶</button>
+</div></section>
+
+<section class="screen" id="s-end"><div class="card">
+<div class="mascot">🏆</div>
+<h1 id="e-title">Amazing, Zion!</h1>
+<div class="stars" id="e-stars"></div>
+<p style="font-size:2rem;font-weight:900;margin:6px 0" id="e-score"></p>
+<p style="font-size:1.2rem" id="e-msg"></p>
+<div class="lv" id="e-lv"></div>
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+<button class="btn" onclick="startGame()">Play Again 🔁</button>
+<button class="btn alt" id="practice" onclick="practiceMissed()">Practise Oops Ones 💪</button>
+</div></div></section>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const shuf=a=>{for(let i=a.length-1;i>0;i--){const j=R(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+const E=['🍎','⭐','🐟','🚀','🐥','🍪','🎈','🐞','🍓','🧸'];
+const LV=[
+{n:'Tiny Adds',i:'🍎',tip:'Count the pictures and add them together!'},
+{n:'Tiny Take-Aways',i:'🐟',tip:'Some pictures fade away. How many are left?'},
+{n:'Add to 10',i:'🎈',tip:'Put the groups together. Can you get to 10?'},
+{n:'Take Away in 10',i:'🍪',tip:'Start with the big number and take some away.'},
+{n:'Mix It Up',i:'🎲',tip:'Watch the sign: + means add, − means take away!'},
+{n:'Add to 20',i:'🚀',tip:'Bigger numbers! Try counting on from the big one.'},
+{n:'Take Away in 20',i:'🐳',tip:'Count back to find how many are left.'},
+{n:'Missing Number',i:'🕵️',tip:'Find the secret number that fits in the box ▢.'},
+{n:'Big Mix to 20',i:'🌈',tip:'Adding and taking away, all mixed up!'},
+{n:'Story Time',i:'📖',tip:'Read the story and decide: add or take away?'}];
+const NM=['Zion','Mia','Leo','Ava','Sam','Zoe'],IT=['stickers','apples','toy cars','balloons','cookies','crayons'];
+function row(n,em,gone=0){let s='<span class="g">';for(let i=0;i<n;i++)s+=`<span class="${i>=n-gone?'gone':''}">${em}</span>`;return s+'</span>'}
+function gen(lv){
+ const e1=E[R(0,9)],e2=E[R(0,9)];
+ const add=(m,p)=>{const a=R(1,m-1),b=R(1,m-a);return{t:`${a} + ${b} = ?`,ans:a+b,pic:p?row(a,e1)+'<b>+</b>'+row(b,e2):''}};
+ const sub=(m,p)=>{const a=R(2,m),b=R(1,a-1);return{t:`${a} − ${b} = ?`,ans:a-b,pic:p?row(a,e1,b):''}};
+ const miss=()=>{const c=R(3,20),a=R(1,c-1);return R(0,1)?{t:`${a} + ▢ = ${c}`,ans:c-a}:{t:`${c} − ▢ = ${a}`,ans:c-a}};
+ const word=()=>{const nm=NM[R(0,5)],it=IT[R(0,5)];if(R(0,1)){const n=R(2,12),m=R(1,20-n);return{t:`${nm} has ${n} ${it}. Then ${nm} gets ${m} more. How many now?`,ans:n+m,w:1}}const a=R(4,20),b=R(1,a-1);return{t:`${nm} has ${a} ${it}. ${nm} gives away ${b}. How many are left?`,ans:a-b,w:1}};
+ const mix=(m,p)=>R(0,1)?add(m,p):sub(m,p);
+ return [()=>add(5,1),()=>sub(5,1),()=>add(10,1),()=>sub(10,1),()=>mix(10,1),()=>add(20,0),()=>sub(20,0),miss,()=>mix(20,0),word][lv]();
 }
-function build(n){
-  const qs=[];let s=0;
-  while(qs.length<n&&s++<n*10){const q=make();if(!qs.some(x=>x.q===q.q&&x.vis===q.vis))qs.push(q);}
-  return qs;
+function build(){
+ const out=[];
+ LV.forEach((_,lv)=>{const seen=new Set();let k=0,t=0;
+  while(k<10){const q=gen(lv);t++;if(seen.has(q.t)&&t<300)continue;seen.add(q.t);q.lv=lv;
+   const o=new Set([q.ans]);[1,-1,2,-2,3,R(0,20)].forEach(d=>{if(o.size<4){const v=d>3?d:q.ans+d;if(v>=0&&v<=20)o.add(v)}});
+   while(o.size<4)o.add(R(0,20));q.opts=shuf([...o]);out.push(q);k++}});
+ return out;
 }
-let Q=build(100),i=0,score=0,done=false;
-const card=document.getElementById("card"),fill=document.getElementById("fill"),qc=document.getElementById("qc"),sc=document.getElementById("sc");
-function render(){
-  if(i>=Q.length)return end();
-  done=false;const q=Q[i];
-  fill.style.width=(i/Q.length*100)+"%";qc.textContent=`Question ${i+1} of ${Q.length}`;sc.textContent=`Score: ${score}`;
-  card.innerHTML=`<span class="tag">${q.tag}</span><p class="q">${q.q}</p>${q.vis?`<p class="vis">${q.vis}</p>`:""}<div id="o"></div><div class="fb" id="fb"></div><button class="next" id="nx">Next ➜</button>`;
-  const o=card.querySelector("#o");
-  q.opts.forEach(t=>{const b=document.createElement("button");b.className="opt";b.textContent=t;b.onclick=()=>pick(b,t,q.c);o.appendChild(b);});
-  card.querySelector("#nx").onclick=()=>{i++;render();};
+let qs=[],i=0,score=0,streak=0,missed=[],ls=[],practice=false,locked=false,muted=false,ac;
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');scrollTo(0,0)}
+function startGame(){qs=build();i=0;score=0;streak=0;missed=[];ls=Array(10).fill(0);practice=false;go()}
+function practiceMissed(){qs=missed.map(q=>({...q,opts:shuf([...q.opts])}));i=0;score=0;streak=0;missed=[];practice=true;go()}
+function go(){if(!practice&&(i==0||qs[i].lv!==qs[i-1].lv)){const l=LV[qs[i].lv];$('l-icon').textContent=l.i;$('l-title').textContent='Level '+(qs[i].lv+1);$('l-name').textContent=l.n;$('l-tip').textContent=l.tip;show('s-level')}else showQ()}
+function showQ(){
+ const q=qs[i];locked=false;show('s-quiz');
+ $('q-lv').textContent=practice?'💪 Practice':`Level ${q.lv+1}: ${LV[q.lv].n}`;
+ $('q-num').textContent=`Question ${i+1} of ${qs.length}`;
+ $('q-score').textContent='⭐ '+score;$('q-streak').textContent='🔥 '+streak;
+ const p=i/qs.length*100;$('fill').style.width=p+'%';$('rocket').style.left=Math.max(p,2)+'%';
+ $('pic').innerHTML=q.pic||'';const el=$('q');el.textContent=q.t;el.className='q'+(q.w?' word':'');
+ $('opts').innerHTML=q.opts.map(o=>`<button class="opt" onclick="pick(${o},this)">${o}</button>`).join('');
+ $('fb').textContent='';$('nextBtn').style.display='none';
+ if(!muted)setTimeout(speak,300);
 }
-function pick(b,t,c){
-  if(done)return;done=true;
-  card.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.textContent===c)x.classList.add("correct");});
-  const fb=card.querySelector("#fb");
-  if(t===c){score++;fb.textContent="Great job! 🎉";fb.className="fb show good";}
-  else{b.classList.add("wrong");fb.textContent=`Not quite. The answer is ${c}.`;fb.className="fb show bad";}
-  sc.textContent=`Score: ${score}`;card.querySelector("#nx").classList.add("show");
+function speak(){if(!window.speechSynthesis)return;speechSynthesis.cancel();const q=qs[i];
+ const t=q.t.replace('+',' plus ').replace('−',' minus ').replace('=','equals').replace('▢','what number').replace('?','');
+ const u=new SpeechSynthesisUtterance(t);u.rate=.85;u.pitch=1.2;speechSynthesis.speak(u)}
+function beep(f,d=.15,t='sine'){if(muted)return;try{ac=ac||new AudioContext();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.value=f;g.gain.value=.15;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
+function toggleMute(){muted=!muted;$('mute').textContent=muted?'🔕':'🔔';if(muted)speechSynthesis&&speechSynthesis.cancel()}
+function boom(n=20,set=['🎉','⭐','✨','🎈','🌟']){for(let k=0;k<n;k++){const s=document.createElement('span');s.className='conf';s.textContent=set[R(0,set.length-1)];s.style.left=R(0,95)+'vw';s.style.animationDelay=(Math.random()*.6)+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),3400)}}
+const GOOD=['Awesome, Zion! 🎉','You got it! 🌟','Super smart! 🦁','Wow, great job! 🚀','Brilliant! ⭐','Math star! 🌈'];
+function pick(v,btn){
+ if(locked)return;locked=true;const q=qs[i];const bs=[...document.querySelectorAll('.opt')];
+ if(v===q.ans){score++;streak++;if(!practice)ls[q.lv]++;btn.classList.add('ok');$('fb').textContent=streak>=5?`🔥 ${streak} in a row! Unstoppable!`:GOOD[R(0,5)];
+  beep(660);setTimeout(()=>beep(880),120);if(streak%5==0)boom(24);setTimeout(advance,1100)}
+ else{streak=0;missed.push(q);btn.classList.add('no');bs.forEach(b=>{if(+b.textContent===q.ans)b.classList.add('ok')});
+  $('fb').textContent=`Good try! The answer is ${q.ans}. 💪`;beep(200,.3,'triangle');$('nextBtn').style.display='inline-block'}
 }
-function end(){
-  fill.style.width="100%";const p=Math.round(score/Q.length*100);
-  const msg=p>=90?"Superstar! 🌟":p>=70?"Great work! 👏":p>=50?"Good try, keep practicing! 💪":"Keep practicing, you can do it! 🌈";
-  card.innerHTML=`<div class="done"><p>${msg}</p><div class="score">${score} / ${Q.length}</div><p>${p}% correct</p><button class="restart" id="rs">Play Again (new questions)</button></div>`;
-  card.querySelector("#rs").onclick=()=>{Q=build(100);i=0;score=0;render();};
+function advance(){if(!locked)return;locked=false;i++;if(i>=qs.length)finish();else go()}
+function finish(){
+ show('s-end');speechSynthesis&&speechSynthesis.cancel();
+ const pct=score/qs.length*100,st=Math.max(1,Math.ceil(pct/20));
+ $('e-stars').textContent='⭐'.repeat(st)+'☆'.repeat(5-st);
+ $('e-score').textContent=`${score} out of ${qs.length}`;
+ $('e-title').textContent=pct>=90?'Math Champion, Zion! 🏆':pct>=70?'Great Work, Zion! 🎉':pct>=50?'Nice Try, Zion! 👍':'Keep Practising, Zion! 💪';
+ $('e-msg').textContent=pct>=90?'You are a super adder and take-away expert!':pct>=70?'You are getting really good at this!':'Every try makes your brain stronger. Play again!';
+ $('e-lv').innerHTML=practice?'':LV.map((l,k)=>`<div>${l.i} L${k+1}: ${ls[k]}/10</div>`).join('');
+ $('practice').style.display=missed.length?'inline-block':'none';
+ boom(pct>=50?50:15);
 }
-render();
 </script>
 </body>
 </html>
