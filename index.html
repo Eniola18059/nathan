@@ -3,450 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Numbers to One Million — 100 Question Quiz</title>
+<title>Grade 2 Number Sense — 100 Question Quiz</title>
 <style>
-:root{
-  --bg:#f6f7fb; --card:#ffffff; --ink:#1f2430; --muted:#6b7280;
-  --brand:#4f46e5; --brand-dark:#3730a3; --good:#16a34a; --bad:#dc2626;
-  --border:#e5e7eb;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#14161f; --card:#1e2130; --ink:#eef0f5; --muted:#9aa1b1;
-    --border:#2c3040;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#14161f; --card:#1e2130; --ink:#eef0f5; --muted:#9aa1b1; --border:#2c3040;
-}
+:root{--bg:#fff7e6;--card:#fff;--ink:#22303c;--muted:#6b7785;--brand:#f97316;--brand2:#ea580c;--good:#16a34a;--bad:#dc2626;--border:#f1dfc2;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1a17;--card:#26241f;--ink:#f3efe8;--muted:#a49d90;--border:#3a372f;}}
+:root[data-theme="dark"]{--bg:#1b1a17;--card:#26241f;--ink:#f3efe8;--muted:#a49d90;--border:#3a372f;}
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{
-  margin:0; font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-  background:var(--bg); color:var(--ink); min-height:100%;
-  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
-}
-.wrap{max-width:640px; margin:0 auto; padding:24px 16px 60px;}
-h1{font-size:1.3rem; margin:0 0 4px;}
-.sub{color:var(--muted); font-size:.9rem; margin:0 0 20px;}
-.bar{height:8px; background:var(--border); border-radius:99px; overflow:hidden; margin-bottom:8px;}
-.bar > div{height:100%; background:var(--brand); transition:width .25s;}
-.meta{display:flex; justify-content:space-between; font-size:.85rem; color:var(--muted); margin-bottom:18px;}
-.card{background:var(--card); border:1px solid var(--border); border-radius:16px; padding:22px; box-shadow:0 1px 3px rgba(0,0,0,.06);}
-.tag{display:inline-block; font-size:.7rem; font-weight:600; color:var(--brand); background:rgba(79,70,229,.1); padding:3px 9px; border-radius:99px; margin-bottom:10px;}
-.q{font-size:1.15rem; line-height:1.5; margin:0 0 18px; font-weight:600;}
-.opt{display:block; width:100%; text-align:left; padding:13px 16px; margin:8px 0; border-radius:10px; border:1.5px solid var(--border); background:transparent; color:var(--ink); font-size:1rem; cursor:pointer; transition:border-color .15s, background .15s;}
-.opt:hover{border-color:var(--brand);}
-.opt.correct{border-color:var(--good); background:rgba(22,163,74,.12);}
-.opt.wrong{border-color:var(--bad); background:rgba(220,38,38,.12);}
-.opt:disabled{cursor:default;}
-.feedback{margin-top:14px; font-size:.92rem; padding:12px 14px; border-radius:10px; display:none;}
-.feedback.show{display:block;}
-.feedback.good{background:rgba(22,163,74,.1); color:var(--good);}
-.feedback.bad{background:rgba(220,38,38,.1); color:var(--bad);}
-.next{margin-top:16px; width:100%; padding:13px; border:none; border-radius:10px; background:var(--brand); color:#fff; font-size:1rem; font-weight:600; cursor:pointer; display:none;}
-.next.show{display:block;}
-.next:hover{background:var(--brand-dark);}
-.done{text-align:center; padding:20px 0;}
-.done .score{font-size:2.6rem; font-weight:700; color:var(--brand); margin:10px 0;}
-.restart{margin-top:18px; padding:13px 22px; border:none; border-radius:10px; background:var(--brand); color:#fff; font-weight:600; cursor:pointer;}
+body{margin:0;font-family:"Trebuchet MS",Verdana,Arial,sans-serif;background:var(--bg);color:var(--ink);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.wrap{max-width:620px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:1.5rem;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 18px}
+.bar{height:12px;background:var(--border);border-radius:99px;overflow:hidden}
+.bar>div{height:100%;background:var(--brand);transition:width .25s}
+.meta{display:flex;justify-content:space-between;color:var(--muted);margin:8px 0 16px;font-weight:bold}
+.card{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:22px}
+.tag{display:inline-block;font-size:.75rem;font-weight:bold;color:var(--brand2);background:rgba(249,115,22,.14);padding:4px 11px;border-radius:99px;margin-bottom:12px}
+.q{font-size:1.35rem;line-height:1.45;margin:0 0 16px;font-weight:bold}
+.vis{font-size:1.6rem;letter-spacing:2px;margin:0 0 14px;line-height:1.5;word-break:break-word}
+.opt{display:block;width:100%;text-align:left;padding:14px 16px;margin:10px 0;border-radius:14px;border:2px solid var(--border);background:transparent;color:var(--ink);font:inherit;font-size:1.2rem;cursor:pointer}
+.opt:hover{border-color:var(--brand)}
+.opt.correct{border-color:var(--good);background:rgba(22,163,74,.14)}
+.opt.wrong{border-color:var(--bad);background:rgba(220,38,38,.14)}
+.opt:disabled{cursor:default}
+.fb{display:none;margin-top:12px;padding:12px 14px;border-radius:12px;font-weight:bold}
+.fb.show{display:block}.fb.good{background:rgba(22,163,74,.12);color:var(--good)}.fb.bad{background:rgba(220,38,38,.12);color:var(--bad)}
+.next,.restart{margin-top:14px;width:100%;padding:14px;border:none;border-radius:14px;background:var(--brand);color:#fff;font:inherit;font-size:1.1rem;font-weight:bold;cursor:pointer}
+.next{display:none}.next.show{display:block}
+.next:hover,.restart:hover{background:var(--brand2)}
+.done{text-align:center;padding:14px 0}.done .score{font-size:3rem;font-weight:bold;color:var(--brand);margin:8px 0}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Numbers to One Million</h1>
-  <p class="sub">100-question quiz — place value, expanded form, comparing, rounding &amp; mental math</p>
-  <div class="bar"><div id="barFill" style="width:0%"></div></div>
-  <div class="meta"><span id="qCount">Question 1 of 100</span><span id="scoreCount">Score: 0</span></div>
-  <div class="card" id="card"></div>
+<h1>⭐ Grade 2 Number Sense</h1>
+<p class="sub">100 questions: counting, place value, comparing, even &amp; odd, rounding</p>
+<div class="bar"><div id="fill" style="width:0%"></div></div>
+<div class="meta"><span id="qc">Question 1 of 100</span><span id="sc">Score: 0</span></div>
+<div class="card" id="card"></div>
 </div>
-
 <script>
-function randInt(min,max){return Math.floor(Math.random()*(max-min+1))+min;}
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function fmt(n){return n.toLocaleString('en-US');}
-function placeNames(){return ["ones","tens","hundreds","thousands","ten thousands","hundred thousands"];}
-
-function randNumber(digits){
-  const min = digits===1?1:Math.pow(10,digits-1);
-  const max = Math.pow(10,digits)-1;
-  return randInt(min,max);
+const R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const sh=a=>{for(let i=a.length-1;i>0;i--){const j=R(0,i);[a[i],a[j]]=[a[j],a[i]];}return a;};
+const f=n=>String(n);
+const ones=["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+const tens=["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
+function words(n){
+  if(n===1000)return"one thousand";
+  const h=Math.floor(n/100),r=n%100,o=[];
+  if(h)o.push(ones[h]+" hundred");
+  if(r){o.push(r<20?ones[r]:tens[Math.floor(r/10)]+(r%10?"-"+ones[r%10]:""));}
+  return o.join(" ");
 }
-
-function makeOptions(correct, spread){
-  const opts=new Set([correct]);
-  while(opts.size<4){
-    let delta = randInt(1,spread) * (Math.random()<0.5?-1:1);
-    let v = correct+delta;
-    if(v>=0) opts.add(v);
-  }
-  return shuffle([...opts].map(String));
+// build 4 unique numeric options
+function numOpts(c,spread,min=0){
+  const s=new Set([c]);let g=0;
+  while(s.size<4&&g++<200){const v=c+R(1,spread)*(Math.random()<.5?-1:1);if(v>=min)s.add(v);}
+  let k=1;while(s.size<4)s.add(c+k++);
+  return sh([...s].map(f));
 }
+function textOpts(c,pool){const w=sh(pool.filter(x=>x!==c)).slice(0,3);return sh([c,...w]);}
+const dots=(n,e)=>e.repeat(n);
 
-// ---- Question generators ----
-function genPlaceValue(){
-  const digits = randInt(5,6);
-  const n = randNumber(digits);
-  const s = String(n);
-  const pos = randInt(0, s.length-1); // from left
-  const digit = s[pos];
-  const placeIndexFromRight = s.length-1-pos;
-  const names = placeNames();
-  const placeName = names[placeIndexFromRight];
-  const value = Number(digit) * Math.pow(10, placeIndexFromRight);
-  const correct = fmt(value);
-  const opts = makeOptions(value, Math.max(value,10)).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
-  return {
-    tag:"Place Value",
-    q:`In ${fmt(n)}, what is the value of the digit ${digit} (the digit in the ${placeName} place)?`,
-    opts, correct
-  };
-}
-
-function genDigitStands(){
-  const digits = randInt(5,6);
-  const n = randNumber(digits);
-  const s = String(n);
-  const pos = randInt(0, s.length-1);
-  const digit = s[pos];
-  const placeIndexFromRight = s.length-1-pos;
-  const names = placeNames();
-  const placeName = names[placeIndexFromRight];
-  const wrongNames = shuffle(names.filter(x=>x!==placeName)).slice(0,3);
-  const opts = shuffle([placeName,...wrongNames]);
-  return {
-    tag:"Place Value",
-    q:`In ${fmt(n)}, the digit ${digit} stands for ${digit} ___?`,
-    opts, correct: placeName
-  };
-}
-
-function genExpandedToNumeral(){
-  const digits = randInt(4,6);
-  const n = randNumber(digits);
-  const s = String(n);
-  let parts=[];
-  for(let i=0;i<s.length;i++){
-    const d=Number(s[i]);
-    if(d===0) continue;
-    parts.push(d*Math.pow(10,s.length-1-i));
-  }
-  const expanded = parts.map(fmt).join(" + ");
-  const correct = fmt(n);
-  const opts = makeOptions(n, Math.max(Math.pow(10,digits-3),10)).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
-  return {
-    tag:"Expanded Form",
-    q:`What number is ${expanded} written in expanded form?`,
-    opts, correct
-  };
-}
-
-function genNumeralToExpanded(){
-  const digits = randInt(4,6);
-  const n = randNumber(digits);
-  const s = String(n);
-  let parts=[];
-  for(let i=0;i<s.length;i++){
-    const d=Number(s[i]);
-    if(d===0) continue;
-    parts.push(d*Math.pow(10,s.length-1-i));
-  }
-  const correctExp = parts.map(fmt).join(" + ");
-  // generate 3 wrong expansions by tweaking one part's magnitude
-  const wrongs = new Set();
-  let guard=0;
-  while(wrongs.size<3 && guard<30){
-    guard++;
-    let p2 = [...parts];
-    const idx = randInt(0,p2.length-1);
-    const factor = [10,0.1,2][randInt(0,2)];
-    let newVal = Math.round(p2[idx]*factor);
-    if(newVal===0 || newVal===p2[idx]) continue;
-    p2[idx]=newVal;
-    const str = p2.map(fmt).join(" + ");
-    if(str!==correctExp) wrongs.add(str);
-  }
-  while(wrongs.size<3){ wrongs.add(correctExp+" "); } // fallback filler (rare)
-  const opts = shuffle([correctExp, ...wrongs]);
-  return {
-    tag:"Expanded Form",
-    q:`What is the expanded form of ${fmt(n)}?`,
-    opts, correct: correctExp
-  };
-}
-
-const onesWords=["zero","one","two","three","four","five","six","seven","eight","nine","ten","eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
-const tensWords=["","","twenty","thirty","forty","fifty","sixty","seventy","eighty","ninety"];
-function threeDigitWords(n){
-  let out=[];
-  const h=Math.floor(n/100), r=n%100;
-  if(h>0) out.push(onesWords[h]+" hundred");
-  if(r>0){
-    if(r<20) out.push(onesWords[r]);
-    else{
-      let t=Math.floor(r/10), o=r%10;
-      out.push(tensWords[t]+(o>0?"-"+onesWords[o]:""));
-    }
-  }
-  return out.join(" ");
-}
-function numberToWords(n){
-  if(n===0) return "zero";
-  const groups=[[1000000,"million"],[1000,"thousand"],[1,""]];
-  let out=[];
-  let rem=n;
-  for(const [size,label] of groups){
-    const g=Math.floor(rem/size);
-    rem%=size;
-    if(g>0){
-      out.push(threeDigitWords(g)+(label?" "+label:""));
-    }
-  }
-  return out.join(", ");
-}
-
-function genWordsToNumeral(){
-  const digits = randInt(4,6);
-  const n = randNumber(digits);
-  const words = numberToWords(n);
-  const correct = fmt(n);
-  const opts = makeOptions(n, Math.max(Math.pow(10,digits-3),10)).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
-  return {
-    tag:"Numbers in Words",
-    q:`Write this number in numerals: "${words}"`,
-    opts, correct
-  };
-}
-
-function genNumeralToWords(){
-  const digits = randInt(4,6);
-  const n = randNumber(digits);
-  const correct = numberToWords(n);
-  const wrongs=new Set();
-  let guard=0;
-  while(wrongs.size<3 && guard<30){
-    guard++;
-    const delta=randInt(1,9)*Math.pow(10,randInt(1,digits-1));
-    const v=n+delta*(Math.random()<0.5?-1:1);
-    if(v>0 && v!==n) wrongs.add(numberToWords(v));
-  }
-  while(wrongs.size<3){wrongs.add(correct+"");}
-  const opts=shuffle([correct,...wrongs]);
-  return {
-    tag:"Numbers in Words",
-    q:`How do you write ${fmt(n)} in words?`,
-    opts, correct
-  };
-}
-
-function genCompare(){
-  const digits = randInt(5,6);
-  const a = randNumber(digits);
-  let b = a + randInt(-500,500);
-  if(b<0) b = a+randInt(1,500);
-  if(b===a) b=a+1;
-  const correct = a>b ? ">" : "<";
-  return {
-    tag:"Comparing Numbers",
-    q:`Which symbol correctly compares ${fmt(a)} ___ ${fmt(b)}?`,
-    opts:[">","<","=","none of these"],
-    correct
-  };
-}
-
-function genOrder(){
-  const digits = randInt(4,5);
-  let nums = new Set();
-  while(nums.size<4) nums.add(randNumber(digits));
-  const arr=[...nums];
-  const sorted=[...arr].sort((a,b)=>a-b);
-  const correct = sorted.map(fmt).join(", ");
-  const wrongs=new Set();
-  let guard=0;
-  while(wrongs.size<3 && guard<20){
-    guard++;
-    const shuffled=shuffle([...arr]);
-    const str=shuffled.map(fmt).join(", ");
-    if(str!==correct) wrongs.add(str);
-  }
-  while(wrongs.size<3){wrongs.add(shuffle([...arr]).map(fmt).join(", "));}
-  const opts=shuffle([correct,...wrongs]);
-  return {
-    tag:"Ordering Numbers",
-    q:`Which lists these numbers from least to greatest: ${arr.map(fmt).join(", ")}?`,
-    opts, correct
-  };
-}
-
-const roundUnits=[
-  {size:10,name:"ten"},{size:100,name:"hundred"},{size:1000,name:"thousand"},
-  {size:10000,name:"ten thousand"},{size:100000,name:"hundred thousand"}
+const G=[
+// counting on/back
+()=>{const st=[1,2,5,10,100][R(0,4)];const a=R(1,60)*(st>=10?st:1)+ (st===5?R(0,3)*5:0);
+  const seq=[a,a+st,a+2*st,a+3*st];const nx=a+4*st;
+  return{tag:"Counting",q:`Count by ${st}s. What comes next?`,vis:seq.join(", ")+", ___",opts:numOpts(nx,st*3,1),c:f(nx)};},
+()=>{const st=[1,2,5,10,100][R(0,4)];const a=R(6,90)*(st>=10?st:1)+(st===5?R(0,3)*5:0);
+  const seq=[a,a-st,a-2*st,a-3*st];const nx=a-4*st;if(nx<0)return G[1]();
+  return{tag:"Counting Back",q:`Count back by ${st}s. What comes next?`,vis:seq.join(", ")+", ___",opts:numOpts(nx,st*3,0),c:f(nx)};},
+// missing number in pattern
+()=>{const st=[2,5,10,100][R(0,3)];const a=R(1,20)*st;const m=a+2*st;
+  return{tag:"Counting",q:`Fill in the missing number.`,vis:`${a}, ${a+st}, ___, ${a+3*st}`,opts:numOpts(m,st*3,1),c:f(m)};},
+// numerals from words
+()=>{const n=R(100,999);return{tag:"Numbers in Words",q:`Which number is "${words(n)}"?`,opts:numOpts(n,Math.max(10,R(10,90)),100),c:f(n)};},
+// words from numerals
+()=>{const n=R(100,999);const c=words(n);const w=new Set();let g=0;
+  while(w.size<3&&g++<50){const v=n+R(1,9)*[1,10,100][R(0,2)]*(Math.random()<.5?-1:1);if(v>=100&&v<=999&&v!==n)w.add(words(v));}
+  return{tag:"Numbers in Words",q:`How do you say ${n} in words?`,opts:sh([c,...w]),c};},
+// number words to 100
+()=>{const n=R(11,99);return{tag:"Numbers in Words",q:`Which number is "${words(n)}"?`,opts:numOpts(n,9,10),c:f(n)};},
+// value of digit
+()=>{const n=R(100,999);const s=f(n);const p=R(0,2);const d=+s[p];const pl=[100,10,1][p];
+  const nm=["hundreds","tens","ones"][p];
+  if(d===0)return G[6]();
+  return{tag:"Place Value",q:`In ${n}, what is the value of the digit ${d} (in the ${nm} place)?`,opts:textOpts(f(d*pl),[f(d),f(d*10),f(d*100),f(d*1000),f(d*pl)].filter((v,i,a)=>a.indexOf(v)===i)),c:f(d*pl)};},
+// which place
+()=>{const n=R(100,999);const s=f(n);const p=R(0,2);const d=s[p];if([...s].filter(x=>x===d).length>1)return G[7]();
+  const nm=["hundreds","tens","ones"][p];
+  return{tag:"Place Value",q:`In ${n}, the digit ${d} is in which place?`,opts:sh(["hundreds","tens","ones","thousands"]),c:nm};},
+// how many hundreds/tens/ones digit
+()=>{const n=R(100,999);const p=R(0,2);const nm=["hundreds","tens","ones"][p];const d=+f(n)[p];
+  return{tag:"Place Value",q:`How many ${nm} are in the number ${n}?`,opts:numOpts(d,3,0).map(x=>x),c:f(d)};},
+// blocks: H T O
+()=>{const h=R(1,9),t=R(0,9),o=R(0,9);const n=h*100+t*10+o;
+  return{tag:"Place Value Blocks",q:`Count the blocks. What number is shown?`,vis:`${h} hundreds 🟦, ${t} tens 🟩, ${o} ones 🟨`,opts:numOpts(n,Math.max(9,R(9,90)),100),c:f(n)};},
+// expanded form to number
+()=>{const h=R(1,9),t=R(0,9),o=R(0,9);const n=h*100+t*10+o;
+  const e=[h*100,t*10,o].filter(x=>x).join(" + ");return{tag:"Expanded Form",q:`What number is ${e}?`,opts:numOpts(n,Math.max(9,R(9,90)),100),c:f(n)};},
+// number to expanded
+()=>{const h=R(1,9),t=R(1,9),o=R(1,9);const n=h*100+t*10+o;
+  const c=`${h*100} + ${t*10} + ${o}`;
+  const w=[`${h*10} + ${t*100} + ${o}`,`${h*100} + ${t} + ${o*10}`,`${h} + ${t*10} + ${o*100}`,`${h*100} + ${t*10} + ${o*10}`].filter(x=>x!==c);
+  return{tag:"Expanded Form",q:`What is the expanded form of ${n}?`,opts:sh([c,...sh(w).slice(0,3)]),c};},
+// hundreds/tens/ones in 2-digit
+()=>{const t=R(1,9),o=R(0,9);const n=t*10+o;return{tag:"Place Value",q:`${n} = ___ tens and ${o} ones`,opts:numOpts(t,3,0),c:f(t)};},
+// tens to number
+()=>{const t=R(2,20);return{tag:"Place Value",q:`${t} tens = ___`,opts:numOpts(t*10,30,10),c:f(t*10)};},
+// hundreds to number
+()=>{const h=R(2,9);return{tag:"Place Value",q:`${h} hundreds = ___`,opts:numOpts(h*100,300,100),c:f(h*100)};},
+// compare
+()=>{const a=R(100,999);let b=a+R(-60,60);if(b===a||b<100||b>999)b=a+7>999?a-7:a+7;
+  return{tag:"Comparing",q:`Which symbol goes in the box?`,vis:`${a}  ⬜  ${b}`,opts:[">","<","="],c:a>b?">":"<"};},
+// compare equal or 2-digit
+()=>{const a=R(10,99);let b=Math.random()<.2?a:a+R(-15,15);if(b<10||b>99)b=a;
+  return{tag:"Comparing",q:`Which symbol goes in the box?`,vis:`${a}  ⬜  ${b}`,opts:[">","<","="],c:a>b?">":a<b?"<":"="};},
+// greatest/least
+()=>{const s=new Set();while(s.size<4)s.add(R(100,999));const a=[...s];const big=Math.random()<.5;
+  const c=f(big?Math.max(...a):Math.min(...a));return{tag:"Comparing",q:`Which is the ${big?"greatest":"least"} number?`,opts:sh(a.map(f)),c};},
+// order
+()=>{const s=new Set();while(s.size<3)s.add(R(100,999));const a=[...s];const asc=Math.random()<.5;
+  const so=[...a].sort((x,y)=>asc?x-y:y-x);const c=so.join(", ");const w=new Set();let g=0;
+  while(w.size<3&&g++<40){const x=sh([...a]).join(", ");if(x!==c)w.add(x);}
+  return{tag:"Ordering",q:`Put these numbers in order from ${asc?"least to greatest":"greatest to least"}: ${a.join(", ")}`,opts:sh([c,...w]),c};},
+// even/odd
+()=>{const n=R(2,999);const c=n%2?"odd":"even";return{tag:"Even & Odd",q:`Is ${n} even or odd?`,opts:["even","odd"],c};},
+()=>{const s=new Set();while(s.size<4)s.add(R(10,99));const a=[...s];const ev=Math.random()<.5;
+  if(a.filter(x=>x%2===0).length!==(ev?1:3))return G[20]();
+  const c=f(a.find(x=>ev?x%2===0:x%2===1));return{tag:"Even & Odd",q:`Which number is ${ev?"even":"odd"}?`,opts:sh(a.map(f)),c};},
+// one more / less
+()=>{const n=R(10,998);const t=[["1 more",1],["10 more",10],["100 more",100],["1 less",-1],["10 less",-10],["100 less",-100]][R(0,5)];
+  const v=n+t[1];if(v<0)return G[21]();return{tag:"Counting",q:`What is ${t[0]} than ${n}?`,opts:numOpts(v,Math.max(12,Math.abs(t[1])*2),0),c:f(v)};},
+// number line neighbours: before/between/after
+()=>{const n=R(11,998);const k=["before","after"][R(0,1)];const v=k==="before"?n-1:n+1;
+  return{tag:"Number Line",q:`Which number comes just ${k} ${n}?`,opts:numOpts(v,4,0),c:f(v)};},
+()=>{const a=R(10,99)*10;return{tag:"Number Line",q:`Which number is between ${a} and ${a+2}?`,opts:numOpts(a+1,3,0),c:f(a+1)};},
+// round to nearest 10
+()=>{const n=R(11,99);if(n%10===5)return G[24]();const c=Math.round(n/10)*10;
+  return{tag:"Rounding",q:`Round ${n} to the nearest 10.`,opts:numOpts(c,20,0).map(x=>x),c:f(c)};},
+// 3-digit rounding to 10
+()=>{const n=R(101,995);if(n%10===5)return G[25]();const c=Math.round(n/10)*10;
+  return{tag:"Rounding",q:`Round ${n} to the nearest 10.`,opts:numOpts(c,30,0),c:f(c)};},
+// tens neighbors
+()=>{const n=R(11,98);if(n%10===0)return G[26]();const lo=Math.floor(n/10)*10;
+  return{tag:"Rounding",q:`${n} is between which two tens?`,opts:sh([`${lo} and ${lo+10}`,`${lo-10} and ${lo}`,`${lo+10} and ${lo+20}`,`${lo+20} and ${lo+30}`]),c:`${lo} and ${lo+10}`};},
+// digit-building
+()=>{const h=R(1,9),t=R(1,9),o=R(1,9);if(h===t||t===o||h===o)return G[27]();const ds=[h,t,o];
+  const big=Math.random()<.5;const c=f((big?[...ds].sort((a,b)=>b-a):[...ds].sort((a,b)=>a-b)).join(""));
+  const w=new Set();let g=0;while(w.size<3&&g++<40){const x=sh([...ds]).join("");if(x!==c)w.add(x);}
+  return{tag:"Place Value",q:`Use the digits ${ds.join(", ")} once each. What is the ${big?"greatest":"least"} 3-digit number?`,opts:sh([c,...w]),c};},
+// skip count doubles: how many in groups of tens
+()=>{const g=R(2,9);return{tag:"Counting",q:`There are ${g} bags with 10 apples in each bag. How many apples in all?`,vis:dots(g,"🛍️"),opts:numOpts(g*10,20,10),c:f(g*10)};},
+()=>{const n=R(2,10);return{tag:"Counting",q:`Count by 2s. How many shoes are there in ${n} pairs?`,vis:dots(n,"👟👟 "),opts:numOpts(n*2,6,2),c:f(n*2)};}
 ];
-function genRounding(){
-  const digits=randInt(5,6);
-  const n=randNumber(digits);
-  const unit=roundUnits[randInt(1,roundUnits.length-1)];
-  if(unit.size>=Math.pow(10,digits)) return genRounding();
-  const rounded = Math.round(n/unit.size)*unit.size;
-  const correct=fmt(rounded);
-  const opts=makeOptions(rounded, unit.size).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
-  return {
-    tag:"Rounding",
-    q:`Round ${fmt(n)} to the nearest ${unit.name}.`,
-    opts, correct
-  };
-}
-
-function genMentalMath(){
-  const type=randInt(0,3);
-  const mags=[100,1000,10000,100000];
-  const mag=mags[randInt(0,mags.length-1)];
-  let a,b,op,result,qtext;
-  if(type===0){
-    a=randInt(1,90)*mag; b=randInt(1,90)*mag; op="+";
-    result=a+b; qtext=`${fmt(a)} + ${fmt(b)} = ?`;
-  } else if(type===1){
-    a=randInt(20,99)*mag; b=randInt(1,19)*mag; op="-";
-    result=a-b; qtext=`${fmt(a)} − ${fmt(b)} = ?`;
-  } else if(type===2){
-    a=randInt(1,20)*mag; b=randInt(2,9); op="×";
-    result=a*b; qtext=`${fmt(a)} × ${b} = ?`;
-  } else {
-    b=randInt(2,9); const q=randInt(1,20)*mag/1; a=q*b;
-    result=q; qtext=`${fmt(a)} ÷ ${b} = ?`;
+const bad=[];
+function make(){
+  for(let i=0;i<50;i++){
+    const q=G[R(0,G.length-1)]();
+    if(q&&q.opts&&new Set(q.opts).size===q.opts.length&&q.opts.includes(q.c))return q;
   }
-  const spread = Math.max(mag, 100);
-  const opts=makeOptions(result, spread).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
-  return { tag:"Mental Math", q:qtext, opts, correct: fmt(result) };
+  return G[3]();
 }
-
-function genUnitConversion(){
-  const units=[
-    {size:10,name:"tens"},{size:100,name:"hundreds"},{size:1000,name:"thousands"},{size:10000,name:"ten thousands"}
-  ];
-  const u = units[randInt(0,units.length-1)];
-  const multiplier = randInt(2,90);
-  const n = multiplier*u.size;
-  const correct=String(multiplier);
-  const opts=makeOptions(multiplier, Math.max(Math.floor(multiplier/2),3)).map(String);
-  return {
-    tag:"Place Value",
-    q:`${fmt(n)} = ___ ${u.name}`,
-    opts, correct
-  };
-}
-
-function genPattern(){
-  const digits=randInt(4,6);
-  const start=randNumber(digits);
-  const steps=[10,100,1000,10000];
-  const step=steps[randInt(0,steps.length-1)];
-  const dir = Math.random()<0.5?1:-1;
-  const seqStart = dir===1 ? start : start+step*4;
-  const seq=[seqStart, seqStart+dir*step, seqStart+dir*step*2, seqStart+dir*step*3];
-  const next = seqStart+dir*step*4;
-  if(next<0) return genPattern();
-  const correct=fmt(next);
-  const opts=makeOptions(next, step).map(v=>isNaN(Number(v))?v:fmt(Number(v)));
-  return {
-    tag:"Number Patterns",
-    q:`What comes next in the pattern? ${seq.map(fmt).join(", ")}, ___`,
-    opts, correct
-  };
-}
-
-const generators=[genPlaceValue, genDigitStands, genExpandedToNumeral, genNumeralToExpanded,
-  genWordsToNumeral, genNumeralToWords, genCompare, genOrder, genRounding, genMentalMath,
-  genUnitConversion, genPattern];
-
-function buildQuiz(total){
-  const qs=[];
-  let guardTotal=0;
-  while(qs.length<total && guardTotal<total*5){
-    guardTotal++;
-    const gen=generators[randInt(0,generators.length-1)];
-    try{
-      const q=gen();
-      if(q && q.opts && q.opts.length>=2) qs.push(q);
-    }catch(e){/* skip a failed generation */}
-  }
+function build(n){
+  const qs=[];let s=0;
+  while(qs.length<n&&s++<n*10){const q=make();if(!qs.some(x=>x.q===q.q&&x.vis===q.vis))qs.push(q);}
   return qs;
 }
-
-// ---- App state ----
-const TOTAL=100;
-let questions=buildQuiz(TOTAL);
-let idx=0, score=0, answered=false;
-
-const card=document.getElementById('card');
-const barFill=document.getElementById('barFill');
-const qCount=document.getElementById('qCount');
-const scoreCount=document.getElementById('scoreCount');
-
+let Q=build(100),i=0,score=0,done=false;
+const card=document.getElementById("card"),fill=document.getElementById("fill"),qc=document.getElementById("qc"),sc=document.getElementById("sc");
 function render(){
-  if(idx>=questions.length){ renderDone(); return; }
-  const q=questions[idx];
-  answered=false;
-  barFill.style.width = ((idx)/questions.length*100)+"%";
-  qCount.textContent = `Question ${idx+1} of ${questions.length}`;
-  scoreCount.textContent = `Score: ${score}`;
-  card.innerHTML = `
-    <span class="tag">${q.tag}</span>
-    <p class="q">${q.q}</p>
-    <div id="opts"></div>
-    <div class="feedback" id="fb"></div>
-    <button class="next" id="nextBtn">Next Question</button>
-  `;
-  const optsDiv=card.querySelector('#opts');
-  q.opts.forEach(opt=>{
-    const btn=document.createElement('button');
-    btn.className='opt'; btn.textContent=opt;
-    btn.onclick=()=>selectAnswer(btn, opt, q.correct);
-    optsDiv.appendChild(btn);
-  });
-  card.querySelector('#nextBtn').onclick=()=>{ idx++; render(); };
+  if(i>=Q.length)return end();
+  done=false;const q=Q[i];
+  fill.style.width=(i/Q.length*100)+"%";qc.textContent=`Question ${i+1} of ${Q.length}`;sc.textContent=`Score: ${score}`;
+  card.innerHTML=`<span class="tag">${q.tag}</span><p class="q">${q.q}</p>${q.vis?`<p class="vis">${q.vis}</p>`:""}<div id="o"></div><div class="fb" id="fb"></div><button class="next" id="nx">Next ➜</button>`;
+  const o=card.querySelector("#o");
+  q.opts.forEach(t=>{const b=document.createElement("button");b.className="opt";b.textContent=t;b.onclick=()=>pick(b,t,q.c);o.appendChild(b);});
+  card.querySelector("#nx").onclick=()=>{i++;render();};
 }
-
-function selectAnswer(btn, chosen, correct){
-  if(answered) return;
-  answered=true;
-  const allBtns=card.querySelectorAll('.opt');
-  allBtns.forEach(b=>{
-    b.disabled=true;
-    if(b.textContent===correct) b.classList.add('correct');
-  });
-  const fb=card.querySelector('#fb');
-  const isCorrect = chosen===correct;
-  if(isCorrect){
-    score++;
-    fb.textContent="Correct! 🎉";
-    fb.className="feedback show good";
-  } else {
-    btn.classList.add('wrong');
-    fb.textContent=`Not quite — the correct answer is ${correct}.`;
-    fb.className="feedback show bad";
-  }
-  scoreCount.textContent = `Score: ${score}`;
-  card.querySelector('#nextBtn').classList.add('show');
+function pick(b,t,c){
+  if(done)return;done=true;
+  card.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.textContent===c)x.classList.add("correct");});
+  const fb=card.querySelector("#fb");
+  if(t===c){score++;fb.textContent="Great job! 🎉";fb.className="fb show good";}
+  else{b.classList.add("wrong");fb.textContent=`Not quite. The answer is ${c}.`;fb.className="fb show bad";}
+  sc.textContent=`Score: ${score}`;card.querySelector("#nx").classList.add("show");
 }
-
-function renderDone(){
-  barFill.style.width="100%";
-  qCount.textContent=`Question ${questions.length} of ${questions.length}`;
-  const pct=Math.round(score/questions.length*100);
-  card.innerHTML = `
-    <div class="done">
-      <p style="color:var(--muted);margin:0;">Quiz complete!</p>
-      <div class="score">${score} / ${questions.length}</div>
-      <p style="color:var(--muted);margin:0 0 6px;">${pct}% correct</p>
-      <button class="restart" id="restartBtn">Try Again (New Questions)</button>
-    </div>
-  `;
-  card.querySelector('#restartBtn').onclick=()=>{
-    questions=buildQuiz(TOTAL); idx=0; score=0; render();
-  };
+function end(){
+  fill.style.width="100%";const p=Math.round(score/Q.length*100);
+  const msg=p>=90?"Superstar! 🌟":p>=70?"Great work! 👏":p>=50?"Good try, keep practicing! 💪":"Keep practicing, you can do it! 🌈";
+  card.innerHTML=`<div class="done"><p>${msg}</p><div class="score">${score} / ${Q.length}</div><p>${p}% correct</p><button class="restart" id="rs">Play Again (new questions)</button></div>`;
+  card.querySelector("#rs").onclick=()=>{Q=build(100);i=0;score=0;render();};
 }
-
 render();
 </script>
 </body>
