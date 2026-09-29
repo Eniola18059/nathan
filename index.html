@@ -1,209 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Zion's Math Adventure</title>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Solar System Quiz – Chapter 1</title>
 <style>
-:root{--red:#ff6b6b;--yel:#ffd93d;--grn:#4cc46a;--blu:#4d96ff;--pur:#9b5de5;--ink:#2b2d42}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;font-family:"Comic Sans MS","Chalkboard SE","Trebuchet MS",system-ui,sans-serif;color:var(--ink);background:linear-gradient(#6fcfff,#c9f1ff 55%,#b4f0c0);overflow-x:hidden}
-.bg span{position:fixed;font-size:2.4rem;opacity:.5;animation:fl 7s ease-in-out infinite;pointer-events:none;z-index:0}
-@keyframes fl{50%{transform:translateY(-22px) rotate(12deg)}}
-.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:16px}
-.screen{display:none;animation:pop .4s}.screen.on{display:block}
-@keyframes pop{from{transform:scale(.92);opacity:0}}
-.card{background:#fff;border-radius:28px;padding:22px;box-shadow:0 8px 0 rgba(0,0,0,.12);border:4px solid var(--ink);text-align:center}
-h1{font-size:clamp(2rem,7vw,3.2rem);margin:.2em 0;color:var(--pur);text-shadow:3px 3px 0 var(--yel)}
-.mascot{font-size:5.5rem;display:inline-block;animation:bn 1.2s infinite}
-@keyframes bn{50%{transform:translateY(-16px) rotate(-6deg)}}
-.chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:14px 0}
-.chip{background:var(--yel);border:3px solid var(--ink);border-radius:99px;padding:6px 14px;font-weight:700}
-.btn{font:inherit;font-weight:800;font-size:1.4rem;color:#fff;background:var(--grn);border:4px solid var(--ink);border-radius:20px;padding:12px 30px;cursor:pointer;box-shadow:0 6px 0 var(--ink);transition:.1s}
-.btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
-.btn.alt{background:var(--blu)}
-.top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;font-weight:800}
-.pill{background:#fff;border:3px solid var(--ink);border-radius:99px;padding:4px 12px}
-.track{position:relative;height:22px;background:#fff;border:3px solid var(--ink);border-radius:99px;margin:16px 0 20px}
-.fill{height:100%;background:repeating-linear-gradient(45deg,var(--red),var(--red) 10px,var(--yel) 10px,var(--yel) 20px);border-radius:99px;width:0;transition:width .5s}
-.rocket{position:absolute;top:-16px;font-size:1.8rem;transition:left .5s;transform:translateX(-50%) rotate(45deg)}
-.q{font-size:clamp(2.4rem,10vw,4rem);font-weight:900;margin:8px 0;letter-spacing:2px}
-.q.word{font-size:clamp(1.3rem,4.5vw,1.9rem);line-height:1.4;letter-spacing:0}
-.pic{font-size:clamp(1.5rem,6vw,2.1rem);display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px 12px;min-height:44px;margin-bottom:6px}
-.pic .g{display:inline-flex;flex-wrap:wrap;justify-content:center;max-width:46%}
-.pic .gone{opacity:.2;filter:grayscale(1)}
-.say{font:inherit;font-size:1rem;background:#fff;border:3px solid var(--ink);border-radius:99px;padding:4px 14px;cursor:pointer;margin-bottom:8px}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-.opt{font:inherit;font-size:2.2rem;font-weight:900;color:#fff;border:4px solid var(--ink);border-radius:22px;padding:16px;cursor:pointer;box-shadow:0 6px 0 var(--ink)}
-.opt:nth-child(1){background:var(--red)}.opt:nth-child(2){background:var(--blu)}.opt:nth-child(3){background:var(--pur)}.opt:nth-child(4){background:#ff9f1c}
-.opt:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
-.opt.ok{background:var(--grn)!important;animation:bn .5s}
-.opt.no{background:#8d99ae!important;animation:sh .4s}
-@keyframes sh{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
-.fb{min-height:40px;font-size:1.5rem;font-weight:800;margin-top:14px}
-.big{font-size:5rem}
-.stars{font-size:2.6rem;letter-spacing:4px}
-.lv{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:14px 0}
-.lv div{background:#f1f6ff;border:3px solid var(--ink);border-radius:14px;padding:6px;font-weight:700;font-size:.95rem}
-.conf{position:fixed;top:-40px;font-size:2rem;animation:fall 2.6s linear forwards;z-index:9;pointer-events:none}
-@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
-@media(max-width:420px){.opt{font-size:1.8rem;padding:12px}}
-
-.buddies{display:flex;gap:10px;justify-content:center;margin:10px 0 16px}
-.buddy{font-size:2.6rem;background:#fff;border:4px solid var(--ink);border-radius:20px;padding:4px 10px;cursor:pointer;transition:.15s}
-.buddy.sel{background:var(--yel);transform:scale(1.15) translateY(-4px)}
-.map{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:16px 0}
-.node{width:64px;height:64px;border-radius:50%;border:4px solid var(--ink);background:#e9ecef;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.5rem;line-height:1;opacity:.55}
-.node small{font-size:.65rem;font-weight:800}
-.node.done{background:var(--grn);opacity:1}
-.node.cur{background:var(--yel);opacity:1;animation:bn 1s infinite;box-shadow:0 0 0 6px rgba(255,217,61,.5)}
-.bd{font-size:2.4rem;display:inline-block;margin-right:8px;vertical-align:middle}
-.bd.cheer{animation:bn .5s}.bd.oops{animation:sh .4s}
-.nl{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;width:100%}
-.nl span{width:27px;height:27px;font-size:.7rem;font-weight:800;border:2px solid var(--ink);border-radius:8px;background:#fff;display:flex;align-items:center;justify-content:center}
-.nl .s{background:var(--yel);transform:scale(1.25)}
-body{transition:background .6s}
-</style>
-</head>
-<body>
-<div class="bg"><span style="left:4%;top:12%">☁️</span><span style="right:6%;top:8%;animation-delay:1s">☀️</span><span style="left:10%;bottom:10%;animation-delay:2s">🌈</span><span style="right:8%;bottom:14%;animation-delay:3s">🎈</span><span style="left:48%;top:3%;animation-delay:4s">⭐</span></div>
-<div class="wrap">
-
-<section class="screen on" id="s-start"><div class="card">
-<div class="mascot" id="mascot">🦁</div><div style="font-weight:800">Pick your buddy:</div><div class="buddies" id="buddies"></div>
-<h1>Zion's Math Adventure</h1>
-<p style="font-size:1.3rem">Hi Zion! Ready to add and take away?<br>Let's blast off with <b>100 fun word problems!</b></p>
-<div class="chips"><span class="chip">➕ Adding</span><span class="chip">➖ Taking away</span><span class="chip">📖 Word problems</span><span class="chip">🚀 10 levels</span><span class="chip">⭐ Win stars</span></div>
-<button class="btn" onclick="startGame()">Let's Go! 🚀</button>
-<p style="font-size:.95rem;margin-top:16px">Tip: tap 🔊 to hear the question read out loud.</p>
-</div></section>
-
-<section class="screen" id="s-level"><div class="card">
-<div class="big" id="l-icon"></div>
-<h1 id="l-title" style="font-size:2.2rem"></h1>
-<h2 id="l-name" style="margin:.2em 0"></h2>
-<p id="l-tip" style="font-size:1.25rem"></p><div class="map" id="map"></div>
-<button class="btn" onclick="showQ()">Start Level! ▶</button>
-</div></section>
-
-<section class="screen" id="s-quiz">
-<div class="top"><span class="pill" id="q-lv"></span><span class="pill" id="q-streak">🔥 0</span><span class="pill" id="q-score">⭐ 0</span><button class="pill" id="mute" onclick="toggleMute()" style="font:inherit;cursor:pointer">🔔</button></div>
-<div class="track"><div class="fill" id="fill"></div><div class="rocket" id="rocket">🚀</div></div>
-<div class="card">
-<div style="font-weight:700" id="q-num"></div>
-<div class="pic" id="pic"></div>
-<div class="q" id="q"></div>
-<button class="say" onclick="speak()">🔊 Read to me</button>
-<div class="opts" id="opts"></div>
-<div class="fb"><span class="bd" id="bd"></span><span id="fbt"></span></div>
-<button class="btn alt" id="nextBtn" style="display:none" onclick="advance()">Next ▶</button>
-</div></section>
-
-<section class="screen" id="s-end"><div class="card">
-<div class="mascot">🏆</div>
-<h1 id="e-title">Amazing, Zion!</h1>
-<div class="stars" id="e-stars"></div>
-<p style="font-size:2rem;font-weight:900;margin:6px 0" id="e-score"></p>
-<p style="font-size:1.2rem" id="e-msg"></p>
-<div class="lv" id="e-lv"></div>
-<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-<button class="btn" onclick="startGame()">Play Again 🔁</button>
-<button class="btn alt" id="practice" onclick="practiceMissed()">Practise Oops Ones 💪</button>
-</div></div></section>
-</div>
-
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0f1240;--card:#ffffff;--tx:#1b1f4b;--ac:#ff9f1c;--ok:#2ec4b6;--no:#ef476f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--card:#1d2160;--tx:#f2f3ff}}
+:root[data-theme="dark"]{--card:#1d2160;--tx:#f2f3ff}
+*{box-sizing:inherit}
+body{margin:0;font-family:"Trebuchet MS",Verdana,sans-serif;background:radial-gradient(circle at 20% 10%,#3a2f8f,var(--bg));color:var(--tx);min-height:100vh;display:flex;justify-content:center;padding:16px}
+.card{background:var(--card);border-radius:20px;padding:24px;max-width:640px;width:100%;align-self:flex-start;box-shadow:0 10px 40px #0006}
+h1{margin:0 0 8px;font-size:1.8rem}
+.big{font-size:3rem;text-align:center}
+p{line-height:1.5}
+button{font:inherit;cursor:pointer;border:0;border-radius:14px;padding:14px 18px;background:var(--ac);color:#1b1f4b;font-weight:bold;font-size:1.05rem}
+.opt{display:block;width:100%;text-align:left;margin:10px 0;background:#eef0ff;color:#1b1f4b;border:3px solid transparent}
+.opt.ok{background:var(--ok);color:#fff}.opt.no{background:var(--no);color:#fff}
+.bar{height:12px;background:#8883;border-radius:9px;overflow:hidden;margin:8px 0 16px}
+.bar div{height:100%;background:var(--ok);transition:width .3s}
+.top{display:flex;justify-content:space-between;font-weight:bold}
+.fb{min-height:1.5em;font-weight:bold;margin:8px 0}
+.rev{font-size:.95rem;border-left:4px solid var(--no);padding-left:10px;margin:10px 0}
+.hide{display:none}
+</style></head>
+<body><div class="card" id="app"></div>
 <script>
-const $=id=>document.getElementById(id);
-const R=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
-const shuf=a=>{for(let i=a.length-1;i>0;i--){const j=R(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
-const E=['🍎','⭐','🐟','🚀','🐥','🍪','🎈','🐞','🍓','🧸'];
-const LV=[
-{n:'Add Up the Story',i:'🍎',tip:'Read the story, count the pictures, and add them together!'},
-{n:'Take-Away Story',i:'🐟',tip:'Some things go away. How many are left?'},
-{n:'Story Adds to 10',i:'🎈',tip:'Put the groups together. Can you get to 10?'},
-{n:'Story Take-Aways to 10',i:'🍪',tip:'Start with the big number and take some away.'},
-{n:'Which Way?',i:'🎲',tip:'Read carefully: do we put together or take away?'},
-{n:'Big Adds to 20',i:'🚀',tip:'Bigger numbers! Try counting on from the big one.'},
-{n:'Big Take-Aways to 20',i:'🐳',tip:'Count back to find how many are left.'},
-{n:'Mystery Number',i:'🕵️',tip:'Something is missing in the story. Can you find it?'},
-{n:'Story Mix-Up',i:'🌈',tip:'Adding, taking away and comparing, all mixed up!'},
-{n:'Super Stories',i:'🦸',tip:'Boss level! These stories have two steps. Go one step at a time.'}];
-const NM=['Zion','Mia','Leo','Ava','Sam','Zoe','Ben','Lily'];
-const IT=[['apples','🍎'],['stars','⭐'],['fish','🐟'],['cookies','🍪'],['balloons','🎈'],['ladybugs','🐞'],['strawberries','🍓'],['teddy bears','🧸'],['toy cars','🚗'],['ducks','🐥']];
-function row(n,em,gone=0){let s='<span class="g">';for(let i=0;i<n;i++)s+=`<span class="${i>=n-gone?'gone':''}">${em}</span>`;return s+'</span>'}
-function gen(lv){
- const [x,e]=IT[R(0,9)],nm=NM[R(0,7)];let n2=NM[R(0,7)];while(n2==nm)n2=NM[R(0,7)];
- const pic=lv<5;
- const add=mx=>{const n=R(1,mx-1),m=R(1,mx-n);
-  const t=[`${nm} has ${n} ${x}. Then ${nm} gets ${m} more. How many ${x} does ${nm} have now?`,`There are ${n} ${x} in a box and ${m} ${x} on the table. How many ${x} are there altogether?`,`${nm} finds ${n} ${x} in the morning and ${m} ${x} in the afternoon. How many ${x} did ${nm} find in all?`,`${nm} has ${n} ${x}. ${n2} has ${m} ${x}. How many ${x} do they have together?`][R(0,3)];
-  return{t,ans:n+m,pic:pic?row(n,e)+'<b>+</b>'+row(m,e):''}};
- const sub=mx=>{const a=R(2,mx),b=R(1,a-1);
-  const t=[`${nm} has ${a} ${x}. ${nm} gives ${b} to a friend. How many ${x} are left?`,`There were ${a} ${x} in a bag. ${nm} took out ${b}. How many ${x} are still in the bag?`,`${nm} had ${a} ${x} but lost ${b} of them. How many ${x} does ${nm} have now?`,`${nm} has ${a} ${x}. ${n2} has ${b} ${x}. How many more ${x} does ${nm} have?`][R(0,pic?2:3)];
-  return{t,ans:a-b,pic:pic?row(a,e,b):''}};
- const miss=()=>{const c=R(3,20),a=R(1,c-1);
-  return R(0,1)?{t:`${nm} had ${a} ${x}. Then ${nm} got some more. Now ${nm} has ${c}. How many did ${nm} get?`,ans:c-a}:{t:`${nm} had ${c} ${x}. ${nm} gave some away. Now ${nm} has ${a} left. How many did ${nm} give away?`,ans:c-a}};
- const two=()=>{const a=R(2,10),b=R(1,10),c=R(1,a+b-1);return{t:`${nm} has ${a} ${x}, then gets ${b} more. Then ${nm} gives away ${c}. How many ${x} does ${nm} have now?`,ans:a+b-c}};
- const mix=m=>R(0,1)?add(m):sub(m);
- const q=[()=>add(5),()=>sub(5),()=>add(10),()=>sub(10),()=>mix(10),()=>add(20),()=>sub(20),miss,()=>mix(20),two][lv]();
- q.w=1;return q;
+// Format: question | correct answer | wrong | wrong | wrong
+const D=[
+"What is a solar system?|A star and the objects that travel around it|Only the eight planets|A group of moons|A group of stars with no planets",
+"A solar system includes at least how many stars?|One|Two|Eight|None",
+"Large spheres that move around a star are called what?|Planets|Comets|Asteroids|Particles",
+"What is the path an object follows around another object in space?|Orbit|Tail|Surface|Core",
+"What force holds objects in orbit?|Gravity|Wind|Heat|Magnetism",
+"How many stars are in our solar system?|One|Two|Five|Eight",
+"What is the name of the star in our solar system?|The sun|Mercury|Pluto|Jupiter",
+"How many planets are in our solar system?|Eight|Four|Five|Nine",
+"Some other solar systems have more than one what at their center?|Star|Planet|Moon|Comet",
+"Which of these is NOT named as an object in a solar system?|Cities|Moons|Asteroids|Comets",
+"Why can't artists photograph the whole solar system together?|The objects are millions of miles apart|Cameras are too small|The sun is too dark|Planets keep changing color",
+"An orbit is what shape?|Oval|Square|Triangle|Straight line",
+"Why do artists illustrate the solar system?|To show its main objects and their orbits|To hide the planets|To make the sun smaller|To make the planets move faster",
+"As a verb, what does orbit mean?|To revolve around another object|To sit still|To melt|To explode",
+"About how long ago did our solar system form?|Over four billion years ago|Four hundred years ago|Four thousand years ago|Four million years ago",
+"What kind of materials could survive the heat near the sun?|Rocky materials|Icy materials|Gases|Water",
+"The four planets closest to the sun are made up mainly of what?|Rock and metal|Ice and gas|Water and methane|Hydrogen and helium",
+"What does a terrestrial planet have?|A solid surface|No surface|Rings|A blue-green color",
+"How many terrestrial planets are in our solar system?|Four|Two|Six|Eight",
+"Which is the smallest terrestrial planet?|Mercury|Venus|Earth|Mars",
+"Which planet is closest to the sun?|Mercury|Venus|Earth|Neptune",
+"About how far is Mercury from the sun?|35,600,000 miles|67 million miles|A billion miles|3,560 miles",
+"Mercury is only slightly larger than what?|Earth's moon|Earth|Mars|Jupiter",
+"How often does Mercury orbit the sun?|Once every eighty-eight days|Once a day|Once a week|Once every year",
+"Which word describes Mercury's surface?|Very hot|Very icy|Covered in oceans|Covered in rings",
+"Which planet is the hottest?|Venus|Mercury|Mars|Neptune",
+"Why is Venus so hot?|It has a very dense atmosphere|It is closest to the sun|It has many moons|It has rings",
+"What happens to sunlight on Venus after it reflects off the surface?|The thick atmosphere reflects it back down|It escapes into space|It turns into ice|It disappears",
+"About how far is Venus from the sun?|Almost 67 million miles|35.6 million miles|A billion miles|93 miles",
+"Venus is about the same size as which planet?|Earth|Mercury|Jupiter|Saturn",
+"Which features does Venus have?|Mountains and volcanoes|Rings and ice|Only oceans|Only gas",
+"What may Venus have had long ago?|A shallow ocean|Rings|A second sun|Many moons",
+"What does the Mariner 10 photo show?|Clouds swirling above Venus's surface|Mars's canyons|Saturn's rings|Pluto's mountains",
+"Which planet is third from the sun?|Earth|Venus|Mars|Mercury",
+"Which is the only planet known to support life?|Earth|Mars|Venus|Jupiter",
+"Which three things make life possible on Earth?|Temperature, water, and the mix of gases|Rings, moons, and craters|Wind, ice, and methane|Volcanoes, canyons, and dust",
+"Earth is the only planet with how many moons?|Just one|None|Two|Seventy-nine",
+"Which two planets do not have moons?|Mercury and Venus|Earth and Mars|Jupiter and Saturn|Uranus and Neptune",
+"The five planets after Earth's neighbors mostly have how many moons?|Two or more|None|Exactly one|Exactly ten",
+"Which planet is fourth from the sun?|Mars|Earth|Venus|Jupiter",
+"About how big is Mars compared to Earth?|About half the size|Twice the size|The same size|Eleven times the size",
+"What is Mars's atmosphere like?|Thin|Very dense|Full of methane clouds|Thicker than Venus's",
+"What is the average temperature on Mars?|-81°F|81°F|500°F|1,200°F",
+"Which features dot the surface of Mars?|Mountains, craters, canyons, and volcanoes|Only oceans|Only rings|Only clouds",
+"Is there evidence that life exists on Mars now?|No|Yes, many cities|Yes, in oceans|Yes, on the rings",
+"Why do scientists think Mars may have supported life once?|There is evidence of water|It has rings|It is very hot|It has seventy-nine moons",
+"Which planet is called the red planet?|Mars|Venus|Mercury|Neptune",
+"Why does Mars look reddish?|Large amounts of iron in the soil|Red gas in the air|Its ocean is red|The sun paints it",
+"The other four planets are classified as what?|Ice giants or gas giants|Terrestrial planets|Dwarf planets|Asteroids",
+"What do ice giants and gas giants NOT have?|A definite surface|Gases|Size|Cores",
+"What are the giant planets mostly made of?|Gases|Solid rock|Metal|Sand",
+"What part of a giant planet is solid?|The small core at the center|The whole planet|The outer surface|The atmosphere",
+"Which is the largest planet in our solar system?|Jupiter|Saturn|Earth|Neptune",
+"How many moons does Jupiter have that we know of?|Seventy-nine|Two|Fifty|One",
+"What is Jupiter's Great Red Spot?|A huge storm|A volcano|A crater|An ocean",
+"About how long has the Great Red Spot been going?|Hundreds of years|A few days|One year|Ten minutes",
+"Which gases mostly make up Jupiter's atmosphere?|Hydrogen and helium|Methane and water|Oxygen and iron|Carbon and dust",
+"Jupiter's gases are the same elements that make up what?|The sun|Earth's soil|Saturn's rings|Mars's surface",
+"How wide is Jupiter compared to Earth?|Eleven times the width|Half the width|The same width|Two times the width",
+"About how far is Saturn from the sun?|Nearly a billion miles|35,600,000 miles|67 million miles|Ten thousand miles",
+"What kind of planet is Saturn?|A gas giant|An ice giant|A terrestrial planet|A dwarf planet",
+"Saturn is made up mainly of what?|Hydrogen and helium|Iron and rock|Water and methane|Ice only",
+"What is Saturn most famous for?|Its rings|Its Great Red Spot|Its blue-green color|Its tilt",
+"About how many moons does Saturn have?|Over fifty|Exactly one|Zero|Exactly five",
+"What might some of Saturn's moons be able to do?|Support life|Explode|Make rings|Change into planets",
+"What are Saturn's rings made of?|Chunks of rock and ice|Solid gold|Clouds only|Gases only",
+"What kind of planet is Uranus?|An ice giant|A gas giant|A terrestrial planet|A dwarf planet",
+"Uranus is made mostly of what?|Water, methane gas, and other materials|Rock and metal|Only hydrogen|Solid ice cubes",
+"What gives Uranus its blue-green color?|Methane|Iron|Sunlight|Ocean water",
+"How fast can Uranus's winds reach?|Up to 560 miles per hour|Up to 5 miles per hour|Up to 1,200 miles per hour|They have no wind",
+"Like Saturn, Uranus has what?|Rings|A Great Red Spot|A solid surface|Seventy-nine moons",
+"What makes Uranus unique?|It tilts almost completely on its side|It is the hottest planet|It has no atmosphere|It is closest to the sun",
+"Which spacecraft took the picture of Uranus in the chapter?|Voyager 2|Messenger|Mariner 10|New Horizons",
+"Which planet is the farthest from the sun?|Neptune|Uranus|Saturn|Pluto",
+"What kind of planet is Neptune?|An ice giant|A gas giant|A terrestrial planet|A moon",
+"How fast can Neptune's winds reach?|Up to 1,200 miles per hour|Up to 560 miles per hour|Up to 12 miles per hour|Up to 79 miles per hour",
+"Why are there no rocky features on Neptune's surface?|It does not have a solid surface|It is too small|It is too close to the sun|It is covered in sand",
+"Neptune's structure is similar to which planet?|Uranus|Mercury|Earth|Mars",
+"What do some scientists think may be under Neptune's clouds?|A hot ocean|A city|A volcano field|A second sun",
+"Which words describe Neptune?|Dark, windy, and cold|Bright, calm, and warm|Small, rocky, and hot|Red and dusty",
+"What is a dwarf planet?|An object with some, but not all, characteristics of regular planets|A very small star|Another word for a moon|A comet without a tail",
+"Which is an example of a dwarf planet?|Pluto|Mars|Saturn|Earth",
+"How many dwarf planets have scientists identified and named?|Five|One|Eight|Twenty",
+"Where are the dwarf planets located?|Farther from the sun than Neptune|Between Earth and Mars|Closer than Mercury|Inside the sun",
+"What do asteroids, meteors, and comets all orbit?|The sun|The Earth|Jupiter|Pluto",
+"How big can asteroids, meteors, and comets be?|From small particles to hundreds of miles across|Only as big as a marble|Bigger than the sun|Exactly the size of Earth",
+"What do comets contain?|Ice and dust|Only rock|Only metal|Only gas",
+"When does a comet form its tail?|When it is close to the sun|When it is far from the sun|When it hits Earth|When it stops moving",
+"What is a comet's tail made of?|Gas and other material|Solid rock|Water only|Metal",
+"What did New Horizons photograph?|Pluto's icy mountains|Saturn's rings|Mars's canyons|Venus's clouds",
+"Which instrument-carrying spacecraft imaged Mercury's surface?|Messenger|Voyager 2|Mariner 10|New Horizons",
+"Which planet is second from the sun?|Venus|Earth|Mars|Mercury",
+"Which two planets are ice giants?|Uranus and Neptune|Jupiter and Saturn|Earth and Mars|Mercury and Venus",
+"Which two planets are gas giants?|Jupiter and Saturn|Uranus and Neptune|Mars and Venus|Earth and Mercury",
+"Which two planets in the chapter are described as having rings?|Saturn and Uranus|Mars and Venus|Earth and Mercury|Jupiter and Mars",
+"Venus is farther from the sun than Mercury. Why is Venus hotter?|Its dense atmosphere traps heat|It is bigger than Jupiter|It has more moons|It has no atmosphere",
+"Which planet has the fastest winds mentioned in the chapter?|Neptune|Uranus|Mars|Earth",
+"Which planet has the Great Red Spot?|Jupiter|Mars|Saturn|Venus",
+"In the vocabulary box, what does the abbreviation n. stand for?|Noun|Number|Name|Near",
+"How many planets are ice giants or gas giants?|Four|Two|Six|Eight"
+];
+const $=s=>document.getElementById(s),app=$("app");
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let Q,i,score,wrong,done;
+function start(){
+  app.innerHTML=`<div class="big">🪐🚀☀️</div><h1>Solar System Quiz</h1><p>Chapter 1 · Grade 4 · ${D.length} questions.<br>Pick the best answer. You will see right away if you got it!</p><button onclick="go()">Start Quiz</button>`;
 }
-function build(){
- const out=[];
- LV.forEach((_,lv)=>{const seen=new Set();let k=0,t=0;
-  while(k<10){const q=gen(lv);t++;if(seen.has(q.t)&&t<300)continue;seen.add(q.t);q.lv=lv;
-   const o=new Set([q.ans]);[1,-1,2,-2,3,R(0,20)].forEach(d=>{if(o.size<4){const v=d>3?d:q.ans+d;if(v>=0&&v<=20)o.add(v)}});
-   while(o.size<4)o.add(R(0,20));q.opts=shuf([...o]);out.push(q);k++}});
- return out;
+function go(){
+  Q=sh(D).map(s=>{const p=s.split("|");return{q:p[0],a:p[1],o:sh(p.slice(1))}});
+  i=0;score=0;wrong=[];show();
 }
-let buddy='🦁';
-const BD=['🦁','🤖','🦄','🦖'];
-const TH=['#6fcfff,#c9f1ff 55%,#b4f0c0','#ffd6a5,#ffe9d6 55%,#fdffb6','#b8f2e6,#e0fbfc 55%,#ffd6e0','#c3b1ff,#e8e0ff 55%,#bde0fe','#ffadad,#ffe5d9 55%,#ffd6a5','#a0c4ff,#d6e4ff 55%,#caffbf','#9bf6ff,#d0f4ff 55%,#fdffb6','#ffc6ff,#f3d9ff 55%,#bdb2ff','#fdffb6,#e9ffd0 55%,#9bf6ff','#ffb3c6,#ffe0e9 55%,#ffd6a5'];
-function buildBuddies(){$('buddies').innerHTML=BD.map(b=>`<button class="buddy ${b===buddy?'sel':''}" onclick="setBuddy('${b}')">${b}</button>`).join('')}
-function setBuddy(b){buddy=b;$('mascot').textContent=b;buildBuddies();beep(700)}
-function nlq(q,op){const a=parseInt(q.t);let h='<div class="nl">';for(let k=0;k<=20;k++)h+=`<span class="${k==a?'s':''}">${k}</span>`;q.pic=h+'</div><div style="width:100%;font-size:.95rem">Start at the yellow number, then hop '+(op=='+'?'forward':'back')+'!</div>';return q}
-let qs=[],i=0,score=0,streak=0,missed=[],ls=[],practice=false,locked=false,muted=false,ac;
-buildBuddies();
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));$(id).classList.add('on');scrollTo(0,0)}
-function startGame(){qs=build();i=0;score=0;streak=0;missed=[];ls=Array(10).fill(0);practice=false;go()}
-function practiceMissed(){qs=missed.map(q=>({...q,opts:shuf([...q.opts])}));i=0;score=0;streak=0;missed=[];practice=true;go()}
-function go(){document.body.style.background=`linear-gradient(${TH[qs[i].lv]})`;if(!practice&&(i==0||qs[i].lv!==qs[i-1].lv)){const l=LV[qs[i].lv];$('l-icon').textContent=l.i;$('l-title').textContent='Level '+(qs[i].lv+1);$('l-name').textContent=l.n;$('l-tip').textContent=l.tip;$('map').innerHTML=LV.map((l,k)=>`<div class="node ${k<qs[i].lv?'done':k==qs[i].lv?'cur':''}">${l.i}<small>${k<qs[i].lv?ls[k]+'/10':'L'+(k+1)}</small></div>`).join('');show('s-level')}else showQ()}
-function showQ(){
- const q=qs[i];locked=false;show('s-quiz');
- $('q-lv').textContent=practice?'💪 Practice':`Level ${q.lv+1}: ${LV[q.lv].n}`;
- $('q-num').textContent=`Question ${i+1} of ${qs.length}`;
- $('q-score').textContent='⭐ '+score;$('q-streak').textContent='🔥 '+streak;
- const p=i/qs.length*100;$('fill').style.width=p+'%';$('rocket').style.left=Math.max(p,2)+'%';
- $('pic').innerHTML=q.pic||'';const el=$('q');el.textContent=q.t;el.className='q'+(q.w?' word':'');
- $('opts').innerHTML=q.opts.map(o=>`<button class="opt" onclick="pick(${o},this)">${o}</button>`).join('');
- $('bd').textContent=buddy;$('bd').className='bd';$('fbt').textContent='';$('nextBtn').style.display='none';
- if(!muted)setTimeout(speak,300);
+function show(){
+  const q=Q[i];done=false;
+  app.innerHTML=`<div class="top"><span>Question ${i+1} of ${Q.length}</span><span>⭐ ${score}</span></div>
+  <div class="bar"><div style="width:${i/Q.length*100}%"></div></div>
+  <h2 style="margin-top:0">${q.q}</h2>
+  ${q.o.map((t,k)=>`<button class="opt" onclick="pick(${k})">${t}</button>`).join("")}
+  <div class="fb" id="fb"></div><button id="nx" class="hide" onclick="next()">${i==Q.length-1?"See Results":"Next ➜"}</button>`;
 }
-function speak(){if(!window.speechSynthesis)return;speechSynthesis.cancel();const q=qs[i];
- const t=q.t.replace('+',' plus ').replace('−',' minus ').replace('=','equals').replace('▢','what number').replace('?','');
- const u=new SpeechSynthesisUtterance(t);u.rate=.85;u.pitch=1.2;speechSynthesis.speak(u)}
-function beep(f,d=.15,t='sine'){if(muted)return;try{ac=ac||new AudioContext();const o=ac.createOscillator(),g=ac.createGain();o.type=t;o.frequency.value=f;g.gain.value=.15;o.connect(g);g.connect(ac.destination);o.start();o.stop(ac.currentTime+d)}catch(e){}}
-function toggleMute(){muted=!muted;$('mute').textContent=muted?'🔕':'🔔';if(muted)speechSynthesis&&speechSynthesis.cancel()}
-function boom(n=20,set=['🎉','⭐','✨','🎈','🌟']){for(let k=0;k<n;k++){const s=document.createElement('span');s.className='conf';s.textContent=set[R(0,set.length-1)];s.style.left=R(0,95)+'vw';s.style.animationDelay=(Math.random()*.6)+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),3400)}}
-const GOOD=['Awesome, Zion! 🎉','You got it! 🌟','Super smart! 🦁','Wow, great job! 🚀','Brilliant! ⭐','Math star! 🌈'];
-function pick(v,btn){
- if(locked)return;locked=true;const q=qs[i];const bs=[...document.querySelectorAll('.opt')];
- if(v===q.ans){score++;streak++;if(!practice)ls[q.lv]++;btn.classList.add('ok');$('bd').className='bd cheer';$('fbt').textContent=streak>=5?`🔥 ${streak} in a row! Unstoppable!`:GOOD[R(0,5)];
-  beep(660);setTimeout(()=>beep(880),120);if(streak%5==0)boom(24);setTimeout(advance,1100)}
- else{streak=0;missed.push(q);btn.classList.add('no');$('bd').className='bd oops';bs.forEach(b=>{if(+b.textContent===q.ans)b.classList.add('ok')});
-  $('fbt').textContent=`Good try! The answer is ${q.ans}. 💪`;beep(200,.3,'triangle');$('nextBtn').style.display='inline-block'}
+function pick(k){
+  if(done)return;done=true;
+  const q=Q[i],b=document.querySelectorAll(".opt");
+  b.forEach((el,n)=>{if(q.o[n]==q.a)el.classList.add("ok");});
+  if(q.o[k]==q.a){score++;$("fb").textContent="✅ Correct! Great job!"}
+  else{b[k].classList.add("no");wrong.push(q);$("fb").textContent="❌ Not quite. The answer is: "+q.a}
+  $("nx").classList.remove("hide");
 }
-function advance(){if(!locked)return;locked=false;i++;if(i>=qs.length)finish();else go()}
-function finish(){
- show('s-end');speechSynthesis&&speechSynthesis.cancel();
- const pct=score/qs.length*100,st=Math.max(1,Math.ceil(pct/20));
- $('e-stars').textContent='⭐'.repeat(st)+'☆'.repeat(5-st);
- $('e-score').textContent=`${score} out of ${qs.length}`;
- $('e-title').textContent=pct>=90?'Math Champion, Zion! 🏆':pct>=70?'Great Work, Zion! 🎉':pct>=50?'Nice Try, Zion! 👍':'Keep Practising, Zion! 💪';
- $('e-msg').textContent=pct>=90?'You are a super adder and take-away expert!':pct>=70?'You are getting really good at this!':'Every try makes your brain stronger. Play again!';
- $('e-lv').innerHTML=practice?'':LV.map((l,k)=>`<div>${l.i} L${k+1}: ${ls[k]}/10 ${ls[k]>=9?'🏅':''}</div>`).join('');
- $('practice').style.display=missed.length?'inline-block':'none';
- boom(pct>=50?50:15);
+function next(){i++;i<Q.length?show():end()}
+function end(){
+  const p=Math.round(score/Q.length*100);
+  const m=p>=90?"Superstar astronaut! 🌟":p>=70?"Great work, space explorer! 🚀":p>=50?"Good try! Read the chapter and try again. 📖":"Keep practicing, you can do it! 💪";
+  app.innerHTML=`<div class="big">🏆</div><h1>${score} / ${Q.length} (${p}%)</h1><p>${m}</p>
+  ${wrong.length?`<h3>Questions to review (${wrong.length})</h3>`+wrong.map(q=>`<div class="rev">${q.q}<br><b>${q.a}</b></div>`).join(""):""}
+  <button onclick="go()">Play Again</button>`;
 }
-</script>
-</body>
-</html>
+start();
+</script></body></html>
