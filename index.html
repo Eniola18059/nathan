@@ -1,165 +1,192 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Solar System Quiz – Chapter 1</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade 3 Word Problems Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0f1240;--card:#ffffff;--tx:#1b1f4b;--ac:#ff9f1c;--ok:#2ec4b6;--no:#ef476f}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--card:#1d2160;--tx:#f2f3ff}}
-:root[data-theme="dark"]{--card:#1d2160;--tx:#f2f3ff}
-*{box-sizing:inherit}
-body{margin:0;font-family:"Trebuchet MS",Verdana,sans-serif;background:radial-gradient(circle at 20% 10%,#3a2f8f,var(--bg));color:var(--tx);min-height:100vh;display:flex;justify-content:center;padding:16px}
-.card{background:var(--card);border-radius:20px;padding:24px;max-width:640px;width:100%;align-self:flex-start;box-shadow:0 10px 40px #0006}
-h1{margin:0 0 8px;font-size:1.8rem}
-.big{font-size:3rem;text-align:center}
-p{line-height:1.5}
-button{font:inherit;cursor:pointer;border:0;border-radius:14px;padding:14px 18px;background:var(--ac);color:#1b1f4b;font-weight:bold;font-size:1.05rem}
-.opt{display:block;width:100%;text-align:left;margin:10px 0;background:#eef0ff;color:#1b1f4b;border:3px solid transparent}
-.opt.ok{background:var(--ok);color:#fff}.opt.no{background:var(--no);color:#fff}
-.bar{height:12px;background:#8883;border-radius:9px;overflow:hidden;margin:8px 0 16px}
-.bar div{height:100%;background:var(--ok);transition:width .3s}
-.top{display:flex;justify-content:space-between;font-weight:bold}
-.fb{min-height:1.5em;font-weight:bold;margin:8px 0}
-.rev{font-size:.95rem;border-left:4px solid var(--no);padding-left:10px;margin:10px 0}
-.hide{display:none}
-</style></head>
-<body><div class="card" id="app"></div>
+:root{--ink:#1f2a5c;--paper:#f3f9ff;--grid:#d5e6f7;--card:#fff;--sun:#ffc93c;--green:#1f9d6a;--greenbg:#dff6ea;--red:#d64545;--redbg:#ffe3e3;--blue:#3b7ddd;--muted:#5b6690}
+@media (prefers-color-scheme:dark){:root{--ink:#eef2ff;--paper:#141a3a;--grid:#212a5a;--card:#1d2550;--greenbg:#12402f;--redbg:#4a2130;--muted:#a7b1e0;--green:#4fd39b;--red:#ff8585}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Nunito,system-ui,sans-serif;font-weight:600;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;padding:20px 14px}
+h1,h2,.big{font-family:"Baloo 2",Nunito,system-ui,sans-serif;font-weight:800;margin:0}
+main{max-width:680px;margin:0 auto}
+.card{background:var(--card);border:3px solid var(--ink);border-radius:18px;padding:22px;box-shadow:6px 6px 0 var(--ink)}
+button{font:inherit;font-weight:800;color:inherit;cursor:pointer}
+:focus-visible{outline:4px solid var(--blue);outline-offset:2px}
+.btn{background:var(--sun);color:#1f2a5c;border:3px solid var(--ink);border-radius:14px;padding:12px 26px;font-size:1.15rem;box-shadow:0 5px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn.alt{background:var(--card);color:var(--ink)}
+.hidden{display:none!important}
+#start{text-align:center}
+#start h1{font-size:2.3rem;line-height:1.1;margin:6px 0 10px}
+#start p{font-size:1.1rem;margin:0 0 18px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 22px;padding:0;list-style:none}
+.chips li{border:2px solid var(--ink);border-radius:999px;padding:4px 12px;font-size:.95rem;background:var(--paper)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;font-weight:800}
+.bar{height:14px;border:3px solid var(--ink);border-radius:999px;background:var(--card);overflow:hidden;margin-bottom:16px}
+.bar i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.tag{display:inline-block;background:var(--ink);color:var(--paper);border-radius:8px;padding:2px 10px;font-size:.9rem;margin-bottom:10px}
+#q{font-size:1.4rem;line-height:1.4;margin:0 0 18px;font-weight:800}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{background:var(--card);border:3px solid var(--ink);border-radius:14px;padding:14px 10px;font-size:1.3rem;box-shadow:0 4px 0 var(--ink);text-align:center}
+.opt:hover:not(:disabled){background:var(--sun);color:#1f2a5c}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--greenbg);border-color:var(--green);box-shadow:0 4px 0 var(--green)}
+.opt.wrong{background:var(--redbg);border-color:var(--red);box-shadow:0 4px 0 var(--red)}
+#fb{min-height:64px;margin:16px 0 4px;font-size:1.1rem}
+#fb b{display:block;font-size:1.25rem}
+.right-t{color:var(--green)}.wrong-t{color:var(--red)}
+#res{text-align:center}
+.stars{font-size:2.6rem;letter-spacing:6px}
+.score{font-size:3.4rem;line-height:1}
+.sec{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0;text-align:left}
+.sec div{border:2px solid var(--ink);border-radius:12px;padding:8px 12px;display:flex;justify-content:space-between}
+.miss{text-align:left;margin:14px 0}
+.miss li{margin-bottom:8px}
+.acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+@media(max-width:480px){#opts{grid-template-columns:1fr}#q{font-size:1.2rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+<section id="start" class="card">
+  <div class="stars" aria-hidden="true">🧮</div>
+  <h1>Grade 3 Word Problems</h1>
+  <p>50 questions. Read each story, think, then pick the answer.</p>
+  <ul class="chips"><li>Add &amp; subtract</li><li>Multiply</li><li>Divide</li><li>Two-step</li><li>Money, time &amp; measures</li></ul>
+  <button class="btn" id="go">Start quiz</button>
+</section>
+
+<section id="quiz" class="card hidden" aria-live="polite">
+  <div class="top"><span id="cnt"></span><span id="sc"></span></div>
+  <div class="bar" role="progressbar" aria-label="Progress"><i id="pg"></i></div>
+  <span class="tag" id="tag"></span>
+  <h2 id="q"></h2>
+  <div id="opts"></div>
+  <div id="fb"></div>
+  <button class="btn hidden" id="next">Next question</button>
+</section>
+
+<section id="res" class="card hidden">
+  <div class="stars" id="rs" aria-hidden="true"></div>
+  <div class="score" id="rn"></div>
+  <h2 id="rm" style="margin-top:8px"></h2>
+  <div class="sec" id="rsec"></div>
+  <div id="rmiss"></div>
+  <div class="acts"><button class="btn" id="again">Play again</button><button class="btn alt hidden" id="retry">Retry missed</button></div>
+</section>
+</main>
+
 <script>
-// Format: question | correct answer | wrong | wrong | wrong
-const D=[
-"What is a solar system?|A star and the objects that travel around it|Only the eight planets|A group of moons|A group of stars with no planets",
-"A solar system includes at least how many stars?|One|Two|Eight|None",
-"Large spheres that move around a star are called what?|Planets|Comets|Asteroids|Particles",
-"What is the path an object follows around another object in space?|Orbit|Tail|Surface|Core",
-"What force holds objects in orbit?|Gravity|Wind|Heat|Magnetism",
-"How many stars are in our solar system?|One|Two|Five|Eight",
-"What is the name of the star in our solar system?|The sun|Mercury|Pluto|Jupiter",
-"How many planets are in our solar system?|Eight|Four|Five|Nine",
-"Some other solar systems have more than one what at their center?|Star|Planet|Moon|Comet",
-"Which of these is NOT named as an object in a solar system?|Cities|Moons|Asteroids|Comets",
-"Why can't artists photograph the whole solar system together?|The objects are millions of miles apart|Cameras are too small|The sun is too dark|Planets keep changing color",
-"An orbit is what shape?|Oval|Square|Triangle|Straight line",
-"Why do artists illustrate the solar system?|To show its main objects and their orbits|To hide the planets|To make the sun smaller|To make the planets move faster",
-"As a verb, what does orbit mean?|To revolve around another object|To sit still|To melt|To explode",
-"About how long ago did our solar system form?|Over four billion years ago|Four hundred years ago|Four thousand years ago|Four million years ago",
-"What kind of materials could survive the heat near the sun?|Rocky materials|Icy materials|Gases|Water",
-"The four planets closest to the sun are made up mainly of what?|Rock and metal|Ice and gas|Water and methane|Hydrogen and helium",
-"What does a terrestrial planet have?|A solid surface|No surface|Rings|A blue-green color",
-"How many terrestrial planets are in our solar system?|Four|Two|Six|Eight",
-"Which is the smallest terrestrial planet?|Mercury|Venus|Earth|Mars",
-"Which planet is closest to the sun?|Mercury|Venus|Earth|Neptune",
-"About how far is Mercury from the sun?|35,600,000 miles|67 million miles|A billion miles|3,560 miles",
-"Mercury is only slightly larger than what?|Earth's moon|Earth|Mars|Jupiter",
-"How often does Mercury orbit the sun?|Once every eighty-eight days|Once a day|Once a week|Once every year",
-"Which word describes Mercury's surface?|Very hot|Very icy|Covered in oceans|Covered in rings",
-"Which planet is the hottest?|Venus|Mercury|Mars|Neptune",
-"Why is Venus so hot?|It has a very dense atmosphere|It is closest to the sun|It has many moons|It has rings",
-"What happens to sunlight on Venus after it reflects off the surface?|The thick atmosphere reflects it back down|It escapes into space|It turns into ice|It disappears",
-"About how far is Venus from the sun?|Almost 67 million miles|35.6 million miles|A billion miles|93 miles",
-"Venus is about the same size as which planet?|Earth|Mercury|Jupiter|Saturn",
-"Which features does Venus have?|Mountains and volcanoes|Rings and ice|Only oceans|Only gas",
-"What may Venus have had long ago?|A shallow ocean|Rings|A second sun|Many moons",
-"What does the Mariner 10 photo show?|Clouds swirling above Venus's surface|Mars's canyons|Saturn's rings|Pluto's mountains",
-"Which planet is third from the sun?|Earth|Venus|Mars|Mercury",
-"Which is the only planet known to support life?|Earth|Mars|Venus|Jupiter",
-"Which three things make life possible on Earth?|Temperature, water, and the mix of gases|Rings, moons, and craters|Wind, ice, and methane|Volcanoes, canyons, and dust",
-"Earth is the only planet with how many moons?|Just one|None|Two|Seventy-nine",
-"Which two planets do not have moons?|Mercury and Venus|Earth and Mars|Jupiter and Saturn|Uranus and Neptune",
-"The five planets after Earth's neighbors mostly have how many moons?|Two or more|None|Exactly one|Exactly ten",
-"Which planet is fourth from the sun?|Mars|Earth|Venus|Jupiter",
-"About how big is Mars compared to Earth?|About half the size|Twice the size|The same size|Eleven times the size",
-"What is Mars's atmosphere like?|Thin|Very dense|Full of methane clouds|Thicker than Venus's",
-"What is the average temperature on Mars?|-81°F|81°F|500°F|1,200°F",
-"Which features dot the surface of Mars?|Mountains, craters, canyons, and volcanoes|Only oceans|Only rings|Only clouds",
-"Is there evidence that life exists on Mars now?|No|Yes, many cities|Yes, in oceans|Yes, on the rings",
-"Why do scientists think Mars may have supported life once?|There is evidence of water|It has rings|It is very hot|It has seventy-nine moons",
-"Which planet is called the red planet?|Mars|Venus|Mercury|Neptune",
-"Why does Mars look reddish?|Large amounts of iron in the soil|Red gas in the air|Its ocean is red|The sun paints it",
-"The other four planets are classified as what?|Ice giants or gas giants|Terrestrial planets|Dwarf planets|Asteroids",
-"What do ice giants and gas giants NOT have?|A definite surface|Gases|Size|Cores",
-"What are the giant planets mostly made of?|Gases|Solid rock|Metal|Sand",
-"What part of a giant planet is solid?|The small core at the center|The whole planet|The outer surface|The atmosphere",
-"Which is the largest planet in our solar system?|Jupiter|Saturn|Earth|Neptune",
-"How many moons does Jupiter have that we know of?|Seventy-nine|Two|Fifty|One",
-"What is Jupiter's Great Red Spot?|A huge storm|A volcano|A crater|An ocean",
-"About how long has the Great Red Spot been going?|Hundreds of years|A few days|One year|Ten minutes",
-"Which gases mostly make up Jupiter's atmosphere?|Hydrogen and helium|Methane and water|Oxygen and iron|Carbon and dust",
-"Jupiter's gases are the same elements that make up what?|The sun|Earth's soil|Saturn's rings|Mars's surface",
-"How wide is Jupiter compared to Earth?|Eleven times the width|Half the width|The same width|Two times the width",
-"About how far is Saturn from the sun?|Nearly a billion miles|35,600,000 miles|67 million miles|Ten thousand miles",
-"What kind of planet is Saturn?|A gas giant|An ice giant|A terrestrial planet|A dwarf planet",
-"Saturn is made up mainly of what?|Hydrogen and helium|Iron and rock|Water and methane|Ice only",
-"What is Saturn most famous for?|Its rings|Its Great Red Spot|Its blue-green color|Its tilt",
-"About how many moons does Saturn have?|Over fifty|Exactly one|Zero|Exactly five",
-"What might some of Saturn's moons be able to do?|Support life|Explode|Make rings|Change into planets",
-"What are Saturn's rings made of?|Chunks of rock and ice|Solid gold|Clouds only|Gases only",
-"What kind of planet is Uranus?|An ice giant|A gas giant|A terrestrial planet|A dwarf planet",
-"Uranus is made mostly of what?|Water, methane gas, and other materials|Rock and metal|Only hydrogen|Solid ice cubes",
-"What gives Uranus its blue-green color?|Methane|Iron|Sunlight|Ocean water",
-"How fast can Uranus's winds reach?|Up to 560 miles per hour|Up to 5 miles per hour|Up to 1,200 miles per hour|They have no wind",
-"Like Saturn, Uranus has what?|Rings|A Great Red Spot|A solid surface|Seventy-nine moons",
-"What makes Uranus unique?|It tilts almost completely on its side|It is the hottest planet|It has no atmosphere|It is closest to the sun",
-"Which spacecraft took the picture of Uranus in the chapter?|Voyager 2|Messenger|Mariner 10|New Horizons",
-"Which planet is the farthest from the sun?|Neptune|Uranus|Saturn|Pluto",
-"What kind of planet is Neptune?|An ice giant|A gas giant|A terrestrial planet|A moon",
-"How fast can Neptune's winds reach?|Up to 1,200 miles per hour|Up to 560 miles per hour|Up to 12 miles per hour|Up to 79 miles per hour",
-"Why are there no rocky features on Neptune's surface?|It does not have a solid surface|It is too small|It is too close to the sun|It is covered in sand",
-"Neptune's structure is similar to which planet?|Uranus|Mercury|Earth|Mars",
-"What do some scientists think may be under Neptune's clouds?|A hot ocean|A city|A volcano field|A second sun",
-"Which words describe Neptune?|Dark, windy, and cold|Bright, calm, and warm|Small, rocky, and hot|Red and dusty",
-"What is a dwarf planet?|An object with some, but not all, characteristics of regular planets|A very small star|Another word for a moon|A comet without a tail",
-"Which is an example of a dwarf planet?|Pluto|Mars|Saturn|Earth",
-"How many dwarf planets have scientists identified and named?|Five|One|Eight|Twenty",
-"Where are the dwarf planets located?|Farther from the sun than Neptune|Between Earth and Mars|Closer than Mercury|Inside the sun",
-"What do asteroids, meteors, and comets all orbit?|The sun|The Earth|Jupiter|Pluto",
-"How big can asteroids, meteors, and comets be?|From small particles to hundreds of miles across|Only as big as a marble|Bigger than the sun|Exactly the size of Earth",
-"What do comets contain?|Ice and dust|Only rock|Only metal|Only gas",
-"When does a comet form its tail?|When it is close to the sun|When it is far from the sun|When it hits Earth|When it stops moving",
-"What is a comet's tail made of?|Gas and other material|Solid rock|Water only|Metal",
-"What did New Horizons photograph?|Pluto's icy mountains|Saturn's rings|Mars's canyons|Venus's clouds",
-"Which instrument-carrying spacecraft imaged Mercury's surface?|Messenger|Voyager 2|Mariner 10|New Horizons",
-"Which planet is second from the sun?|Venus|Earth|Mars|Mercury",
-"Which two planets are ice giants?|Uranus and Neptune|Jupiter and Saturn|Earth and Mars|Mercury and Venus",
-"Which two planets are gas giants?|Jupiter and Saturn|Uranus and Neptune|Mars and Venus|Earth and Mercury",
-"Which two planets in the chapter are described as having rings?|Saturn and Uranus|Mars and Venus|Earth and Mercury|Jupiter and Mars",
-"Venus is farther from the sun than Mercury. Why is Venus hotter?|Its dense atmosphere traps heat|It is bigger than Jupiter|It has more moons|It has no atmosphere",
-"Which planet has the fastest winds mentioned in the chapter?|Neptune|Uranus|Mars|Earth",
-"Which planet has the Great Red Spot?|Jupiter|Mars|Saturn|Venus",
-"In the vocabulary box, what does the abbreviation n. stand for?|Noun|Number|Name|Near",
-"How many planets are ice giants or gas giants?|Four|Two|Six|Eight"
+// [question, correct answer, [3 wrong answers], working]
+const Q=[
+["Mia has 27 stickers. Her friend gives her 15 more. How many stickers does Mia have now?","42",["32","12","41"],"27 + 15 = 42"],
+["There are 48 kids on a bus. 19 kids get off. How many kids are still on the bus?","29",["67","39","31"],"48 − 19 = 29"],
+["A bakery sold 126 muffins in the morning and 84 in the afternoon. How many muffins did it sell in all?","210",["200","42","120"],"126 + 84 = 210"],
+["Sam read 65 pages on Monday and 78 pages on Tuesday. How many pages did he read altogether?","143",["133","13","153"],"65 + 78 = 143"],
+["A library has 300 books. 145 books are borrowed. How many books are left?","155",["445","165","255"],"300 − 145 = 155"],
+["Ali scored 58 points in a game. Ben scored 37 points. How many more points did Ali score?","21",["95","31","25"],"58 − 37 = 21"],
+["A farm has 234 hens and 152 ducks. How many birds are on the farm?","386",["82","376","486"],"234 + 152 = 386"],
+["Lena had 90 beads. She used 46 to make a bracelet. How many beads does she have left?","44",["136","54","46"],"90 − 46 = 44"],
+["A school has 158 boys and 175 girls. How many students go to the school?","333",["323","17","433"],"158 + 175 = 333"],
+["A water tank holds 500 litres. 275 litres are used. How many litres are left?","225",["775","325","235"],"500 − 275 = 225"],
+["There are 4 boxes. Each box has 6 crayons. How many crayons are there in all?","24",["10","20","28"],"4 × 6 = 24"],
+["Omar puts 8 apples in each of 5 bags. How many apples does he have?","40",["13","35","45"],"5 × 8 = 40"],
+["A spider has 8 legs. How many legs do 7 spiders have?","56",["15","54","48"],"7 × 8 = 56"],
+["Movie tickets cost $3 each. How much do 9 tickets cost?","$27",["$12","$24","$30"],"9 × $3 = $27"],
+["Each pack has 10 pencils. How many pencils are in 6 packs?","60",["16","50","66"],"6 × 10 = 60"],
+["An egg carton holds 12 eggs. How many eggs are in 3 cartons?","36",["15","24","34"],"3 × 12 = 36"],
+["A garden has 6 rows of flowers. Each row has 7 flowers. How many flowers are there?","42",["13","36","49"],"6 × 7 = 42"],
+["A classroom has 9 tables. There are 4 chairs at each table. How many chairs are there?","36",["13","32","45"],"9 × 4 = 36"],
+["A cat eats 2 cans of food each day. How many cans does it eat in 7 days?","14",["9","12","16"],"7 × 2 = 14"],
+["A train has 8 cars. Each car has 9 seats. How many seats are on the train?","72",["17","63","81"],"8 × 9 = 72"],
+["24 cookies are shared equally among 4 friends. How many cookies does each friend get?","6",["20","28","8"],"24 ÷ 4 = 6"],
+["Priya has 35 stickers. She puts 5 stickers on each page. How many pages does she fill?","7",["30","40","6"],"35 ÷ 5 = 7"],
+["18 marbles are put equally into 3 bags. How many marbles are in each bag?","6",["15","21","9"],"18 ÷ 3 = 6"],
+["There are 40 kids. Teams have 8 kids each. How many teams are there?","5",["32","48","4"],"40 ÷ 8 = 5"],
+["27 apples are packed equally into 9 baskets. How many apples are in each basket?","3",["18","36","4"],"27 ÷ 9 = 3"],
+["Jake reads 56 pages in 7 days. He reads the same number each day. How many pages a day?","8",["49","63","7"],"56 ÷ 7 = 8"],
+["30 chairs are set up in 6 equal rows. How many chairs are in each row?","5",["24","36","6"],"30 ÷ 6 = 5"],
+["$45 is shared equally among 5 people. How much money does each person get?","$9",["$40","$50","$8"],"$45 ÷ 5 = $9"],
+["32 students go on a trip. Each van holds 4 students. How many vans are needed?","8",["28","36","7"],"32 ÷ 4 = 8"],
+["Nina has 63 cherries. She shares them equally among 9 friends. How many does each friend get?","7",["54","72","8"],"63 ÷ 9 = 7"],
+["Jo has 5 packs with 4 cards in each. Then she buys 6 more cards. How many cards does she have?","26",["20","30","15"],"5 × 4 = 20, then 20 + 6 = 26"],
+["A bus has 30 people. 12 get off and 8 get on. How many people are on the bus now?","26",["34","10","50"],"30 − 12 = 18, then 18 + 8 = 26"],
+["Pens cost $2 each. Tara buys 4 pens and pays with a $10 bill. How much change does she get?","$2",["$8","$6","$4"],"4 × $2 = $8, then $10 − $8 = $2"],
+["A shop has 45 cupcakes and sells 20. The rest go into boxes of 5. How many boxes are filled?","5",["4","9","25"],"45 − 20 = 25, then 25 ÷ 5 = 5"],
+["Dan has 3 packs of 6 stickers. He gives 5 stickers away. How many stickers are left?","13",["18","8","11"],"3 × 6 = 18, then 18 − 5 = 13"],
+["A farmer has 4 pens with 8 sheep in each. Then 5 more sheep arrive. How many sheep are there?","37",["32","13","40"],"4 × 8 = 32, then 32 + 5 = 37"],
+["Kim saves $6 each week for 5 weeks. Then she spends $12. How much money does she have left?","$18",["$30","$12","$42"],"5 × $6 = $30, then $30 − $12 = $18"],
+["A class has 28 students. 4 are away. The rest split into 4 equal teams. How many are on each team?","6",["7","24","8"],"28 − 4 = 24, then 24 ÷ 4 = 6"],
+["Ravi reads 15 pages a day for 4 days. His book has 100 pages. How many pages are left to read?","40",["60","85","25"],"4 × 15 = 60, then 100 − 60 = 40"],
+["A baker makes 6 trays of 9 rolls. She sells 40 rolls. How many rolls are left?","14",["54","46","15"],"6 × 9 = 54, then 54 − 40 = 14"],
+["A pencil costs 25¢. How much do 4 pencils cost?","$1.00",["$0.75","$1.25","$0.29"],"4 × 25¢ = 100¢ = $1.00"],
+["A movie starts at 2:15 and lasts 1 hour 30 minutes. What time does it end?","3:45",["3:15","4:15","3:30"],"2:15 + 1 hour = 3:15, + 30 minutes = 3:45"],
+["Recess starts at 10:20 and lasts 25 minutes. What time does recess end?","10:45",["10:35","11:05","10:25"],"10:20 + 25 minutes = 10:45"],
+["A rope is 8 m long. It is cut into 4 equal pieces. How long is each piece?","2 m",["4 m","12 m","32 m"],"8 ÷ 4 = 2"],
+["A ribbon is 45 cm long. Zara uses 18 cm. How much ribbon is left?","27 cm",["63 cm","37 cm","33 cm"],"45 − 18 = 27"],
+["A garden is 6 m long and 4 m wide. What is the distance around the garden (its perimeter)?","20 m",["10 m","24 m","48 m"],"6 + 4 + 6 + 4 = 20"],
+["A jug holds 2 litres of juice. How many litres do 5 jugs hold?","10 L",["7 L","25 L","3 L"],"5 × 2 = 10"],
+["A bag of flour weighs 3 kg. How much do 4 bags weigh?","12 kg",["7 kg","9 kg","34 kg"],"4 × 3 = 12"],
+["Joe swims for 30 minutes a day for 5 days. How many minutes does he swim in all?","150 minutes",["35 minutes","120 minutes","180 minutes"],"5 × 30 = 150"],
+["A pizza is cut into 8 equal slices. Sara eats 3 slices. What fraction of the pizza did she eat?","3/8",["5/8","3/5","8/3"],"3 slices out of 8 slices = 3/8"]
 ];
-const $=s=>document.getElementById(s),app=$("app");
-const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
-let Q,i,score,wrong,done;
-function start(){
-  app.innerHTML=`<div class="big">🪐🚀☀️</div><h1>Solar System Quiz</h1><p>Chapter 1 · Grade 4 · ${D.length} questions.<br>Pick the best answer. You will see right away if you got it!</p><button onclick="go()">Start Quiz</button>`;
-}
-function go(){
-  Q=sh(D).map(s=>{const p=s.split("|");return{q:p[0],a:p[1],o:sh(p.slice(1))}});
-  i=0;score=0;wrong=[];show();
+const SECS=["Add & subtract","Multiply","Divide","Two-step","Money, time & measures"];
+const $=id=>document.getElementById(id);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let order,idx,score,missed,secScore,locked;
+
+function start(list){
+  order=list;idx=0;score=0;missed=[];secScore=SECS.map(()=>0);
+  ["start","res"].forEach(i=>$(i).classList.add("hidden"));$("quiz").classList.remove("hidden");show();
 }
 function show(){
-  const q=Q[i];done=false;
-  app.innerHTML=`<div class="top"><span>Question ${i+1} of ${Q.length}</span><span>⭐ ${score}</span></div>
-  <div class="bar"><div style="width:${i/Q.length*100}%"></div></div>
-  <h2 style="margin-top:0">${q.q}</h2>
-  ${q.o.map((t,k)=>`<button class="opt" onclick="pick(${k})">${t}</button>`).join("")}
-  <div class="fb" id="fb"></div><button id="nx" class="hide" onclick="next()">${i==Q.length-1?"See Results":"Next ➜"}</button>`;
+  locked=false;const n=order[idx],q=Q[n];
+  $("cnt").textContent="Question "+(idx+1)+" of "+order.length;
+  $("sc").textContent="⭐ "+score;
+  $("pg").style.width=(idx/order.length*100)+"%";
+  $("tag").textContent=SECS[Math.floor(n/10)];
+  $("q").textContent=q[0];$("fb").innerHTML="";$("next").classList.add("hidden");
+  $("opts").innerHTML="";
+  shuffle([q[1],...q[2]]).forEach((o,i)=>{
+    const b=document.createElement("button");b.className="opt";b.textContent=o;
+    b.setAttribute("aria-label","Answer "+(i+1)+": "+o);
+    b.onclick=()=>pick(b,o);$("opts").appendChild(b);
+  });
 }
-function pick(k){
-  if(done)return;done=true;
-  const q=Q[i],b=document.querySelectorAll(".opt");
-  b.forEach((el,n)=>{if(q.o[n]==q.a)el.classList.add("ok");});
-  if(q.o[k]==q.a){score++;$("fb").textContent="✅ Correct! Great job!"}
-  else{b[k].classList.add("no");wrong.push(q);$("fb").textContent="❌ Not quite. The answer is: "+q.a}
-  $("nx").classList.remove("hide");
+function pick(btn,val){
+  if(locked)return;locked=true;
+  const n=order[idx],q=Q[n],ok=val===q[1];
+  [...$("opts").children].forEach(b=>{b.disabled=true;if(b.textContent===q[1])b.classList.add("right")});
+  if(ok){score++;secScore[Math.floor(n/10)]++;$("fb").innerHTML='<b class="right-t">Correct! Great job!</b>'+q[3]}
+  else{btn.classList.add("wrong");missed.push(n);$("fb").innerHTML='<b class="wrong-t">Not quite. The answer is '+q[1]+'.</b>'+q[3]}
+  $("sc").textContent="⭐ "+score;
+  $("next").textContent=idx===order.length-1?"See my results":"Next question";
+  $("next").classList.remove("hidden");$("next").focus();
 }
-function next(){i++;i<Q.length?show():end()}
-function end(){
-  const p=Math.round(score/Q.length*100);
-  const m=p>=90?"Superstar astronaut! 🌟":p>=70?"Great work, space explorer! 🚀":p>=50?"Good try! Read the chapter and try again. 📖":"Keep practicing, you can do it! 💪";
-  app.innerHTML=`<div class="big">🏆</div><h1>${score} / ${Q.length} (${p}%)</h1><p>${m}</p>
-  ${wrong.length?`<h3>Questions to review (${wrong.length})</h3>`+wrong.map(q=>`<div class="rev">${q.q}<br><b>${q.a}</b></div>`).join(""):""}
-  <button onclick="go()">Play Again</button>`;
+function next(){idx++;idx<order.length?show():finish()}
+function finish(){
+  $("quiz").classList.add("hidden");$("res").classList.remove("hidden");
+  const t=order.length,p=score/t,st=p>=.9?3:p>=.7?2:p>=.5?1:0;
+  $("rs").textContent="★".repeat(st)+"☆".repeat(3-st);
+  $("rn").textContent=score+" / "+t;
+  $("rm").textContent=p>=.9?"Amazing work!":p>=.7?"Great job!":p>=.5?"Good effort, keep going!":"Keep practising, you can do it!";
+  const full=t===50;
+  $("rsec").innerHTML=full?SECS.map((s,i)=>"<div><span>"+s+"</span><span>"+secScore[i]+"/10</span></div>").join(""):"";
+  $("rmiss").innerHTML=missed.length?'<h2 style="font-size:1.3rem">Let\'s review</h2><ul class="miss">'+missed.map(n=>"<li>"+Q[n][0]+"<br><b>Answer: "+Q[n][1]+"</b> ("+Q[n][3]+")</li>").join("")+"</ul>":"<p>You got every question right!</p>";
+  $("retry").classList.toggle("hidden",!missed.length);
 }
-start();
-</script></body></html>
+$("go").onclick=()=>start(shuffle(Q.map((_,i)=>i)));
+$("next").onclick=next;
+$("again").onclick=()=>start(shuffle(Q.map((_,i)=>i)));
+$("retry").onclick=()=>start(shuffle(missed));
+document.addEventListener("keydown",e=>{
+  if($("quiz").classList.contains("hidden"))return;
+  if(e.key>="1"&&e.key<="4"&&!locked){const b=$("opts").children[+e.key-1];b&&b.click()}
+});
+</script>
+</body>
+</html>
