@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grade 1 Word Problems Quiz</title>
+<title>Grade 1 Word Problems Quiz: Set 2</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root{--ink:#12403a;--bg:#d6f2e3;--card:#fff;--sun:#ffcf4a;--pink:#ff7aa8;--ok:#1a9a5f;--okbg:#d9f7e6;--no:#d6455d;--nobg:#ffe1e7;--muted:#3f6a62}
@@ -55,8 +55,8 @@ button{font:inherit;color:inherit;cursor:pointer}
 <main>
 <section id="start" class="card">
   <div class="big" aria-hidden="true">🐸</div>
-  <h1>Hop Into Word Problems!</h1>
-  <p>100 story questions. Add and take away. Help the frog hop all the way across!</p>
+  <h1>Hop Into Word Problems! Set 2</h1>
+  <p>30 new story questions. Add and take away. Help the frog hop all the way across!</p>
   <button class="btn" id="go">Start</button>
 </section>
 
@@ -83,19 +83,19 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 const SECS=["Add up to 10","Take away within 10","Add up to 20","Take away within 20","Mix it up"];
-const NM=["Ava","Ben","Zoe","Sam","Mia","Leo","Ian","Ruby","Noah","Lily"];
-const IT=[["apples","🍎"],["stars","⭐"],["balloons","🎈"],["cookies","🍪"],["birds","🐦"],["fish","🐟"],["toy cars","🚗"],["books","📚"],["flowers","🌼"],["ducks","🦆"],["kites","🪁"],["shells","🐚"]];
+const NM=["Kai","Tia","Max","Nora","Finn","Gia","Eli","Rosa","Jay","Uma"];
+const IT=[["grapes","🍇"],["eggs","🥚"],["bees","🐝"],["frogs","🐸"],["hats","🎩"],["candies","🍬"],["buses","🚌"],["pencils","✏️"],["pumpkins","🎃"],["butterflies","🦋"],["hearts","❤️"],["turtles","🐢"]];
 // Fixed seed so the 100 questions are the same every time
-let seed=2024;const rnd=()=>(seed=(seed*1664525+1013904223)%4294967296)/4294967296;
+let seed=777;const rnd=()=>(seed=(seed*1664525+1013904223)%4294967296)/4294967296;
 const ri=(a,b)=>a+Math.floor(rnd()*(b-a+1)),pk=a=>a[Math.floor(rnd()*a.length)];
 
 function build(type,a,b,c){
   const [x,e]=pk(IT),n=pk(NM);let m=pk(NM);while(m===n)m=pk(NM);
-  if(type==="add")return{q:pk([`${n} has ${a} ${x}. A friend gives ${n} ${b} more. How many ${x} does ${n} have now?`,`There are ${a} ${x} in a box and ${b} ${x} on the table. How many ${x} are there in all?`,`${n} sees ${a} ${x}. Then ${b} more ${x} come. How many ${x} are there now?`]),ans:a+b,eq:`${a} + ${b} = ${a+b}`,v:["add",a,b,e]};
-  if(type==="sub")return{q:pk([`${n} has ${a} ${x}. ${n} gives ${b} away. How many ${x} are left?`,`There are ${a} ${x} on a shelf. ${b} ${x} are taken. How many ${x} are left?`,`${n} had ${a} ${x}. ${b} ${x} got lost. How many ${x} does ${n} have now?`]),ans:a-b,eq:`${a} − ${b} = ${a-b}`,v:["sub",a,b,e]};
-  if(type==="cmp")return{q:`${n} has ${a} ${x}. ${m} has ${b} ${x}. How many more ${x} does ${n} have than ${m}?`,ans:a-b,eq:`${a} − ${b} = ${a-b}`,v:["cmp",a,b,e]};
-  if(type==="need")return{q:`${n} has ${a} ${x}. ${n} wants ${b}. How many more ${x} does ${n} need?`,ans:b-a,eq:`${b} − ${a} = ${b-a}`,v:["row",a,0,e]};
-  return{q:`${n} has ${a} ${x}, ${m} has ${b} ${x}, and Mom has ${c} ${x}. How many ${x} are there in all?`,ans:a+b+c,eq:`${a} + ${b} + ${c} = ${a+b+c}`,v:["add3",a,b,e,c]};
+  if(type==="add")return{q:pk([`${n} picks ${a} ${x}. Then ${n} picks ${b} more. How many ${x} does ${n} have in all?`,`${n} has ${a} ${x} in one bag and ${b} ${x} in another bag. How many ${x} are there together?`,`${a} ${x} are in the garden. ${b} more ${x} join them. How many ${x} are in the garden now?`]),ans:a+b,eq:`${a} + ${b} = ${a+b}`,v:["add",a,b,e]};
+  if(type==="sub")return{q:pk([`${n} has ${a} ${x}. ${n} shares ${b} with a friend. How many ${x} does ${n} have left?`,`${a} ${x} are in a basket. ${b} ${x} are taken out. How many ${x} are still in the basket?`,`${n} counted ${a} ${x}. Then ${b} ${x} went away. How many ${x} are left?`]),ans:a-b,eq:`${a} − ${b} = ${a-b}`,v:["sub",a,b,e]};
+  if(type==="cmp")return{q:`${m} has ${b} ${x}. ${n} has ${a} ${x}. How many more ${x} does ${n} have than ${m}?`,ans:a-b,eq:`${a} − ${b} = ${a-b}`,v:["cmp",a,b,e]};
+  if(type==="need")return{q:`${n} has ${a} ${x} but wants ${b}. How many more ${x} does ${n} need?`,ans:b-a,eq:`${b} − ${a} = ${b-a}`,v:["row",a,0,e]};
+  return{q:`${n} has ${a} ${x}, ${m} has ${b} ${x}, and Dad has ${c} ${x}. How many ${x} are there in all?`,ans:a+b+c,eq:`${a} + ${b} + ${c} = ${a+b+c}`,v:["add3",a,b,e,c]};
 }
 const Q=[],seen=new Set();
 function gen(sec,count,type,fn){
@@ -105,13 +105,13 @@ function gen(sec,count,type,fn){
     const o=build(type,a,b,c);o.sec=sec;Q.push(o);count--;
   }
 }
-gen(0,20,"add",()=>{const a=ri(1,8),b=ri(1,10-a);return a+b<3?[2,1]:[a,b]});
-gen(1,20,"sub",()=>{const a=ri(3,10);return[a,ri(1,a-1)]});
-gen(2,20,"add",()=>{const a=ri(4,12),b=ri(3,9);return a+b>10&&a+b<=20?[a,b]:[8,5]});
-gen(3,20,"sub",()=>{const a=ri(11,20),b=ri(2,9);return a-b>=2?[a,b]:[15,6]});
-gen(4,7,"cmp",()=>{const a=ri(6,18);return[a,ri(2,a-2)]});
-gen(4,7,"need",()=>{const a=ri(3,14);return[a,ri(a+2,20)]});
-gen(4,6,"add3",()=>{const a=ri(2,7),b=ri(2,7),c=ri(2,6);return[a,b,c]});
+gen(0,6,"add",()=>{const a=ri(1,8),b=ri(1,10-a);return a+b<3?[2,1]:[a,b]});
+gen(1,6,"sub",()=>{const a=ri(3,10);return[a,ri(1,a-1)]});
+gen(2,6,"add",()=>{const a=ri(4,12),b=ri(3,9);return a+b>10&&a+b<=20?[a,b]:[8,5]});
+gen(3,6,"sub",()=>{const a=ri(11,20),b=ri(2,9);return a-b>=2?[a,b]:[15,6]});
+gen(4,2,"cmp",()=>{const a=ri(6,18);return[a,ri(2,a-2)]});
+gen(4,2,"need",()=>{const a=ri(3,14);return[a,ri(a+2,20)]});
+gen(4,2,"add3",()=>{const a=ri(2,7),b=ri(2,7),c=ri(2,6);return[a,b,c]});
 
 const $=id=>document.getElementById(id);
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
@@ -155,7 +155,7 @@ function finish(){
   const t=order.length,p=score/t,st=p>=.9?3:p>=.7?2:p>=.5?1:0;
   $("rs").textContent="★".repeat(st)+"☆".repeat(3-st);$("rn").textContent=score+" / "+t;
   $("rm").textContent=p>=.9?"Super frog! Amazing!":p>=.7?"Great job!":p>=.5?"Nice hopping! Keep going!":"Keep practising. You can do it!";
-  $("rsec").innerHTML=t===100?SECS.map((s,i)=>`<div><span>${s}</span><span>${secScore[i]}/20</span></div>`).join(""):"";
+  $("rsec").innerHTML=t===30?SECS.map((s,i)=>`<div><span>${s}</span><span>${secScore[i]}/6</span></div>`).join(""):"";
   $("rmiss").innerHTML=missed.length?`<h2 style="font-size:1.4rem">Let's look again</h2><ul class="miss">${missed.map(n=>`<li>${Q[n].q}<br><b>${Q[n].eq}</b></li>`).join("")}</ul>`:"<p>You got every question right!</p>";
   $("retry").classList.toggle("hidden",!missed.length);
 }
