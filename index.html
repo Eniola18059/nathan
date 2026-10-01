@@ -2,172 +2,149 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grade 1 Word Problems Quiz: Set 2</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Christabel's Grade 2 Maths Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#12403a;--bg:#d6f2e3;--card:#fff;--sun:#ffcf4a;--pink:#ff7aa8;--ok:#1a9a5f;--okbg:#d9f7e6;--no:#d6455d;--nobg:#ffe1e7;--muted:#3f6a62}
+:root{--bg:#fff7e6;--card:#fff;--ink:#2b2d42;--accent:#7b4fe0;--good:#2fb36d;--bad:#ef476f;--soft:#efe8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1b2e;--card:#2a2745;--ink:#f3f0ff;--soft:#3a3560}}
+:root[data-theme="dark"]{--bg:#1d1b2e;--card:#2a2745;--ink:#f3f0ff;--soft:#3a3560}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:18px 12px;font-family:Nunito,system-ui,sans-serif;font-weight:700;color:var(--ink);background:var(--bg) radial-gradient(circle at 12% 88%,#bfe8d2 0 90px,transparent 91px),radial-gradient(circle at 92% 10%,#bfe8d2 0 70px,transparent 71px)}
-h1,h2,.fat{font-family:"Baloo 2",Nunito,system-ui,sans-serif;font-weight:800;margin:0}
-main{max-width:640px;margin:0 auto}
-.card{background:var(--card);border:4px solid var(--ink);border-radius:26px;padding:22px;box-shadow:0 8px 0 var(--ink)}
-button{font:inherit;color:inherit;cursor:pointer}
-:focus-visible{outline:4px solid #3b7ddd;outline-offset:3px}
-.btn{background:var(--sun);border:4px solid var(--ink);border-radius:18px;padding:12px 28px;font-size:1.3rem;font-weight:800;box-shadow:0 5px 0 var(--ink)}
-.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
-.btn.alt{background:var(--card)}
-.hidden{display:none!important}
-#start,#res{text-align:center}
-#start h1{font-size:2.5rem;line-height:1.05;margin:8px 0 10px}
-#start p{font-size:1.2rem;color:var(--muted);margin:0 0 20px}
-.big{font-size:4rem;line-height:1}
-.top{display:flex;justify-content:space-between;font-size:1.15rem;margin-bottom:6px}
-.track{position:relative;height:16px;margin:26px 10px 16px;background:#bfe8d2;border:3px solid var(--ink);border-radius:99px}
-.track i{position:absolute;left:0;top:0;bottom:0;background:var(--ok);border-radius:99px;width:0;transition:width .35s}
-.frog{position:absolute;top:-26px;font-size:1.8rem;transform:translateX(-50%);transition:left .35s}
-.tag{display:inline-block;background:var(--pink);color:#fff;border:3px solid var(--ink);border-radius:10px;padding:1px 10px;font-size:.95rem;margin-bottom:10px}
-.qrow{display:flex;gap:10px;align-items:flex-start}
-#q{font-size:1.5rem;line-height:1.35;margin:0 0 12px;font-weight:800;flex:1}
-#say{background:var(--card);border:3px solid var(--ink);border-radius:50%;width:48px;height:48px;font-size:1.4rem;flex:none}
-#vis{font-size:1.6rem;line-height:1.5;background:#f2fbf6;border:3px dashed #8fcfb0;border-radius:16px;padding:8px 12px;margin-bottom:16px;word-break:break-all}
-#vis div+div{margin-top:2px}
-#opts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.opt{background:var(--card);border:4px solid var(--ink);border-radius:18px;padding:14px 0;font-size:2.2rem;font-family:"Baloo 2",Nunito,sans-serif;font-weight:800;box-shadow:0 5px 0 var(--ink)}
-.opt:hover:not(:disabled){background:var(--sun)}
-.opt:disabled{cursor:default}
-.opt.right{background:var(--okbg);border-color:var(--ok);box-shadow:0 5px 0 var(--ok)}
-.opt.wrong{background:var(--nobg);border-color:var(--no);box-shadow:0 5px 0 var(--no)}
-#fb{min-height:70px;margin:16px 0 6px;font-size:1.25rem}
-#fb b{display:block;font-size:1.4rem}
-.ok-t{color:var(--ok)}.no-t{color:var(--no)}
-.stars{font-size:3rem;letter-spacing:6px}
-.sec{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0;text-align:left}
-.sec div{border:3px solid var(--ink);border-radius:14px;padding:6px 12px;display:flex;justify-content:space-between;gap:8px}
-.miss{text-align:left;margin:12px 0;padding-left:20px}
-.miss li{margin-bottom:10px}
-.acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
-@media(max-width:440px){#q{font-size:1.25rem}#vis{font-size:1.3rem}.opt{font-size:1.9rem}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Fredoka',system-ui,'Comic Sans MS',sans-serif;min-height:100vh;display:flex;justify-content:center;padding:16px}
+.wrap{width:100%;max-width:560px}
+.card{background:var(--card);border-radius:24px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.12);text-align:center}
+h1{margin:.2em 0;font-size:2rem;color:var(--accent)}
+.big{font-size:4rem;margin:0}
+button{font-family:inherit;font-size:1.3rem;border:0;border-radius:16px;cursor:pointer;color:var(--ink)}
+.start{background:var(--accent);color:#fff;padding:14px 36px;margin-top:16px}
+.bar{height:14px;background:var(--soft);border-radius:8px;overflow:hidden;margin:10px 0}
+.bar i{display:block;height:100%;background:var(--good);width:0;transition:width .3s}
+.top{display:flex;justify-content:space-between;font-weight:600}
+.q{font-size:1.7rem;margin:18px 0;min-height:3.4em;display:flex;align-items:center;justify-content:center}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{background:var(--soft);padding:16px 8px;border:3px solid transparent;font-weight:600}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.right{background:var(--good);color:#fff}
+.opt.wrong{background:var(--bad);color:#fff}
+.fb{min-height:2em;margin-top:14px;font-size:1.2rem;font-weight:600}
+.next{background:var(--accent);color:#fff;padding:12px 30px;margin-top:8px}
+.rev{text-align:left;font-size:1rem;margin-top:12px}
+.rev div{padding:6px 0;border-bottom:1px dashed var(--soft)}
+.hide{display:none}
 </style>
 </head>
 <body>
-<main>
-<section id="start" class="card">
-  <div class="big" aria-hidden="true">🐸</div>
-  <h1>Hop Into Word Problems! Set 2</h1>
-  <p>30 new story questions. Add and take away. Help the frog hop all the way across!</p>
-  <button class="btn" id="go">Start</button>
-</section>
-
-<section id="quiz" class="card hidden" aria-live="polite">
-  <div class="top"><span id="cnt"></span><span id="sc"></span></div>
-  <div class="track" role="progressbar" aria-label="Progress"><i id="pg"></i><span class="frog" id="frog" aria-hidden="true">🐸</span></div>
-  <span class="tag" id="tag"></span>
-  <div class="qrow"><h2 id="q"></h2><button id="say" aria-label="Read the question aloud">🔊</button></div>
-  <div id="vis" aria-hidden="true"></div>
-  <div id="opts"></div>
-  <div id="fb"></div>
-  <button class="btn hidden" id="next">Next</button>
-</section>
-
-<section id="res" class="card hidden">
-  <div class="stars" id="rs" aria-hidden="true"></div>
-  <div class="big fat" id="rn"></div>
-  <h2 id="rm" style="margin-top:8px"></h2>
-  <div class="sec" id="rsec"></div>
-  <div id="rmiss"></div>
-  <div class="acts"><button class="btn" id="again">Play again</button><button class="btn alt hidden" id="retry">Retry missed</button></div>
-</section>
-</main>
-
+<div class="wrap">
+ <div class="card" id="start">
+  <p class="big">🧮</p>
+  <h1>Hi Christabel!</h1>
+  <p>Grade 2 Maths Quiz<br>50 questions. Take your time and do your best!</p>
+  <button class="start" onclick="begin()">Start Quiz ⭐</button>
+ </div>
+ <div class="card hide" id="quiz">
+  <div class="top"><span id="num"></span><span id="sc"></span></div>
+  <div class="bar"><i id="pb"></i></div>
+  <div class="q" id="q"></div>
+  <div class="opts" id="opts"></div>
+  <div class="fb" id="fb"></div>
+  <button class="next hide" id="nx" onclick="next()">Next ➜</button>
+ </div>
+ <div class="card hide" id="end">
+  <p class="big" id="stars"></p>
+  <h1 id="res"></h1>
+  <p id="msg"></p>
+  <div class="rev" id="rev"></div>
+  <button class="start" onclick="begin()">Try Again 🔁</button>
+ </div>
+</div>
 <script>
-const SECS=["Add up to 10","Take away within 10","Add up to 20","Take away within 20","Mix it up"];
-const NM=["Kai","Tia","Max","Nora","Finn","Gia","Eli","Rosa","Jay","Uma"];
-const IT=[["grapes","🍇"],["eggs","🥚"],["bees","🐝"],["frogs","🐸"],["hats","🎩"],["candies","🍬"],["buses","🚌"],["pencils","✏️"],["pumpkins","🎃"],["butterflies","🦋"],["hearts","❤️"],["turtles","🐢"]];
-// Fixed seed so the 100 questions are the same every time
-let seed=777;const rnd=()=>(seed=(seed*1664525+1013904223)%4294967296)/4294967296;
-const ri=(a,b)=>a+Math.floor(rnd()*(b-a+1)),pk=a=>a[Math.floor(rnd()*a.length)];
-
-function build(type,a,b,c){
-  const [x,e]=pk(IT),n=pk(NM);let m=pk(NM);while(m===n)m=pk(NM);
-  if(type==="add")return{q:pk([`${n} picks ${a} ${x}. Then ${n} picks ${b} more. How many ${x} does ${n} have in all?`,`${n} has ${a} ${x} in one bag and ${b} ${x} in another bag. How many ${x} are there together?`,`${a} ${x} are in the garden. ${b} more ${x} join them. How many ${x} are in the garden now?`]),ans:a+b,eq:`${a} + ${b} = ${a+b}`,v:["add",a,b,e]};
-  if(type==="sub")return{q:pk([`${n} has ${a} ${x}. ${n} shares ${b} with a friend. How many ${x} does ${n} have left?`,`${a} ${x} are in a basket. ${b} ${x} are taken out. How many ${x} are still in the basket?`,`${n} counted ${a} ${x}. Then ${b} ${x} went away. How many ${x} are left?`]),ans:a-b,eq:`${a} − ${b} = ${a-b}`,v:["sub",a,b,e]};
-  if(type==="cmp")return{q:`${m} has ${b} ${x}. ${n} has ${a} ${x}. How many more ${x} does ${n} have than ${m}?`,ans:a-b,eq:`${a} − ${b} = ${a-b}`,v:["cmp",a,b,e]};
-  if(type==="need")return{q:`${n} has ${a} ${x} but wants ${b}. How many more ${x} does ${n} need?`,ans:b-a,eq:`${b} − ${a} = ${b-a}`,v:["row",a,0,e]};
-  return{q:`${n} has ${a} ${x}, ${m} has ${b} ${x}, and Dad has ${c} ${x}. How many ${x} are there in all?`,ans:a+b+c,eq:`${a} + ${b} + ${c} = ${a+b+c}`,v:["add3",a,b,e,c]};
-}
-const Q=[],seen=new Set();
-function gen(sec,count,type,fn){
-  while(count>0){
-    const [a,b,c]=fn(),k=type+a+"-"+b+"-"+c;
-    if(seen.has(k))continue;seen.add(k);
-    const o=build(type,a,b,c);o.sec=sec;Q.push(o);count--;
-  }
-}
-gen(0,6,"add",()=>{const a=ri(1,8),b=ri(1,10-a);return a+b<3?[2,1]:[a,b]});
-gen(1,6,"sub",()=>{const a=ri(3,10);return[a,ri(1,a-1)]});
-gen(2,6,"add",()=>{const a=ri(4,12),b=ri(3,9);return a+b>10&&a+b<=20?[a,b]:[8,5]});
-gen(3,6,"sub",()=>{const a=ri(11,20),b=ri(2,9);return a-b>=2?[a,b]:[15,6]});
-gen(4,2,"cmp",()=>{const a=ri(6,18);return[a,ri(2,a-2)]});
-gen(4,2,"need",()=>{const a=ri(3,14);return[a,ri(a+2,20)]});
-gen(4,2,"add3",()=>{const a=ri(2,7),b=ri(2,7),c=ri(2,6);return[a,b,c]});
-
+// [question, correct answer, wrong, wrong, wrong]
+const Q=[
+["8 + 7 = ?","15","14","16","13"],
+["25 + 10 = ?","35","30","45","36"],
+["46 + 23 = ?","69","59","79","68"],
+["15 − 9 = ?","6","4","5","7"],
+["50 − 20 = ?","30","20","40","70"],
+["78 − 35 = ?","43","53","42","33"],
+["34 + 28 = ?","62","52","63","72"],
+["90 − 45 = ?","45","55","35","54"],
+["What is the value of the 7 in 73?","70","7","3","73"],
+["How many tens are in 58?","5","8","58","50"],
+["40 + 6 = ?","46","406","64","10"],
+["Which number is the greatest?","93","39","49","84"],
+["Which number is the smallest?","26","62","60","66"],
+["45 ___ 54  (pick the right sign)","<",">","=","+"],
+["Count by 2s: 2, 4, 6, __","8","7","9","10"],
+["Count by 5s: 10, 15, 20, __","25","30","24","35"],
+["Count by 10s: 30, 40, __, 60","50","45","55","70"],
+["Which number is even?","28","17","23","31"],
+["Which number is odd?","25","12","18","40"],
+["Double 8 = ?","16","14","18","88"],
+["Half of 10 = ?","5","2","4","6"],
+["3 + 3 + 3 = ?","9","6","12","33"],
+["4 groups of 2 make how many?","8","6","10","24"],
+["5 + 5 + 5 + 5 = ?","20","15","25","10"],
+["6 + __ = 14","8","7","9","20"],
+["__ − 5 = 7","12","2","11","13"],
+["100 − 10 = ?","90","80","99","110"],
+["60 + 40 = ?","100","90","10","64"],
+["4 + 5 = 9, so 9 − 5 = ?","4","5","14","9"],
+["How many cents are in 2 ten-cent coins?","20","12","2","10"],
+["5 coins of 5 cents each is how many cents?","25","10","20","55"],
+["The short hand points to 3 and the long hand to 12. What time is it?","3:00","12:03","12:15","3:12"],
+["How many minutes are in 1 hour?","60","30","100","12"],
+["How many days are in a week?","7","5","6","10"],
+["How many months are in a year?","12","10","11","7"],
+["Which shape has 3 sides?","Triangle","Square","Circle","Rectangle"],
+["How many sides does a rectangle have?","4","3","5","6"],
+["Which shape has 0 corners?","Circle","Square","Triangle","Rectangle"],
+["How many faces does a cube have?","6","4","8","12"],
+["Which unit would you use to measure a pencil?","Centimetres","Kilograms","Litres","Minutes"],
+["Which is the heaviest?","Elephant","Cat","Feather","Apple"],
+["Ada has 12 stickers. She gets 9 more. How many now?","21","3","20","22"],
+["There are 20 sweets. Tolu eats 8. How many are left?","12","28","13","11"],
+["5 bags have 4 apples each. How many apples in all?","20","9","25","15"],
+["18 children share equally into 2 teams. How many in each team?","9","8","16","10"],
+["Tolu has 35 marbles and Bayo has 20. How many more does Tolu have?","15","55","25","10"],
+["27 people are on a bus. 15 more get on. How many now?","42","12","32","41"],
+["Pattern: 3, 6, 9, 12, __","15","14","16","13"],
+["What is 100 more than 235?","335","245","236","225"],
+["500 + 60 + 2 = ?","562","526","652","5062"]
+];
 const $=id=>document.getElementById(id);
-const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-const row=(e,k,f)=>`<span${f?' style="opacity:.25"':""}>${e.repeat(k)}</span>`;
-function vis(v){
-  const [t,a,b,e,c]=v;
-  if(t==="add")return`<div>${row(e,a)} ➕ ${row(e,b)}</div>`;
-  if(t==="add3")return`<div>${row(e,a)} ➕ ${row(e,b)} ➕ ${row(e,c)}</div>`;
-  if(t==="sub")return`<div>${row(e,a-b)}${row(e,b,1)}</div>`;
-  if(t==="cmp")return`<div>${row(e,a)}</div><div>${row(e,b)}</div>`;
-  return`<div>${row(e,a)}</div>`;
+let i,score,missed,locked;
+const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+function show(id){["start","quiz","end"].forEach(x=>$(x).classList.toggle("hide",x!==id))}
+function begin(){i=0;score=0;missed=[];show("quiz");load()}
+function load(){
+ locked=false;const d=Q[i];
+ $("num").textContent="Question "+(i+1)+" of "+Q.length;
+ $("sc").textContent="⭐ "+score;
+ $("pb").style.width=(i/Q.length*100)+"%";
+ $("q").textContent=d[0];$("fb").textContent="";$("nx").classList.add("hide");
+ $("opts").innerHTML="";
+ shuffle(d.slice(1)).forEach(o=>{
+  const b=document.createElement("button");b.className="opt";b.textContent=o;
+  b.onclick=()=>pick(b,o);$("opts").appendChild(b)});
 }
-let order,idx,score,missed,secScore,locked;
-function start(list){
-  order=list;idx=0;score=0;missed=[];secScore=SECS.map(()=>0);
-  $("start").classList.add("hidden");$("res").classList.add("hidden");$("quiz").classList.remove("hidden");show();
+function pick(b,o){
+ if(locked)return;locked=true;const d=Q[i];
+ document.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.textContent===d[1])x.classList.add("right")});
+ if(o===d[1]){score++;$("fb").textContent=["🎉 Great job!","🌟 Correct!","👏 Well done!","💪 You got it!"][Math.floor(Math.random()*4)]}
+ else{b.classList.add("wrong");missed.push(d);$("fb").textContent="Good try! The answer is "+d[1]}
+ $("sc").textContent="⭐ "+score;
+ $("nx").textContent=i===Q.length-1?"See my score ➜":"Next ➜";$("nx").classList.remove("hide");
 }
-function show(){
-  locked=false;const q=Q[order[idx]];
-  $("cnt").textContent=`Question ${idx+1} of ${order.length}`;$("sc").textContent="⭐ "+score;
-  const p=idx/order.length*100;$("pg").style.width=p+"%";$("frog").style.left=p+"%";
-  $("tag").textContent=SECS[q.sec];$("q").textContent=q.q;$("vis").innerHTML=vis(q.v);
-  $("fb").innerHTML="";$("next").classList.add("hidden");$("opts").innerHTML="";
-  const w=shuffle([q.ans-3,q.ans-2,q.ans-1,q.ans+1,q.ans+2,q.ans+3].filter(n=>n>=0&&n<=20)).slice(0,2);
-  shuffle([q.ans,...w]).forEach((o,i)=>{
-    const b=document.createElement("button");b.className="opt";b.textContent=o;
-    b.setAttribute("aria-label","Answer "+(i+1)+": "+o);b.onclick=()=>pick(b,o);$("opts").appendChild(b);
-  });
-}
-function pick(btn,val){
-  if(locked)return;locked=true;const n=order[idx],q=Q[n],ok=val===q.ans;
-  [...$("opts").children].forEach(b=>{b.disabled=true;if(+b.textContent===q.ans)b.classList.add("right")});
-  if(ok){score++;secScore[q.sec]++;$("fb").innerHTML=`<b class="ok-t">Yes! Great hop! 🎉</b>${q.eq}`}
-  else{btn.classList.add("wrong");missed.push(n);$("fb").innerHTML=`<b class="no-t">Oops! The answer is ${q.ans}.</b>${q.eq}`}
-  $("sc").textContent="⭐ "+score;
-  $("next").textContent=idx===order.length-1?"See my stars":"Next";
-  $("next").classList.remove("hidden");$("next").focus();
-}
+function next(){i++;i<Q.length?load():finish()}
 function finish(){
-  $("quiz").classList.add("hidden");$("res").classList.remove("hidden");
-  const t=order.length,p=score/t,st=p>=.9?3:p>=.7?2:p>=.5?1:0;
-  $("rs").textContent="★".repeat(st)+"☆".repeat(3-st);$("rn").textContent=score+" / "+t;
-  $("rm").textContent=p>=.9?"Super frog! Amazing!":p>=.7?"Great job!":p>=.5?"Nice hopping! Keep going!":"Keep practising. You can do it!";
-  $("rsec").innerHTML=t===30?SECS.map((s,i)=>`<div><span>${s}</span><span>${secScore[i]}/6</span></div>`).join(""):"";
-  $("rmiss").innerHTML=missed.length?`<h2 style="font-size:1.4rem">Let's look again</h2><ul class="miss">${missed.map(n=>`<li>${Q[n].q}<br><b>${Q[n].eq}</b></li>`).join("")}</ul>`:"<p>You got every question right!</p>";
-  $("retry").classList.toggle("hidden",!missed.length);
+ show("end");$("pb").style.width="100%";
+ const s=score>=45?3:score>=30?2:1;
+ $("stars").textContent="⭐".repeat(s);
+ $("res").textContent="Christabel, you scored "+score+" / "+Q.length;
+ $("msg").textContent=score>=45?"Amazing! You are a maths superstar!":score>=30?"Very good work! Keep practising!":"Nice effort! Try again and beat your score!";
+ $("rev").innerHTML=missed.length?"<b>Let's practise these:</b>"+missed.map(m=>"<div>"+m[0]+" → <b>"+m[1]+"</b></div>").join(""):"";
 }
-const all=()=>shuffle(Q.map((_,i)=>i));
-$("go").onclick=()=>start(all());$("again").onclick=()=>start(all());$("retry").onclick=()=>start(shuffle(missed));
-$("next").onclick=()=>{idx++;idx<order.length?show():finish()};
-if(!("speechSynthesis" in window))$("say").classList.add("hidden");
-$("say").onclick=()=>{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance($("q").textContent);u.rate=.85;speechSynthesis.speak(u)};
-document.addEventListener("keydown",e=>{
-  if($("quiz").classList.contains("hidden")||locked)return;
-  if(e.key>="1"&&e.key<="3"){const b=$("opts").children[+e.key-1];b&&b.click()}
-});
 </script>
 </body>
 </html>
