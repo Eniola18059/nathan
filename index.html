@@ -1,150 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Christabel's Grade 2 Maths Quiz</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+<title>Chemistry Quiz – 100 Questions</title>
 <style>
-:root{--bg:#fff7e6;--card:#fff;--ink:#2b2d42;--accent:#7b4fe0;--good:#2fb36d;--bad:#ef476f;--soft:#efe8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1b2e;--card:#2a2745;--ink:#f3f0ff;--soft:#3a3560}}
-:root[data-theme="dark"]{--bg:#1d1b2e;--card:#2a2745;--ink:#f3f0ff;--soft:#3a3560}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:'Fredoka',system-ui,'Comic Sans MS',sans-serif;min-height:100vh;display:flex;justify-content:center;padding:16px}
-.wrap{width:100%;max-width:560px}
-.card{background:var(--card);border-radius:24px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.12);text-align:center}
-h1{margin:.2em 0;font-size:2rem;color:var(--accent)}
-.big{font-size:4rem;margin:0}
-button{font-family:inherit;font-size:1.3rem;border:0;border-radius:16px;cursor:pointer;color:var(--ink)}
-.start{background:var(--accent);color:#fff;padding:14px 36px;margin-top:16px}
-.bar{height:14px;background:var(--soft);border-radius:8px;overflow:hidden;margin:10px 0}
-.bar i{display:block;height:100%;background:var(--good);width:0;transition:width .3s}
-.top{display:flex;justify-content:space-between;font-weight:600}
-.q{font-size:1.7rem;margin:18px 0;min-height:3.4em;display:flex;align-items:center;justify-content:center}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.opt{background:var(--soft);padding:16px 8px;border:3px solid transparent;font-weight:600}
-.opt:hover:not(:disabled){border-color:var(--accent)}
-.opt.right{background:var(--good);color:#fff}
-.opt.wrong{background:var(--bad);color:#fff}
-.fb{min-height:2em;margin-top:14px;font-size:1.2rem;font-weight:600}
-.next{background:var(--accent);color:#fff;padding:12px 30px;margin-top:8px}
-.rev{text-align:left;font-size:1rem;margin-top:12px}
-.rev div{padding:6px 0;border-bottom:1px dashed var(--soft)}
-.hide{display:none}
-</style>
-</head>
-<body>
-<div class="wrap">
- <div class="card" id="start">
-  <p class="big">🧮</p>
-  <h1>Hi Christabel!</h1>
-  <p>Grade 2 Maths Quiz<br>50 questions. Take your time and do your best!</p>
-  <button class="start" onclick="begin()">Start Quiz ⭐</button>
- </div>
- <div class="card hide" id="quiz">
-  <div class="top"><span id="num"></span><span id="sc"></span></div>
-  <div class="bar"><i id="pb"></i></div>
-  <div class="q" id="q"></div>
-  <div class="opts" id="opts"></div>
-  <div class="fb" id="fb"></div>
-  <button class="next hide" id="nx" onclick="next()">Next ➜</button>
- </div>
- <div class="card hide" id="end">
-  <p class="big" id="stars"></p>
-  <h1 id="res"></h1>
-  <p id="msg"></p>
-  <div class="rev" id="rev"></div>
-  <button class="start" onclick="begin()">Try Again 🔁</button>
- </div>
-</div>
+:root{--bg:#f4f7fb;--card:#fff;--tx:#1b2430;--mut:#667085;--pri:#2563eb;--ok:#16a34a;--bad:#dc2626;--bd:#d9e0ea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1520;--card:#182131;--tx:#e8edf5;--mut:#9aa6b8;--bd:#2a364a}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:640px;margin:0 auto;padding:20px 16px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px}
+h1{margin:0 0 4px;font-size:1.6rem}p{color:var(--mut);margin:4px 0 14px}
+button{font:inherit;cursor:pointer;color:var(--tx)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.t{padding:12px;border:1px solid var(--bd);border-radius:12px;background:var(--bg);text-align:left}
+.t:hover{border-color:var(--pri)}.all{grid-column:1/-1;background:var(--pri);color:#fff;border:0;text-align:center;font-weight:600}
+.bar{height:8px;background:var(--bd);border-radius:9px;overflow:hidden;margin:6px 0 14px}.bar i{display:block;height:100%;background:var(--pri);transition:width .3s}
+.meta{display:flex;justify-content:space-between;color:var(--mut);font-size:.85rem}
+h2{font-size:1.2rem;margin:6px 0 14px}
+.o{display:block;width:100%;margin:8px 0;padding:12px 14px;border:1px solid var(--bd);border-radius:12px;background:var(--card);text-align:left}
+.o:hover:not(:disabled){border-color:var(--pri)}.o.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.o.bad{background:var(--bad);color:#fff;border-color:var(--bad)}
+.nx{margin-top:10px;padding:12px 20px;border:0;border-radius:12px;background:var(--pri);color:#fff;font-weight:600}
+.big{font-size:3rem;font-weight:700;margin:0}.row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bd)}
+</style></head><body><main><div id="app"></div></main>
 <script>
-// [question, correct answer, wrong, wrong, wrong]
-const Q=[
-["8 + 7 = ?","15","14","16","13"],
-["25 + 10 = ?","35","30","45","36"],
-["46 + 23 = ?","69","59","79","68"],
-["15 − 9 = ?","6","4","5","7"],
-["50 − 20 = ?","30","20","40","70"],
-["78 − 35 = ?","43","53","42","33"],
-["34 + 28 = ?","62","52","63","72"],
-["90 − 45 = ?","45","55","35","54"],
-["What is the value of the 7 in 73?","70","7","3","73"],
-["How many tens are in 58?","5","8","58","50"],
-["40 + 6 = ?","46","406","64","10"],
-["Which number is the greatest?","93","39","49","84"],
-["Which number is the smallest?","26","62","60","66"],
-["45 ___ 54  (pick the right sign)","<",">","=","+"],
-["Count by 2s: 2, 4, 6, __","8","7","9","10"],
-["Count by 5s: 10, 15, 20, __","25","30","24","35"],
-["Count by 10s: 30, 40, __, 60","50","45","55","70"],
-["Which number is even?","28","17","23","31"],
-["Which number is odd?","25","12","18","40"],
-["Double 8 = ?","16","14","18","88"],
-["Half of 10 = ?","5","2","4","6"],
-["3 + 3 + 3 = ?","9","6","12","33"],
-["4 groups of 2 make how many?","8","6","10","24"],
-["5 + 5 + 5 + 5 = ?","20","15","25","10"],
-["6 + __ = 14","8","7","9","20"],
-["__ − 5 = 7","12","2","11","13"],
-["100 − 10 = ?","90","80","99","110"],
-["60 + 40 = ?","100","90","10","64"],
-["4 + 5 = 9, so 9 − 5 = ?","4","5","14","9"],
-["How many cents are in 2 ten-cent coins?","20","12","2","10"],
-["5 coins of 5 cents each is how many cents?","25","10","20","55"],
-["The short hand points to 3 and the long hand to 12. What time is it?","3:00","12:03","12:15","3:12"],
-["How many minutes are in 1 hour?","60","30","100","12"],
-["How many days are in a week?","7","5","6","10"],
-["How many months are in a year?","12","10","11","7"],
-["Which shape has 3 sides?","Triangle","Square","Circle","Rectangle"],
-["How many sides does a rectangle have?","4","3","5","6"],
-["Which shape has 0 corners?","Circle","Square","Triangle","Rectangle"],
-["How many faces does a cube have?","6","4","8","12"],
-["Which unit would you use to measure a pencil?","Centimetres","Kilograms","Litres","Minutes"],
-["Which is the heaviest?","Elephant","Cat","Feather","Apple"],
-["Ada has 12 stickers. She gets 9 more. How many now?","21","3","20","22"],
-["There are 20 sweets. Tolu eats 8. How many are left?","12","28","13","11"],
-["5 bags have 4 apples each. How many apples in all?","20","9","25","15"],
-["18 children share equally into 2 teams. How many in each team?","9","8","16","10"],
-["Tolu has 35 marbles and Bayo has 20. How many more does Tolu have?","15","55","25","10"],
-["27 people are on a bus. 15 more get on. How many now?","42","12","32","41"],
-["Pattern: 3, 6, 9, 12, __","15","14","16","13"],
-["What is 100 more than 235?","335","245","236","225"],
-["500 + 60 + 2 = ?","562","526","652","5062"]
-];
-const $=id=>document.getElementById(id);
-let i,score,missed,locked;
-const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
-function show(id){["start","quiz","end"].forEach(x=>$(x).classList.toggle("hide",x!==id))}
-function begin(){i=0;score=0;missed=[];show("quiz");load()}
-function load(){
- locked=false;const d=Q[i];
- $("num").textContent="Question "+(i+1)+" of "+Q.length;
- $("sc").textContent="⭐ "+score;
- $("pb").style.width=(i/Q.length*100)+"%";
- $("q").textContent=d[0];$("fb").textContent="";$("nx").classList.add("hide");
- $("opts").innerHTML="";
- shuffle(d.slice(1)).forEach(o=>{
-  const b=document.createElement("button");b.className="opt";b.textContent=o;
-  b.onclick=()=>pick(b,o);$("opts").appendChild(b)});
-}
-function pick(b,o){
- if(locked)return;locked=true;const d=Q[i];
- document.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.textContent===d[1])x.classList.add("right")});
- if(o===d[1]){score++;$("fb").textContent=["🎉 Great job!","🌟 Correct!","👏 Well done!","💪 You got it!"][Math.floor(Math.random()*4)]}
- else{b.classList.add("wrong");missed.push(d);$("fb").textContent="Good try! The answer is "+d[1]}
- $("sc").textContent="⭐ "+score;
- $("nx").textContent=i===Q.length-1?"See my score ➜":"Next ➜";$("nx").classList.remove("hide");
-}
-function next(){i++;i<Q.length?load():finish()}
-function finish(){
- show("end");$("pb").style.width="100%";
- const s=score>=45?3:score>=30?2:1;
- $("stars").textContent="⭐".repeat(s);
- $("res").textContent="Christabel, you scored "+score+" / "+Q.length;
- $("msg").textContent=score>=45?"Amazing! You are a maths superstar!":score>=30?"Very good work! Keep practising!":"Nice effort! Try again and beat your score!";
- $("rev").innerHTML=missed.length?"<b>Let's practise these:</b>"+missed.map(m=>"<div>"+m[0]+" → <b>"+m[1]+"</b></div>").join(""):"";
-}
-</script>
-</body>
-</html>
+const RAW=`#Physical Change
+Which is a physical change?|Ice melting|Wood burning|Iron rusting|Milk souring
+Which is NOT a physical change?|Paper burning|Water freezing|Glass breaking|Sugar dissolving
+Liquid changing to gas is called|Evaporation|Condensation|Freezing|Sublimation
+A solid turning directly into gas is|Sublimation|Deposition|Melting|Condensation
+After a physical change, the substance's identity|stays the same|becomes new|is destroyed|becomes an element
+Which is a physical property?|Melting point|Flammability|Reactivity with acid|Ability to rust
+Crushing a can is|a physical change|a chemical change|combustion|decomposition
+Gas changing to liquid is|Condensation|Evaporation|Melting|Boiling
+Which is a physical change?|Cutting paper|Baking a cake|Frying an egg|Burning gas
+Water freezes at (sea level)|0 °C|100 °C|-10 °C|4 °C
+Boiling water into steam is a|physical change|chemical change|combustion|decomposition
+#Chemical Change
+Which is a sign of a chemical change?|Production of a new gas|Change in shape|Change in size|Stretching
+Iron rusting is a|chemical change|physical change|mixture|evaporation
+Burning wood is a|chemical change|physical change|melting|sublimation
+Which is a chemical change?|Baking a cake|Melting butter|Chopping wood|Boiling water
+Milk going sour is a|chemical change|physical change|evaporation|filtration
+Chemical changes form|new substances|the same substances|only mixtures|no new matter
+Which is a chemical property?|Flammability|Density|Colour|Boiling point
+Photosynthesis is a|chemical change|physical change|melting|dissolving
+Baking soda + vinegar releases which gas?|Carbon dioxide|Oxygen|Hydrogen|Nitrogen
+Can a chemical change be undone by simply freezing?|No|Yes, always|Only for gases|Only in water
+Digesting food is a|chemical change|physical change|evaporation|condensation
+#Periodic Table
+Who created the first widely accepted periodic table?|Mendeleev|Dalton|Curie|Bohr
+Modern table orders elements by increasing|atomic number|colour|density|state
+Horizontal rows are called|periods|groups|families|blocks
+Vertical columns are called|groups|periods|series|rows
+Group 18 elements are the|noble gases|alkali metals|halogens|alkaline earth metals
+Group 1 (except hydrogen) are the|alkali metals|halogens|noble gases|transition metals
+Symbol for sodium|Na|S|So|N
+Symbol for gold|Au|Ag|Go|Gd
+Symbol for potassium|K|P|Po|Pt
+Group 17 elements are the|halogens|alkali metals|noble gases|metalloids
+Most elements are|metals|nonmetals|gases|metalloids
+Which is a noble gas?|Neon|Oxygen|Chlorine|Sodium
+#Precipitate
+A precipitate is|an insoluble solid formed in a solution|a gas|a dissolved salt|a liquid layer
+A precipitate forms when two solutions mix and|make an insoluble product|bubble|freeze|evaporate
+AgNO₃ + NaCl gives a white precipitate of|AgCl|NaNO₃|Ag₂O|NaCl
+A precipitation reaction is a type of|double displacement|combustion|decomposition|synthesis
+Which separates a precipitate from a liquid?|Filtration|A magnet|Sublimation|Electrolysis
+A sign of precipitate forming is the solution turning|cloudy|clear|hot only|colourless
+The liquid that passes through filter paper is the|filtrate|residue|solute|alloy
+The solid left on filter paper is the|residue|filtrate|solvent|distillate
+PbI₂ precipitate is|yellow|white|blue|green
+A precipitate is ___ in the solvent|insoluble|soluble|a gas|a solvent
+Which pair forms a precipitate?|Pb(NO₃)₂ + KI|NaCl + KNO₃|KCl + NaNO₃|NaNO₃ + KNO₃
+#Oxidation
+Oxidation is the|loss of electrons|gain of electrons|gain of protons|loss of neutrons
+Reduction is the|gain of electrons|loss of electrons|loss of protons|gain of neutrons
+In OIL RIG, "Oxidation Is"|Loss|Gain|Light|Low
+Rusting is the oxidation of|iron|copper|carbon|helium
+Rust is mainly|iron oxide|iron sulfide|copper oxide|iron chloride
+Rusting needs oxygen and|water|helium|argon|oil
+Oxygen's usual oxidation number in compounds|-2|+2|0|+1
+Oxidation number of a pure element|0|+1|-1|+2
+An oxidizing agent|gains electrons|loses electrons|is always a gas|is a noble gas
+Green coating on old copper roofs is due to|oxidation|evaporation|condensation|filtration
+Which slows rusting?|Painting the iron|Wetting it|Salt water|Heating in air
+#Compounds
+A compound is|elements chemically bonded|a physical mixture|one type of atom|a solution
+Water's formula|H₂O|HO₂|H₂O₂|OH
+Table salt|NaCl|KCl|NaOH|CaCl₂
+CO₂ contains|1 carbon, 2 oxygen|2 carbon, 1 oxygen|1 carbon, 1 oxygen|2 oxygen only
+Compounds are separated by|chemical reactions|filtering|a magnet|sieving
+Which is a compound?|Carbon dioxide|Oxygen gas|Gold|Nitrogen gas
+Which is an element?|Oxygen|Water|Salt|Sugar
+Ionic compounds form between a|metal and nonmetal|two noble gases|two metals|two identical atoms
+Covalent bonds involve|sharing electrons|transferring electrons|sharing protons|no electrons
+Formula for methane|CH₄|C₂H₆|CO|CH₃
+A compound's properties are|different from its elements|same as its elements|an average|identical to a mixture
+#Mixtures
+A mixture is|substances physically combined|chemically bonded|one element|a compound
+Components of a mixture|keep their properties|lose their properties|form a new substance|bond together
+Which is a mixture?|Air|Water|Gold|CO₂
+A heterogeneous mixture is|not uniform|uniform|a pure element|a compound
+Homogeneous mixture example|Salt water|Sand and water|Salad|Granite
+Separate sand from water by|Filtration|A magnet|Sublimation|Electrolysis
+Separate iron filings from sand using|A magnet|Filtration|Distillation|Chromatography
+Separate salt from salt water by|Evaporation|A magnet|Sieving|Decanting only
+Separate the dyes in ink using|Chromatography|Filtration|A magnet|Sieving
+Another name for a homogeneous mixture|Solution|Suspension|Compound|Element
+Brass is|a mixture of metals|a compound|an element|a gas
+#Atoms
+The centre of an atom is the|nucleus|electron cloud|shell|orbit
+Positive particle|Proton|Electron|Neutron|Photon
+Negative particle|Electron|Proton|Neutron|Nucleus
+Neutral particle|Neutron|Proton|Electron|Ion
+Atomic number equals the number of|protons|neutrons|shells|ions
+Mass number = protons +|neutrons|electrons|shells|ions
+Atoms of one element with different neutrons|Isotopes|Ions|Compounds|Molecules
+An atom that loses an electron becomes a|positive ion|negative ion|neutral atom|isotope
+Carbon's atomic number|6|12|8|14
+A neutral atom has equal|protons and electrons|protons and neutrons|neutrons and electrons|shells and protons
+Maximum electrons in the first shell|2|8|4|18
+#Solubility
+A solute is the|substance dissolved|dissolving liquid|undissolved solid|mixture
+A solvent|does the dissolving|is dissolved|is a precipitate|is a gas
+The "universal solvent"|Water|Oil|Mercury|Ethanol
+A saturated solution|cannot dissolve more solute|has no solute|can dissolve more|is a gas
+An unsaturated solution|can dissolve more solute|cannot dissolve more|is a precipitate|is pure solvent
+Heating usually ___ solubility of solids|increases|decreases|doesn't change|destroys
+Heating ___ solubility of gases|decreases|increases|doesn't change|doubles
+Stirring|speeds up dissolving|raises the solubility limit|lowers it|makes solute insoluble
+Oil dissolves best in|nonpolar solvents|water|polar solvents|vinegar
+Oil and water don't mix because oil is|nonpolar|ionic|acidic|a gas
+Soluble means it|dissolves in a solvent|won't dissolve|is a gas|is a metal`;
+let Q=[],T=[],cur="";
+RAW.split("\n").forEach(l=>{if(l[0]=="#"){cur=l.slice(1);T.push(cur)}else{const p=l.split("|");Q.push({t:cur,q:p[0],a:p[1],o:p.slice(1)})}});
+const $=document.getElementById("app");
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+let L,i,sc,res,done;
+function home(){$.innerHTML=`<div class="card"><h1>🧪 Chemistry Quiz</h1><p>${Q.length} questions · pick a topic or take them all.</p><div class="grid"><button class="t all" onclick="start()">All ${Q.length} questions</button>${T.map(t=>`<button class="t" onclick="start('${t}')">${t}<br><small>${Q.filter(q=>q.t==t).length} Qs</small></button>`).join("")}</div></div>`}
+function start(t){L=sh(t?Q.filter(q=>q.t==t):Q);i=0;sc=0;res={};show()}
+function show(){const q=L[i];done=0;$.innerHTML=`<div class="card"><div class="meta"><span>${q.t}</span><span>Q ${i+1}/${L.length} · Score ${sc}</span></div><div class="bar"><i style="width:${i/L.length*100}%"></i></div><h2>${q.q}</h2><div id="os">${sh(q.o).map(o=>`<button class="o" data-v="${o}">${o}</button>`).join("")}</div><div id="nx"></div></div>`;
+document.querySelectorAll(".o").forEach(b=>b.onclick=()=>pick(b))}
+function pick(b){if(done)return;done=1;const q=L[i],r=res[q.t]=res[q.t]||[0,0];r[1]++;
+const ok=b.dataset.v==q.a;if(ok){sc++;r[0]++}
+document.querySelectorAll(".o").forEach(x=>{x.disabled=true;if(x.dataset.v==q.a)x.classList.add("ok");else if(x==b)x.classList.add("bad")});
+document.getElementById("nx").innerHTML=`<button class="nx" onclick="nxt()">${i+1<L.length?"Next →":"See results"}</button>`}
+function nxt(){i++;i<L.length?show():end()}
+function end(){const p=Math.round(sc/L.length*100);$.innerHTML=`<div class="card"><h1>Results</h1><p class="big">${sc}/${L.length}</p><p>${p}% — ${p>=80?"Excellent! 🎉":p>=60?"Good work! Keep practising.":"Review the topics below and try again."}</p>${Object.keys(res).map(t=>`<div class="row"><span>${t}</span><b>${res[t][0]}/${res[t][1]}</b></div>`).join("")}<button class="nx" onclick="home()">Back to topics</button></div>`}
+home();
+</script></body></html>
