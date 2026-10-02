@@ -2,149 +2,191 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Christabel's Grade 2 Maths Quiz (Set 2)</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade 3 Word Problems Quiz: Set 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fff7e6;--card:#fff;--ink:#2b2d42;--accent:#7b4fe0;--good:#2fb36d;--bad:#ef476f;--soft:#efe8ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1b2e;--card:#2a2745;--ink:#f3f0ff;--soft:#3a3560}}
-:root[data-theme="dark"]{--bg:#1d1b2e;--card:#2a2745;--ink:#f3f0ff;--soft:#3a3560}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+:root{--ink:#1f2a5c;--paper:#f3f9ff;--grid:#d5e6f7;--card:#fff;--sun:#ffc93c;--green:#1f9d6a;--greenbg:#dff6ea;--red:#d64545;--redbg:#ffe3e3;--blue:#3b7ddd;--muted:#5b6690}
+@media (prefers-color-scheme:dark){:root{--ink:#eef2ff;--paper:#141a3a;--grid:#212a5a;--card:#1d2550;--greenbg:#12402f;--redbg:#4a2130;--muted:#a7b1e0;--green:#4fd39b;--red:#ff8585}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:'Fredoka',system-ui,'Comic Sans MS',sans-serif;min-height:100vh;display:flex;justify-content:center;padding:16px}
-.wrap{width:100%;max-width:560px}
-.card{background:var(--card);border-radius:24px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.12);text-align:center}
-h1{margin:.2em 0;font-size:2rem;color:var(--accent)}
-.big{font-size:4rem;margin:0}
-button{font-family:inherit;font-size:1.3rem;border:0;border-radius:16px;cursor:pointer;color:var(--ink)}
-.start{background:var(--accent);color:#fff;padding:14px 36px;margin-top:16px}
-.bar{height:14px;background:var(--soft);border-radius:8px;overflow:hidden;margin:10px 0}
-.bar i{display:block;height:100%;background:var(--good);width:0;transition:width .3s}
-.top{display:flex;justify-content:space-between;font-weight:600}
-.q{font-size:1.7rem;margin:18px 0;min-height:3.4em;display:flex;align-items:center;justify-content:center}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.opt{background:var(--soft);padding:16px 8px;border:3px solid transparent;font-weight:600}
-.opt:hover:not(:disabled){border-color:var(--accent)}
-.opt.right{background:var(--good);color:#fff}
-.opt.wrong{background:var(--bad);color:#fff}
-.fb{min-height:2em;margin-top:14px;font-size:1.2rem;font-weight:600}
-.next{background:var(--accent);color:#fff;padding:12px 30px;margin-top:8px}
-.rev{text-align:left;font-size:1rem;margin-top:12px}
-.rev div{padding:6px 0;border-bottom:1px dashed var(--soft)}
-.hide{display:none}
+body{margin:0;min-height:100vh;font-family:Nunito,system-ui,sans-serif;font-weight:600;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;padding:20px 14px}
+h1,h2,.big{font-family:"Baloo 2",Nunito,system-ui,sans-serif;font-weight:800;margin:0}
+main{max-width:680px;margin:0 auto}
+.card{background:var(--card);border:3px solid var(--ink);border-radius:18px;padding:22px;box-shadow:6px 6px 0 var(--ink)}
+button{font:inherit;font-weight:800;color:inherit;cursor:pointer}
+:focus-visible{outline:4px solid var(--blue);outline-offset:2px}
+.btn{background:var(--sun);color:#1f2a5c;border:3px solid var(--ink);border-radius:14px;padding:12px 26px;font-size:1.15rem;box-shadow:0 5px 0 var(--ink);transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
+.btn.alt{background:var(--card);color:var(--ink)}
+.hidden{display:none!important}
+#start{text-align:center}
+#start h1{font-size:2.3rem;line-height:1.1;margin:6px 0 10px}
+#start p{font-size:1.1rem;margin:0 0 18px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 22px;padding:0;list-style:none}
+.chips li{border:2px solid var(--ink);border-radius:999px;padding:4px 12px;font-size:.95rem;background:var(--paper)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;font-weight:800}
+.bar{height:14px;border:3px solid var(--ink);border-radius:999px;background:var(--card);overflow:hidden;margin-bottom:16px}
+.bar i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
+.tag{display:inline-block;background:var(--ink);color:var(--paper);border-radius:8px;padding:2px 10px;font-size:.9rem;margin-bottom:10px}
+#q{font-size:1.4rem;line-height:1.4;margin:0 0 18px;font-weight:800}
+#opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt{background:var(--card);border:3px solid var(--ink);border-radius:14px;padding:14px 10px;font-size:1.3rem;box-shadow:0 4px 0 var(--ink);text-align:center}
+.opt:hover:not(:disabled){background:var(--sun);color:#1f2a5c}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--greenbg);border-color:var(--green);box-shadow:0 4px 0 var(--green)}
+.opt.wrong{background:var(--redbg);border-color:var(--red);box-shadow:0 4px 0 var(--red)}
+#fb{min-height:64px;margin:16px 0 4px;font-size:1.1rem}
+#fb b{display:block;font-size:1.25rem}
+.right-t{color:var(--green)}.wrong-t{color:var(--red)}
+#res{text-align:center}
+.stars{font-size:2.6rem;letter-spacing:6px}
+.score{font-size:3.4rem;line-height:1}
+.sec{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0;text-align:left}
+.sec div{border:2px solid var(--ink);border-radius:12px;padding:8px 12px;display:flex;justify-content:space-between}
+.miss{text-align:left;margin:14px 0}
+.miss li{margin-bottom:8px}
+.acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+@media(max-width:480px){#opts{grid-template-columns:1fr}#q{font-size:1.2rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
- <div class="card" id="start">
-  <p class="big">🧮</p>
-  <h1>Hi Christabel!</h1>
-  <p>Grade 2 Maths Quiz &ndash; Set 2<br>50 brand new questions. Take your time and do your best!</p>
-  <button class="start" onclick="begin()">Start Quiz ⭐</button>
- </div>
- <div class="card hide" id="quiz">
-  <div class="top"><span id="num"></span><span id="sc"></span></div>
-  <div class="bar"><i id="pb"></i></div>
-  <div class="q" id="q"></div>
-  <div class="opts" id="opts"></div>
-  <div class="fb" id="fb"></div>
-  <button class="next hide" id="nx" onclick="next()">Next ➜</button>
- </div>
- <div class="card hide" id="end">
-  <p class="big" id="stars"></p>
-  <h1 id="res"></h1>
-  <p id="msg"></p>
-  <div class="rev" id="rev"></div>
-  <button class="start" onclick="begin()">Try Again 🔁</button>
- </div>
-</div>
+<main>
+<section id="start" class="card">
+  <div class="stars" aria-hidden="true">🧮</div>
+  <h1>Grade 3 Word Problems: Set 2</h1>
+  <p>50 questions. Read each story, think, then pick the answer.</p>
+  <ul class="chips"><li>Add &amp; subtract</li><li>Multiply</li><li>Divide</li><li>Two-step</li><li>Money, time &amp; measures</li></ul>
+  <button class="btn" id="go">Start quiz</button>
+</section>
+
+<section id="quiz" class="card hidden" aria-live="polite">
+  <div class="top"><span id="cnt"></span><span id="sc"></span></div>
+  <div class="bar" role="progressbar" aria-label="Progress"><i id="pg"></i></div>
+  <span class="tag" id="tag"></span>
+  <h2 id="q"></h2>
+  <div id="opts"></div>
+  <div id="fb"></div>
+  <button class="btn hidden" id="next">Next question</button>
+</section>
+
+<section id="res" class="card hidden">
+  <div class="stars" id="rs" aria-hidden="true"></div>
+  <div class="score" id="rn"></div>
+  <h2 id="rm" style="margin-top:8px"></h2>
+  <div class="sec" id="rsec"></div>
+  <div id="rmiss"></div>
+  <div class="acts"><button class="btn" id="again">Play again</button><button class="btn alt hidden" id="retry">Retry missed</button></div>
+</section>
+</main>
+
 <script>
-// [question, correct answer, wrong, wrong, wrong]
+// [question, correct answer, [3 wrong answers], working]
 const Q=[
-["17 + 6 = ?","23","22","24","13"],
-["38 + 5 = ?","43","33","42","44"],
-["54 + 30 = ?","84","57","74","94"],
-["67 + 19 = ?","86","76","85","96"],
-["23 + 48 = ?","71","61","70","81"],
-["81 − 6 = ?","75","85","74","76"],
-["63 − 40 = ?","23","103","33","22"],
-["72 − 28 = ?","44","54","56","46"],
-["100 − 35 = ?","65","75","55","135"],
-["56 − 29 = ?","27","37","23","35"],
-["9 + 9 = ?","18","81","17","19"],
-["12 − 7 = ?","5","4","6","19"],
-["40 + 40 = ?","80","8","44","70"],
-["15 + 15 = ?","30","20","25","35"],
-["What number comes after 99?","100","98","101","90"],
-["What number comes just before 60?","59","61","50","58"],
-["Which number is between 47 and 49?","48","46","50","57"],
-["3 tens and 4 ones make which number?","34","43","7","304"],
-["6 tens and 0 ones make which number?","60","6","600","66"],
-["What is the ones digit in 82?","2","8","82","80"],
-["What is 10 more than 36?","46","37","35","136"],
-["What is 10 less than 71?","61","70","81","72"],
-["Which list goes from smallest to greatest?","12, 25, 31","31, 25, 12","25, 12, 31","12, 31, 25"],
-["Count backwards by 2s: 20, 18, 16, __","14","15","12","13"],
-["Count by 5s: 35, 40, 45, __","50","55","46","49"],
-["Count by 10s: 70, 80, 90, __","100","91","95","110"],
-["Which number is even?","14","15","19","27"],
-["Which number is odd?","33","20","26","48"],
-["2 + 2 + 2 + 2 + 2 = ?","10","8","12","22"],
-["3 rows of 5 stars. How many stars in all?","15","8","10","35"],
-["Half of 20 = ?","10","2","40","5"],
-["Half of 14 = ?","7","6","28","8"],
-["Double 12 = ?","24","14","22","26"],
-["9 − __ = 4","5","4","6","13"],
-["__ + 8 = 15","7","6","8","23"],
-["How many cents are in 3 ten-cent coins?","30","13","3","20"],
-["A pencil costs 20 cents and an eraser costs 15 cents. How much for both?","35 cents","5 cents","25 cents","45 cents"],
-["How many minutes are in half an hour?","30","15","60","20"],
-["How many hours are in one day?","24","12","60","7"],
-["Which day comes after Tuesday?","Wednesday","Monday","Thursday","Friday"],
-["Which month comes after March?","April","February","May","June"],
-["Which shape has 4 equal sides?","Square","Triangle","Circle","Oval"],
-["How many corners does a triangle have?","3","4","2","0"],
-["Which solid shape is like a ball?","Sphere","Cube","Cone","Cylinder"],
-["Which unit is best for measuring the height of a door?","Metres","Centimetres","Litres","Grams"],
-["Which holds the most water?","Bucket","Cup","Spoon","Small bottle"],
-["Musa has 30 marbles. He loses 12. How many are left?","18","42","20","28"],
-["3 boxes have 10 pencils each. How many pencils in all?","30","13","20","40"],
-["There are 16 balloons. 9 are red and the rest are blue. How many are blue?","7","25","6","8"],
-["Ngozi read 25 pages on Monday and 30 pages on Tuesday. How many pages in all?","55","5","45","65"]
+["A zoo has 245 birds and 178 reptiles. How many animals does the zoo have in all?","423",["413","67","433"],"245 + 178 = 423"],
+["Dev has 82 marbles. He loses 37 of them. How many marbles does he have left?","45",["119","55","35"],"82 − 37 = 45"],
+["A shop had 400 balloons. It sold 168. How many balloons are left?","232",["568","332","242"],"400 − 168 = 232"],
+["Rosa picked 56 strawberries on Saturday and 67 on Sunday. How many strawberries did she pick in all?","123",["113","11","133"],"56 + 67 = 123"],
+["Train A carries 312 people. Train B carries 189 people. How many more people does Train A carry?","123",["501","133","223"],"312 − 189 = 123"],
+["A bookshelf has 94 books. Then 28 more books are added. How many books are on the shelf now?","122",["66","112","132"],"94 + 28 = 122"],
+["Tom had 150 stickers. He gave 75 stickers to Ben. How many stickers does Tom have left?","75",["225","85","65"],"150 − 75 = 75"],
+["A pool had 138 swimmers in the morning and 95 in the afternoon. How many swimmers came in all?","233",["223","43","243"],"138 + 95 = 233"],
+["Hana's book has 200 pages. She has read 124 pages. How many pages does she still have to read?","76",["324","86","74"],"200 − 124 = 76"],
+["A farmer has 365 apples. He sells 128 of them. How many apples are left?","237",["493","247","243"],"365 − 128 = 237"],
+["A packet has 5 stickers. How many stickers are in 9 packets?","45",["14","40","54"],"9 × 5 = 45"],
+["Each bike has 2 wheels. How many wheels are on 8 bikes?","16",["10","18","6"],"8 × 2 = 16"],
+["There are 7 teams. Each team has 6 players. How many players are there in all?","42",["13","36","48"],"7 × 6 = 42"],
+["A box holds 10 chocolates. How many chocolates are in 8 boxes?","80",["18","70","88"],"8 × 10 = 80"],
+["4 friends each have 7 coins. How many coins do they have altogether?","28",["11","21","35"],"4 × 7 = 28"],
+["A carton holds 6 cans of juice. How many cans are in 9 cartons?","54",["15","48","63"],"9 × 6 = 54"],
+["A hen lays 4 eggs each week. How many eggs does she lay in 8 weeks?","32",["12","28","36"],"8 × 4 = 32"],
+["A hall has 5 rows of chairs. Each row has 12 chairs. How many chairs are in the hall?","60",["17","50","70"],"5 × 12 = 60"],
+["A baker puts 8 cookies on each of 6 trays. How many cookies are there?","48",["14","42","54"],"6 × 8 = 48"],
+["Each page of an album has 3 photos. How many photos are on 12 pages?","36",["15","24","39"],"12 × 3 = 36"],
+["36 pencils are shared equally among 4 kids. How many pencils does each kid get?","9",["32","40","8"],"36 ÷ 4 = 9"],
+["20 sweets are put into bags of 4. How many bags are filled?","5",["16","24","4"],"20 ÷ 4 = 5"],
+["64 flowers are put equally into 8 vases. How many flowers are in each vase?","8",["56","72","7"],"64 ÷ 8 = 8"],
+["42 students sit in rows of 6. How many rows are there?","7",["36","48","8"],"42 ÷ 6 = 7"],
+["$24 is shared equally among 3 sisters. How much does each sister get?","$8",["$21","$27","$7"],"$24 ÷ 3 = $8"],
+["A 28 cm ribbon is cut into 7 equal pieces. How long is each piece?","4 cm",["21 cm","35 cm","7 cm"],"28 ÷ 7 = 4"],
+["49 stamps are put equally onto 7 pages. How many stamps are on each page?","7",["42","56","6"],"49 ÷ 7 = 7"],
+["81 candies are put into bags of 9. How many bags are there?","9",["72","90","8"],"81 ÷ 9 = 9"],
+["16 players are put into teams of 2. How many teams are there?","8",["14","18","32"],"16 ÷ 2 = 8"],
+["50 books are put equally onto 5 shelves. How many books are on each shelf?","10",["45","55","5"],"50 ÷ 5 = 10"],
+["Lila buys 3 notebooks at $4 each and 1 pen for $2. How much does she spend?","$14",["$12","$9","$18"],"3 × $4 = $12, then $12 + $2 = $14"],
+["There are 6 boxes with 8 crayons in each. A teacher gives away 15 crayons. How many crayons are left?","33",["48","63","23"],"6 × 8 = 48, then 48 − 15 = 33"],
+["A bus has 45 people. 18 get off and 27 get on. How many people are on the bus now?","54",["36","90","63"],"45 − 18 = 27, then 27 + 27 = 54"],
+["Sam has 50 cards. He buys 3 packs with 7 cards in each. How many cards does he have now?","71",["57","21","64"],"3 × 7 = 21, then 50 + 21 = 71"],
+["A shop has 72 apples. 24 are given away. The rest go into bags of 6. How many bags are filled?","8",["12","4","9"],"72 − 24 = 48, then 48 ÷ 6 = 8"],
+["Dev saves $5 each week for 6 weeks. Then he buys a toy for $20. How much money does he have left?","$10",["$30","$15","$50"],"6 × $5 = $30, then $30 − $20 = $10"],
+["A pack has 12 juice boxes. A school buys 4 packs. Then 9 juice boxes are drunk. How many are left?","39",["48","57","33"],"4 × 12 = 48, then 48 − 9 = 39"],
+["A class has 36 kids. 6 are away. The kids who are in class make teams of 5. How many teams are there?","6",["7","5","8"],"36 − 6 = 30, then 30 ÷ 5 = 6"],
+["Ana has 4 bags with 9 oranges in each. Then she gets 6 more oranges. How many oranges does she have?","42",["36","48","13"],"4 × 9 = 36, then 36 + 6 = 42"],
+["Mia reads 12 pages each day for 5 days. Her book has 90 pages. How many pages are left to read?","30",["60","78","150"],"5 × 12 = 60, then 90 − 60 = 30"],
+["A snack costs 35¢. How much do 3 snacks cost?","$1.05",["$0.95","$1.15","$1.35"],"3 × 35¢ = 105¢ = $1.05"],
+["A game starts at 4:10 and lasts 50 minutes. What time does the game end?","5:00",["4:50","5:10","5:20"],"4:10 + 50 minutes = 5:00"],
+["School starts at 8:30. Lunch is at 12:00. How long is it from the start of school to lunch?","3 hours 30 minutes",["4 hours","3 hours","4 hours 30 minutes"],"8:30 to 12:00 = 3 hours 30 minutes"],
+["Ben has a string that is 90 cm long. He cuts off 35 cm. How long is the string now?","55 cm",["125 cm","65 cm","45 cm"],"90 − 35 = 55"],
+["A poster is 9 cm long and 5 cm wide. What is the distance around the poster (its perimeter)?","28 cm",["14 cm","45 cm","23 cm"],"9 + 5 + 9 + 5 = 28"],
+["A bucket holds 5 litres of water. How many litres do 6 buckets hold?","30 L",["11 L","25 L","36 L"],"6 × 5 = 30"],
+["A watermelon weighs 4 kg. How much do 7 watermelons weigh?","28 kg",["11 kg","24 kg","32 kg"],"7 × 4 = 28"],
+["Maya walks for 20 minutes a day for 4 days. How many minutes does she walk in all?","80 minutes",["24 minutes","60 minutes","100 minutes"],"4 × 20 = 80"],
+["A chocolate bar has 10 equal pieces. Ella eats 4 pieces. What fraction of the bar did she eat?","4/10",["6/10","4/6","10/4"],"4 pieces out of 10 pieces = 4/10"],
+["A small bottle holds 250 mL. How many mL do 4 bottles hold?","1000 mL",["254 mL","500 mL","2500 mL"],"4 × 250 = 1000 mL (that is 1 litre)"]
 ];
+const SECS=["Add & subtract","Multiply","Divide","Two-step","Money, time & measures"];
 const $=id=>document.getElementById(id);
-let i,score,missed,locked;
-const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
-function show(id){["start","quiz","end"].forEach(x=>$(x).classList.toggle("hide",x!==id))}
-function begin(){i=0;score=0;missed=[];show("quiz");load()}
-function load(){
- locked=false;const d=Q[i];
- $("num").textContent="Question "+(i+1)+" of "+Q.length;
- $("sc").textContent="⭐ "+score;
- $("pb").style.width=(i/Q.length*100)+"%";
- $("q").textContent=d[0];$("fb").textContent="";$("nx").classList.add("hide");
- $("opts").innerHTML="";
- shuffle(d.slice(1)).forEach(o=>{
-  const b=document.createElement("button");b.className="opt";b.textContent=o;
-  b.onclick=()=>pick(b,o);$("opts").appendChild(b)});
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let order,idx,score,missed,secScore,locked;
+
+function start(list){
+  order=list;idx=0;score=0;missed=[];secScore=SECS.map(()=>0);
+  ["start","res"].forEach(i=>$(i).classList.add("hidden"));$("quiz").classList.remove("hidden");show();
 }
-function pick(b,o){
- if(locked)return;locked=true;const d=Q[i];
- document.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.textContent===d[1])x.classList.add("right")});
- if(o===d[1]){score++;$("fb").textContent=["🎉 Great job!","🌟 Correct!","👏 Well done!","💪 You got it!"][Math.floor(Math.random()*4)]}
- else{b.classList.add("wrong");missed.push(d);$("fb").textContent="Good try! The answer is "+d[1]}
- $("sc").textContent="⭐ "+score;
- $("nx").textContent=i===Q.length-1?"See my score ➜":"Next ➜";$("nx").classList.remove("hide");
+function show(){
+  locked=false;const n=order[idx],q=Q[n];
+  $("cnt").textContent="Question "+(idx+1)+" of "+order.length;
+  $("sc").textContent="⭐ "+score;
+  $("pg").style.width=(idx/order.length*100)+"%";
+  $("tag").textContent=SECS[Math.floor(n/10)];
+  $("q").textContent=q[0];$("fb").innerHTML="";$("next").classList.add("hidden");
+  $("opts").innerHTML="";
+  shuffle([q[1],...q[2]]).forEach((o,i)=>{
+    const b=document.createElement("button");b.className="opt";b.textContent=o;
+    b.setAttribute("aria-label","Answer "+(i+1)+": "+o);
+    b.onclick=()=>pick(b,o);$("opts").appendChild(b);
+  });
 }
-function next(){i++;i<Q.length?load():finish()}
+function pick(btn,val){
+  if(locked)return;locked=true;
+  const n=order[idx],q=Q[n],ok=val===q[1];
+  [...$("opts").children].forEach(b=>{b.disabled=true;if(b.textContent===q[1])b.classList.add("right")});
+  if(ok){score++;secScore[Math.floor(n/10)]++;$("fb").innerHTML='<b class="right-t">Correct! Great job!</b>'+q[3]}
+  else{btn.classList.add("wrong");missed.push(n);$("fb").innerHTML='<b class="wrong-t">Not quite. The answer is '+q[1]+'.</b>'+q[3]}
+  $("sc").textContent="⭐ "+score;
+  $("next").textContent=idx===order.length-1?"See my results":"Next question";
+  $("next").classList.remove("hidden");$("next").focus();
+}
+function next(){idx++;idx<order.length?show():finish()}
 function finish(){
- show("end");$("pb").style.width="100%";
- const s=score>=45?3:score>=30?2:1;
- $("stars").textContent="⭐".repeat(s);
- $("res").textContent="Christabel, you scored "+score+" / "+Q.length;
- $("msg").textContent=score>=45?"Amazing! You are a maths superstar!":score>=30?"Very good work! Keep practising!":"Nice effort! Try again and beat your score!";
- $("rev").innerHTML=missed.length?"<b>Let's practise these:</b>"+missed.map(m=>"<div>"+m[0]+" → <b>"+m[1]+"</b></div>").join(""):"";
+  $("quiz").classList.add("hidden");$("res").classList.remove("hidden");
+  const t=order.length,p=score/t,st=p>=.9?3:p>=.7?2:p>=.5?1:0;
+  $("rs").textContent="★".repeat(st)+"☆".repeat(3-st);
+  $("rn").textContent=score+" / "+t;
+  $("rm").textContent=p>=.9?"Amazing work!":p>=.7?"Great job!":p>=.5?"Good effort, keep going!":"Keep practising, you can do it!";
+  const full=t===50;
+  $("rsec").innerHTML=full?SECS.map((s,i)=>"<div><span>"+s+"</span><span>"+secScore[i]+"/10</span></div>").join(""):"";
+  $("rmiss").innerHTML=missed.length?'<h2 style="font-size:1.3rem">Let\'s review</h2><ul class="miss">'+missed.map(n=>"<li>"+Q[n][0]+"<br><b>Answer: "+Q[n][1]+"</b> ("+Q[n][3]+")</li>").join("")+"</ul>":"<p>You got every question right!</p>";
+  $("retry").classList.toggle("hidden",!missed.length);
 }
+$("go").onclick=()=>start(shuffle(Q.map((_,i)=>i)));
+$("next").onclick=next;
+$("again").onclick=()=>start(shuffle(Q.map((_,i)=>i)));
+$("retry").onclick=()=>start(shuffle(missed));
+document.addEventListener("keydown",e=>{
+  if($("quiz").classList.contains("hidden"))return;
+  if(e.key>="1"&&e.key<="4"&&!locked){const b=$("opts").children[+e.key-1];b&&b.click()}
+});
 </script>
 </body>
 </html>
