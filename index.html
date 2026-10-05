@@ -1,192 +1,191 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grade 3 Word Problems Quiz: Set 2</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Numbers to One Million – Grade 4 Quiz</title>
 <style>
-:root{--ink:#1f2a5c;--paper:#f3f9ff;--grid:#d5e6f7;--card:#fff;--sun:#ffc93c;--green:#1f9d6a;--greenbg:#dff6ea;--red:#d64545;--redbg:#ffe3e3;--blue:#3b7ddd;--muted:#5b6690}
-@media (prefers-color-scheme:dark){:root{--ink:#eef2ff;--paper:#141a3a;--grid:#212a5a;--card:#1d2550;--greenbg:#12402f;--redbg:#4a2130;--muted:#a7b1e0;--green:#4fd39b;--red:#ff8585}}
+:root{--bg:#f6f4ff;--card:#fff;--ink:#1d1b3a;--mute:#6b6a85;--pri:#5b3df5;--ok:#12a150;--okbg:#e3f7ea;--bad:#d63a3a;--badbg:#fde8e8;--line:#e2dff5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14122b;--card:#1f1c3d;--ink:#f0eeff;--mute:#a8a5cc;--pri:#8c7bff;--ok:#4ade80;--okbg:#14352250;--bad:#ff7b7b;--badbg:#3d1c1c80;--line:#34305f}}
+:root[data-theme="dark"]{--bg:#14122b;--card:#1f1c3d;--ink:#f0eeff;--mute:#a8a5cc;--pri:#8c7bff;--ok:#4ade80;--okbg:#14352250;--bad:#ff7b7b;--badbg:#3d1c1c80;--line:#34305f}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font-family:Nunito,system-ui,sans-serif;font-weight:600;color:var(--ink);background:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px;padding:20px 14px}
-h1,h2,.big{font-family:"Baloo 2",Nunito,system-ui,sans-serif;font-weight:800;margin:0}
-main{max-width:680px;margin:0 auto}
-.card{background:var(--card);border:3px solid var(--ink);border-radius:18px;padding:22px;box-shadow:6px 6px 0 var(--ink)}
-button{font:inherit;font-weight:800;color:inherit;cursor:pointer}
-:focus-visible{outline:4px solid var(--blue);outline-offset:2px}
-.btn{background:var(--sun);color:#1f2a5c;border:3px solid var(--ink);border-radius:14px;padding:12px 26px;font-size:1.15rem;box-shadow:0 5px 0 var(--ink);transition:transform .08s,box-shadow .08s}
-.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
-.btn.alt{background:var(--card);color:var(--ink)}
-.hidden{display:none!important}
-#start{text-align:center}
-#start h1{font-size:2.3rem;line-height:1.1;margin:6px 0 10px}
-#start p{font-size:1.1rem;margin:0 0 18px;color:var(--muted)}
-.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 22px;padding:0;list-style:none}
-.chips li{border:2px solid var(--ink);border-radius:999px;padding:4px 12px;font-size:.95rem;background:var(--paper)}
-.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px;font-weight:800}
-.bar{height:14px;border:3px solid var(--ink);border-radius:999px;background:var(--card);overflow:hidden;margin-bottom:16px}
-.bar i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
-.tag{display:inline-block;background:var(--ink);color:var(--paper);border-radius:8px;padding:2px 10px;font-size:.9rem;margin-bottom:10px}
-#q{font-size:1.4rem;line-height:1.4;margin:0 0 18px;font-weight:800}
-#opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.opt{background:var(--card);border:3px solid var(--ink);border-radius:14px;padding:14px 10px;font-size:1.3rem;box-shadow:0 4px 0 var(--ink);text-align:center}
-.opt:hover:not(:disabled){background:var(--sun);color:#1f2a5c}
-.opt:disabled{cursor:default}
-.opt.right{background:var(--greenbg);border-color:var(--green);box-shadow:0 4px 0 var(--green)}
-.opt.wrong{background:var(--redbg);border-color:var(--red);box-shadow:0 4px 0 var(--red)}
-#fb{min-height:64px;margin:16px 0 4px;font-size:1.1rem}
-#fb b{display:block;font-size:1.25rem}
-.right-t{color:var(--green)}.wrong-t{color:var(--red)}
-#res{text-align:center}
-.stars{font-size:2.6rem;letter-spacing:6px}
-.score{font-size:3.4rem;line-height:1}
-.sec{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0;text-align:left}
-.sec div{border:2px solid var(--ink);border-radius:12px;padding:8px 12px;display:flex;justify-content:space-between}
-.miss{text-align:left;margin:14px 0}
-.miss li{margin-bottom:8px}
-.acts{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
-@media(max-width:480px){#opts{grid-template-columns:1fr}#q{font-size:1.2rem}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style>
-</head>
-<body>
-<main>
-<section id="start" class="card">
-  <div class="stars" aria-hidden="true">🧮</div>
-  <h1>Grade 3 Word Problems: Set 2</h1>
-  <p>50 questions. Read each story, think, then pick the answer.</p>
-  <ul class="chips"><li>Add &amp; subtract</li><li>Multiply</li><li>Divide</li><li>Two-step</li><li>Money, time &amp; measures</li></ul>
-  <button class="btn" id="go">Start quiz</button>
-</section>
-
-<section id="quiz" class="card hidden" aria-live="polite">
-  <div class="top"><span id="cnt"></span><span id="sc"></span></div>
-  <div class="bar" role="progressbar" aria-label="Progress"><i id="pg"></i></div>
-  <span class="tag" id="tag"></span>
-  <h2 id="q"></h2>
-  <div id="opts"></div>
-  <div id="fb"></div>
-  <button class="btn hidden" id="next">Next question</button>
-</section>
-
-<section id="res" class="card hidden">
-  <div class="stars" id="rs" aria-hidden="true"></div>
-  <div class="score" id="rn"></div>
-  <h2 id="rm" style="margin-top:8px"></h2>
-  <div class="sec" id="rsec"></div>
-  <div id="rmiss"></div>
-  <div class="acts"><button class="btn" id="again">Play again</button><button class="btn alt hidden" id="retry">Retry missed</button></div>
-</section>
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.45}
+main{max-width:680px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.6rem;margin:8px 0 4px}h2{font-size:1.15rem;margin:0 0 12px}
+.sub{color:var(--mute);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
+.topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+button{font:inherit;cursor:pointer;color:inherit}
+.t{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:12px;text-align:left}
+.t:hover{border-color:var(--pri)}.t b{display:block}.t span{color:var(--mute);font-size:.85rem}
+.t.all{background:var(--pri);color:#fff;border-color:var(--pri)}.t.all span{color:#e6e1ff}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0 16px}
+.bar i{display:block;height:100%;background:var(--pri);width:0;transition:width .3s}
+.meta{display:flex;justify-content:space-between;color:var(--mute);font-size:.9rem}
+.tag{display:inline-block;background:var(--line);border-radius:99px;padding:2px 10px;font-size:.78rem;margin-bottom:10px}
+.q{font-size:1.2rem;font-weight:600;margin:0 0 16px}
+.opts{display:grid;gap:10px}
+.o{background:var(--card);border:2px solid var(--line);border-radius:12px;padding:13px 14px;text-align:left;font-size:1.02rem}
+.o:hover:not(:disabled){border-color:var(--pri)}
+.o.ok{border-color:var(--ok);background:var(--okbg)}.o.bad{border-color:var(--bad);background:var(--badbg)}
+.o:disabled{cursor:default}
+.fb{margin-top:14px;font-weight:600}
+.btn{background:var(--pri);color:#fff;border:0;border-radius:12px;padding:12px 22px;font-weight:600;margin-top:14px}
+.btn.ghost{background:transparent;color:var(--pri);border:2px solid var(--pri);margin-left:8px}
+.score{font-size:3rem;font-weight:800;color:var(--pri);margin:0}
+.miss{border-top:1px solid var(--line);padding:10px 0;font-size:.95rem}.miss small{color:var(--mute);display:block}
+label{display:flex;gap:8px;align-items:center;margin-top:14px;color:var(--mute)}
+.hide{display:none}
+</style></head><body><main>
+<div id="home">
+<h1>🔢 Numbers to One Million</h1>
+<p class="sub">Grade 4 · Dimensions Math 4A · Chapter 1 — 100 questions</p>
+<div class="card"><h2>Choose a topic</h2><div class="topics" id="topics"></div>
+<label><input type="checkbox" id="shuf"> Shuffle question order</label></div>
+</div>
+<div id="quiz" class="hide">
+<div class="meta"><span id="qn"></span><span id="sc"></span></div>
+<div class="bar"><i id="pb"></i></div>
+<div class="card"><span class="tag" id="tg"></span><p class="q" id="qt"></p><div class="opts" id="op"></div><div class="fb" id="fb"></div>
+<button class="btn hide" id="nx">Next →</button></div>
+</div>
+<div id="end" class="hide">
+<div class="card" style="text-align:center"><p class="score" id="fs"></p><h2 id="fm"></h2>
+<button class="btn" id="rm">Retry missed</button><button class="btn ghost" id="hm">Home</button></div>
+<div class="card hide" id="mc"><h2>Review your misses</h2><div id="ml"></div></div>
+</div>
 </main>
-
 <script>
-// [question, correct answer, [3 wrong answers], working]
-const Q=[
-["A zoo has 245 birds and 178 reptiles. How many animals does the zoo have in all?","423",["413","67","433"],"245 + 178 = 423"],
-["Dev has 82 marbles. He loses 37 of them. How many marbles does he have left?","45",["119","55","35"],"82 − 37 = 45"],
-["A shop had 400 balloons. It sold 168. How many balloons are left?","232",["568","332","242"],"400 − 168 = 232"],
-["Rosa picked 56 strawberries on Saturday and 67 on Sunday. How many strawberries did she pick in all?","123",["113","11","133"],"56 + 67 = 123"],
-["Train A carries 312 people. Train B carries 189 people. How many more people does Train A carry?","123",["501","133","223"],"312 − 189 = 123"],
-["A bookshelf has 94 books. Then 28 more books are added. How many books are on the shelf now?","122",["66","112","132"],"94 + 28 = 122"],
-["Tom had 150 stickers. He gave 75 stickers to Ben. How many stickers does Tom have left?","75",["225","85","65"],"150 − 75 = 75"],
-["A pool had 138 swimmers in the morning and 95 in the afternoon. How many swimmers came in all?","233",["223","43","243"],"138 + 95 = 233"],
-["Hana's book has 200 pages. She has read 124 pages. How many pages does she still have to read?","76",["324","86","74"],"200 − 124 = 76"],
-["A farmer has 365 apples. He sells 128 of them. How many apples are left?","237",["493","247","243"],"365 − 128 = 237"],
-["A packet has 5 stickers. How many stickers are in 9 packets?","45",["14","40","54"],"9 × 5 = 45"],
-["Each bike has 2 wheels. How many wheels are on 8 bikes?","16",["10","18","6"],"8 × 2 = 16"],
-["There are 7 teams. Each team has 6 players. How many players are there in all?","42",["13","36","48"],"7 × 6 = 42"],
-["A box holds 10 chocolates. How many chocolates are in 8 boxes?","80",["18","70","88"],"8 × 10 = 80"],
-["4 friends each have 7 coins. How many coins do they have altogether?","28",["11","21","35"],"4 × 7 = 28"],
-["A carton holds 6 cans of juice. How many cans are in 9 cartons?","54",["15","48","63"],"9 × 6 = 54"],
-["A hen lays 4 eggs each week. How many eggs does she lay in 8 weeks?","32",["12","28","36"],"8 × 4 = 32"],
-["A hall has 5 rows of chairs. Each row has 12 chairs. How many chairs are in the hall?","60",["17","50","70"],"5 × 12 = 60"],
-["A baker puts 8 cookies on each of 6 trays. How many cookies are there?","48",["14","42","54"],"6 × 8 = 48"],
-["Each page of an album has 3 photos. How many photos are on 12 pages?","36",["15","24","39"],"12 × 3 = 36"],
-["36 pencils are shared equally among 4 kids. How many pencils does each kid get?","9",["32","40","8"],"36 ÷ 4 = 9"],
-["20 sweets are put into bags of 4. How many bags are filled?","5",["16","24","4"],"20 ÷ 4 = 5"],
-["64 flowers are put equally into 8 vases. How many flowers are in each vase?","8",["56","72","7"],"64 ÷ 8 = 8"],
-["42 students sit in rows of 6. How many rows are there?","7",["36","48","8"],"42 ÷ 6 = 7"],
-["$24 is shared equally among 3 sisters. How much does each sister get?","$8",["$21","$27","$7"],"$24 ÷ 3 = $8"],
-["A 28 cm ribbon is cut into 7 equal pieces. How long is each piece?","4 cm",["21 cm","35 cm","7 cm"],"28 ÷ 7 = 4"],
-["49 stamps are put equally onto 7 pages. How many stamps are on each page?","7",["42","56","6"],"49 ÷ 7 = 7"],
-["81 candies are put into bags of 9. How many bags are there?","9",["72","90","8"],"81 ÷ 9 = 9"],
-["16 players are put into teams of 2. How many teams are there?","8",["14","18","32"],"16 ÷ 2 = 8"],
-["50 books are put equally onto 5 shelves. How many books are on each shelf?","10",["45","55","5"],"50 ÷ 5 = 10"],
-["Lila buys 3 notebooks at $4 each and 1 pen for $2. How much does she spend?","$14",["$12","$9","$18"],"3 × $4 = $12, then $12 + $2 = $14"],
-["There are 6 boxes with 8 crayons in each. A teacher gives away 15 crayons. How many crayons are left?","33",["48","63","23"],"6 × 8 = 48, then 48 − 15 = 33"],
-["A bus has 45 people. 18 get off and 27 get on. How many people are on the bus now?","54",["36","90","63"],"45 − 18 = 27, then 27 + 27 = 54"],
-["Sam has 50 cards. He buys 3 packs with 7 cards in each. How many cards does he have now?","71",["57","21","64"],"3 × 7 = 21, then 50 + 21 = 71"],
-["A shop has 72 apples. 24 are given away. The rest go into bags of 6. How many bags are filled?","8",["12","4","9"],"72 − 24 = 48, then 48 ÷ 6 = 8"],
-["Dev saves $5 each week for 6 weeks. Then he buys a toy for $20. How much money does he have left?","$10",["$30","$15","$50"],"6 × $5 = $30, then $30 − $20 = $10"],
-["A pack has 12 juice boxes. A school buys 4 packs. Then 9 juice boxes are drunk. How many are left?","39",["48","57","33"],"4 × 12 = 48, then 48 − 9 = 39"],
-["A class has 36 kids. 6 are away. The kids who are in class make teams of 5. How many teams are there?","6",["7","5","8"],"36 − 6 = 30, then 30 ÷ 5 = 6"],
-["Ana has 4 bags with 9 oranges in each. Then she gets 6 more oranges. How many oranges does she have?","42",["36","48","13"],"4 × 9 = 36, then 36 + 6 = 42"],
-["Mia reads 12 pages each day for 5 days. Her book has 90 pages. How many pages are left to read?","30",["60","78","150"],"5 × 12 = 60, then 90 − 60 = 30"],
-["A snack costs 35¢. How much do 3 snacks cost?","$1.05",["$0.95","$1.15","$1.35"],"3 × 35¢ = 105¢ = $1.05"],
-["A game starts at 4:10 and lasts 50 minutes. What time does the game end?","5:00",["4:50","5:10","5:20"],"4:10 + 50 minutes = 5:00"],
-["School starts at 8:30. Lunch is at 12:00. How long is it from the start of school to lunch?","3 hours 30 minutes",["4 hours","3 hours","4 hours 30 minutes"],"8:30 to 12:00 = 3 hours 30 minutes"],
-["Ben has a string that is 90 cm long. He cuts off 35 cm. How long is the string now?","55 cm",["125 cm","65 cm","45 cm"],"90 − 35 = 55"],
-["A poster is 9 cm long and 5 cm wide. What is the distance around the poster (its perimeter)?","28 cm",["14 cm","45 cm","23 cm"],"9 + 5 + 9 + 5 = 28"],
-["A bucket holds 5 litres of water. How many litres do 6 buckets hold?","30 L",["11 L","25 L","36 L"],"6 × 5 = 30"],
-["A watermelon weighs 4 kg. How much do 7 watermelons weigh?","28 kg",["11 kg","24 kg","32 kg"],"7 × 4 = 28"],
-["Maya walks for 20 minutes a day for 4 days. How many minutes does she walk in all?","80 minutes",["24 minutes","60 minutes","100 minutes"],"4 × 20 = 80"],
-["A chocolate bar has 10 equal pieces. Ella eats 4 pieces. What fraction of the bar did she eat?","4/10",["6/10","4/6","10/4"],"4 pieces out of 10 pieces = 4/10"],
-["A small bottle holds 250 mL. How many mL do 4 bottles hold?","1000 mL",["254 mL","500 mL","2500 mL"],"4 × 250 = 1000 mL (that is 1 litre)"]
-];
-const SECS=["Add & subtract","Multiply","Divide","Two-step","Money, time & measures"];
+const D={
+"Place Value":[
+["In 85,794, what is the digit in the ten thousands place?","8","5","7","4"],
+["In 85,794, the digit 5 stands for…","5,000","500","50,000","50"],
+["What is the value of the first digit 6 in 64,564?","60,000","6,000","600","600,000"],
+["In 64,564, the digit 5 stands for…","500","50","5,000","5"],
+["In 23,028, which digit is in the thousands place?","3","2","0","8"],
+["What is the value of the digit 3 in 384,802?","300,000","30,000","3,000","3"],
+["In 494,428, the first digit 9 is in which place?","Ten thousands","Thousands","Hundred thousands","Hundreds"],
+["What is the value of the digit in the hundred thousands place of 698,365?","600,000","60,000","6,000","900,000"],
+["In 698,365, the digit 3 stands for…","300","3,000","30","30,000"],
+["In four hundred twenty-three thousand, sixty-seven, what is the value of the digit in the ten thousands place?","20,000","2,000","200,000","40,000"],
+["60,000 = ___ ten thousands","6","60","600","6,000"],
+["60,000 = ___ hundreds","600","60","6,000","6"],
+["35,000 = ___ hundreds","350","35","3,500","3,050"],
+["10,100 = ___ tens","1,010","101","10,100","110"],
+["200,000 = ___ ten thousands","20","2","200","2,000"],
+["320,000 = ___ thousands","320","32","3,200","32,000"]],
+"Expanded Form & Words":[
+["80,000 + 7,000 + 100 + 40 + 3 = ?","87,143","87,134","80,743","78,143"],
+["60,437 = 60,000 + ___ + 30 + 7","400","4,000","40","4"],
+["14,092 = 10,000 + ___ + 92","4,000","400","40,000","4"],
+["90,620 = 600 + ___ + 20","90,000","9,000","900","60,000"],
+["400 + 1,000 + 40,000 + 4 = ?","41,404","41,044","14,404","40,144"],
+["62,500 = ___ + 2,000 + 60,000","500","50","5,000","5"],
+["Write in numerals: forty-seven thousand, six hundred ninety-eight","47,698","47,968","40,798","47,689"],
+["Write in numerals: eighty thousand, nine","80,009","80,090","8,009","80,900"],
+["Write 20,640 in words.","Twenty thousand, six hundred forty","Two thousand, six hundred forty","Twenty thousand, sixty-four","Twenty thousand, six hundred four"],
+["Write 55,008 in words.","Fifty-five thousand, eight","Fifty-five thousand, eighty","Fifty-five thousand, eight hundred","Five thousand, five hundred eight"],
+["600,000 + 90,000 + 8,000 + 300 + 60 + 5 = ?","698,365","689,365","698,356","608,365"],
+["Write 698,365 in words.","Six hundred ninety-eight thousand, three hundred sixty-five","Six hundred eighty-nine thousand, three hundred sixty-five","Sixty-nine thousand, eight hundred thirty-six","Six hundred ninety-eight thousand, three hundred fifty-six"],
+["604,085 = ___ + 4,000 + 80 + 5","600,000","60,000","6,000","604,000"],
+["Write in numerals: seven hundred twenty-three thousand, one","723,001","723,100","723,010","700,231"]],
+"Place-Value Units":[
+["723 hundreds = ?","72,300","7,230","723,000","723"],
+["9 ten thousands + 24 tens = ?","90,240","92,400","9,240","90,024"],
+["800 hundreds + 60 hundreds + 50 tens = ?","86,500","85,600","86,050","80,650"],
+["640 tens + 20 thousands = ?","26,400","20,640","26,040","62,400"],
+["92 ones + 4,800 tens = ?","48,092","48,920","4,892","49,200"],
+["9,860 hundreds = ?","986,000","98,600","9,860","96,800"],
+["8 ones + 12,000 tens = ?","120,008","12,008","120,080","128,000"],
+["ten hundred thousands = ?","1,000,000","100,000","10,000","10,000,000"]],
+"Number Patterns":[
+["Count on by ten thousand: 97,376 → ?","107,376","98,376","97,476","187,376"],
+["Count back by one hundred: 333,333 → ?","333,233","333,323","332,333","333,133"],
+["Count on by one thousand: 208,997 → ?","209,997","208,998","218,997","209,097"],
+["1,000 more than 62,584 is…","63,584","62,684","72,584","62,594"],
+["10,000 less than 86,584 is…","76,584","85,584","86,484","86,574"],
+["10 less than 26,009 is…","25,999","25,909","26,000","25,099"],
+["81,096 − 100 = ?","80,996","81,086","80,096","71,096"],
+["179,992 + 10 = ?","180,002","180,092","179,102","189,992"],
+["99,999 + 100 = ?","100,099","100,000","99,199","109,999"],
+["999,999 + 1 = ?","1,000,000","999,990","1,000,001","100,000"],
+["Next number: 187,174; 188,173; 189,172; ?","190,171","190,173","191,171","189,173"],
+["Next number: 51,146; 62,136; 73,126; ?","84,116","84,136","83,116","95,106"]],
+"Comparing & Ordering":[
+["82,262 ◯ 82,623","<",">","="],
+["918,532 ◯ 981,352","<",">","="],
+["672,365 ◯ 672,369","<",">","="],
+["Which number is greater?","636,924","636,748","They are equal","Cannot tell"],
+["Least to greatest: 45,800 · 56,500 · 65,500 · 36,500 · 56,600","36,500, 45,800, 56,500, 56,600, 65,500","36,500, 45,800, 56,600, 56,500, 65,500","65,500, 56,600, 56,500, 45,800, 36,500","45,800, 36,500, 56,500, 56,600, 65,500"],
+["Least to greatest: 792,793 · 797,913 · 983,713 · 792,739 · 797,193","792,739, 792,793, 797,193, 797,913, 983,713","792,793, 792,739, 797,193, 797,913, 983,713","792,739, 792,793, 797,913, 797,193, 983,713","983,713, 797,913, 797,193, 792,793, 792,739"],
+["Which number is greater than 55,000?","55,739","54,393","45,993","7,713"],
+["Greatest 6-digit number using 2, 4, 9, 6, 8, 7 once each?","987,642","246,789","987,624","789,642"],
+["Least 6-digit EVEN number using 2, 4, 9, 6, 8, 7 once each?","246,798","246,789","246,978","247,896"],
+["Greatest 6-digit ODD number using 2, 4, 9, 6, 8, 7 once each?","986,427","987,642","986,247","986,724"],
+["34,009 + 40 ◯ 8,000 + 4 + 20,000",">","<","="],
+["90,000 + 60 + 4,200 ◯ 300 + 94,000 + 20","<",">","="],
+["300 thousands + 70 hundreds ◯ 7,000 tens + 30 ten thousands","<",">","="],
+["89,000 − 100 ◯ 9,000 × 9",">","<","="]],
+"Rounding":[
+["Round 66,630 to the nearest ten thousand.","70,000","60,000","67,000","66,000"],
+["Round 75,000 to the nearest ten thousand.","80,000","70,000","75,000","90,000"],
+["Round 82,814 to the nearest ten thousand.","80,000","90,000","83,000","82,000"],
+["Round 95,435 to the nearest ten thousand.","100,000","90,000","95,000","95,400"],
+["To round to the nearest ten thousand, which digit do you check?","Thousands digit","Ten thousands digit","Hundreds digit","Ones digit"],
+["Round 48,665 to the nearest thousand.","49,000","48,000","48,700","50,000"],
+["Round 10,025 to the nearest hundred.","10,000","10,100","10,030","10,020"],
+["Round 65,501 to the nearest ten thousand.","70,000","60,000","65,000","66,000"],
+["Round 64,999 to the nearest ten thousand.","60,000","70,000","65,000","64,000"],
+["Jupiter is 88,846 miles across. Round to the nearest ten thousand.","90,000","80,000","88,000","89,000"],
+["Round 16,501 to the nearest ten thousand.","20,000","10,000","17,000","16,000"],
+["Round 24,499 to the nearest ten thousand.","20,000","30,000","24,000","25,000"],
+["Round 26,460 to the nearest thousand.","26,000","27,000","26,500","30,000"],
+["Round 36,070 to the nearest hundred.","36,100","36,000","36,070","36,200"],
+["Round 263,412 to the nearest hundred thousand.","300,000","200,000","260,000","263,000"],
+["Round 350,000 to the nearest hundred thousand.","400,000","300,000","350,000","500,000"],
+["Round 950,749 to the nearest hundred thousand.","1,000,000","900,000","950,000","951,000"],
+["Round 950,749 to the nearest ten thousand.","950,000","960,000","951,000","1,000,000"],
+["Round 950,749 to the nearest thousand.","951,000","950,000","950,700","950,500"],
+["Round 950,749 to the nearest hundred.","950,700","950,800","951,000","950,750"],
+["Round 142,984 to the nearest hundred.","143,000","142,900","142,000","143,100"]],
+"Mental Math":[
+["35,000 + 9,000 = ?","44,000","4,400","440,000","34,000"],
+["89 hundreds − 24 hundreds = ?","65 hundreds","55 hundreds","650 hundreds","113 hundreds"],
+["8,000 × 6 = ?","48,000","4,800","480,000","14,000"],
+["72,000 ÷ 6 = ?","12,000","1,200","120,000","66,000"],
+["150,000 ÷ 5 = ?","30,000","3,000","300,000","145,000"]],
+"Challenge":[
+["A house costs 6 times as much as a car. The car costs $40,000. How much is the house?","$240,000","$46,000","$24,000","$2,400,000"],
+["A number is 32,000 less than the quotient of 560,000 ÷ 7. What is the number?","48,000","80,000","208,000","528,000"],
+["What is the least whole number that rounds to 230,000 to the nearest ten thousand?","225,000","220,000","229,999","230,000"],
+["What is the greatest whole number that rounds to 230,000 to the nearest ten thousand?","234,999","235,000","239,999","230,000"],
+["Mystery 5-digit number: all digits different; thousands digit is 7 more than the tens digit; hundreds digit = thousands digit + ones digit; digits add to 24.","67,902","84,723","24,789","76,902"],
+["Mystery 6-digit number: only two digits are the same; tens digit is 9 more than thousands digit; it is odd; ones digit is 5 more than hundred thousands digit; digits add to 34.","450,799","450,797","540,799","450,979"],
+["Clues: digit sum is more than 20; more than 2,000 tens; fewer than 450 hundreds. Which number?","40,674","38,041","26,903","15,987"],
+["5,000 nails in five boxes. Boxes 1+2 = 2,700; 2+3 = 2,000; 3+4 = 1,800; 4+5 = 1,700. How many nails are in box 5?","500","600","1,200","1,300"],
+["Four blocks in a row: red is right of blue but not beside it; green is not next to blue; yellow is next to red. Order from left to right?","Blue, Yellow, Red, Green","Blue, Red, Yellow, Green","Blue, Green, Red, Yellow","Yellow, Blue, Red, Green"],
+["Least number that rounds to 500,000 to the nearest thousand, ten thousand AND hundred thousand?","499,500","450,000","495,000","499,000"]]
+};
 const $=id=>document.getElementById(id);
-const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-let order,idx,score,missed,secScore,locked;
-
-function start(list){
-  order=list;idx=0;score=0;missed=[];secScore=SECS.map(()=>0);
-  ["start","res"].forEach(i=>$(i).classList.add("hidden"));$("quiz").classList.remove("hidden");show();
-}
-function show(){
-  locked=false;const n=order[idx],q=Q[n];
-  $("cnt").textContent="Question "+(idx+1)+" of "+order.length;
-  $("sc").textContent="⭐ "+score;
-  $("pg").style.width=(idx/order.length*100)+"%";
-  $("tag").textContent=SECS[Math.floor(n/10)];
-  $("q").textContent=q[0];$("fb").innerHTML="";$("next").classList.add("hidden");
-  $("opts").innerHTML="";
-  shuffle([q[1],...q[2]]).forEach((o,i)=>{
-    const b=document.createElement("button");b.className="opt";b.textContent=o;
-    b.setAttribute("aria-label","Answer "+(i+1)+": "+o);
-    b.onclick=()=>pick(b,o);$("opts").appendChild(b);
-  });
-}
-function pick(btn,val){
-  if(locked)return;locked=true;
-  const n=order[idx],q=Q[n],ok=val===q[1];
-  [...$("opts").children].forEach(b=>{b.disabled=true;if(b.textContent===q[1])b.classList.add("right")});
-  if(ok){score++;secScore[Math.floor(n/10)]++;$("fb").innerHTML='<b class="right-t">Correct! Great job!</b>'+q[3]}
-  else{btn.classList.add("wrong");missed.push(n);$("fb").innerHTML='<b class="wrong-t">Not quite. The answer is '+q[1]+'.</b>'+q[3]}
-  $("sc").textContent="⭐ "+score;
-  $("next").textContent=idx===order.length-1?"See my results":"Next question";
-  $("next").classList.remove("hidden");$("next").focus();
-}
-function next(){idx++;idx<order.length?show():finish()}
-function finish(){
-  $("quiz").classList.add("hidden");$("res").classList.remove("hidden");
-  const t=order.length,p=score/t,st=p>=.9?3:p>=.7?2:p>=.5?1:0;
-  $("rs").textContent="★".repeat(st)+"☆".repeat(3-st);
-  $("rn").textContent=score+" / "+t;
-  $("rm").textContent=p>=.9?"Amazing work!":p>=.7?"Great job!":p>=.5?"Good effort, keep going!":"Keep practising, you can do it!";
-  const full=t===50;
-  $("rsec").innerHTML=full?SECS.map((s,i)=>"<div><span>"+s+"</span><span>"+secScore[i]+"/10</span></div>").join(""):"";
-  $("rmiss").innerHTML=missed.length?'<h2 style="font-size:1.3rem">Let\'s review</h2><ul class="miss">'+missed.map(n=>"<li>"+Q[n][0]+"<br><b>Answer: "+Q[n][1]+"</b> ("+Q[n][3]+")</li>").join("")+"</ul>":"<p>You got every question right!</p>";
-  $("retry").classList.toggle("hidden",!missed.length);
-}
-$("go").onclick=()=>start(shuffle(Q.map((_,i)=>i)));
-$("next").onclick=next;
-$("again").onclick=()=>start(shuffle(Q.map((_,i)=>i)));
-$("retry").onclick=()=>start(shuffle(missed));
-document.addEventListener("keydown",e=>{
-  if($("quiz").classList.contains("hidden"))return;
-  if(e.key>="1"&&e.key<="4"&&!locked){const b=$("opts").children[+e.key-1];b&&b.click()}
-});
-</script>
-</body>
-</html>
+const all=[];Object.entries(D).forEach(([t,a])=>a.forEach(r=>all.push({t,q:r[0],a:r[1],o:r.slice(1)})));
+const sh=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let L=[],i=0,s=0,miss=[];
+const show=id=>["home","quiz","end"].forEach(x=>$(x).classList.toggle("hide",x!==id));
+function mk(label,sub,cls,fn){const b=document.createElement("button");b.className="t "+cls;b.innerHTML="<b></b><span></span>";b.firstChild.textContent=label;b.lastChild.textContent=sub;b.onclick=fn;$("topics").appendChild(b)}
+mk("All topics","100 questions","all",()=>start(all));
+Object.keys(D).forEach(t=>mk(t,D[t].length+" questions","",()=>start(all.filter(x=>x.t===t))));
+function start(list){L=$("shuf").checked?sh(list):list.slice();i=0;s=0;miss=[];show("quiz");render()}
+function render(){const x=L[i];$("qn").textContent="Question "+(i+1)+" of "+L.length;$("sc").textContent="Score: "+s;$("pb").style.width=(i/L.length*100)+"%";
+$("tg").textContent=x.t;$("qt").textContent=x.q;$("fb").textContent="";$("nx").classList.add("hide");
+$("nx").textContent=i===L.length-1?"See results":"Next →";const op=$("op");op.innerHTML="";
+sh(x.o).forEach(v=>{const b=document.createElement("button");b.className="o";b.textContent=v;b.onclick=()=>pick(b,v);op.appendChild(b)})}
+function pick(b,v){const x=L[i],ok=v===x.a;[...$("op").children].forEach(c=>{c.disabled=true;if(c.textContent===x.a)c.classList.add("ok")});
+if(ok){s++;$("fb").textContent="✅ Correct!"}else{b.classList.add("bad");miss.push(x);$("fb").textContent="❌ The answer is "+x.a}
+$("sc").textContent="Score: "+s;$("nx").classList.remove("hide")}
+$("nx").onclick=()=>{i++;i<L.length?render():finish()};
+function finish(){show("end");const p=Math.round(s/L.length*100);$("fs").textContent=s+" / "+L.length;
+$("fm").textContent=p>=90?"🌟 Outstanding!":p>=70?"👏 Great work!":p>=50?"👍 Good effort — keep practising!":"💪 Keep going — review and try again!";
+$("rm").classList.toggle("hide",!miss.length);$("mc").classList.toggle("hide",!miss.length);
+$("ml").innerHTML="";miss.forEach(x=>{const d=document.createElement("div");d.className="miss";d.textContent=x.q;const m=document.createElement("small");m.textContent="Answer: "+x.a;d.appendChild(m);$("ml").appendChild(d)})}
+$("rm").onclick=()=>{L=sh(miss);i=0;s=0;miss=[];show("quiz");render()};
+$("hm").onclick=()=>show("home");
+</script></body></html>
