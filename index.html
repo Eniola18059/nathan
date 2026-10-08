@@ -2,237 +2,364 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Opposites Quiz – Grade 2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Hydrosphere – Earth Systems, Chapter 1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
 <style>
-:root{--ink:#1b2a5b;--bg:#d9f0ff;--card:#fff;--coral:#ff5a5f;--sun:#ffc400;--green:#1fa971;--line:#b7dcf5}
-@media (prefers-color-scheme:dark){:root{--ink:#eaf4ff;--bg:#12204a;--card:#1c2f66;--line:#34498a}}
-*{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;display:flex;justify-content:center;padding:16px}
-main{width:100%;max-width:560px}
-h1{font-size:2rem;margin:8px 0 4px;text-align:center}
-p.sub{text-align:center;margin:0 0 16px;font-size:1.05rem}
-.card{background:var(--card);border:3px solid var(--ink);border-radius:20px;padding:20px;box-shadow:6px 6px 0 var(--ink)}
-.hide{display:none}
-button{font:inherit;color:inherit;cursor:pointer}
-button:focus-visible{outline:4px solid var(--sun);outline-offset:2px}
-.rounds{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}
-.rounds button,.all{background:var(--sun);color:#1b2a5b;border:3px solid var(--ink);border-radius:12px;padding:12px 0;font-weight:700;font-size:1.1rem}
-.all{width:100%;background:var(--coral);color:#fff;padding:14px}
-.bar{height:14px;border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin-bottom:10px}
-.bar i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
-.meta{display:flex;justify-content:space-between;font-weight:700;margin-bottom:8px}
-.pair{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px 0;flex-wrap:wrap}
-.word{font-size:2.6rem;font-weight:800;background:var(--sun);color:#1b2a5b;border:3px solid var(--ink);border-radius:16px;padding:6px 20px}
-.mark{font-size:2.6rem;font-weight:800;color:var(--coral)}
-.q{text-align:center;font-size:1.2rem;margin:0}
-.speak{display:block;margin:10px auto;background:none;border:2px dashed var(--ink);border-radius:10px;padding:6px 14px}
-.opts{display:grid;gap:10px;margin-top:10px}
-.opts button{background:var(--card);border:3px solid var(--ink);border-radius:14px;padding:14px;font-size:1.5rem;font-weight:700}
-.opts button:hover:not(:disabled){background:var(--sun);color:#1b2a5b}
-.opts .ok{background:var(--green)!important;color:#fff!important}
-.opts .no{background:var(--coral)!important;color:#fff!important}
-.fb{min-height:2.4em;text-align:center;font-size:1.25rem;font-weight:700;margin:12px 0 0}
-.next{width:100%;margin-top:8px;background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:14px;font-size:1.2rem;font-weight:700}
-.big{font-size:3rem;text-align:center;margin:6px 0}
-.score{font-size:2.4rem;font-weight:800;text-align:center}
-.miss{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.miss span{background:var(--sun);color:#1b2a5b;border-radius:8px;padding:4px 10px;font-weight:700}
-.row{display:grid;gap:8px;margin-top:12px}
-.row button{border:3px solid var(--ink);border-radius:12px;padding:12px;font-weight:700;font-size:1.1rem;background:var(--sun);color:#1b2a5b}
-@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+:root{--bg:#f3f9fa;--card:#fff;--ink:#0d2a3f;--mute:#4b6677;--sea:#1b7fa6;--deep:#082238;--foam:#d9eef3;--sun:#f2b134;--line:#cfe2e8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#07192a;--card:#0e2b43;--ink:#e6f3f7;--mute:#9bb8c6;--sea:#5cc0e6;--foam:#12384f;--line:#1d4863}}
+:root[data-theme="dark"]{--bg:#07192a;--card:#0e2b43;--ink:#e6f3f7;--mute:#9bb8c6;--sea:#5cc0e6;--foam:#12384f;--line:#1d4863}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.7 Literata,Georgia,serif}
+h1,h2,h3,.sans{font-family:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;line-height:1.1;margin:0}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+.hero{background:radial-gradient(120% 90% at 80% 20%,#14577c 0%,var(--deep) 60%);color:#eaf6fa;padding:56px 0 70px;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center}
+.chip{display:inline-block;background:var(--sun);color:#3a2800;font:700 15px "Bricolage Grotesque",sans-serif;padding:6px 14px;border-radius:99px}
+.hero h1{font-size:clamp(46px,8vw,92px);font-weight:800;margin:18px 0 18px;letter-spacing:-.02em}
+.hero p{max-width:34em;color:#c9e3ec}
+.bigq{margin-top:22px;border-left:4px solid var(--sun);padding:4px 0 4px 16px}
+.bigq b{display:block;font:700 15px "Bricolage Grotesque",sans-serif;color:var(--sun)}
+.bigq span{font:600 22px "Bricolage Grotesque",sans-serif}
+.globe{width:100%;max-width:420px;justify-self:center;animation:bob 7s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px)}}
+@media (prefers-reduced-motion:reduce){.globe{animation:none}*{scroll-behavior:auto!important;transition:none!important}}
+nav{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px}
+nav a{white-space:nowrap;text-decoration:none;font:600 15px "Bricolage Grotesque",sans-serif;padding:7px 14px;border-radius:99px;color:var(--mute)}
+nav a:hover,nav a:focus-visible{background:var(--foam);color:var(--ink);outline:none}
+section{padding:64px 0 8px}
+h2{font-size:clamp(32px,5vw,50px);font-weight:800;letter-spacing:-.01em;margin-bottom:14px}
+h3{font-size:24px;font-weight:700;margin:26px 0 6px}
+.lead{max-width:40em;color:var(--mute)}
+.def{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--sea);border-radius:6px 16px 16px 6px;padding:14px 18px;margin:18px 0}
+.def dt{font:800 20px "Bricolage Grotesque",sans-serif;color:var(--sea)}
+.def dt i{font:italic 400 15px Literata,serif;color:var(--mute);margin-left:6px}
+.def dd{margin:2px 0 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:20px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px}
+.card h3{margin-top:0;font-size:21px}
+.card p{margin:6px 0 0;font-size:16.5px;line-height:1.55}
+.stat{font:800 clamp(40px,7vw,64px)/1 "Bricolage Grotesque",sans-serif;color:var(--sea)}
+.fig{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:12px;margin:22px 0}
+.fig svg{display:block;width:100%;height:auto}
+.fig figcaption{font-size:15px;color:var(--mute);padding:8px 8px 2px}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+button{font:700 16px "Bricolage Grotesque",sans-serif;border:2px solid var(--sea);background:transparent;color:var(--ink);padding:9px 16px;border-radius:99px;cursor:pointer}
+button[aria-pressed=true]{background:var(--sea);color:#04202f}
+button:focus-visible,input:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.panel{background:var(--foam);border-radius:16px;padding:16px 20px;min-height:7.5em}
+.panel b{font:800 22px "Bricolage Grotesque",sans-serif}
+.chain{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin:20px 0}
+.chain div{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:15.5px;line-height:1.45;position:relative}
+.chain div b{display:block;font:700 17px "Bricolage Grotesque",sans-serif;color:var(--sea)}
+.scale{height:26px;border-radius:99px;background:linear-gradient(90deg,#9be3ff,#4aa8c9 45%,#14527a 80%,#0a2c4a);margin:34px 0 8px;position:relative}
+.scale span{position:absolute;top:-28px;transform:translateX(-50%);font:700 14px "Bricolage Grotesque",sans-serif;white-space:nowrap}
+.scale span::after{content:"";position:absolute;left:50%;top:22px;width:2px;height:10px;background:var(--ink)}
+.temp{display:grid;grid-template-columns:90px 1fr;gap:22px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;margin:22px 0}
+.therm{height:230px;width:44px;border-radius:99px;background:var(--foam);border:2px solid var(--line);position:relative;overflow:hidden;margin:auto}
+.therm i{position:absolute;bottom:0;left:0;right:0;background:#e4572e;transition:height .2s}
+input[type=range]{width:100%;accent-color:var(--sea)}
+.state{font:800 30px "Bricolage Grotesque",sans-serif}
+.rain{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.rain span{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 16px;font:700 17px "Bricolage Grotesque",sans-serif}
+.rain em{font-style:normal;font-size:26px;margin-right:8px;vertical-align:-3px}
+dl.gl{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+dl.gl div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+dl.gl dt{font:800 19px "Bricolage Grotesque",sans-serif;color:var(--sea)}
+dl.gl dd{margin:2px 0 0;font-size:16px;line-height:1.5}
+footer{margin-top:70px;background:var(--deep);color:#a9c9d6;padding:30px 0;text-align:center;font-size:15px}
+g[data-s]{transition:opacity .3s}
+.dim g[data-s]{opacity:.22}
+.dim g[data-s].on{opacity:1}
+@media (max-width:760px){.hero .wrap,.two{grid-template-columns:1fr}.globe{max-width:280px;order:-1}.temp{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<main>
-<h1>Opposites Quiz</h1>
-<p class="sub">Grade 2 · 100 antonym questions</p>
 
-<section id="home" class="card">
-  <p class="q"><b>Pick a round of 10</b> or play all 100.</p>
-  <div class="rounds" id="rounds"></div>
-  <button class="all" id="allBtn">Play all 100</button>
-</section>
-
-<section id="game" class="card hide">
-  <div class="meta"><span id="prog"></span><span id="sc"></span></div>
-  <div class="bar"><i id="fill"></i></div>
-  <p class="q">What is the opposite of…</p>
-  <div class="pair"><span class="word" id="word"></span><span class="mark">⇄ ?</span></div>
-  <button class="speak" id="say" aria-label="Read the word aloud">🔊 Hear it</button>
-  <div class="opts" id="opts"></div>
-  <p class="fb" id="fb" aria-live="polite"></p>
-  <button class="next hide" id="next">Next</button>
-</section>
-
-<section id="end" class="card hide">
-  <div class="big" id="stars"></div>
-  <div class="score" id="final"></div>
-  <p class="q" id="msg"></p>
-  <div id="missWrap" class="hide"><p class="q"><b>Words to practise</b></p><div class="miss" id="miss"></div></div>
-  <div class="row">
-    <button id="retryMiss" class="hide">Try missed words again</button>
-    <button id="again">Play this round again</button>
-    <button id="menu">Choose another round</button>
+<header class="hero">
+ <div class="wrap">
+  <div>
+   <span class="chip">Earth Systems · Chapter 1</span>
+   <h1>The Hydrosphere</h1>
+   <p>Look at Earth from space, directly above the center of the Pacific Ocean, and you would barely see any land at all. About seven-tenths of Earth’s surface is covered by water.</p>
+   <div class="bigq"><b>Big Question</b><span>What is the hydrosphere?</span></div>
   </div>
+  <svg class="globe" viewBox="0 0 400 400" role="img" aria-label="Earth seen from space, mostly blue ocean with a few continents and white clouds">
+   <defs>
+    <radialGradient id="o" cx="35%" cy="30%"><stop offset="0" stop-color="#4fc3f0"/><stop offset=".6" stop-color="#1668a0"/><stop offset="1" stop-color="#06263f"/></radialGradient>
+    <radialGradient id="h" cx="50%" cy="50%" r="50%"><stop offset=".85" stop-color="#7fd4ff" stop-opacity="0"/><stop offset="1" stop-color="#7fd4ff" stop-opacity=".5"/></radialGradient>
+    <clipPath id="c"><circle cx="200" cy="200" r="170"/></clipPath>
+   </defs>
+   <circle cx="200" cy="200" r="190" fill="url(#h)"/>
+   <circle cx="200" cy="200" r="170" fill="url(#o)"/>
+   <g clip-path="url(#c)">
+    <path d="M285 70c30 10 60 40 70 80-20 10-30 40-60 40-30-5-20-50-40-70s-15-40 30-50z" fill="#5f8f4a"/>
+    <path d="M300 215c25-5 50 10 55 40-10 30-30 40-50 45-15-20-25-60-5-85z" fill="#c9b36b"/>
+    <path d="M110 330c20-30 60-20 70 10-20 25-60 25-70-10z" fill="#eaf6fa"/>
+    <g fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" opacity=".75"><path d="M60 215c40-14 80 6 120-4s70-6 100-18"/><path d="M90 270c30 10 70-4 110 6"/><path d="M140 120c40-14 80 0 100-16" opacity=".6"/><path d="M80 170c20-6 40 0 60-6" opacity=".55"/></g>
+   </g>
+   <circle cx="200" cy="200" r="170" fill="none" stroke="#fff" stroke-opacity=".15"/>
+  </svg>
+ </div>
+</header>
+
+<nav aria-label="Chapter sections"><div class="wrap">
+ <a href="#what">What is it?</a><a href="#salt">Salt water</a><a href="#fresh">Fresh water</a><a href="#props">Properties</a><a href="#cycle">Water cycle</a><a href="#words">Vocabulary</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="what">
+ <h2>All the water on Earth, as one system</h2>
+ <div class="two">
+  <div>
+   <p>Most of the water is found in Earth’s oceans. Water is also found in streams, rivers, ponds, and lakes. Cracks and spaces in underground rocks and soil contain water, too. So does the air.</p>
+   <p>Most of Earth’s water is liquid. However, some is solid, frozen in ice caps and other glaciers. Some is an invisible gas, called <em>water vapor</em>, in the atmosphere. Altogether, all the water on Earth makes up a system called the <strong>hydrosphere</strong>.</p>
+  </div>
+  <svg viewBox="0 0 360 260" role="img" aria-label="Where water is found: ocean, rivers and lakes, underground, ice, air">
+   <rect width="360" height="260" rx="20" fill="var(--foam)"/>
+   <circle cx="300" cy="44" r="22" fill="#f2b134"/>
+   <g fill="#fff"><ellipse cx="90" cy="46" rx="42" ry="16"/><ellipse cx="120" cy="38" rx="30" ry="16"/><ellipse cx="210" cy="70" rx="36" ry="13"/></g>
+   <path d="M0 120l55-40 40 30 45-50 50 60z" fill="#8fa6b3"/><path d="M55 80l18 14-16 8-14-8z M140 60l14 22-16 6-12-14z" fill="#fff"/>
+   <path d="M0 120h360v140H0z" fill="#7b5a3c"/><path d="M0 120h200c40 0 60 10 90 10l70-10v10H0z" fill="#5f8f4a"/>
+   <path d="M200 120c40 0 60 10 160 20v50H200z" fill="#1b7fa6"/>
+   <ellipse cx="90" cy="134" rx="40" ry="8" fill="#3aa0cc"/>
+   <path d="M20 215c60-18 120 8 200-6" stroke="#3aa0cc" stroke-width="16" fill="none" stroke-linecap="round" opacity=".85"/>
+   <g font="" font-family="Bricolage Grotesque,sans-serif" font-weight="700" font-size="13" fill="#0d2a3f"><text x="14" y="22" fill="#0d2a3f">Water vapor</text><text x="14" y="112" fill="#fff">Glaciers</text><text x="40" y="150" fill="#fff">Lake</text><text x="30" y="240" fill="#fff">Groundwater</text><text x="250" y="170" fill="#fff">Ocean</text></g>
+  </svg>
+ </div>
+ <dl class="three" style="display:grid;margin-top:26px">
+  <div class="def" style="margin:0"><dt>hydrosphere <i>n.</i></dt><dd>the Earth system that contains all of the water on Earth</dd></div>
+  <div class="def" style="margin:0"><dt>Word part</dt><dd>The word part <em>hydro-</em> means “water.”</dd></div>
+  <div class="def" style="margin:0"><dt>Words to know</dt><dd>A <em>system</em> consists of parts that <em>interact</em>. To <em>interact</em> means to have an effect on something else.</dd></div>
+ </dl>
+</section>
+
+<section id="salt">
+ <h2>Earth’s hydrosphere contains salt water</h2>
+ <p class="lead">All the surface ocean water on Earth is interconnected and forms one giant world ocean. But people have named ocean regions with their own names.</p>
+ <div class="three">
+  <div class="card"><h3>Pacific</h3><p>The largest ocean region.</p></div>
+  <div class="card"><h3>Atlantic</h3><p>One of the named regions of the world ocean.</p></div>
+  <div class="card"><h3>Indian</h3><p>One of the named regions of the world ocean.</p></div>
+  <div class="card"><h3>Southern</h3><p>One of the named regions of the world ocean.</p></div>
+  <div class="card"><h3>Arctic</h3><p>One of the named regions of the world ocean.</p></div>
+ </div>
+ <p style="color:var(--mute);font-size:16px">Different regions of Earth’s ocean have different names. But they are all connected in one huge body of water.</p>
+
+ <h3>The Pacific Ocean</h3>
+ <div class="two">
+  <div>
+   <div class="stat">⅓</div>
+   <p style="margin-top:4px">The Pacific covers approximately one-third of Earth’s surface. This is where Earth’s ocean is deepest.</p>
+   <p>The average depth is about <strong>13,000 feet (4,000 meters)</strong>. At its deepest point, in a far western area, the ocean floor is about <strong>36,000 feet (11,000 meters)</strong> below the surface. That is almost seven miles! This section is called the <strong>Challenger Deep</strong>. Because it is so deep, it is mostly unexplored by scientists.</p>
+  </div>
+  <figure class="fig" style="margin:0">
+   <svg viewBox="0 0 340 340" role="img" aria-label="Cross-section of the Pacific: average depth 13,000 feet, Challenger Deep 36,000 feet">
+    <defs><linearGradient id="d" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fd4ff"/><stop offset=".4" stop-color="#1b7fa6"/><stop offset="1" stop-color="#051b2e"/></linearGradient></defs>
+    <rect x="0" y="30" width="340" height="300" fill="url(#d)" rx="8"/>
+    <path d="M0 30c40-8 60 8 100 0s60-8 90 0 60 8 150 0V30H0z" fill="#eaf6fa" opacity=".6"/>
+    <path d="M0 150L0 330H340V150C300 145 250 140 215 160L192 315 178 318 160 190C120 145 60 160 0 150z" fill="#3b2f26"/>
+    <line x1="0" y1="117" x2="340" y2="117" stroke="#fff" stroke-dasharray="6 6" stroke-opacity=".8"/>
+    <g font-family="Bricolage Grotesque,sans-serif" font-weight="700" font-size="14" fill="#fff"><text x="10" y="22" fill="var(--ink)">Surface</text><text x="10" y="108">Average depth: 13,000 ft (4,000 m)</text><text x="60" y="270">Challenger Deep:</text><text x="60" y="288">36,000 ft (11,000 m)</text></g>
+    <path d="M185 318l0-4" stroke="#f2b134" stroke-width="3"/><circle cx="185" cy="316" r="6" fill="#f2b134"/>
+   </svg>
+   <figcaption>Not to scale. Almost seven miles from top to bottom.</figcaption>
+  </figure>
+ </div>
+
+ <h3>Seas, gulfs, and straits</h3>
+ <div class="three">
+  <div class="card"><h3>Seas and gulfs</h3><p>Specific regions of oceans. They are defined by land that borders or partially surrounds them.</p></div>
+  <div class="card"><h3>Straits</h3><p>Larger regions of ocean water are connected by narrow bodies of water between landmasses. These narrow waterways are called straits.</p></div>
+  <div class="card"><h3>An example</h3><p>The Gulf of Mexico, the Caribbean Sea, the Straits of Florida, and the Atlantic Ocean are all connected.</p></div>
+ </div>
+ <figure class="fig">
+  <svg viewBox="0 0 700 250" role="img" aria-label="Map sketch: Gulf of Mexico, Caribbean Sea, Straits of Florida, Atlantic Ocean connected">
+   <rect width="700" height="250" rx="14" fill="#1b7fa6"/>
+   <path d="M0 0h330c20 20 30 50 10 70s-60 10-90 20-40 30-60 40-30 40-70 30-50-10-60 10-40 20-60 80H0z" fill="#5f8f4a"/>
+   <path d="M330 0h40c20 40 30 70 60 120l-25 25c-20-30-45-60-75-65z" fill="#5f8f4a"/>
+   <path d="M360 170c60-10 130 0 190 25l-10 15c-60-10-120-20-190-12z" fill="#5f8f4a"/>
+   <path d="M215 250c-20-50 20-70 70-60s40 40 20 60z" fill="#5f8f4a"/>
+   <g font-family="Bricolage Grotesque,sans-serif" font-weight="700" font-size="16" fill="#fff"><text x="190" y="105">Gulf of Mexico</text><text x="380" y="235">Caribbean Sea</text><text x="470" y="100">Atlantic Ocean</text><text x="388" y="150" font-size="14">Straits of Florida</text></g>
+   <path d="M385 140l-18-4" stroke="#f2b134" stroke-width="2.5" fill="none"/>
+  </svg>
+  <figcaption>A simplified sketch. All of these waters are connected.</figcaption>
+ </figure>
+
+ <h3>Why is the ocean salty?</h3>
+ <p>Oceans, seas, and gulfs all contain salt water: water that contains dissolved salt. Most of the salt, the chemical <strong>sodium chloride</strong>, is the same as table salt! Some bodies of water are saltier than others.</p>
+ <div class="chain">
+  <div><b>1 · Rocks</b>The salt comes from rocks on Earth’s land surfaces.</div>
+  <div><b>2 · Rivers</b>It is picked up by streams and rivers as they flow toward the ocean.</div>
+  <div><b>3 · Evaporation</b>As water evaporates from the ocean into the air, the salt is left behind.</div>
+  <div><b>4 · Time</b>Over very long periods of time, this process has made the oceans salty.</div>
+ </div>
+</section>
+
+<section id="fresh">
+ <h2>Earth’s hydrosphere contains fresh water</h2>
+ <p class="lead">Oceans are only one part of the hydrosphere. Water also occurs in streams, rivers, ponds, and lakes. These bodies of water lie on Earth’s land surfaces.</p>
+ <div class="three">
+  <div class="card"><h3>Groundwater</h3><p>Water beneath Earth’s surface, in the spaces between rocky material.</p></div>
+  <div class="card"><h3>Reservoirs</h3><p>Places where water collects, in all its states. Earth’s main water reservoir is the ocean, which contains salt water. But most of Earth’s inland reservoirs contain fresh water.</p></div>
+  <div class="card"><h3>Fresh water</h3><p>Any water that has low amounts of salt in it. Rivers, streams, and wetlands all contain fresh water.</p></div>
+ </div>
+
+ <h3>Not all lakes are fresh</h3>
+ <div class="two">
+  <div>
+   <p>Some groundwater and water in lakes are salt water instead of fresh water. The <strong>Great Salt Lake</strong> in Utah is one example. It formed when water carrying salts from rocks flowed into the lake. The lake has nowhere for the water to flow out. When water in the lake evaporates, salt is left behind. Over time, the salt accumulated, making the water very salty.</p>
+   <p style="color:var(--mute);font-size:16px">Part of the lake is a pinkish color. Its concentration of salt is much higher than that found in the world’s oceans.</p>
+  </div>
+  <svg viewBox="0 0 340 240" role="img" aria-label="A lake with rivers flowing in, no outlet, and salt crust at the edge">
+   <rect width="340" height="240" rx="18" fill="#e9dcc7"/>
+   <path d="M60 110c20-60 130-70 200-30 40 30 30 90-40 110s-170 0-160-80z" fill="#fff"/>
+   <path d="M80 112c20-45 110-55 170-22 30 22 22 70-30 85s-130 0-140-63z" fill="#e0749b"/>
+   <path d="M130 110c15-25 80-28 110-5 15 15 5 40-25 48s-80 0-85-43z" fill="#7a2f66" opacity=".7"/>
+   <path d="M0 40c40 0 50 30 90 40" stroke="#1b7fa6" stroke-width="7" fill="none"/>
+   <path d="M340 30c-30 10-50 20-70 40" stroke="#1b7fa6" stroke-width="7" fill="none"/>
+   <g font-family="Bricolage Grotesque,sans-serif" font-weight="700" font-size="13" fill="#0d2a3f"><text x="8" y="28">River in</text><text x="262" y="20">River in</text><text x="120" y="228">No outlet. Salt builds up.</text></g>
+  </svg>
+ </div>
+
+ <h3>Frozen fresh water</h3>
+ <p>Some of the fresh water on Earth is liquid, but most fresh water is frozen in glaciers. The ice caps at the North and South Poles are two very large glaciers. Much of this water is permanently frozen. However, some polar ice thaws and refreezes with the seasons. When this freshwater polar ice melts, it can make the ocean water around it less salty. Because of recent warming of Earth’s climate, more polar ice melts each year than refreezes.</p>
+
+ <h3>Where fresh meets salt</h3>
+ <p>Fresh water from rivers flows into larger bodies of water. Rivers flow into lakes, oceans, gulfs, and seas. Where ocean water backs up into freshwater streams and rivers, the water becomes <strong>brackish</strong>. Brackish water has more salt than fresh water but not as much salt as ocean water.</p>
+ <figure class="fig">
+  <div class="scale" role="img" aria-label="Salt scale from fresh water to brackish water to ocean water to Great Salt Lake">
+   <span style="left:9%">Fresh</span><span style="left:38%">Brackish</span><span style="left:68%">Ocean</span><span style="left:92%">Great Salt Lake</span>
+  </div>
+  <figcaption>Low salt on the left, high salt on the right. The Mississippi River empties into the Gulf of Mexico, and the water found there is brackish.</figcaption>
+ </figure>
+</section>
+
+<section id="props">
+ <h2>Water has physical properties</h2>
+ <p class="lead">Water can be found in nature as a solid, a liquid, or a gas. This is because water’s physical properties cause it to evaporate, condense, freeze, and melt within a relatively close range of temperatures.</p>
+ <div class="three">
+  <div class="card"><div class="stat">212°F</div><p>Water boils at 212°F (100°C).</p></div>
+  <div class="card"><div class="stat">32°F</div><p>Water freezes at 32°F (0°C).</p></div>
+ </div>
+ <div class="temp">
+  <div class="therm" aria-hidden="true"><i id="fill" style="height:30%"></i></div>
+  <div>
+   <label for="t" class="sans" style="font-weight:700">Drag to change the temperature</label>
+   <input id="t" type="range" min="-10" max="110" value="20">
+   <div class="state" id="st"></div>
+   <div id="tx" style="min-height:5.6em"></div>
+  </div>
+ </div>
+ <div class="two">
+  <div class="card"><h3>Evaporation</h3><p>Water evaporates, or changes to a gas, very quickly at the boiling point. But it can evaporate at lower temperatures when heat energy is present. Water can even evaporate when it is frozen.</p></div>
+  <div class="card"><h3>Condensation</h3><p>Water changes from a gas (water vapor) back to a liquid. Water vapor condenses when it cools. This can also happen at different temperatures. Condensation on the outside of a glass of ice water happens when water vapor in the air contacts the cold glass.</p></div>
+ </div>
+ <p style="color:var(--mute);font-size:16px;margin-top:14px">Water vapor, water as a gas, is invisible. But it can be present together with solid and liquid water, as in a cold, snowy landscape with open water and mist.</p>
+
+ <h3>Water in the atmosphere</h3>
+ <p>Earth’s atmosphere contains water that enters the air as water vapor. As the water vapor rises into the air, it encounters cooler temperatures. This may cause the water vapor to condense into liquid water. Clouds are tightly packed droplets of liquid water. Eventually, these droplets fall back to Earth as <strong>precipitation</strong>. The form it takes usually depends on the temperature of the air near Earth’s surface.</p>
+ <div class="rain"><span><em>🌧️</em>Rain</span><span><em>❄️</em>Snow</span><span><em>🌨️</em>Sleet</span><span><em>🧊</em>Freezing rain</span><span><em>⚪</em>Hail</span></div>
+ <p>Because wind pushes the clouds around, water is deposited in new places on Earth when it falls. The water that you see in a lake or river was once water vapor in the atmosphere. The water that falls to Earth continuously replenishes Earth’s ocean, lake, and groundwater reservoirs. And water evaporates from surface reservoirs to become water vapor again. The sun provides the heat energy that causes water from a lake’s surface to evaporate into the atmosphere.</p>
+</section>
+
+<section id="cycle">
+ <h2>The water cycle</h2>
+ <p class="lead">The hydrosphere is constantly moving and changing. Evaporation, wind, and precipitation move water from one water reservoir to another. Gravity also moves water. Its pull causes water to flow downward. Currents in Earth’s oceans continuously move the water, too.</p>
+ <div class="def"><dl style="margin:0"><dt>water cycle <i>n.</i></dt><dd>the dynamic movement of water on, below, and above Earth’s surface</dd></dl></div>
+ <p>As water moves, the hydrosphere interacts with Earth’s land, air, and living things. In addition to changing position, water in the water cycle is constantly changing states.</p>
+
+ <figure class="fig">
+  <svg id="wc" viewBox="0 0 700 380" role="img" aria-label="Water cycle diagram with sun, evaporation, clouds, precipitation, runoff and groundwater">
+   <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="context-stroke"/></marker></defs>
+   <rect width="700" height="380" rx="16" fill="#bfe6f6"/>
+   <g data-s="sun"><circle cx="620" cy="55" r="32" fill="#f2b134"/><g stroke="#f2b134" stroke-width="5" stroke-linecap="round"><path d="M620 8v-8M620 102v8M573 55h-8M667 55h8M587 22l-6-6M653 88l6 6M653 22l6-6M587 88l-6 6"/></g></g>
+   <path d="M0 150l90-60 70 40 60-50 80 70v200H0z" fill="#8fa6b3"/><path d="M80 98l12-8 18 12-14 10zM205 82l10 10-14 8-8-12z" fill="#fff"/>
+   <path d="M0 175c80 0 200 10 290 60 60 30 130 40 230 40V380H0z" fill="#5f8f4a"/>
+   <path d="M0 290c120 0 240 20 330 50v40H0z" fill="#7b5a3c"/>
+   <path d="M0 330c120-20 260-10 380 20v30H0z" fill="#2f6d97" opacity=".9"/>
+   <path d="M330 270c80 10 140 8 220 0 80-8 150-20 150-20V380H330z" fill="#1b7fa6"/>
+   <ellipse cx="130" cy="228" rx="55" ry="14" fill="#3aa0cc"/>
+   <g data-s="evap"><g stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round" marker-end="url(#ar)"><path d="M520 250v-90" stroke="#e8453c"/><path d="M130 205v-60" stroke="#e8453c"/></g></g>
+   <g data-s="cond"><g fill="#fff"><ellipse cx="480" cy="105" rx="60" ry="22"/><ellipse cx="520" cy="90" rx="42" ry="24"/><ellipse cx="400" cy="140" rx="46" ry="16"/><ellipse cx="170" cy="55" rx="55" ry="20"/><ellipse cx="205" cy="42" rx="36" ry="20"/></g>
+    <path d="M440 78q-40-10-80 0" stroke="#e8453c" stroke-width="4" fill="none" marker-end="url(#ar)" opacity="0"/></g>
+   <g data-s="wind"><path d="M300 82c40-25 70-18 100 0" stroke="#d99a1d" stroke-width="5" fill="none" marker-end="url(#ar)" stroke-linecap="round"/></g>
+   <g data-s="precip"><g stroke="#2a4ea8" stroke-width="5" stroke-linecap="round" fill="none" marker-end="url(#ar)"><path d="M170 85l-8 50"/><path d="M205 80l-6 40"/><path d="M520 120l-10 60" opacity=".0"/></g></g>
+   <g data-s="flow"><g fill="none" stroke="#0d4a7a" stroke-width="5" stroke-linecap="round" marker-end="url(#ar)"><path d="M200 175c40 30 100 40 160 66"/><path d="M110 300c80 6 160 26 240 28" stroke="#0d4a7a"/></g></g>
+   <g font-family="Bricolage Grotesque,sans-serif" font-weight="700" font-size="14" fill="#0d2a3f"><text x="545" y="205" fill="#9b1f17">Evaporation</text><text x="350" y="30">Condensation</text><text x="230" y="130" fill="#17327a">Precipitation</text><text x="30" y="355" fill="#fff">Groundwater</text><text x="600" y="335" fill="#fff">Ocean</text><text x="62" y="262" fill="#fff">Lake</text></g>
+  </svg>
+ </figure>
+
+ <div class="btns" role="group" aria-label="Explore the stages">
+  <button data-k="sun" aria-pressed="false">The sun</button>
+  <button data-k="evap" aria-pressed="false">Evaporation</button>
+  <button data-k="cond" aria-pressed="false">Condensation</button>
+  <button data-k="precip" aria-pressed="false">Precipitation</button>
+  <button data-k="flow" aria-pressed="false">Gravity and currents</button>
+ </div>
+ <div class="panel" id="pn" aria-live="polite"><b>Tap a stage</b><br>Choose a button to highlight that part of the cycle in the picture.</div>
+
+ <div class="chain">
+  <div><b>Sun heats</b>The sun is the energy source for state changes in the water cycle. It provides heat that causes water to evaporate.</div>
+  <div><b>Vapor rises</b>Water vapor rises, cools, and condenses into cloud droplets.</div>
+  <div><b>Water falls</b>Liquid water falls back to Earth as precipitation somewhere else.</div>
+  <div><b>Repeat</b>This process happens over and over, in cycles.</div>
+ </div>
+ <div class="def"><dl style="margin:0"><dt>dynamic <i>adj.</i></dt><dd><em>Dynamic</em> means constantly changing. It comes from the Greek word <em>dynamikos</em>, which means “powerful.”</dd></dl></div>
+</section>
+
+<section id="words">
+ <h2>Vocabulary review</h2>
+ <dl class="gl">
+  <div><dt>hydrosphere, n.</dt><dd>the Earth system that contains all of the water on Earth</dd></div>
+  <div><dt>salt water, n.</dt><dd>water that contains dissolved salt</dd></div>
+  <div><dt>groundwater, n.</dt><dd>water stored in the spaces between materials beneath Earth’s surface</dd></div>
+  <div><dt>reservoir, n.</dt><dd>a place where water collects</dd></div>
+  <div><dt>fresh water, n.</dt><dd>naturally occurring water that contains little or no salt</dd></div>
+  <div><dt>water cycle, n.</dt><dd>the dynamic movement of water on, below, and above Earth’s surface</dd></div>
+  <div><dt>brackish water</dt><dd>water with more salt than fresh water but not as much as ocean water</dd></div>
+  <div><dt>system / interact</dt><dd>A system consists of parts that interact. To interact means to have an effect on something else.</dd></div>
+ </dl>
 </section>
 </main>
 
+<footer><div class="wrap">Earth Systems · Chapter 1 · The Hydrosphere</div></footer>
+
 <script>
-const RAW=`hot,cold,warm,dry
-up,down,over,near
-big,small,tall,huge
-happy,sad,glad,silly
-day,night,morning,sun
-fast,slow,quick,loud
-open,shut,wide,door
-in,out,on,at
-stop,go,halt,park
-full,empty,fill,heavy
-old,new,ancient,dirty
-wet,dry,damp,rain
-hard,soft,rock,strong
-long,short,thin,wide
-loud,quiet,noisy,tiny
-clean,dirty,neat,shiny
-left,right,up,turn
-front,back,top,side
-push,pull,shove,spin
-come,go,arrive,jump
-buy,sell,pay,shop
-early,late,soon,first
-easy,hard,simple,light
-light,dark,bright,lamp
-heavy,light,weight,hard
-tall,short,long,high
-thick,thin,fat,wide
-fat,thin,big,round
-wide,narrow,long,deep
-deep,shallow,wide,dark
-warm,cool,hot,wet
-winter,summer,snow,cold
-sunny,cloudy,bright,warm
-rich,poor,nice,gold
-strong,weak,big,fast
-brave,scared,bold,mean
-kind,mean,nice,soft
-smart,foolish,clever,quick
-good,bad,great,nice
-true,false,real,fair
-near,far,close,here
-here,there,now,where
-inside,outside,in,under
-above,below,over,top
-over,under,above,on
-on,off,in,up
-under,over,below,down
-begin,end,start,go
-first,last,next,one
-last,first,end,late
-always,never,often,sometimes
-many,few,more,lots
-more,less,most,many
-all,none,some,every
-awake,asleep,up,tired
-rise,fall,lift,climb
-float,sink,swim,boat
-laugh,cry,smile,giggle
-smile,frown,laugh,grin
-love,hate,like,care
-friend,enemy,pal,neighbor
-man,woman,boy,father
-mother,father,sister,aunt
-brother,sister,father,uncle
-king,queen,prince,crown
-boy,girl,man,son
-tight,loose,small,hard
-sweet,sour,sugar,hot
-tame,wild,gentle,small
-rough,smooth,hard,tough
-sharp,dull,pointy,thin
-cheap,expensive,small,fast
-different,same,other,new
-young,old,small,baby
-alive,dead,awake,live
-healthy,sick,strong,well
-borrow,lend,take,keep
-give,take,get,pay
-win,lose,play,beat
-lose,find,miss,drop
-remember,forget,think,know
-ask,answer,say,tell
-arrive,leave,come,park
-enter,exit,go,open
-wake,sleep,get,dream
-hide,show,cover,run
-build,break,make,paint
-break,fix,drop,hit
-tie,untie,knot,rope
-lock,unlock,key,door
-add,subtract,plus,count
-plus,minus,add,more
-hungry,full,thirsty,sad
-busy,free,lazy,tired
-lazy,active,sleepy,slow
-careful,careless,slow,kind
-polite,rude,nice,quiet
-safe,dangerous,sound,locked
-possible,impossible,easy,maybe
-top,bottom,side,tip`;
-const Q=RAW.split("\n").map(l=>{const [w,a,x,y]=l.split(",");return{w,a,o:[a,x,y]}});
-const $=id=>document.getElementById(id);
-const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-let set=[],i=0,score=0,missed=[],label="";
-
-const R=$("rounds");
-for(let r=0;r<10;r++){const b=document.createElement("button");b.textContent=r+1;b.setAttribute("aria-label","Round "+(r+1)+", questions "+(r*10+1)+" to "+(r*10+10));b.onclick=()=>start(Q.slice(r*10,r*10+10),"r"+r);R.appendChild(b)}
-$("allBtn").onclick=()=>start(Q,"all");
-
-function show(id){["home","game","end"].forEach(s=>$(s).classList.toggle("hide",s!==id))}
-function start(list,l){set=list;label=l;i=0;score=0;missed=[];show("game");ask()}
-function ask(){
-  const q=set[i];
-  $("prog").textContent="Question "+(i+1)+" of "+set.length;
-  $("sc").textContent="⭐ "+score;
-  $("fill").style.width=(i/set.length*100)+"%";
-  $("word").textContent=q.w.toUpperCase();
-  $("fb").textContent="";$("fb").style.color="";
-  $("next").classList.add("hide");
-  const box=$("opts");box.innerHTML="";
-  shuffle(q.o).forEach(o=>{
-    const b=document.createElement("button");b.textContent=o;b.onclick=()=>pick(b,o);box.appendChild(b)});
-}
-function pick(btn,o){
-  const q=set[i],right=o===q.a;
-  [...$("opts").children].forEach(b=>{b.disabled=true;if(b.textContent===q.a)b.classList.add("ok")});
-  if(right){score++;$("fb").textContent="Yes! "+q.w+" ⇄ "+q.a+" 🎉";$("fb").style.color="var(--green)"}
-  else{btn.classList.add("no");missed.push(q);$("fb").textContent="Not quite. The opposite of "+q.w+" is "+q.a+".";$("fb").style.color="var(--coral)"}
-  $("sc").textContent="⭐ "+score;
-  $("next").textContent=i===set.length-1?"See my score":"Next";
-  $("next").classList.remove("hide");$("next").focus();
-}
-$("next").onclick=()=>{i++;i<set.length?ask():finish()};
-function finish(){
-  show("end");
-  const n=set.length,p=score/n;
-  $("stars").textContent=p>=.9?"🌟🌟🌟":p>=.6?"🌟🌟":"🌟";
-  $("final").textContent=score+" / "+n;
-  $("msg").textContent=p>=.9?"Amazing! You know your opposites!":p>=.6?"Great job! Keep practising.":"Good try! Practise the words below and try again.";
-  $("missWrap").classList.toggle("hide",!missed.length);
-  $("retryMiss").classList.toggle("hide",!missed.length);
-  $("miss").innerHTML="";
-  missed.forEach(q=>{const s=document.createElement("span");s.textContent=q.w+" ⇄ "+q.a;$("miss").appendChild(s)});
-}
-$("retryMiss").onclick=()=>start(missed.slice(),"miss");
-$("again").onclick=()=>{
-  if(label==="all")start(Q,"all");
-  else if(label[0]==="r"){const r=+label.slice(1);start(Q.slice(r*10,r*10+10),label)}
-  else start(set,label)};
-$("menu").onclick=()=>show("home");
-$("say").onclick=()=>{
-  if(!("speechSynthesis" in window))return;
-  const u=new SpeechSynthesisUtterance("What is the opposite of "+set[i].w+"?");u.rate=.85;
-  speechSynthesis.cancel();speechSynthesis.speak(u)};
+(function(){
+ var t=document.getElementById('t'),st=document.getElementById('st'),tx=document.getElementById('tx'),f=document.getElementById('fill');
+ function up(){
+  var c=+t.value,F=Math.round(c*9/5+32),s,d;
+  if(c<0){s='Solid: ice';d='Below freezing, water is solid. Even so, it can still evaporate when it is frozen.'}
+  else if(c<100){s='Liquid water';d=c===0?'0°C (32°F) is where water freezes.':'Water can evaporate at lower temperatures when heat energy is present, just more slowly than at the boiling point.'}
+  else{s='Gas: water vapor';d='At 100°C (212°F) water boils and evaporates very quickly. Water vapor is invisible.'}
+  st.textContent=s+' · '+c+'°C / '+F+'°F';tx.textContent=d;f.style.height=((c+10)/120*100)+'%';
+ }
+ t.addEventListener('input',up);up();
+ var info={
+  sun:['The sun','The sun is the energy source for state changes in the water cycle. It provides heat that causes water to evaporate.'],
+  evap:['Evaporation','Heat energy changes liquid water from lakes and the ocean into water vapor, an invisible gas that rises into the atmosphere.'],
+  cond:['Condensation','Water vapor rises, cools, and condenses into liquid water. Clouds are tightly packed droplets of liquid water.'],
+  precip:['Precipitation','Droplets fall back to Earth as rain, snow, sleet, freezing rain, or hail. Wind pushes clouds around, so water is deposited in new places.'],
+  flow:['Gravity and currents','Gravity pulls water downward so it flows across and below the land. Currents in Earth’s oceans continuously move the water, too.']
+ };
+ var wc=document.getElementById('wc'),pn=document.getElementById('pn'),bs=document.querySelectorAll('button[data-k]');
+ bs.forEach(function(b){b.addEventListener('click',function(){
+  var k=b.dataset.k,on=b.getAttribute('aria-pressed')==='true';
+  bs.forEach(function(x){x.setAttribute('aria-pressed','false')});
+  wc.querySelectorAll('g[data-s]').forEach(function(g){g.classList.remove('on')});
+  if(on){wc.classList.remove('dim');pn.innerHTML='<b>Tap a stage</b><br>Choose a button to highlight that part of the cycle in the picture.';return}
+  b.setAttribute('aria-pressed','true');wc.classList.add('dim');
+  var ks=k==='precip'?['precip','cond']:k==='cond'?['cond','wind']:[k];
+  ks.forEach(function(q){var g=wc.querySelector('g[data-s="'+q+'"]');if(g)g.classList.add('on')});
+  pn.innerHTML='<b></b><br><span></span>';pn.firstChild.textContent=info[k][0];pn.lastChild.textContent=info[k][1];
+ })});
+})();
 </script>
 </body>
 </html>
