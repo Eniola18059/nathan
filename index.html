@@ -1,127 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Opposites Quiz – Grade 1</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<title>Opposites Quiz – Grade 2</title>
 <style>
-:root{--bg:#fff4c2;--ink:#1d3557;--blue:#3a86ff;--coral:#ff6b6b;--green:#2bb673;--card:#fff;font-family:Fredoka,"Trebuchet MS","Comic Sans MS",sans-serif}
+:root{--ink:#1b2a5b;--bg:#d9f0ff;--card:#fff;--coral:#ff5a5f;--sun:#ffc400;--green:#1fa971;--line:#b7dcf5}
+@media (prefers-color-scheme:dark){:root{--ink:#eaf4ff;--bg:#12204a;--card:#1c2f66;--line:#34498a}}
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink)}
-body{padding:16px;display:flex;justify-content:center}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;display:flex;justify-content:center;padding:16px}
 main{width:100%;max-width:560px}
-h1{font-size:clamp(2rem,8vw,3rem);margin:8px 0;line-height:1.1;text-align:center}
-.screen{display:none}.screen.on{display:block}
-.pair{display:flex;border-radius:28px;overflow:hidden;box-shadow:0 6px 0 var(--ink);border:4px solid var(--ink);margin:18px 0}
-.pair div{flex:1;padding:28px 8px;text-align:center;font-size:clamp(1.6rem,7vw,2.4rem);font-weight:700;color:#fff}
-.pair .l{background:var(--blue)}.pair .r{background:var(--coral)}
-p{font-size:1.2rem;text-align:center;margin:8px 0}
-button{font:inherit;cursor:pointer;color:var(--ink)}
-.big{display:block;width:100%;margin:12px 0;padding:16px;font-size:1.4rem;font-weight:700;background:var(--green);color:#fff;border:4px solid var(--ink);border-radius:20px;box-shadow:0 5px 0 var(--ink)}
-.big.alt{background:#fff;color:var(--ink)}
-.big:active,.opt:active{transform:translateY(4px);box-shadow:0 1px 0 var(--ink)}
-button:focus-visible{outline:4px solid var(--coral);outline-offset:3px}
-.top{display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:1.1rem}
-.bar{height:16px;background:#fff;border:3px solid var(--ink);border-radius:10px;overflow:hidden;margin:10px 0}
+h1{font-size:2rem;margin:8px 0 4px;text-align:center}
+p.sub{text-align:center;margin:0 0 16px;font-size:1.05rem}
+.card{background:var(--card);border:3px solid var(--ink);border-radius:20px;padding:20px;box-shadow:6px 6px 0 var(--ink)}
+.hide{display:none}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:4px solid var(--sun);outline-offset:2px}
+.rounds{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}
+.rounds button,.all{background:var(--sun);color:#1b2a5b;border:3px solid var(--ink);border-radius:12px;padding:12px 0;font-weight:700;font-size:1.1rem}
+.all{width:100%;background:var(--coral);color:#fff;padding:14px}
+.bar{height:14px;border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin-bottom:10px}
 .bar i{display:block;height:100%;width:0;background:var(--green);transition:width .3s}
-.q{background:var(--card);border:4px solid var(--ink);border-radius:28px;padding:20px 14px;text-align:center;box-shadow:0 6px 0 var(--ink);margin:14px 0}
-.q small{font-size:1.1rem}
-.q .w{font-size:clamp(2.6rem,13vw,4.2rem);font-weight:700;color:var(--blue);line-height:1.1;margin:6px 0}
-.say{background:var(--bg);border:3px solid var(--ink);border-radius:999px;padding:6px 16px;font-size:1rem;font-weight:600}
-.opt{display:block;width:100%;margin:10px 0;padding:16px;font-size:1.7rem;font-weight:700;background:#fff;border:4px solid var(--ink);border-radius:20px;box-shadow:0 5px 0 var(--ink)}
-.opt.ok{background:var(--green);color:#fff}
-.opt.no{background:var(--coral);color:#fff}
-#msg{min-height:2rem;font-size:1.3rem;font-weight:700;text-align:center}
-.stars{font-size:3rem;text-align:center;letter-spacing:4px}
-.score{font-size:3rem;font-weight:700;text-align:center;margin:0}
-.rev{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:10px 14px;margin:12px 0;font-size:1.1rem}
-.rev b{color:var(--coral)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.meta{display:flex;justify-content:space-between;font-weight:700;margin-bottom:8px}
+.pair{display:flex;align-items:center;justify-content:center;gap:12px;margin:14px 0;flex-wrap:wrap}
+.word{font-size:2.6rem;font-weight:800;background:var(--sun);color:#1b2a5b;border:3px solid var(--ink);border-radius:16px;padding:6px 20px}
+.mark{font-size:2.6rem;font-weight:800;color:var(--coral)}
+.q{text-align:center;font-size:1.2rem;margin:0}
+.speak{display:block;margin:10px auto;background:none;border:2px dashed var(--ink);border-radius:10px;padding:6px 14px}
+.opts{display:grid;gap:10px;margin-top:10px}
+.opts button{background:var(--card);border:3px solid var(--ink);border-radius:14px;padding:14px;font-size:1.5rem;font-weight:700}
+.opts button:hover:not(:disabled){background:var(--sun);color:#1b2a5b}
+.opts .ok{background:var(--green)!important;color:#fff!important}
+.opts .no{background:var(--coral)!important;color:#fff!important}
+.fb{min-height:2.4em;text-align:center;font-size:1.25rem;font-weight:700;margin:12px 0 0}
+.next{width:100%;margin-top:8px;background:var(--ink);color:var(--bg);border:0;border-radius:14px;padding:14px;font-size:1.2rem;font-weight:700}
+.big{font-size:3rem;text-align:center;margin:6px 0}
+.score{font-size:2.4rem;font-weight:800;text-align:center}
+.miss{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.miss span{background:var(--sun);color:#1b2a5b;border-radius:8px;padding:4px 10px;font-weight:700}
+.row{display:grid;gap:8px;margin-top:12px}
+.row button{border:3px solid var(--ink);border-radius:12px;padding:12px;font-weight:700;font-size:1.1rem;background:var(--sun);color:#1b2a5b}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
 </style>
 </head>
 <body>
 <main>
+<h1>Opposites Quiz</h1>
+<p class="sub">Grade 2 · 100 antonym questions</p>
 
-<section id="start" class="screen on">
-  <h1>Opposites Quiz</h1>
-  <div class="pair"><div class="l">hot</div><div class="r">cold</div></div>
-  <p>Pick the word that means the opposite!</p>
-  <button class="big" data-n="10">Quick play: 10 words</button>
-  <button class="big alt" data-n="25">25 words</button>
-  <button class="big alt" data-n="100">All 100 words</button>
+<section id="home" class="card">
+  <p class="q"><b>Pick a round of 10</b> or play all 100.</p>
+  <div class="rounds" id="rounds"></div>
+  <button class="all" id="allBtn">Play all 100</button>
 </section>
 
-<section id="play" class="screen">
-  <div class="top"><span id="cnt"></span><span id="sc"></span></div>
+<section id="game" class="card hide">
+  <div class="meta"><span id="prog"></span><span id="sc"></span></div>
   <div class="bar"><i id="fill"></i></div>
-  <div class="q">
-    <small>What is the opposite of</small>
-    <div class="w" id="word"></div>
-    <button class="say" id="say" aria-label="Read the word aloud">🔊 Listen</button>
+  <p class="q">What is the opposite of…</p>
+  <div class="pair"><span class="word" id="word"></span><span class="mark">⇄ ?</span></div>
+  <button class="speak" id="say" aria-label="Read the word aloud">🔊 Hear it</button>
+  <div class="opts" id="opts"></div>
+  <p class="fb" id="fb" aria-live="polite"></p>
+  <button class="next hide" id="next">Next</button>
+</section>
+
+<section id="end" class="card hide">
+  <div class="big" id="stars"></div>
+  <div class="score" id="final"></div>
+  <p class="q" id="msg"></p>
+  <div id="missWrap" class="hide"><p class="q"><b>Words to practise</b></p><div class="miss" id="miss"></div></div>
+  <div class="row">
+    <button id="retryMiss" class="hide">Try missed words again</button>
+    <button id="again">Play this round again</button>
+    <button id="menu">Choose another round</button>
   </div>
-  <div id="opts"></div>
-  <div id="msg" aria-live="polite"></div>
 </section>
-
-<section id="end" class="screen">
-  <h1 id="endt"></h1>
-  <div class="stars" id="stars"></div>
-  <p class="score" id="final"></p>
-  <p id="endmsg"></p>
-  <div id="review"></div>
-  <button class="big" id="again">Play again</button>
-</section>
-
 </main>
+
 <script>
-const DATA=`hot:cold,big:small,up:down,melt:freeze,day:night,happy:sad,fast:slow,open:closed,hard:soft,full:empty,old:new,tall:short,wet:dry,clean:dirty,heavy:light,sunny:cloudy,front:back,top:bottom,friend:enemy,on:off,left:right,yes:no,good:bad,dig:bury,hide:seek,first:last,early:late,near:far,inside:outside,above:below,before:after,stop:go,push:pull,give:take,buy:sell,laugh:cry,sit:stand,sleep:wake,win:lose,boy:girl,man:woman,mother:father,brother:sister,king:queen,summer:winter,sun:moon,black:white,north:south,east:west,more:less,many:few,all:none,always:never,true:false,lost:found,easy:hard,rich:poor,strong:weak,loud:quiet,sweet:sour,fat:thin,deep:shallow,high:low,awake:asleep,smooth:rough,sharp:dull,tight:loose,healthy:sick,start:finish,arrive:leave,polite:rude,forward:backward,wide:narrow,float:sink,appear:disappear,build:break,tie:untie,lock:unlock,pass:fail,hello:goodbye,warm:cool,bumpy:flat,brave:scared,neat:messy,giant:tiny,wild:tame,same:different,cheap:expensive,smile:frown,careful:careless,ceiling:floor,hill:valley,land:sea,shout:whisper,pretty:ugly,add:subtract,plus:minus,odd:even,sunrise:sunset`;
-const ALL=DATA.split(",").map(s=>{const[a,b]=s.split(":");return{w:a,a:b}});
-const ANS=[...new Set(ALL.map(p=>p.a))];
+const RAW=`hot,cold,warm,dry
+up,down,over,near
+big,small,tall,huge
+happy,sad,glad,silly
+day,night,morning,sun
+fast,slow,quick,loud
+open,shut,wide,door
+in,out,on,at
+stop,go,halt,park
+full,empty,fill,heavy
+old,new,ancient,dirty
+wet,dry,damp,rain
+hard,soft,rock,strong
+long,short,thin,wide
+loud,quiet,noisy,tiny
+clean,dirty,neat,shiny
+left,right,up,turn
+front,back,top,side
+push,pull,shove,spin
+come,go,arrive,jump
+buy,sell,pay,shop
+early,late,soon,first
+easy,hard,simple,light
+light,dark,bright,lamp
+heavy,light,weight,hard
+tall,short,long,high
+thick,thin,fat,wide
+fat,thin,big,round
+wide,narrow,long,deep
+deep,shallow,wide,dark
+warm,cool,hot,wet
+winter,summer,snow,cold
+sunny,cloudy,bright,warm
+rich,poor,nice,gold
+strong,weak,big,fast
+brave,scared,bold,mean
+kind,mean,nice,soft
+smart,foolish,clever,quick
+good,bad,great,nice
+true,false,real,fair
+near,far,close,here
+here,there,now,where
+inside,outside,in,under
+above,below,over,top
+over,under,above,on
+on,off,in,up
+under,over,below,down
+begin,end,start,go
+first,last,next,one
+last,first,end,late
+always,never,often,sometimes
+many,few,more,lots
+more,less,most,many
+all,none,some,every
+awake,asleep,up,tired
+rise,fall,lift,climb
+float,sink,swim,boat
+laugh,cry,smile,giggle
+smile,frown,laugh,grin
+love,hate,like,care
+friend,enemy,pal,neighbor
+man,woman,boy,father
+mother,father,sister,aunt
+brother,sister,father,uncle
+king,queen,prince,crown
+boy,girl,man,son
+tight,loose,small,hard
+sweet,sour,sugar,hot
+tame,wild,gentle,small
+rough,smooth,hard,tough
+sharp,dull,pointy,thin
+cheap,expensive,small,fast
+different,same,other,new
+young,old,small,baby
+alive,dead,awake,live
+healthy,sick,strong,well
+borrow,lend,take,keep
+give,take,get,pay
+win,lose,play,beat
+lose,find,miss,drop
+remember,forget,think,know
+ask,answer,say,tell
+arrive,leave,come,park
+enter,exit,go,open
+wake,sleep,get,dream
+hide,show,cover,run
+build,break,make,paint
+break,fix,drop,hit
+tie,untie,knot,rope
+lock,unlock,key,door
+add,subtract,plus,count
+plus,minus,add,more
+hungry,full,thirsty,sad
+busy,free,lazy,tired
+lazy,active,sleepy,slow
+careful,careless,slow,kind
+polite,rude,nice,quiet
+safe,dangerous,sound,locked
+possible,impossible,easy,maybe
+top,bottom,side,tip`;
+const Q=RAW.split("\n").map(l=>{const [w,a,x,y]=l.split(",");return{w,a,o:[a,x,y]}});
 const $=id=>document.getElementById(id);
-const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
-let qs=[],i=0,score=0,wrong=[],locked=false,total=10;
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+let set=[],i=0,score=0,missed=[],label="";
 
-function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.toggle("on",s.id===id));window.scrollTo(0,0)}
+const R=$("rounds");
+for(let r=0;r<10;r++){const b=document.createElement("button");b.textContent=r+1;b.setAttribute("aria-label","Round "+(r+1)+", questions "+(r*10+1)+" to "+(r*10+10));b.onclick=()=>start(Q.slice(r*10,r*10+10),"r"+r);R.appendChild(b)}
+$("allBtn").onclick=()=>start(Q,"all");
 
-function begin(n){
-  total=n;qs=shuffle(ALL).slice(0,n);i=0;score=0;wrong=[];show("play");next();
-}
-function next(){
-  locked=false;$("msg").textContent="";
-  const q=qs[i];
-  $("cnt").textContent="Word "+(i+1)+" of "+total;
+function show(id){["home","game","end"].forEach(s=>$(s).classList.toggle("hide",s!==id))}
+function start(list,l){set=list;label=l;i=0;score=0;missed=[];show("game");ask()}
+function ask(){
+  const q=set[i];
+  $("prog").textContent="Question "+(i+1)+" of "+set.length;
   $("sc").textContent="⭐ "+score;
-  $("fill").style.width=(i/total*100)+"%";
-  $("word").textContent=q.w;
-  const d=shuffle(ANS.filter(x=>x!==q.a&&x!==q.w)).slice(0,2);
+  $("fill").style.width=(i/set.length*100)+"%";
+  $("word").textContent=q.w.toUpperCase();
+  $("fb").textContent="";$("fb").style.color="";
+  $("next").classList.add("hide");
   const box=$("opts");box.innerHTML="";
-  shuffle([q.a,...d]).forEach(t=>{
-    const b=document.createElement("button");b.className="opt";b.textContent=t;
-    b.onclick=()=>pick(b,t,q);box.appendChild(b);
-  });
+  shuffle(q.o).forEach(o=>{
+    const b=document.createElement("button");b.textContent=o;b.onclick=()=>pick(b,o);box.appendChild(b)});
 }
-function pick(btn,t,q){
-  if(locked)return;locked=true;
-  const good=t===q.a;
-  if(good){score++;btn.classList.add("ok");$("msg").textContent=["Great job! 🎉","Super! 🌟","You got it! 👏","Yay! 🥳"][Math.floor(Math.random()*4)]}
-  else{btn.classList.add("no");wrong.push(q);$("msg").textContent="Good try! The answer is "+q.a+".";
-    [...$("opts").children].forEach(o=>{if(o.textContent===q.a)o.classList.add("ok")})}
+function pick(btn,o){
+  const q=set[i],right=o===q.a;
+  [...$("opts").children].forEach(b=>{b.disabled=true;if(b.textContent===q.a)b.classList.add("ok")});
+  if(right){score++;$("fb").textContent="Yes! "+q.w+" ⇄ "+q.a+" 🎉";$("fb").style.color="var(--green)"}
+  else{btn.classList.add("no");missed.push(q);$("fb").textContent="Not quite. The opposite of "+q.w+" is "+q.a+".";$("fb").style.color="var(--coral)"}
   $("sc").textContent="⭐ "+score;
-  setTimeout(()=>{i++;i<total?next():finish()},good?900:1800);
+  $("next").textContent=i===set.length-1?"See my score":"Next";
+  $("next").classList.remove("hide");$("next").focus();
 }
+$("next").onclick=()=>{i++;i<set.length?ask():finish()};
 function finish(){
-  const pct=score/total;
-  $("endt").textContent=pct>=.9?"Amazing!":pct>=.6?"Well done!":"Keep practising!";
-  $("stars").textContent="⭐".repeat(pct>=.9?3:pct>=.6?2:1);
-  $("final").textContent=score+" / "+total;
-  $("endmsg").textContent=wrong.length?"Let's look at the ones to remember:":"You got every word right!";
-  $("review").innerHTML=wrong.map(q=>'<div class="rev">'+q.w+' → <b>'+q.a+'</b></div>').join("");
   show("end");
+  const n=set.length,p=score/n;
+  $("stars").textContent=p>=.9?"🌟🌟🌟":p>=.6?"🌟🌟":"🌟";
+  $("final").textContent=score+" / "+n;
+  $("msg").textContent=p>=.9?"Amazing! You know your opposites!":p>=.6?"Great job! Keep practising.":"Good try! Practise the words below and try again.";
+  $("missWrap").classList.toggle("hide",!missed.length);
+  $("retryMiss").classList.toggle("hide",!missed.length);
+  $("miss").innerHTML="";
+  missed.forEach(q=>{const s=document.createElement("span");s.textContent=q.w+" ⇄ "+q.a;$("miss").appendChild(s)});
 }
-document.querySelectorAll("#start .big").forEach(b=>b.onclick=()=>begin(+b.dataset.n));
-$("again").onclick=()=>show("start");
-$("say").onclick=()=>{try{const u=new SpeechSynthesisUtterance($("word").textContent);u.rate=.8;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}};
+$("retryMiss").onclick=()=>start(missed.slice(),"miss");
+$("again").onclick=()=>{
+  if(label==="all")start(Q,"all");
+  else if(label[0]==="r"){const r=+label.slice(1);start(Q.slice(r*10,r*10+10),label)}
+  else start(set,label)};
+$("menu").onclick=()=>show("home");
+$("say").onclick=()=>{
+  if(!("speechSynthesis" in window))return;
+  const u=new SpeechSynthesisUtterance("What is the opposite of "+set[i].w+"?");u.rate=.85;
+  speechSynthesis.cancel();speechSynthesis.speak(u)};
 </script>
 </body>
 </html>
