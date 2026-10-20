@@ -1,197 +1,128 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en-CA">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grade 6 Maths Quiz: Integers, Rational Numbers & Fractions</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grade 4 Math Word Problems</title>
 <style>
-  :root{
-    --bg:#f5f6fb; --card:#fff; --ink:#1d2140; --muted:#636a8a; --line:#e3e6f2;
-    --primary:#4f46e5; --primary-soft:#eceaff; --good:#15803d; --good-soft:#e3f6ea;
-    --bad:#b91c1c; --bad-soft:#fde8e8; --warn:#b45309;
-  }
-  @media (prefers-color-scheme: dark){
-    :root{ --bg:#12142a; --card:#1b1e3a; --ink:#eef0ff; --muted:#a2a8cc; --line:#2e3258;
-      --primary:#8b87ff; --primary-soft:#262a55; --good:#4ade80; --good-soft:#12301f;
-      --bad:#f87171; --bad-soft:#3a1a1f; --warn:#fbbf24; }
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.5}
-  .wrap{max-width:720px;margin:0 auto;padding:20px 16px 60px}
-  h1{font-size:1.6rem;margin:8px 0 4px}
-  h2{font-size:1.2rem;margin:0 0 12px}
-  p.sub{color:var(--muted);margin:0 0 20px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:16px}
-  button{font:inherit;cursor:pointer}
-  .btn{background:var(--primary);color:#fff;border:0;border-radius:12px;padding:12px 20px;font-weight:600}
-  .btn:hover{filter:brightness(1.08)}
-  .btn.ghost{background:transparent;color:var(--primary);border:1.5px solid var(--primary)}
-  .btn:disabled{opacity:.5;cursor:default}
-  .topics{display:grid;gap:10px;margin:14px 0}
-  .topic{display:flex;justify-content:space-between;align-items:center;gap:10px;text-align:left;background:var(--card);
-    border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink)}
-  .topic:hover{border-color:var(--primary)}
-  .topic small{color:var(--muted)}
-  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-  label.chk{display:flex;gap:8px;align-items:center;color:var(--muted);font-size:.95rem;margin:12px 0}
-  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden}
-  .bar>i{display:block;height:100%;background:var(--primary);border-radius:99px;transition:width .25s}
-  .meta{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem;margin-bottom:8px;gap:8px;flex-wrap:wrap}
-  .chip{background:var(--primary-soft);color:var(--primary);border-radius:99px;padding:2px 10px;font-size:.8rem;font-weight:600}
-  .q{font-size:1.25rem;font-weight:600;margin:18px 0}
-  .opts{display:grid;gap:10px}
-  .opt{display:flex;gap:12px;align-items:center;text-align:left;background:var(--card);color:var(--ink);
-    border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font-size:1.05rem}
-  .opt:hover:not(:disabled){border-color:var(--primary);background:var(--primary-soft)}
-  .opt .k{flex:none;width:28px;height:28px;border-radius:8px;background:var(--primary-soft);color:var(--primary);
-    display:grid;place-items:center;font-weight:700;font-size:.9rem}
-  .opt.correct{border-color:var(--good);background:var(--good-soft)}
-  .opt.correct .k{background:var(--good);color:#fff}
-  .opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
-  .opt.wrong .k{background:var(--bad);color:#fff}
-  .opt:disabled{cursor:default}
-  .fb{margin-top:16px;border-radius:12px;padding:12px 14px;border:1.5px solid var(--line)}
-  .fb.ok{background:var(--good-soft);border-color:var(--good)}
-  .fb.no{background:var(--bad-soft);border-color:var(--bad)}
-  .fb b{display:block;margin-bottom:2px}
-  .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 2px;line-height:1.15;font-size:.95em}
-  .frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 3px}
-  .frac>span:last-child{padding:0 3px}
-  .mixed{display:inline-flex;align-items:center;gap:2px}
-  .score{font-size:3rem;font-weight:800;color:var(--primary);margin:0}
-  .tbar{display:grid;grid-template-columns:1fr auto;gap:4px 12px;margin:12px 0}
-  .rev{border-top:1px solid var(--line);padding:14px 0}
-  .rev:first-child{border-top:0}
-  .rev .y{color:var(--bad)} .rev .c{color:var(--good)}
-  .hidden{display:none}
-  footer{color:var(--muted);font-size:.85rem;text-align:center;margin-top:24px}
+:root{--bg:#f4f8ff;--card:#fff;--ink:#1c2540;--mute:#5d6a8a;--pri:#d52b1e;--pri-ink:#fff;--ok:#1f8a4c;--okbg:#e3f6ea;--bad:#b3261e;--badbg:#fde8e6;--line:#d5def0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10162a;--card:#1a2340;--ink:#eef2ff;--mute:#9aa7c9;--pri:#ff5a4d;--pri-ink:#1a0805;--ok:#58d38a;--okbg:#12361f;--bad:#ff8a80;--badbg:#3d1714;--line:#2c3860}}
+:root[data-theme="dark"]{--bg:#10162a;--card:#1a2340;--ink:#eef2ff;--mute:#9aa7c9;--pri:#ff5a4d;--pri-ink:#1a0805;--ok:#58d38a;--okbg:#12361f;--bad:#ff8a80;--badbg:#3d1714;--line:#2c3860}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Trebuchet MS",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+main{max-width:640px;margin:0 auto;padding:20px 16px 40px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:22px}
+h1{font-size:1.7rem;margin:0 0 8px}
+p{margin:0 0 14px}
+.mute{color:var(--mute)}
+button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:12px 22px;background:var(--pri);color:var(--pri-ink);cursor:pointer;min-height:48px}
+button.alt{background:transparent;color:var(--ink);border:2px solid var(--line)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.bar{height:12px;background:var(--line);border-radius:99px;overflow:hidden;margin:0 0 6px}
+.bar i{display:block;height:100%;background:var(--pri);width:0;transition:width .3s}
+.top{display:flex;justify-content:space-between;font-size:.9rem;color:var(--mute);margin-bottom:12px}
+.q{font-size:1.25rem;margin:18px 0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+input{font:inherit;font-size:1.3rem;width:150px;padding:10px 12px;border-radius:12px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.unit{color:var(--mute)}
+.fb{margin-top:16px;padding:14px;border-radius:12px;font-weight:700}
+.fb.ok{background:var(--okbg);color:var(--ok)}
+.fb.no{background:var(--badbg);color:var(--bad)}
+.score{font-size:3rem;font-weight:800;margin:6px 0}
+ul{padding-left:20px}
+li{margin-bottom:10px}
+.hide{display:none}
 </style>
 </head>
 <body>
-<div class="wrap" id="app"></div>
+<main>
+<div id="app"></div>
+</main>
 <script>
-const ALL = [{"t": 0, "q": "What is the opposite of 7?", "o": ["0", "-8", "7", "-7"], "a": 3, "e": "Opposites are the same distance from 0 on opposite sides, so the opposite of 7 is -7."}, {"t": 0, "q": "What is the opposite of -9?", "o": ["9", "10", "0", "-9"], "a": 0, "e": "Opposites are the same distance from 0 on opposite sides, so the opposite of -9 is 9."}, {"t": 0, "q": "What is the opposite of 12?", "o": ["-12", "12", "0", "-13"], "a": 0, "e": "Opposites are the same distance from 0 on opposite sides, so the opposite of 12 is -12."}, {"t": 0, "q": "What is the opposite of -4?", "o": ["5", "0", "4", "-4"], "a": 2, "e": "Opposites are the same distance from 0 on opposite sides, so the opposite of -4 is 4."}, {"t": 0, "q": "What is the opposite of 15?", "o": ["0", "-16", "15", "-15"], "a": 3, "e": "Opposites are the same distance from 0 on opposite sides, so the opposite of 15 is -15."}, {"t": 0, "q": "What is the absolute value of -7, written |-7|?", "o": ["0", "-7", "7", "8"], "a": 2, "e": "Absolute value is the distance from 0, which is never negative. |-7| = 7."}, {"t": 0, "q": "What is the absolute value of -12, written |-12|?", "o": ["13", "-12", "12", "0"], "a": 2, "e": "Absolute value is the distance from 0, which is never negative. |-12| = 12."}, {"t": 0, "q": "What is the absolute value of 9, written |9|?", "o": ["9", "10", "-9", "0"], "a": 0, "e": "Absolute value is the distance from 0, which is never negative. |9| = 9."}, {"t": 0, "q": "What is the absolute value of -3, written |-3|?", "o": ["-3", "3", "0", "4"], "a": 1, "e": "Absolute value is the distance from 0, which is never negative. |-3| = 3."}, {"t": 0, "q": "What is -|-4|?", "o": ["8", "4", "-4", "0"], "a": 2, "e": "First |-4| = 4. Then the minus sign in front makes it -4."}, {"t": 0, "q": "Which is the greatest of these integers: -8, 3, -1, 0?", "o": ["0", "3", "-8", "-1"], "a": 1, "e": "On a number line, numbers to the right are greater. The greatest is 3."}, {"t": 0, "q": "Which is the greatest of these integers: -15, -9, -12, -20?", "o": ["-20", "-15", "-9", "-12"], "a": 2, "e": "On a number line, numbers to the right are greater. The greatest is -9."}, {"t": 0, "q": "Which is the least of these integers: 4, -6, 0, -2?", "o": ["-6", "-2", "4", "0"], "a": 0, "e": "On a number line, numbers to the right are greater. The least is -6."}, {"t": 0, "q": "Which is the least of these integers: -3, -11, 5, -7?", "o": ["-7", "5", "-3", "-11"], "a": 3, "e": "On a number line, numbers to the right are greater. The least is -11."}, {"t": 0, "q": "Which symbol makes this true? -8 ___ -3", "o": ["Cannot tell", "=", ">", "<"], "a": 3, "e": "-8 is farther left than -3 on the number line, so -8 < -3."}, {"t": 0, "q": "A temperature of 8 degrees below zero is written as which integer?", "o": ["-8", "8", "0", "-80"], "a": 0, "e": "'Below zero' means negative, so 8 below zero is -8."}, {"t": 0, "q": "A diver is 25 metres below sea level. Which integer shows this?", "o": ["-25", "25", "0", "-52"], "a": 0, "e": "Below sea level is negative, so the depth is -25."}, {"t": 0, "q": "Which integer shows a bank withdrawal of N500?", "o": ["500", "5", "0", "-500"], "a": 3, "e": "Money taken out is a decrease, shown with a negative integer: -500."}, {"t": 0, "q": "Which of these is NOT an integer?", "o": ["14", "0", "2.5", "-3"], "a": 2, "e": "Integers are whole numbers and their opposites. 2.5 has a decimal part, so it is not an integer."}, {"t": 0, "q": "Which integer is neither positive nor negative?", "o": ["-1", "0", "1", "10"], "a": 1, "e": "Zero is the only integer that is neither positive nor negative."}, {"t": 1, "q": "(8) + (-3) = ?", "o": ["11", "-5", "5", "6"], "a": 2, "e": "Different signs: subtract the smaller absolute value from the larger (8 - 3) and keep the sign of the larger. Answer 5."}, {"t": 1, "q": "(-6) + (-5) = ?", "o": ["-11", "11", "-1", "-10"], "a": 0, "e": "Same signs: add the absolute values (6 + 5 = 11) and keep the sign. Answer -11."}, {"t": 1, "q": "(-9) + (4) = ?", "o": ["-5", "13", "5", "-13"], "a": 0, "e": "Different signs: subtract the smaller absolute value from the larger (9 - 4) and keep the sign of the larger. Answer -5."}, {"t": 1, "q": "(12) + (-12) = ?", "o": ["0", "24", "-1", "1"], "a": 0, "e": "Different signs: subtract the smaller absolute value from the larger (12 - 12) and keep the sign of the larger. Answer 0."}, {"t": 1, "q": "(-7) + (10) = ?", "o": ["-17", "3", "17", "-3"], "a": 1, "e": "Different signs: subtract the smaller absolute value from the larger (10 - 7) and keep the sign of the larger. Answer 3."}, {"t": 1, "q": "(-14) + (-6) = ?", "o": ["-19", "-20", "20", "-8"], "a": 1, "e": "Same signs: add the absolute values (14 + 6 = 20) and keep the sign. Answer -20."}, {"t": 1, "q": "(5) + (-11) = ?", "o": ["6", "16", "-5", "-6"], "a": 3, "e": "Different signs: subtract the smaller absolute value from the larger (11 - 5) and keep the sign of the larger. Answer -6."}, {"t": 1, "q": "(-3) + (15) = ?", "o": ["-18", "12", "18", "-12"], "a": 1, "e": "Different signs: subtract the smaller absolute value from the larger (15 - 3) and keep the sign of the larger. Answer 12."}, {"t": 1, "q": "(-8) + (-8) = ?", "o": ["-16", "16", "-15", "0"], "a": 0, "e": "Same signs: add the absolute values (8 + 8 = 16) and keep the sign. Answer -16."}, {"t": 1, "q": "(9) + (-2) = ?", "o": ["7", "11", "-7", "8"], "a": 0, "e": "Different signs: subtract the smaller absolute value from the larger (9 - 2) and keep the sign of the larger. Answer 7."}, {"t": 1, "q": "(5) - (9) = ?", "o": ["14", "-4", "4", "-3"], "a": 1, "e": "Subtracting 9 is the same as adding its opposite: (5) + (-9) = -4."}, {"t": 1, "q": "(-4) - (3) = ?", "o": ["-7", "-6", "-1", "7"], "a": 0, "e": "Subtracting 3 is the same as adding its opposite: (-4) + (-3) = -7."}, {"t": 1, "q": "(-7) - (-2) = ?", "o": ["-4", "5", "-9", "-5"], "a": 3, "e": "Subtracting -2 is the same as adding its opposite: (-7) + (2) = -5."}, {"t": 1, "q": "(6) - (-4) = ?", "o": ["-10", "2", "10", "11"], "a": 2, "e": "Subtracting -4 is the same as adding its opposite: (6) + (4) = 10."}, {"t": 1, "q": "(-10) - (-10) = ?", "o": ["1", "-20", "0", "-1"], "a": 2, "e": "Subtracting -10 is the same as adding its opposite: (-10) + (10) = 0."}, {"t": 1, "q": "(0) - (8) = ?", "o": ["-7", "-8", "8", "-9"], "a": 1, "e": "Subtracting 8 is the same as adding its opposite: (0) + (-8) = -8."}, {"t": 1, "q": "(-5) - (-9) = ?", "o": ["4", "5", "-4", "-14"], "a": 0, "e": "Subtracting -9 is the same as adding its opposite: (-5) + (9) = 4."}, {"t": 1, "q": "(12) - (20) = ?", "o": ["8", "-8", "-7", "32"], "a": 1, "e": "Subtracting 20 is the same as adding its opposite: (12) + (-20) = -8."}, {"t": 1, "q": "(7) - (-7) = ?", "o": ["-14", "0", "15", "14"], "a": 3, "e": "Subtracting -7 is the same as adding its opposite: (7) + (7) = 14."}, {"t": 1, "q": "(-1) - (6) = ?", "o": ["5", "-6", "7", "-7"], "a": 3, "e": "Subtracting 6 is the same as adding its opposite: (-1) + (-6) = -7."}, {"t": 1, "q": "The temperature is -4 degrees and rises by 9 degrees. What is the new temperature?", "o": ["-5", "13", "5", "-13"], "a": 2, "e": "-4 + 9 = 5."}, {"t": 1, "q": "At night it is -6 degrees. It drops 5 more degrees. What is the temperature now?", "o": ["-11", "-1", "-10", "11"], "a": 0, "e": "-6 - 5 = -11."}, {"t": 1, "q": "Ada's account balance is -N2000. She deposits N3500. What is her new balance?", "o": ["5500", "-5500", "1500", "-1500"], "a": 2, "e": "-2000 + 3500 = 1500."}, {"t": 1, "q": "A submarine is at -120 m. It rises 45 m. What is its new depth?", "o": ["-165", "-75", "75", "-85"], "a": 1, "e": "-120 + 45 = -75."}, {"t": 1, "q": "What is the difference in temperature between 12 degrees and -5 degrees?", "o": ["-17", "17", "60", "7"], "a": 1, "e": "12 - (-5) = 12 + 5 = 17."}, {"t": 2, "q": "Which statement is true?", "o": ["-3/4 is not a rational number", "Every rational number is an integer", "Every integer is a rational number", "0.5 is not a rational number"], "a": 2, "e": "A rational number is any number that can be written as a fraction with a whole-number top and a non-zero whole-number bottom. Every integer n can be written as n/1."}, {"t": 2, "q": "How can the integer -6 be written as a fraction?", "o": ["-1/6", "0/-6", "-6/1", "1/-6"], "a": 2, "e": "Any integer n equals n/1, so -6 = -6/1."}, {"t": 2, "q": "Write 3/4 as a decimal.", "o": ["0.075", "0.75", "7.5", "0.25"], "a": 1, "e": "Divide the top by the bottom: 3 ÷ 4 = 0.75."}, {"t": 2, "q": "Write -2/5 as a decimal.", "o": ["-0.04", "-0.4", "-0.6", "-4"], "a": 1, "e": "Divide the top by the bottom: -2 ÷ 5 = -0.4."}, {"t": 2, "q": "Write 7/8 as a decimal.", "o": ["0.0875", "0.125", "8.75", "0.875"], "a": 3, "e": "Divide the top by the bottom: 7 ÷ 8 = 0.875."}, {"t": 2, "q": "Write -3/20 as a decimal.", "o": ["-0.85", "-0.015", "-1.5", "-0.15"], "a": 3, "e": "Divide the top by the bottom: -3 ÷ 20 = -0.15."}, {"t": 2, "q": "Write 0.25 as a fraction in simplest form.", "o": ["4", "7/20", "1/8", "1/4"], "a": 3, "e": "0.25 = 250/1000 which simplifies to 1/4."}, {"t": 2, "q": "Write 0.6 as a fraction in simplest form.", "o": ["3/5", "7/10", "3/10", "5/3"], "a": 0, "e": "0.6 = 600/1000 which simplifies to 3/5."}, {"t": 2, "q": "Write 0.125 as a fraction in simplest form.", "o": ["8", "1/8", "9/40", "1/16"], "a": 1, "e": "0.125 = 125/1000 which simplifies to 1/8."}, {"t": 2, "q": "Which is greater: 3/5 or 5/8?", "o": ["They are equal", "5/8", "3/5", "Cannot be compared"], "a": 1, "e": "Use a common denominator of 40: 3/5 = 24/40 and 5/8 = 25/40. 5/8 is greater (for negatives, the one closer to 0 is greater)."}, {"t": 2, "q": "Which is greater: 7/12 or 2/3?", "o": ["Cannot be compared", "2/3", "They are equal", "7/12"], "a": 1, "e": "Use a common denominator of 12: 7/12 = 7/12 and 2/3 = 8/12. 2/3 is greater (for negatives, the one closer to 0 is greater)."}, {"t": 2, "q": "Which is greater: -1/2 or -3/5?", "o": ["-1/2", "-3/5", "They are equal", "Cannot be compared"], "a": 0, "e": "Use a common denominator of 10: -1/2 = -5/10 and -3/5 = -6/10. -1/2 is greater (for negatives, the one closer to 0 is greater)."}, {"t": 2, "q": "Which is greater: -2/3 or -3/4?", "o": ["-3/4", "-2/3", "They are equal", "Cannot be compared"], "a": 1, "e": "Use a common denominator of 12: -2/3 = -8/12 and -3/4 = -9/12. -2/3 is greater (for negatives, the one closer to 0 is greater)."}, {"t": 2, "q": "Which list puts these numbers in order from least to greatest: -3/4, -1/2, 0.25, 1?", "o": ["1, -1/2, 0.25, -3/4", "1, 0.25, -1/2, -3/4", "-3/4, 0.25, -1/2, 1", "-3/4, -1/2, 0.25, 1"], "a": 3, "e": "Place each number on a number line: numbers further left are smaller. The correct order is -3/4, -1/2, 0.25, 1."}, {"t": 2, "q": "Which list puts these numbers in order from least to greatest: -0.8, -2/5, 0, 3/10?", "o": ["3/10, 0, -2/5, -0.8", "-0.8, 0, -2/5, 3/10", "3/10, -2/5, 0, -0.8", "-0.8, -2/5, 0, 3/10"], "a": 3, "e": "Place each number on a number line: numbers further left are smaller. The correct order is -0.8, -2/5, 0, 3/10."}, {"t": 2, "q": "Which list puts these numbers in order from least to greatest: -1.5, -1 1/4, -1/2, -0.25?", "o": ["-0.25, -1/2, -1 1/4, -1.5", "-0.25, -1 1/4, -1/2, -1.5", "-1.5, -1/2, -1 1/4, -0.25", "-1.5, -1 1/4, -1/2, -0.25"], "a": 3, "e": "Place each number on a number line: numbers further left are smaller. The correct order is -1.5, -1 1/4, -1/2, -0.25."}, {"t": 2, "q": "What is the opposite of -3/5?", "o": ["-3/5", "3/5", "5/3", "-5/3"], "a": 1, "e": "The opposite of a number has the same size but the other sign, so the opposite of -3/5 is 3/5."}, {"t": 2, "q": "What is the absolute value of -2/7, written |-2/7|?", "o": ["-2/7", "2/7", "7/2", "0"], "a": 1, "e": "Absolute value is the distance from 0, so |-2/7| = 2/7."}, {"t": 2, "q": "Which fraction is exactly halfway between 0 and 1 on a number line?", "o": ["2/3", "1/2", "1/3", "1/4"], "a": 1, "e": "Halfway between 0 and 1 is 1/2."}, {"t": 2, "q": "Which number is the least: -2.5, -2.25, -2, -1.9?", "o": ["-1.9", "-2", "-2.5", "-2.25"], "a": 2, "e": "The most negative number is the farthest left on the number line, so -2.5 is least."}, {"t": 3, "q": "3/7 + 2/7 = ?", "o": ["5/7", "6/7", "5/14", "4/7"], "a": 0, "e": "Same denominator, so + the numerators: 3 + 2 = 5, giving 5/7."}, {"t": 3, "q": "4/9 + 7/9 = ?", "o": ["1 1/3", "11/18", "1 2/9", "1 1/9"], "a": 2, "e": "Same denominator, so + the numerators: 4 + 7 = 11, giving 11/9. In simplest form: 1 2/9."}, {"t": 3, "q": "5/8 + 5/8 = ?", "o": ["1 1/8", "5/8", "1 1/4", "1 3/8"], "a": 2, "e": "Same denominator, so + the numerators: 5 + 5 = 10, giving 10/8. In simplest form: 1 1/4."}, {"t": 3, "q": "7/12 + 9/12 = ?", "o": ["1 1/3", "1 5/12", "1 1/4", "2/3"], "a": 0, "e": "Same denominator, so + the numerators: 7 + 9 = 16, giving 16/12. In simplest form: 1 1/3."}, {"t": 3, "q": "9/10 - 3/10 = ?", "o": ["3/5", "7/10", "3/10", "1/2"], "a": 0, "e": "Same denominator, so - the numerators: 9 - 3 = 6, giving 6/10. In simplest form: 3/5."}, {"t": 3, "q": "5/6 - 1/6 = ?", "o": ["5/6", "1/3", "2/3", "1/2"], "a": 2, "e": "Same denominator, so - the numerators: 5 - 1 = 4, giving 4/6. In simplest form: 2/3."}, {"t": 3, "q": "8/11 - 5/11 = ?", "o": ["4/11", "3/11", "3/22", "2/11"], "a": 1, "e": "Same denominator, so - the numerators: 8 - 5 = 3, giving 3/11."}, {"t": 3, "q": "14/15 - 4/15 = ?", "o": ["1/3", "3/5", "2/3", "11/15"], "a": 2, "e": "Same denominator, so - the numerators: 14 - 4 = 10, giving 10/15. In simplest form: 2/3."}, {"t": 3, "q": "1/2 + 1/3 = ?", "o": ["2/3", "1", "5/6", "2/5"], "a": 2, "e": "LCD of 2 and 3 is 6. 1/2 = 3/6 and 1/3 = 2/6. 3 + 2 = 5, giving 5/6."}, {"t": 3, "q": "3/4 + 1/6 = ?", "o": ["11/12", "2/5", "1", "5/6"], "a": 0, "e": "LCD of 4 and 6 is 12. 3/4 = 9/12 and 1/6 = 2/12. 9 + 2 = 11, giving 11/12."}, {"t": 3, "q": "2/5 + 3/10 = ?", "o": ["1/3", "7/10", "4/5", "3/5"], "a": 1, "e": "LCD of 5 and 10 is 10. 2/5 = 4/10 and 3/10 = 3/10. 4 + 3 = 7, giving 7/10."}, {"t": 3, "q": "5/6 + 3/8 = ?", "o": ["1 1/4", "1 1/6", "4/7", "1 5/24"], "a": 3, "e": "LCD of 6 and 8 is 24. 5/6 = 20/24 and 3/8 = 9/24. 20 + 9 = 29, giving 29/24. In simplest form: 1 5/24."}, {"t": 3, "q": "2/3 + 4/5 = ?", "o": ["3/4", "1 7/15", "1 2/5", "1 8/15"], "a": 1, "e": "LCD of 3 and 5 is 15. 2/3 = 10/15 and 4/5 = 12/15. 10 + 12 = 22, giving 22/15. In simplest form: 1 7/15."}, {"t": 3, "q": "3/4 - 1/3 = ?", "o": ["1/3", "2/7", "1/2", "5/12"], "a": 3, "e": "LCD of 4 and 3 is 12. 3/4 = 9/12 and 1/3 = 4/12. 9 - 4 = 5, giving 5/12."}, {"t": 3, "q": "7/10 - 2/5 = ?", "o": ["3/10", "1/5", "2/5", "1/3"], "a": 0, "e": "LCD of 10 and 5 is 10. 7/10 = 7/10 and 2/5 = 4/10. 7 - 4 = 3, giving 3/10."}, {"t": 3, "q": "5/6 - 1/4 = ?", "o": ["2/5", "7/12", "1/2", "2/3"], "a": 1, "e": "LCD of 6 and 4 is 12. 5/6 = 10/12 and 1/4 = 3/12. 10 - 3 = 7, giving 7/12."}, {"t": 3, "q": "7/8 - 1/2 = ?", "o": ["1/2", "1/4", "3/5", "3/8"], "a": 3, "e": "LCD of 8 and 2 is 8. 7/8 = 7/8 and 1/2 = 4/8. 7 - 4 = 3, giving 3/8."}, {"t": 3, "q": "4/5 - 3/7 = ?", "o": ["1/12", "2/5", "13/35", "12/35"], "a": 2, "e": "LCD of 5 and 7 is 35. 4/5 = 28/35 and 3/7 = 15/35. 28 - 15 = 13, giving 13/35."}, {"t": 3, "q": "2 1/3 + 1 1/6 = ?", "o": ["3 2/3", "3 1/3", "1 5/9", "3 1/2"], "a": 3, "e": "Convert to improper fractions: 7/3 + 7/6. With LCD 6: 14/6 + 7/6 = 21/6 = 3 1/2."}, {"t": 3, "q": "3 1/2 + 2 3/4 = ?", "o": ["6", "3", "6 1/2", "6 1/4"], "a": 3, "e": "Convert to improper fractions: 7/2 + 11/4. With LCD 4: 14/4 + 11/4 = 25/4 = 6 1/4."}, {"t": 3, "q": "1 3/4 + 2 1/2 = ?", "o": ["2", "4 1/4", "4", "4 1/2"], "a": 1, "e": "Convert to improper fractions: 7/4 + 5/2. With LCD 4: 7/4 + 10/4 = 17/4 = 4 1/4."}, {"t": 3, "q": "4 2/5 + 1 7/10 = ?", "o": ["6", "6 1/10", "2 3/5", "6 1/5"], "a": 1, "e": "Convert to improper fractions: 22/5 + 17/10. With LCD 10: 44/10 + 17/10 = 61/10 = 6 1/10."}, {"t": 3, "q": "5 1/2 - 2 1/3 = ?", "o": ["3", "3 1/6", "4/5", "3 1/3"], "a": 1, "e": "Convert to improper fractions: 11/2 - 7/3. With LCD 6: 33/6 - 14/6 = 19/6 = 3 1/6."}, {"t": 3, "q": "6 3/4 - 2 1/8 = ?", "o": ["4 1/2", "4 3/4", "5/6", "4 5/8"], "a": 3, "e": "Convert to improper fractions: 27/4 - 17/8. With LCD 8: 54/8 - 17/8 = 37/8 = 4 5/8."}, {"t": 3, "q": "4 1/3 - 1 5/6 = ?", "o": ["2/9", "2 2/3", "2 1/2", "2 1/3"], "a": 2, "e": "Convert to improper fractions: 13/3 - 11/6. With LCD 6: 26/6 - 11/6 = 15/6 = 2 1/2."}, {"t": 3, "q": "(-3/4) + 1/2 = ?", "o": ["1/4", "0", "-1/2", "-1/4"], "a": 3, "e": "Use LCD 4: (-3/4) + (2/4) = -1/4 = -1/4."}, {"t": 3, "q": "(-2/3) + (-1/6) = ?", "o": ["5/6", "-1", "-5/6", "-2/3"], "a": 2, "e": "Use LCD 6: (-4/6) + (-1/6) = -5/6 = -5/6."}, {"t": 3, "q": "1/5 - 3/5 = ?", "o": ["-2/5", "-3/5", "2/5", "-1/5"], "a": 0, "e": "Subtracting is adding the opposite. Use LCD 5: (1/5) - (3/5) = -2/5 = -2/5."}, {"t": 3, "q": "(-1/2) - (-1/3) = ?", "o": ["-1/3", "0", "1/6", "-1/6"], "a": 3, "e": "Subtracting is adding the opposite. Use LCD 6: (-3/6) - (-2/6) = -1/6 = -1/6."}, {"t": 3, "q": "(-5/6) + 1/3 = ?", "o": ["-1/2", "-2/3", "-1/3", "1/2"], "a": 0, "e": "Use LCD 6: (-5/6) + (2/6) = -3/6 = -1/2."}, {"t": 3, "q": "Tolu ate 1/4 of a pizza and Ada ate 2/5 of the same pizza. What fraction did they eat altogether?", "o": ["3/9", "13/20", "7/20", "3/20"], "a": 1, "e": "LCD is 20: 1/4 = 5/20 and 2/5 = 8/20. 5/20 + 8/20 = 13/20."}, {"t": 3, "q": "A ribbon is 7/8 m long. Chidi cuts off 1/3 m. How much ribbon is left?", "o": ["13/24", "6/5", "5/8", "6/24"], "a": 0, "e": "LCD is 24: 7/8 = 21/24 and 1/3 = 8/24. 21/24 - 8/24 = 13/24 m."}, {"t": 3, "q": "It rained 2 1/2 cm on Monday and 1 3/4 cm on Tuesday. How much rain fell in total?", "o": ["4 1/4", "3 4/6", "3 1/4", "4 3/4"], "a": 0, "e": "2 1/2 + 1 3/4 = 2 2/4 + 1 3/4 = 3 5/4 = 4 1/4 cm."}, {"t": 3, "q": "A bag has 5 1/3 kg of rice. A cook uses 2 1/2 kg. How much rice is left?", "o": ["2 1/6", "3 1/6", "3 1/2", "2 5/6"], "a": 3, "e": "5 1/3 = 5 2/6 and 2 1/2 = 2 3/6. 5 2/6 - 2 3/6 = 4 8/6 - 2 3/6 = 2 5/6 kg."}, {"t": 3, "q": "Femi spent 2/3 of his money on books and 1/5 on snacks. What fraction of his money is left?", "o": ["7/15", "1/8", "13/15", "2/15"], "a": 3, "e": "Spent: 2/3 + 1/5 = 10/15 + 3/15 = 13/15. Left: 15/15 - 13/15 = 2/15."}];
-const TOPICS = ["Integers", "Adding & Subtracting Integers", "Rational Numbers", "Adding & Subtracting Fractions"];
-const app = document.getElementById('app');
-
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-function fmt(s){
-  s = esc(s);
-  s = s.replace(/(?<![\d\/.])(\d+) (\d+)\/(\d+)(?![\d\/])/g,
-    (m,w,n,d)=>`<span class="mixed">${w}<span class="frac"><span>${n}</span><span>${d}</span></span></span>`);
-  s = s.replace(/(?<![\d\/])(\d+)\/(\d+)(?![\d\/])/g,
-    (m,n,d)=>`<span class="frac"><span>${n}</span><span>${d}</span></span>`);
-  s = s.replace(/ - /g,' − ').replace(/-(?=\d|<span)/g,'−');
-  return s;
-}
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
-function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k));localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
-
-let pool=[], i=0, score=0, log=[], locked=false, mode='all', doShuffle=false;
-
-function home(){
-  const best = store('g6quiz-best');
-  const counts = TOPICS.map((_,t)=>ALL.filter(q=>q.t===t).length);
-  app.innerHTML = `
-    <h1>Grade 6 Maths Quiz</h1>
-    <p class="sub">Integers, rational numbers, and adding & subtracting fractions. 100 questions.</p>
-    <div class="card">
-      <h2>Full quiz</h2>
-      <button class="btn" id="startAll">Start all 100 questions</button>
-      ${best?`<p class="sub" style="margin:12px 0 0">Best score: <b>${best.score}/${best.total}</b> (${Math.round(best.score/best.total*100)}%)</p>`:''}
-      <label class="chk"><input type="checkbox" id="shuf"> Shuffle question order</label>
-    </div>
-    <div class="card">
-      <h2>Practise one topic</h2>
-      <div class="topics">
-        ${TOPICS.map((n,t)=>`<button class="topic" data-t="${t}"><span>${esc(n)}</span><small>${counts[t]} questions</small></button>`).join('')}
-      </div>
-    </div>
-    <footer>Tip: press 1–4 to answer and Enter for the next question.</footer>`;
-  const sh=document.getElementById('shuf'); sh.checked=doShuffle; sh.onchange=()=>doShuffle=sh.checked;
-  document.getElementById('startAll').onclick=()=>start(ALL,'all');
-  document.querySelectorAll('.topic').forEach(b=>b.onclick=()=>start(ALL.filter(q=>q.t==b.dataset.t),'topic'));
-}
-
-function start(qs,m){
-  mode=m; pool = doShuffle?shuffle(qs):qs.slice(); i=0; score=0; log=[]; locked=false; show();
-}
-
+// [question, answer, unit label]
+var Q=[
+["Maya collected 247 hockey cards. Her brother gave her 135 more. How many cards does she have now?",382,"cards"],
+["A school library had 512 books. Students borrowed 168 of them. How many books are left on the shelves?",344,"books"],
+["On Saturday, 326 people visited the ice maze at Winterlude. On Sunday, 289 people visited. How many people visited in all?",615,"people"],
+["A farm in Saskatchewan had 450 bales of hay. The farmer sold 275 bales. How many bales are left?",175,"bales"],
+["Liam read 138 pages last week and 159 pages this week. How many pages did he read altogether?",297,"pages"],
+["A bus in Toronto had 64 passengers. At the next stop, 29 people got off. How many passengers are still on the bus?",35,"passengers"],
+["There are 87 students in the Grade 3 choir and 76 in the Grade 4 choir. How many students are in both choirs?",163,"students"],
+["A maple farm made 605 bottles of syrup and sold 348 bottles. How many bottles are left?",257,"bottles"],
+["A hockey arena has 800 seats. At tonight’s game, 536 seats are filled. How many seats are empty?",264,"seats"],
+["Ava had 1000 beads. She used 375 beads to make bracelets. How many beads does she have left?",625,"beads"],
+["Noah scored 45 points in game 1, 38 points in game 2, and 27 points in game 3. How many points did he score in all three games?",110,"points"],
+["A bakery baked 120 muffins in the morning and 85 in the afternoon. They sold 160 muffins. How many muffins are left?",45,"muffins"],
+["A train travelled 245 km in the morning and 178 km in the afternoon. How many kilometres farther did it go in the morning?",67,"km"],
+["A zoo had 1250 visitors on Monday and 1475 visitors on Tuesday. How many visitors came on both days?",2725,"visitors"],
+["A town library has 2000 books. Of those, 1350 are fiction. How many books are NOT fiction?",650,"books"],
+["Sam has 3 toonies and 2 loonies. How many dollars does he have?",8,"dollars ($)"],
+["A pencil costs $1.25 and an eraser costs $0.75. How much do they cost together?",2,"dollars ($)"],
+["Mia pays with a $5 bill for a snack that costs $3.40. How much change should she get?",1.6,"dollars ($)"],
+["One notebook costs $2.50. How much do 3 notebooks cost?",7.5,"dollars ($)"],
+["Max has 4 quarters and 3 dimes. How many cents does he have in all?",130,"cents (¢)"],
+["A toy costs $9.75. Zara pays with a $10 bill. How much change does she get?",0.25,"dollars ($)"],
+["Juice costs $1.50 and a sandwich costs $3.25. How much do they cost altogether?",4.75,"dollars ($)"],
+["A classroom has 6 rows of desks with 7 desks in each row. How many desks are there?",42,"desks"],
+["A box holds 6 donut holes. How many donut holes are in 4 boxes?",24,"donut holes"],
+["There are 7 days in a week. How many days are in 5 weeks?",35,"days"],
+["Each pack has 5 crayons. How many crayons are in 9 packs?",45,"crayons"],
+["Each bike has 2 wheels. How many wheels are on 12 bikes?",24,"wheels"],
+["An egg carton holds 12 eggs. How many eggs are in 4 cartons?",48,"eggs"],
+["Each of 6 friends has 8 marbles. How many marbles do they have altogether?",48,"marbles"],
+["A ticket to the school play costs $4. How much do 7 tickets cost?",28,"dollars ($)"],
+["A bookcase has 9 shelves with 6 books on each shelf. How many books are on the bookcase?",54,"books"],
+["A pool has 4 lanes. There are 15 swimmers in each lane. How many swimmers are there in all?",60,"swimmers"],
+["Ben has 24 cookies. He shares them equally among 4 friends. How many cookies does each friend get?",6,"cookies"],
+["A sticker book has 5 stickers on each page. Priya has 35 stickers. How many pages can she fill?",7,"pages"],
+["42 students are split into 6 equal teams. How many students are on each team?",7,"students"],
+["A coach puts 56 pucks equally into 7 buckets. How many pucks are in each bucket?",8,"pucks"],
+["There are 18 apples to share equally into 3 baskets. How many apples go in each basket?",6,"apples"],
+["Jo hikes 45 km over 5 days, going the same distance each day. How many kilometres does she hike each day?",9,"km"],
+["A bakery packs 48 muffins into bags of 6. How many bags do they need?",8,"bags"],
+["Lena has 29 stickers. Each page holds 4 stickers. How many pages can she fill completely?",7,"pages"],
+["A chocolate bar has 12 squares. Omar eats half of the bar. How many squares does he eat?",6,"squares"],
+["There are 20 students in a class. One quarter of them wear red. How many students wear red?",5,"students"],
+["A 12 cm ribbon is cut into 3 equal pieces. How long is each piece?",4,"cm"],
+["A pizza is cut into 8 equal slices. The family eats 5 slices. How many eighths of the pizza are left?",3,"slices"],
+["Hockey practice starts at 3:30 p.m. and ends at 4:15 p.m. How many minutes long is practice?",45,"minutes"],
+["A movie is 2 hours long. How many minutes is that?",120,"minutes"],
+["A rectangular garden is 6 m long and 4 m wide. What is its perimeter?",20,"m"],
+["A square skating rink has sides that are each 9 m long. What is its perimeter?",36,"m"],
+["Each jug holds 2 litres of water. How many litres are in 5 jugs?",10,"L"],
+["Emma saves $3 each week for 8 weeks. Then she spends $10. How many dollars does she have left?",14,"dollars ($)"]
+];
+var app=document.getElementById("app"),order=[],i=0,score=0,missed=[],answered=false;
+function shuffle(a){a=a.slice();for(var k=a.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=a[k];a[k]=a[j];a[j]=t}return a}
+function fmt(n,u){return (u.indexOf("$")>-1?"$"+n.toFixed(2):n)+(u.indexOf("$")>-1?"":" "+u)}
+function start(list){order=list;i=0;score=0;missed=[];show()}
+function home(){app.innerHTML='<div class="card"><h1>🍁 Math Word Problems</h1><p class="mute">50 questions for Grade 4. Most review Grade 3 skills: adding, subtracting, money, times tables, sharing, fractions, time and measuring.</p><p>Type your answer and press <b>Check</b>. Take your time and picture the story!</p><button id="go">Start the quiz</button></div>';
+document.getElementById("go").onclick=function(){start(shuffle(Q.map(function(_,k){return k})))}}
 function show(){
-  const q=pool[i]; locked=false;
-  app.innerHTML = `
-    <div class="meta"><span class="chip">${esc(TOPICS[q.t])}</span><span>Question ${i+1} of ${pool.length} · Score ${score}</span></div>
-    <div class="bar"><i style="width:${i/pool.length*100}%"></i></div>
-    <div class="card" style="margin-top:14px">
-      <div class="q">${fmt(q.q)}</div>
-      <div class="opts">
-        ${q.o.map((o,k)=>`<button class="opt" data-k="${k}"><span class="k">${'ABCD'[k]}</span><span>${fmt(o)}</span></button>`).join('')}
-      </div>
-      <div id="fb"></div>
-      <div class="row" style="margin-top:16px;justify-content:space-between">
-        <button class="btn ghost" id="quit">Quit</button>
-        <button class="btn hidden" id="next">${i+1===pool.length?'See results':'Next question'}</button>
-      </div>
-    </div>`;
-  document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(+b.dataset.k));
-  document.getElementById('quit').onclick=()=>{if(confirm('Quit this quiz?'))home();};
-  document.getElementById('next').onclick=next;
-}
-
-function pick(k){
-  if(locked)return; locked=true;
-  const q=pool[i], ok=k===q.a;
-  if(ok)score++;
-  log.push({q,pick:k,ok});
-  document.querySelectorAll('.opt').forEach((b,n)=>{
-    b.disabled=true;
-    if(n===q.a)b.classList.add('correct');
-    else if(n===k)b.classList.add('wrong');
-  });
-  document.getElementById('fb').innerHTML=`<div class="fb ${ok?'ok':'no'}"><b>${ok?'Correct!':'Not quite.'}</b>${fmt(q.e)}</div>`;
-  document.getElementById('next').classList.remove('hidden');
-  document.getElementById('next').focus();
-}
-
-function next(){ i++; if(i>=pool.length)results(); else show(); }
-
-function results(){
-  const total=pool.length, pct=Math.round(score/total*100);
-  if(mode==='all'){const b=store('g6quiz-best'); if(!b||score/total>b.score/b.total)store('g6quiz-best',{score,total});}
-  const msg = pct>=90?'Excellent work!':pct>=70?'Great job, keep it up!':pct>=50?'Good effort. Review the mistakes below.':'Keep practising. You will get there!';
-  const byT = TOPICS.map((n,t)=>{const l=log.filter(x=>x.q.t===t);return {n,c:l.filter(x=>x.ok).length,t:l.length};}).filter(x=>x.t>0);
-  const wrongs = log.filter(x=>!x.ok);
-  app.innerHTML = `
-    <div class="card" style="text-align:center">
-      <p class="score">${score}/${total}</p>
-      <h2>${pct}%: ${msg}</h2>
-      <div class="row" style="justify-content:center">
-        ${wrongs.length?`<button class="btn" id="retryW">Retry ${wrongs.length} missed</button>`:''}
-        <button class="btn ghost" id="again">Restart</button>
-        <button class="btn ghost" id="home">Home</button>
-      </div>
-    </div>
-    <div class="card"><h2>By topic</h2>
-      ${byT.map(x=>`<div class="tbar"><span>${esc(x.n)}</span><b>${x.c}/${x.t}</b><div class="bar" style="grid-column:1/-1"><i style="width:${x.c/x.t*100}%"></i></div></div>`).join('')}
-    </div>
-    ${wrongs.length?`<div class="card"><h2>Review your mistakes</h2>${wrongs.map(x=>`
-      <div class="rev"><div><b>${fmt(x.q.q)}</b></div>
-      <div class="y">Your answer: ${fmt(x.q.o[x.pick])}</div>
-      <div class="c">Correct answer: ${fmt(x.q.o[x.q.a])}</div>
-      <div style="color:var(--muted)">${fmt(x.q.e)}</div></div>`).join('')}</div>`:''}`;
-  const rw=document.getElementById('retryW'); if(rw)rw.onclick=()=>start(wrongs.map(x=>x.q),'retry');
-  document.getElementById('again').onclick=()=>start(mode==='all'?ALL:pool.slice(),mode);
-  document.getElementById('home').onclick=home;
-  window.scrollTo(0,0);
-}
-
-document.addEventListener('keydown',e=>{
-  const nb=document.getElementById('next');
-  if(document.querySelector('.opt')){
-    if(!locked && '1234'.includes(e.key) && e.key)pick(+e.key-1);
-    else if(locked && (e.key==='Enter'||e.key===' ') && nb && !nb.classList.contains('hidden')){e.preventDefault();next();}
-  }
-});
+if(i>=order.length)return done();
+answered=false;var q=Q[order[i]];
+app.innerHTML='<div class="card"><div class="top"><span>Question '+(i+1)+' of '+order.length+'</span><span>Score: '+score+'</span></div><div class="bar"><i style="width:'+(i/order.length*100)+'%"></i></div><div class="q">'+q[0]+'</div><div class="row"><input id="a" inputmode="decimal" autocomplete="off" aria-label="Your answer"><span class="unit">'+q[2]+'</span><button id="chk">Check</button></div><div id="fb" aria-live="polite"></div></div>';
+var inp=document.getElementById("a");inp.focus();
+document.getElementById("chk").onclick=check;
+inp.onkeydown=function(e){if(e.key==="Enter")check()}}
+function check(){
+var inp=document.getElementById("a"),btn=document.getElementById("chk"),fb=document.getElementById("fb");
+if(answered){i++;return show()}
+var raw=inp.value.replace(/[$,¢\s]/g,"");
+if(raw===""||isNaN(parseFloat(raw))){fb.innerHTML='<div class="fb no">Type a number first.</div>';return}
+var q=Q[order[i]],v=parseFloat(raw);answered=true;inp.disabled=true;
+if(Math.abs(v-q[1])<0.001){score++;fb.innerHTML='<div class="fb ok">✔ Correct! Great job.</div>'}
+else{missed.push(order[i]);fb.innerHTML='<div class="fb no">Not quite. The answer is '+fmt(q[1],q[2])+'.</div>'}
+btn.textContent=(i===order.length-1)?"See my score":"Next";btn.focus()}
+function done(){
+var pct=Math.round(score/order.length*100),msg=pct>=90?"Superstar! 🌟":pct>=70?"Great work! 👏":pct>=50?"Good effort, keep practising!":"Nice try! Practice makes progress.";
+var h='<div class="card"><h1>All done!</h1><div class="score">'+score+' / '+order.length+'</div><p>'+msg+'</p>';
+if(missed.length){h+='<p><b>Questions to review:</b></p><ul>'+missed.map(function(k){return '<li>'+Q[k][0]+'<br><b>Answer: '+fmt(Q[k][1],Q[k][2])+'</b></li>'}).join("")+'</ul><div class="row"><button id="rm">Retry missed questions</button><button class="alt" id="ag">New quiz</button></div>'}
+else h+='<button id="ag">New quiz</button>';
+app.innerHTML=h+'</div>';
+document.getElementById("ag").onclick=home;
+var rm=document.getElementById("rm");if(rm)rm.onclick=function(){start(shuffle(missed))}}
 home();
 </script>
 </body>
