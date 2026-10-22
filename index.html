@@ -1,316 +1,134 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maths Jungle Word Problems</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Maths Quiz</title>
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;min-height:100%}
-body{font-family:'Fredoka','Trebuchet MS','Comic Sans MS',system-ui,sans-serif;background:linear-gradient(180deg,#7fd8ff 0%,#c8f0ff 55%,#b6f08a 55%,#78d65c 100%);background-attachment:fixed;color:#3b2a6b;overflow-x:hidden}
-.cloud{position:fixed;font-size:64px;opacity:.9;animation:drift 40s linear infinite;pointer-events:none;z-index:0}
-.cloud:nth-child(1){top:6%;left:-10%}
-.cloud:nth-child(2){top:18%;left:-30%;animation-duration:55s;font-size:48px}
-@keyframes drift{to{transform:translateX(140vw)}}
-#app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:14px 14px 40px}
-.screen{display:none}.screen.active{display:block;animation:pop .45s ease}
-@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
-.card{background:#fff;border-radius:32px;border:5px solid #ffd23f;box-shadow:0 10px 0 #f4a300,0 18px 30px rgba(0,0,0,.18);padding:22px;text-align:center}
-h1{font-size:clamp(34px,8vw,56px);margin:6px 0;color:#ff4f9a;text-shadow:3px 3px 0 #ffe0f0;line-height:1.05}
-h2{margin:6px 0;color:#7a3cff}
-.mascot{font-size:96px;display:inline-block;animation:bob 1.6s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-12px) rotate(4deg)}}
-.big-btn{font-family:inherit;font-weight:700;font-size:28px;border:none;border-radius:999px;padding:16px 40px;margin-top:14px;color:#fff;background:linear-gradient(#ff7a3d,#ff4f2b);box-shadow:0 8px 0 #c9381a;cursor:pointer;transition:transform .1s}
-.big-btn:active{transform:translateY(6px);box-shadow:0 2px 0 #c9381a}
-.big-btn.green{background:linear-gradient(#4cd964,#22b341);box-shadow:0 8px 0 #167a2c}
-.big-btn.green:active{box-shadow:0 2px 0 #167a2c}
-.hud{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.pill{background:#fff;border-radius:999px;padding:6px 14px;font-weight:700;border:4px solid #ffd23f;white-space:nowrap}
-.track{flex:1;height:26px;background:#fff;border-radius:999px;border:4px solid #7a3cff;overflow:hidden;position:relative}
-.fill{height:100%;width:0;background:repeating-linear-gradient(45deg,#ff4f9a,#ff4f9a 12px,#ff86bd 12px,#ff86bd 24px);transition:width .5s;border-radius:999px}
-.icon-btn{font-size:24px;background:#fff;border:4px solid #ffd23f;border-radius:50%;width:46px;height:46px;cursor:pointer;font-family:inherit}
-.world{display:inline-block;background:#7a3cff;color:#fff;padding:4px 16px;border-radius:999px;font-weight:700;font-size:16px;margin-bottom:8px}
-.qtext{font-size:clamp(20px,4.6vw,28px);font-weight:600;line-height:1.3;margin:8px 0}
-.visual{font-size:clamp(34px,8vw,52px);letter-spacing:2px;line-height:1.3;min-height:60px;background:#fff8dc;border-radius:22px;padding:10px;margin:10px 0 16px;word-break:break-all}
-.visual.small{font-size:clamp(28px,6vw,40px)}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.opt{font-family:inherit;font-weight:700;font-size:clamp(24px,6vw,34px);padding:18px 8px;border:none;border-radius:24px;color:#fff;cursor:pointer;box-shadow:0 8px 0 rgba(0,0,0,.25);transition:transform .1s}
-.opt:nth-child(1){background:#ff5c8a}.opt:nth-child(2){background:#3db4ff}.opt:nth-child(3){background:#ffa31a}.opt:nth-child(4){background:#8a5cff}
-.opt:active{transform:translateY(6px);box-shadow:0 2px 0 rgba(0,0,0,.25)}
-.opt.right{background:#22c55e!important;animation:jump .6s}
-.opt.wrong{background:#9ca3af!important;animation:shake .45s}
-.opt:disabled{cursor:default}
-@keyframes shake{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
-@keyframes jump{40%{transform:scale(1.12) rotate(-3deg)}}
-.bubble{background:#fff;border:4px solid #7a3cff;border-radius:22px;padding:10px 16px;font-weight:600;font-size:20px;margin:14px auto 0;max-width:520px;min-height:48px;position:relative}
-.helper{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:6px}
-.helper .m{font-size:56px}
-.stars-row{font-size:34px;margin:8px 0}
-.badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:12px 0}
-.badge{font-size:36px;background:#fff8dc;border:3px solid #ffd23f;border-radius:16px;padding:4px 8px}
-.badge.locked{filter:grayscale(1);opacity:.35}
-.score-big{font-size:64px;font-weight:700;color:#ff4f9a}
-canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:50}
-.small-note{font-size:15px;opacity:.7;margin-top:12px}
-@media(max-width:420px){.opts{gap:10px}.card{padding:14px}}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:linear-gradient(160deg,#e0f2fe,#fef9c3);min-height:100vh;color:#1e293b;display:flex;justify-content:center;padding:16px}
+.app{width:100%;max-width:680px}
+.card{background:#fff;border-radius:20px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.1)}
+h1{margin:0 0 6px;font-size:1.7rem;color:#0369a1}
+.sub{color:#475569;margin-bottom:18px}
+.btn{background:#0ea5e9;color:#fff;border:0;border-radius:12px;padding:12px 22px;font-size:1.05rem;font-weight:600;cursor:pointer}
+.btn:hover{background:#0284c7}
+.btn.alt{background:#f59e0b}.btn.alt:hover{background:#d97706}
+.top{display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px;color:#0369a1}
+.bar{height:10px;background:#e2e8f0;border-radius:6px;overflow:hidden;margin-bottom:18px}
+.bar>div{height:100%;background:#22c55e;transition:width .3s}
+.q{font-size:1.5rem;line-height:1.5;margin-bottom:18px;font-weight:700;text-align:center}
+.opt{display:block;width:100%;text-align:left;background:#f1f5f9;border:2px solid #e2e8f0;border-radius:12px;padding:12px 16px;margin-bottom:10px;font-size:1.15rem;cursor:pointer}
+.opt:hover:not(:disabled){border-color:#0ea5e9;background:#e0f2fe}
+.opt.right{background:#dcfce7;border-color:#22c55e}
+.opt.wrong{background:#fee2e2;border-color:#ef4444}
+.fb{margin:12px 0;padding:12px 14px;border-radius:12px;background:#fef9c3;display:none}
+.big{font-size:3rem;text-align:center}
+.score{font-size:2.2rem;text-align:center;font-weight:700;color:#0369a1}
+.rev{max-height:300px;overflow:auto;margin-top:14px;font-size:.95rem}
+.rev div{padding:8px 0;border-bottom:1px solid #e2e8f0}
+.center{text-align:center}
 </style>
 </head>
 <body>
-<div class="cloud">☁️</div><div class="cloud">☁️</div>
-<canvas id="confetti"></canvas>
-<div id="app">
-
-<!-- START -->
-<div id="start" class="screen active">
-  <div class="card">
-    <div class="mascot">🦁</div>
-    <h1>Maths Jungle<br>Word Problems!</h1>
-    <p style="font-size:22px;font-weight:600">Help Leo the Lion cross 10 jungle worlds!<br>Solve the word problems, win ⭐ stars and collect all the badges!</p>
-    <div class="badges" id="startBadges"></div>
-    <button class="big-btn" id="playBtn">▶ Let's Play!</button>
-    <div class="small-note" id="bestNote"></div>
-  </div>
-</div>
-
-<!-- QUIZ -->
-<div id="quiz" class="screen">
-  <div class="hud">
-    <div class="pill">⭐ <span id="starCount">0</span></div>
-    <div class="track"><div class="fill" id="fill"></div></div>
-    <div class="pill" id="qNum">1/50</div>
-  </div>
-  <div class="card">
-    <div class="world" id="worldName"></div>
-    <div class="qtext" id="qText"></div>
-    <div class="visual" id="visual"></div>
-    <div class="opts" id="opts"></div>
-    <div class="helper"><div class="m" id="mascotSmall">🦁</div><div class="bubble" id="bubble">Pick the right answer!</div></div>
-    <button class="big-btn green" id="nextBtn" style="display:none">Next ➜</button>
-  </div>
-</div>
-
-<!-- WORLD DONE -->
-<div id="worldDone" class="screen">
-  <div class="card">
-    <div class="mascot">🎉</div>
-    <h1 id="wdTitle">World complete!</h1>
-    <div class="badges"><div class="badge" id="wdBadge" style="font-size:80px"></div></div>
-    <div class="stars-row" id="wdStars"></div>
-    <p style="font-size:22px;font-weight:600" id="wdMsg"></p>
-    <button class="big-btn green" id="wdNext">Next World ➜</button>
-  </div>
-</div>
-
-<!-- END -->
-<div id="end" class="screen">
-  <div class="card">
-    <div class="mascot">🏆</div>
-    <h1>You did it!</h1>
-    <div class="score-big"><span id="finalStars">0</span> / 50 ⭐</div>
-    <h2 id="rank"></h2>
-    <div class="badges" id="endBadges"></div>
-    <p style="font-size:20px;font-weight:600" id="endMsg"></p>
-    <button class="big-btn" id="againBtn">🔄 Play Again</button>
-  </div>
-</div>
-
-</div>
-
+<div class="app"><div class="card" id="c"></div></div>
 <script>
-const R=(e,n)=>e.repeat(n);
-const WORLDS=[
- {name:"Add-It-Up Hills",badge:"🐢"},{name:"Take-Away Trail",badge:"🦜"},{name:"Put-Together Pond",badge:"🐒"},
- {name:"Compare Canyon",badge:"🐘"},{name:"Missing Part Bridge",badge:"🦒"},{name:"Teen Treetops",badge:"🦓"},
- {name:"Swamp Subtraction",badge:"🐯"},{name:"Two-Step Tunnel",badge:"🐊"},{name:"Line-Up & Tens Land",badge:"🦋"},
- {name:"Super Challenge Summit",badge:"👑"}
-];
-// [question, visual, answer, [3 wrong], hint]
+// [question, correct answer, [3 wrong answers], explanation]
 const Q=[
-// World 1 - joining
-["Leo sees 4 birds on a tree. 3 more birds fly to the tree. How many birds are on the tree now?",R("🐦",4)+" ➕ "+R("🐦",3),"7",["6","8","5"],"Start at 4 and count on 3 more."],
-["Mia has 5 stickers. Her friend gives her 4 more. How many stickers does Mia have now?",R("⭐",5)+" ➕ "+R("⭐",4),"9",["8","10","1"],"Put the two groups together and count all."],
-["There are 6 fish in a bowl. Dad puts 2 more fish in. How many fish are in the bowl?",R("🐟",6)+" ➕ "+R("🐟",2),"8",["7","9","4"],"Start at 6, count on 2."],
-["Sam picks 3 flowers in the morning and 6 flowers in the afternoon. How many flowers does he pick?",R("🌼",3)+" ➕ "+R("🌼",6),"9",["8","3","10"],"Start at 6 and count on 3."],
-["Zara has 2 pencils. She buys 7 more. How many pencils does she have now?",R("✏️",2)+" ➕ "+R("✏️",7),"9",["8","10","5"],"Start at 7 and count on 2."],
-// World 2 - taking away
-["Ben has 8 cookies. He eats 3 cookies. How many cookies are left?",R("🍪",8)+"  eat 3!","5",["4","6","11"],"Count back 3 from 8."],
-["There are 9 balloons. 4 balloons fly away. How many balloons are left?",R("🎈",9)+"  4 fly away!","5",["4","6","13"],"Take away 4 from 9."],
-["Ana has 10 grapes. She gives 6 grapes to her brother. How many grapes does Ana have left?",R("🍇",10)+"  give 6!","4",["3","5","16"],"10 take away 6. Count back 6 from 10."],
-["7 frogs sit on a log. 2 frogs jump into the water. How many frogs are still on the log?",R("🐸",7)+"  2 jump!","5",["4","6","9"],"Count back 2 from 7."],
-["A bus has 6 children on it. All 6 children get off. How many children are on the bus now?",R("🧒",6)+"  all get off!","0",["1","6","12"],"If everyone leaves, how many are left?"],
-// World 3 - putting together
-["There are 4 boys and 5 girls in the park. How many children are in the park?",R("👦",4)+R("👧",5),"9",["8","10","1"],"Add the boys and the girls together."],
-["Leo has 3 red balls and 3 blue balls. How many balls does Leo have in all?",R("🔴",3)+R("🔵",3),"6",["5","7","9"],"3 and 3 are a double. Count them all."],
-["A farm has 5 cows and 4 sheep. How many animals are on the farm?",R("🐄",5)+R("🐑",4),"9",["8","10","1"],"Start at 5 and count on 4."],
-["Tom has 7 toy cars. Kim has 3 toy cars. How many toy cars do they have together?",R("🚗",7)+" ➕ "+R("🚙",3),"10",["9","4","11"],"7 and 3 make 10!"],
-["A shop has 2 cats and 6 dogs. How many pets does the shop have?",R("🐱",2)+R("🐶",6),"8",["7","4","9"],"Start at 6 and count on 2."],
-// World 4 - comparing
-["Mia has 8 candies. Ben has 5 candies. How many more candies does Mia have than Ben?","Mia "+R("🍬",8)+"\nBen "+R("🍬",5),"3",["2","4","13"],"Take away 5 from 8. What is the difference?"],
-["There are 7 ducks and 4 frogs. How many fewer frogs than ducks are there?","🦆 "+R("🦆",7)+"\n🐸 "+R("🐸",4),"3",["2","4","11"],"Take 4 away from 7."],
-["Sam has 6 stickers. Zara has 9 stickers. Who has more stickers?","Sam "+R("⭐",6)+"\nZara "+R("⭐",9),"Zara",["Sam","They have the same","Neither"],"Which number is bigger, 6 or 9?"],
-["Leo has 10 stars. Ana has 6 stars. How many more stars does Leo have than Ana?","Leo "+R("⭐",10)+"\nAna "+R("⭐",6),"4",["3","5","16"],"10 take away 6."],
-["The red bus has 9 children. The blue bus has 5 children. How many fewer children are on the blue bus?","🔴🚌 "+R("🧒",9)+"\n🔵🚌 "+R("🧒",5),"4",["3","5","14"],"9 take away 5."],
-// World 5 - missing part
-["Mia has 10 beads. 6 are red and the rest are blue. How many beads are blue?",R("🔴",6)+R("❓",4),"4",["3","5","16"],"6 and what make 10?"],
-["There are 8 kids in a game. 3 of them are girls. How many are boys?",R("👧",3)+R("❓",5),"5",["4","6","11"],"3 and what make 8?"],
-["Ben needs 9 stickers for his card. He has 5. How many more stickers does Ben need?",R("⭐",5)+R("❓",4),"4",["3","5","14"],"Count on from 5 to 9."],
-["Ana had some apples. She ate 2 and now has 6 left. How many apples did Ana have at first?","🍎 ❓  ➜  ate 2  ➜  "+R("🍎",6),"8",["4","7","9"],"6 and the 2 she ate. Put them back together."],
-["Tom has 5 marbles. He wants to have 10 marbles. How many more marbles does Tom need?",R("🔵",5)+R("⚪",5),"5",["4","6","15"],"5 and what make 10?"],
-// World 6 - adding to 20
-["Leo has 10 nuts. He finds 5 more nuts. How many nuts does Leo have now?","🌰 10 ➕ 🌰 5","15",["14","16","5"],"Ten and five ones."],
-["A basket has 8 red apples and 7 green apples. How many apples are in the basket?","🍎 8 ➕ 🍏 7","15",["14","16","13"],"Make 10 first: 8 + 2 = 10, then 5 more."],
-["Mia has 9 stickers. Her mum gives her 5 more. How many stickers does Mia have now?","⭐ 9 ➕ ⭐ 5","14",["13","15","4"],"9 + 1 = 10, then 4 more."],
-["A shop sells 12 pens in the morning and 5 pens in the afternoon. How many pens does it sell?","🖊️ 12 ➕ 🖊️ 5","17",["16","18","7"],"Add the 5 ones to 12."],
-["Sam has 7 toy cars. Ben has 9 toy cars. How many toy cars do they have together?","🚗 7 ➕ 🚙 9","16",["15","17","2"],"7 + 3 = 10, then 6 more."],
-// World 7 - subtracting from 20
-["There are 15 birds on a wire. 3 birds fly away. How many birds are left?",R("🐦",15)+"  3 fly away!","12",["11","13","18"],"Count back 3 from 15."],
-["Ana has 14 candies. She eats 5 candies. How many candies does Ana have left?","🍬 14 ➖ 🍬 5","9",["8","10","19"],"14 − 4 = 10, then 1 more."],
-["A box has 17 crayons. 4 crayons are broken. How many crayons are not broken?","🖍️ 17 ➖ 💔 4","13",["12","14","21"],"Count back 4 from 17."],
-["There are 13 children at a party. 8 children go home. How many children are still at the party?","🧒 13 ➖ 🏠 8","5",["4","6","21"],"13 − 3 = 10, then 5 more."],
-["Leo has 18 stars. He gives 9 stars to a friend. How many stars does Leo have left?","⭐ 18 ➖ 🎁 9","9",["8","10","27"],"Take away 9 from 18."],
-// World 8 - two steps
-["Mia has 3 red balloons, 4 blue balloons and 2 green balloons. How many balloons does Mia have?","🔴🔴🔴🔵🔵🔵🔵🟢🟢","9",["8","10","7"],"Add 3 + 4 first, then add 2."],
-["5 ducks are in a pond. 2 more ducks come, then 1 duck swims away. How many ducks are in the pond now?",R("🦆",5)+" ➕ 2 ➖ 1","6",["5","7","8"],"5 + 2 = 7, then take away 1."],
-["Sam has 8 stickers. He gives 3 to Ana and 2 to Ben. How many stickers does Sam have left?",R("⭐",8)+"  give 3 and 2!","3",["2","4","13"],"8 − 3 = 5, then 5 − 2."],
-["A bus has 6 people. 4 more people get on. Then 3 people get off. How many people are on the bus?","🚌 6 ➕ 4 ➖ 3","7",["6","8","13"],"6 + 4 = 10, then take away 3."],
-["Ben has 4 apples, 4 bananas and 4 pears. How many fruits does Ben have?",R("🍎",4)+R("🍌",4)+R("🍐",4),"12",["8","11","13"],"4 + 4 = 8, then 4 more."],
-// World 9 - order and tens
-["Five friends stand in a line. Who is 3rd in the line?","🐱🐶🐰🐸🐵","🐰",["🐶","🐸","🐱"],"1st 🐱, 2nd 🐶, 3rd ...?"],
-["Leo is 2nd in the line. Ana is right behind Leo. What place is Ana in?","1st ⬜   2nd 🦁   ❓ 🧒","3rd",["1st","4th","2nd"],"Right behind 2nd comes ..."],
-["Mum puts 10 eggs in one box and 3 eggs in a bowl. How many eggs are there in all?","📦 10 🥚 ➕ 3 🥚","13",["12","14","103"],"Ten and three ones."],
-["Dad has a bag of 10 oranges and 6 more oranges outside the bag. How many oranges does Dad have?","🛍️ 10 🍊 ➕ 6 🍊","16",["15","17","106"],"Ten and six ones."],
-["Mia has 2 bundles of 10 sticks and 5 single sticks. How many sticks does Mia have?","🔟 🔟 ➕ 5","25",["52","15","7"],"2 tens is 20, then add 5."],
-// World 10 - challenge
-["Leo has 12 stars. He wins 6 more stars. How many stars does Leo have now?","⭐ 12 ➕ ⭐ 6","18",["17","19","6"],"Add 6 ones to 12."],
-["Ana has 16 sweets. She gives 6 sweets to her friend. How many sweets does Ana have left?","🍭 16 ➖ 6","10",["9","11","22"],"Count back 6 from 16."],
-["There are 7 cats and 8 dogs at the park. How many animals are at the park?","🐱 7 ➕ 🐶 8","15",["14","16","1"],"7 + 3 = 10, then 5 more."],
-["Tom reads 5 pages on Monday and 6 pages on Tuesday. How many pages does he read in all?","📖 5 ➕ 📖 6","11",["10","12","1"],"5 + 5 = 10, then 1 more."],
-["A tree has 20 apples. 8 apples fall down. How many apples are still on the tree?","🌳 20 ➖ 🍎 8","12",["11","13","28"],"20 take away 8."]
+["245 + 128 = ?","373",["363","383","117"],"245 + 128 = 373"],
+["512 − 187 = ?","325",["335","699","425"],"512 − 187 = 325"],
+["6 × 8 = ?","48",["14","42","56"],"6 × 8 = 48"],
+["36 ÷ 4 = ?","9",["8","32","12"],"4 × 9 = 36, so 36 ÷ 4 = 9"],
+["7 × 9 = ?","63",["54","56","16"],"7 × 9 = 63"],
+["150 − 45 = ?","105",["195","115","95"],"150 − 45 = 105"],
+["28 − 15 = ?","13",["43","12","14"],"28 − 15 = 13"],
+["72 ÷ 8 = ?","9",["8","64","10"],"8 × 9 = 72, so 72 ÷ 8 = 9"],
+["45 + 38 = ?","83",["73","93","7"],"45 + 38 = 83"],
+["5 × 20 = ?","100",["25","80","120"],"5 × 2 = 10, so 5 × 20 = 100"],
+["3 × 12 = ?","36",["15","24","39"],"3 × 10 = 30 and 3 × 2 = 6, so 30 + 6 = 36"],
+["64 ÷ 8 = ?","8",["7","9","56"],"8 × 8 = 64, so 64 ÷ 8 = 8"],
+["346 + 289 = ?","635",["625","545","735"],"346 + 289 = 635"],
+["600 − 275 = ?","325",["425","375","875"],"600 − 275 = 325"],
+["15 × 6 = ?","90",["21","80","75"],"10 × 6 = 60 and 5 × 6 = 30, so 60 + 30 = 90"],
+["5 × 7 = ?","35",["12","30","42"],"5 × 7 = 35"],
+["48 ÷ 6 = ?","8",["7","9","42"],"6 × 8 = 48, so 48 ÷ 6 = 8"],
+["8 × 25 = ?","200",["33","160","225"],"8 × 25 = 200"],
+["120 + 85 = ?","205",["195","215","35"],"120 + 85 = 205"],
+["1000 − 450 = ?","550",["650","450","560"],"1000 − 450 = 550"],
+["4 × 12 = ?","48",["16","36","44"],"4 × 12 = 48"],
+["9 × 9 = ?","81",["72","18","90"],"9 × 9 = 81"],
+["56 ÷ 7 = ?","8",["7","9","49"],"7 × 8 = 56, so 56 ÷ 7 = 8"],
+["300 + 475 = ?","775",["675","765","875"],"300 + 475 = 775"],
+["What is half of 18?","9",["36","8","6"],"Half of 18 is 18 ÷ 2 = 9"],
+["What is one quarter (1/4) of 20?","5",["4","10","15"],"20 ÷ 4 = 5"],
+["Which fraction is the greatest?","3/4",["1/4","2/4","1/2"],"All the parts are the same size, and 3 out of 4 is the most"],
+["What is the value of the digit 7 in 372?","70",["7","700","17"],"7 is in the tens place, so it is worth 70"],
+["What is the value of the digit 5 in 5,284?","5,000",["500","50","5"],"5 is in the thousands place, so it is worth 5,000"],
+["Round 76 to the nearest ten.","80",["70","76","90"],"6 is 5 or more, so round up to 80"],
+["Round 349 to the nearest hundred.","300",["400","350","340"],"4 tens is less than 5, so round down to 300"],
+["Which number is the greatest?","4,502",["4,052","4,205","4,025"],"All have 4 thousands. 4,502 has 5 hundreds, the most"],
+["7 × ? = 42","6",["5","7","35"],"7 × 6 = 42"],
+["? ÷ 5 = 6","30",["11","25","35"],"5 × 6 = 30, so 30 ÷ 5 = 6"],
+["18 + ? = 31","13",["12","14","49"],"31 − 18 = 13"],
+["? − 24 = 50","74",["26","64","84"],"50 + 24 = 74"],
+["Which of these is an even number?","148",["147","149","151"],"Even numbers end in 0, 2, 4, 6 or 8"],
+["What comes next? 5, 10, 15, 20, ?","25",["30","24","35"],"The pattern adds 5 each time, so 20 + 5 = 25"],
+["What comes next? 100, 90, 80, 70, ?","60",["50","65","75"],"The pattern subtracts 10 each time, so 70 − 10 = 60"],
+["90 minutes = ?","1 hour 30 minutes",["1 hour 10 minutes","9 hours","2 hours"],"60 minutes = 1 hour, so 90 minutes = 1 hour 30 minutes"],
+["How many centimetres (cm) are in 3 metres (m)?","300 cm",["30 cm","3000 cm","33 cm"],"1 m = 100 cm, so 3 m = 300 cm"],
+["How many millilitres (ml) are in 2 litres?","2000 ml",["200 ml","20 ml","2200 ml"],"1 litre = 1000 ml, so 2 litres = 2000 ml"],
+["How many minutes are in 2 hours?","120",["100","200","60"],"60 + 60 = 120"],
+["What is the perimeter of a rectangle that is 9 m long and 5 m wide?","28 m",["14 m","45 m","24 m"],"9 + 5 + 9 + 5 = 28"],
+["What is the perimeter of a square with sides of 6 cm?","24 cm",["12 cm","36 cm","18 cm"],"4 × 6 = 24"],
+["3 × 5 + 4 = ?","19",["27","35","12"],"3 × 5 = 15, then 15 + 4 = 19"],
+["2 × 8 − 6 = ?","10",["4","20","12"],"2 × 8 = 16, then 16 − 6 = 10"],
+["0 × 9 = ?","0",["9","1","90"],"Anything times 0 is 0"],
+["2 × 3 × 4 = ?","24",["9","14","12"],"2 × 3 = 6, then 6 × 4 = 24"],
+["96 ÷ 4 = ?","24",["22","26","23"],"4 × 24 = 96, so 96 ÷ 4 = 24"]
 ];
-
-const $=id=>document.getElementById(id);
-let idx=0,stars=0,tries=0,locked=false,worldStars=0,perWorld=[];
-const PRAISE=["Super job! 🌟","Wow, you're a maths star! 🤩","Roar-some! 🦁","Brilliant! 🎉","You got it! 🙌","Fantastic! 🚀","Amazing! 🏅"];
-const OOPS=["Oops! Try again, you can do it! 💪","Almost! Have another go! 🌈","Not quite — think again! 🤔"];
-
-// ---------- confetti ----------
-const cv=$('confetti'),cx=cv.getContext('2d');let parts=[],anim=false;
-function size(){cv.width=innerWidth;cv.height=innerHeight}size();addEventListener('resize',size);
-function boom(n=120){
-  const cols=['#ff4f9a','#ffd23f','#3db4ff','#22c55e','#8a5cff','#ff7a3d'];
-  for(let i=0;i<n;i++)parts.push({x:innerWidth/2,y:innerHeight*.4,vx:(Math.random()-.5)*16,vy:Math.random()*-14-3,s:Math.random()*10+5,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.4,life:100+Math.random()*50});
-  if(!anim){anim=true;loop()}
+const c=document.getElementById('c');
+let list,i,score,answers,locked;
+const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
+let best=null;try{best=localStorage.getItem('mq_best')}catch(e){}
+function home(){
+ c.innerHTML=`<div class="big">🧮</div><h1 class="center">Maths Quiz</h1>
+ <p class="sub center">50 questions · pick the right answer · see the working after each one</p>
+ ${best?`<p class="center">🏆 Best score: <b>${best}/50</b></p>`:''}
+ <div class="center"><button class="btn" onclick="start()">Start Quiz</button></div>`;
 }
-function loop(){
-  cx.clearRect(0,0,cv.width,cv.height);
-  parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.35;p.r+=p.vr;p.life--;
-    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore()});
-  parts=parts.filter(p=>p.life>0&&p.y<cv.height+20);
-  if(parts.length)requestAnimationFrame(loop);else{anim=false;cx.clearRect(0,0,cv.width,cv.height)}
-}
-
-// ---------- helpers ----------
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$(id).classList.add('active');scrollTo(0,0)}
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-function renderBadges(el,done){
-  el.innerHTML=WORLDS.map((w,i)=>`<div class="badge ${i<done?'':'locked'}" title="${w.name}">${w.badge}</div>`).join('');
-}
-function best(){try{return +localStorage.getItem('g1words_best')||0}catch(e){return 0}}
-function saveBest(v){try{if(v>best())localStorage.setItem('g1words_best',v)}catch(e){}}
-
-// ---------- game ----------
 function start(){
-  idx=0;stars=0;perWorld=[];$('starCount').textContent=0;
-  loadQ();show('quiz');
+ list=shuffle(Q).map(q=>({q:q[0],a:q[1],o:shuffle([q[1],...q[2]]),e:q[3]}));
+ i=0;score=0;answers=[];show();
 }
-function loadQ(){
-  const q=Q[idx],w=Math.floor(idx/5);
-  tries=0;locked=false;
-  $('worldName').textContent=`World ${w+1}: ${WORLDS[w].name}`;
-  $('qText').textContent=q[0];
-  const v=$('visual');v.innerHTML=q[1].replace(/\n/g,'<br>');
-  v.classList.toggle('small',q[1].length>24);
-  $('qNum').textContent=`${idx+1}/50`;
-  $('fill').style.width=(idx/50*100)+'%';
-  $('mascotSmall').textContent=WORLDS[w].badge;
-  $('bubble').textContent="Pick the right answer!";
-  $('nextBtn').style.display='none';
-  const box=$('opts');box.innerHTML='';
-  shuffle([q[2],...q[3]]).forEach(o=>{
-    const b=document.createElement('button');b.className='opt';b.textContent=o;
-    b.onclick=()=>choose(b,o);box.appendChild(b);
-  });
+function show(){
+ const x=list[i];locked=false;
+ c.innerHTML=`<div class="top"><span>Question ${i+1} of 50</span><span>⭐ ${score}</span></div>
+ <div class="bar"><div style="width:${i/50*100}%"></div></div>
+ <div class="q">${x.q}</div>
+ ${x.o.map((o,k)=>`<button class="opt" onclick="pick(${k})">${o}</button>`).join('')}
+ <div class="fb" id="fb"></div>
+ <div class="center"><button class="btn" id="nx" style="display:none" onclick="next()">${i==49?'See Results':'Next →'}</button></div>`;
 }
-function choose(btn,val){
-  if(locked)return;
-  const q=Q[idx];
-  if(val===q[2]){
-    locked=true;btn.classList.add('right');
-    let earned=tries===0?1:0;
-    if(earned){stars++;worldStars++}
-    $('starCount').textContent=stars;
-    $('bubble').textContent=PRAISE[Math.floor(Math.random()*PRAISE.length)]+(earned?" +1 ⭐":"");
-    boom(earned?90:40);
-    document.querySelectorAll('.opt').forEach(b=>b.disabled=true);
-    $('nextBtn').style.display='inline-block';
-    $('nextBtn').textContent=(idx%5===4)?'Finish World 🎉':'Next ➜';
-  }else{
-    tries++;btn.classList.add('wrong');btn.disabled=true;
-    if(tries>=2){
-      $('bubble').textContent="Hint: "+q[4];
-    }else{
-      $('bubble').textContent=OOPS[Math.floor(Math.random()*OOPS.length)];
-    }
-    if(tries>=3){
-      locked=true;
-      document.querySelectorAll('.opt').forEach(b=>{b.disabled=true;if(b.textContent===q[2])b.classList.add('right')});
-      $('bubble').textContent="The answer is "+q[2]+". You'll get the next one! 💛";
-      $('nextBtn').style.display='inline-block';
-      $('nextBtn').textContent=(idx%5===4)?'Finish World 🎉':'Next ➜';
-    }
-  }
+function pick(k){
+ if(locked)return;locked=true;
+ const x=list[i],ok=x.o[k]===x.a;
+ if(ok)score++;
+ answers.push({q:x.q,a:x.a,ok});
+ document.querySelectorAll('.opt').forEach((b,n)=>{b.disabled=true;if(x.o[n]===x.a)b.classList.add('right');else if(n===k)b.classList.add('wrong')});
+ const f=document.getElementById('fb');f.style.display='block';
+ f.innerHTML=(ok?'🎉 <b>Correct!</b> ':'❌ <b>Not quite.</b> The answer is <b>'+x.a+'</b>. ')+'<br>'+x.e;
+ document.getElementById('nx').style.display='inline-block';
 }
-function next(){
-  
-  if(idx%5===4){worldComplete();return}
-  idx++;loadQ();
-}
-function worldComplete(){
-  const w=Math.floor(idx/5);
-  perWorld.push(worldStars);
-  $('wdTitle').textContent=`${WORLDS[w].name} complete!`;
-  $('wdBadge').textContent=WORLDS[w].badge;
-  $('wdStars').textContent='⭐'.repeat(worldStars)+'☆'.repeat(5-worldStars);
-  $('wdMsg').textContent=worldStars===5?"PERFECT! You earned the "+WORLDS[w].badge+" badge!":worldStars>=3?"Great work! You earned the "+WORLDS[w].badge+" badge!":"Nice try! You earned the "+WORLDS[w].badge+" badge. Keep going!";
-  $('wdNext').textContent=w===9?'See my trophy 🏆':'Next World ➜';
-  worldStars=0;
-  boom(160);show('worldDone');
-}
-function afterWorld(){
-  
-  if(idx>=49){finish();return}
-  idx++;loadQ();show('quiz');
-}
+function next(){i++;i<50?show():finish()}
 function finish(){
-  $('fill').style.width='100%';
-  saveBest(stars);
-  $('finalStars').textContent=stars;
-  const r=stars>=45?"🌟 Maths Superstar!":stars>=35?"🦁 Jungle Champion!":stars>=25?"🐒 Clever Explorer!":"🐢 Brave Adventurer!";
-  $('rank').textContent=r;
-  renderBadges($('endBadges'),10);
-  $('endMsg').textContent=stars>=45?"Incredible! Leo the Lion is so proud of you!":stars>=30?"Wonderful work! Play again to win even more stars!":"Great effort! Practise again and you'll collect more stars!";
-  boom(220);setTimeout(()=>boom(140),700);
-  show('end');
+ try{if(best===null||score>+best){best=score;localStorage.setItem('mq_best',score)}}catch(e){}
+ const m=score>=45?'🏆 Maths superstar!':score>=35?'🌟 Great job!':score>=25?'👍 Good effort, keep practising!':'💪 Keep going, you will get better!';
+ const wrong=answers.filter(a=>!a.ok);
+ c.innerHTML=`<div class="big">🎊</div><div class="score">${score} / 50</div><p class="center"><b>${m}</b></p>
+ ${wrong.length?`<p><b>Questions to review (${wrong.length}):</b></p><div class="rev">${wrong.map(w=>`<div>${w.q}<br><b>Answer: ${w.a}</b></div>`).join('')}</div>`:'<p class="center">Perfect score, nothing to review!</p>'}
+ <div class="center" style="margin-top:16px"><button class="btn alt" onclick="start()">Play Again</button></div>`;
 }
-
-// ---------- wire up ----------
-renderBadges($('startBadges'),0);
-const b=best();$('bestNote').textContent=b?`Your best score: ${b} / 50 ⭐`:'';
-$('playBtn').onclick=()=>{start()};
-$('nextBtn').onclick=next;
-$('wdNext').onclick=afterWorld;
-$('againBtn').onclick=()=>{$('bestNote').textContent=`Your best score: ${best()} / 50 ⭐`;renderBadges($('startBadges'),0);show('start')};
+home();
 </script>
 </body>
 </html>
