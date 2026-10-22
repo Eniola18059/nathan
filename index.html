@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Maths Quiz</title>
+<title>Grade 3 Maths Word Problems Quiz</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:linear-gradient(160deg,#e0f2fe,#fef9c3);min-height:100vh;color:#1e293b;display:flex;justify-content:center;padding:16px}
@@ -17,8 +17,8 @@ h1{margin:0 0 6px;font-size:1.7rem;color:#0369a1}
 .top{display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px;color:#0369a1}
 .bar{height:10px;background:#e2e8f0;border-radius:6px;overflow:hidden;margin-bottom:18px}
 .bar>div{height:100%;background:#22c55e;transition:width .3s}
-.q{font-size:1.5rem;line-height:1.5;margin-bottom:18px;font-weight:700;text-align:center}
-.opt{display:block;width:100%;text-align:left;background:#f1f5f9;border:2px solid #e2e8f0;border-radius:12px;padding:12px 16px;margin-bottom:10px;font-size:1.15rem;cursor:pointer}
+.q{font-size:1.25rem;line-height:1.5;margin-bottom:16px;font-weight:600}
+.opt{display:block;width:100%;text-align:left;background:#f1f5f9;border:2px solid #e2e8f0;border-radius:12px;padding:12px 16px;margin-bottom:10px;font-size:1.1rem;cursor:pointer}
 .opt:hover:not(:disabled){border-color:#0ea5e9;background:#e0f2fe}
 .opt.right{background:#dcfce7;border-color:#22c55e}
 .opt.wrong{background:#fee2e2;border-color:#ef4444}
@@ -35,63 +35,63 @@ h1{margin:0 0 6px;font-size:1.7rem;color:#0369a1}
 <script>
 // [question, correct answer, [3 wrong answers], explanation]
 const Q=[
-["245 + 128 = ?","373",["363","383","117"],"245 + 128 = 373"],
-["512 − 187 = ?","325",["335","699","425"],"512 − 187 = 325"],
-["6 × 8 = ?","48",["14","42","56"],"6 × 8 = 48"],
-["36 ÷ 4 = ?","9",["8","32","12"],"4 × 9 = 36, so 36 ÷ 4 = 9"],
-["7 × 9 = ?","63",["54","56","16"],"7 × 9 = 63"],
-["150 − 45 = ?","105",["195","115","95"],"150 − 45 = 105"],
-["28 − 15 = ?","13",["43","12","14"],"28 − 15 = 13"],
-["72 ÷ 8 = ?","9",["8","64","10"],"8 × 9 = 72, so 72 ÷ 8 = 9"],
-["45 + 38 = ?","83",["73","93","7"],"45 + 38 = 83"],
-["5 × 20 = ?","100",["25","80","120"],"5 × 2 = 10, so 5 × 20 = 100"],
-["3 × 12 = ?","36",["15","24","39"],"3 × 10 = 30 and 3 × 2 = 6, so 30 + 6 = 36"],
-["64 ÷ 8 = ?","8",["7","9","56"],"8 × 8 = 64, so 64 ÷ 8 = 8"],
-["346 + 289 = ?","635",["625","545","735"],"346 + 289 = 635"],
-["600 − 275 = ?","325",["425","375","875"],"600 − 275 = 325"],
-["15 × 6 = ?","90",["21","80","75"],"10 × 6 = 60 and 5 × 6 = 30, so 60 + 30 = 90"],
-["5 × 7 = ?","35",["12","30","42"],"5 × 7 = 35"],
-["48 ÷ 6 = ?","8",["7","9","42"],"6 × 8 = 48, so 48 ÷ 6 = 8"],
-["8 × 25 = ?","200",["33","160","225"],"8 × 25 = 200"],
-["120 + 85 = ?","205",["195","215","35"],"120 + 85 = 205"],
-["1000 − 450 = ?","550",["650","450","560"],"1000 − 450 = 550"],
-["4 × 12 = ?","48",["16","36","44"],"4 × 12 = 48"],
-["9 × 9 = ?","81",["72","18","90"],"9 × 9 = 81"],
-["56 ÷ 7 = ?","8",["7","9","49"],"7 × 8 = 56, so 56 ÷ 7 = 8"],
-["300 + 475 = ?","775",["675","765","875"],"300 + 475 = 775"],
-["What is half of 18?","9",["36","8","6"],"Half of 18 is 18 ÷ 2 = 9"],
-["What is one quarter (1/4) of 20?","5",["4","10","15"],"20 ÷ 4 = 5"],
-["Which fraction is the greatest?","3/4",["1/4","2/4","1/2"],"All the parts are the same size, and 3 out of 4 is the most"],
-["What is the value of the digit 7 in 372?","70",["7","700","17"],"7 is in the tens place, so it is worth 70"],
-["What is the value of the digit 5 in 5,284?","5,000",["500","50","5"],"5 is in the thousands place, so it is worth 5,000"],
-["Round 76 to the nearest ten.","80",["70","76","90"],"6 is 5 or more, so round up to 80"],
-["Round 349 to the nearest hundred.","300",["400","350","340"],"4 tens is less than 5, so round down to 300"],
-["Which number is the greatest?","4,502",["4,052","4,205","4,025"],"All have 4 thousands. 4,502 has 5 hundreds, the most"],
-["7 × ? = 42","6",["5","7","35"],"7 × 6 = 42"],
-["? ÷ 5 = 6","30",["11","25","35"],"5 × 6 = 30, so 30 ÷ 5 = 6"],
-["18 + ? = 31","13",["12","14","49"],"31 − 18 = 13"],
-["? − 24 = 50","74",["26","64","84"],"50 + 24 = 74"],
-["Which of these is an even number?","148",["147","149","151"],"Even numbers end in 0, 2, 4, 6 or 8"],
-["What comes next? 5, 10, 15, 20, ?","25",["30","24","35"],"The pattern adds 5 each time, so 20 + 5 = 25"],
-["What comes next? 100, 90, 80, 70, ?","60",["50","65","75"],"The pattern subtracts 10 each time, so 70 − 10 = 60"],
-["90 minutes = ?","1 hour 30 minutes",["1 hour 10 minutes","9 hours","2 hours"],"60 minutes = 1 hour, so 90 minutes = 1 hour 30 minutes"],
-["How many centimetres (cm) are in 3 metres (m)?","300 cm",["30 cm","3000 cm","33 cm"],"1 m = 100 cm, so 3 m = 300 cm"],
-["How many millilitres (ml) are in 2 litres?","2000 ml",["200 ml","20 ml","2200 ml"],"1 litre = 1000 ml, so 2 litres = 2000 ml"],
-["How many minutes are in 2 hours?","120",["100","200","60"],"60 + 60 = 120"],
-["What is the perimeter of a rectangle that is 9 m long and 5 m wide?","28 m",["14 m","45 m","24 m"],"9 + 5 + 9 + 5 = 28"],
-["What is the perimeter of a square with sides of 6 cm?","24 cm",["12 cm","36 cm","18 cm"],"4 × 6 = 24"],
-["3 × 5 + 4 = ?","19",["27","35","12"],"3 × 5 = 15, then 15 + 4 = 19"],
-["2 × 8 − 6 = ?","10",["4","20","12"],"2 × 8 = 16, then 16 − 6 = 10"],
-["0 × 9 = ?","0",["9","1","90"],"Anything times 0 is 0"],
-["2 × 3 × 4 = ?","24",["9","14","12"],"2 × 3 = 6, then 6 × 4 = 24"],
-["96 ÷ 4 = ?","24",["22","26","23"],"4 × 24 = 96, so 96 ÷ 4 = 24"]
+["Ade has 245 stickers. Bola gives him 128 more. How many stickers does Ade have now?","373",["363","383","117"],"245 + 128 = 373"],
+["A school library had 512 books. 187 were borrowed. How many books are left?","325",["335","699","425"],"512 − 187 = 325"],
+["There are 6 boxes with 8 pencils in each box. How many pencils are there altogether?","48",["14","42","56"],"6 × 8 = 48"],
+["36 cookies are shared equally among 4 children. How many cookies does each child get?","9",["8","32","12"],"36 ÷ 4 = 9"],
+["A farmer plants 7 rows of trees with 9 trees in each row. How many trees are there?","63",["54","56","16"],"7 × 9 = 63"],
+["Tom has ₦150. He buys a pen for ₦45. How much money does he have left?","₦105",["₦195","₦115","₦95"],"150 − 45 = 105"],
+["There are 28 pupils in a class. 15 are girls. How many are boys?","13",["43","12","14"],"28 − 15 = 13"],
+["72 apples are packed 8 to a bag. How many bags are needed?","9",["8","64","10"],"72 ÷ 8 = 9"],
+["A bus carries 45 passengers in the morning and 38 in the afternoon. How many passengers is that in all?","83",["73","93","7"],"45 + 38 = 83"],
+["One ticket costs ₦20. How much do 5 tickets cost?","₦100",["₦25","₦80","₦120"],"5 × 20 = 100"],
+["3 friends each have 12 marbles. How many marbles do they have altogether?","36",["15","24","39"],"3 × 12 = 36"],
+["There are 64 chairs arranged in 8 equal rows. How many chairs are in each row?","8",["7","9","56"],"64 ÷ 8 = 8"],
+["A film starts at 3:00 and lasts 2 hours. What time does it end?","5:00",["1:00","4:00","6:00"],"3:00 + 2 hours = 5:00"],
+["A rope is 100 cm long. Mia cuts off 35 cm. How long is the rope now?","65 cm",["75 cm","135 cm","55 cm"],"100 − 35 = 65"],
+["Mum buys 4 packs of balloons with 6 balloons in each pack. 5 balloons burst. How many balloons are left?","19",["29","15","20"],"4 × 6 = 24, then 24 − 5 = 19"],
+["Sara reads 15 pages each day for 6 days. How many pages does she read?","90",["21","80","75"],"15 × 6 = 90"],
+["Ngozi has 18 sweets. She gives away half of them. How many sweets does she give away?","9",["36","8","6"],"Half of 18 is 18 ÷ 2 = 9"],
+["A pizza is cut into 8 equal slices. Kemi eats 3 slices. What fraction of the pizza did she eat?","3/8",["3/5","5/8","8/3"],"3 slices out of 8 equal slices = 3/8"],
+["A baker makes 120 rolls in the morning and 85 in the afternoon. He sells 150 rolls. How many are left?","55",["355","65","45"],"120 + 85 = 205, then 205 − 150 = 55"],
+["A water bottle holds 2 litres. How many litres do 5 bottles hold?","10 litres",["7 litres","12 litres","8 litres"],"5 × 2 = 10"],
+["One box has a mass of 350 g and another has a mass of 275 g. What is their total mass?","625 g",["525 g","635 g","75 g"],"350 + 275 = 625"],
+["A rectangular garden is 9 m long and 5 m wide. What is its perimeter?","28 m",["14 m","45 m","24 m"],"9 + 5 + 9 + 5 = 28"],
+["A square has sides of 6 cm. What is its perimeter?","24 cm",["12 cm","36 cm","18 cm"],"4 × 6 = 24"],
+["5 girls each have 7 beads. How many beads do they have altogether?","35",["12","30","42"],"5 × 7 = 35"],
+["48 stickers are shared equally among 6 children. How many stickers does each child get?","8",["7","9","42"],"48 ÷ 6 = 8"],
+["Mum buys 3 books that cost ₦200 each. How much does she spend?","₦600",["₦203","₦500","₦300"],"3 × 200 = 600"],
+["A shop has 346 red balloons and 289 blue balloons. How many balloons are there altogether?","635",["625","545","735"],"346 + 289 = 635"],
+["A train has 600 seats. 275 seats are taken. How many seats are empty?","325",["425","375","875"],"600 − 275 = 325"],
+["John is 8 years old. His father is 4 times as old as John. How old is his father?","32",["12","24","36"],"4 × 8 = 32"],
+["A jug holds 1000 ml of juice. Each cup takes 250 ml. How many cups can be filled?","4",["3","5","6"],"1000 ÷ 250 = 4"],
+["A lesson starts at 9:15 and lasts 45 minutes. What time does it end?","10:00",["9:45","10:15","10:30"],"9:15 + 45 minutes = 10:00"],
+["Lisa sleeps 9 hours every night for 7 nights. How many hours does she sleep in all?","63",["56","16","54"],"9 × 7 = 63"],
+["A notebook costs ₦120 and a pencil costs ₦30. How much do 2 notebooks and 1 pencil cost?","₦270",["₦150","₦240","₦300"],"2 × 120 = 240, then 240 + 30 = 270"],
+["4 children each get 3 sweets and there are 2 sweets left over. How many sweets were there at the start?","14",["12","10","18"],"4 × 3 = 12, then 12 + 2 = 14"],
+["A garden has 56 flowers. 17 are red, 20 are yellow and the rest are white. How many are white?","19",["37","39","93"],"17 + 20 = 37, then 56 − 37 = 19"],
+["A box holds 10 pencils. How many boxes are needed to pack 95 pencils?","10 boxes",["9 boxes","95 boxes","11 boxes"],"95 ÷ 10 = 9 remainder 5, so the 5 extra pencils need one more box: 10 boxes"],
+["2 pizzas each have 8 slices. 5 children each eat 3 slices. How many slices are left?","1",["3","8","11"],"2 × 8 = 16 slices, 5 × 3 = 15 eaten, 16 − 15 = 1"],
+["Mr Obi plants 4 rows of beans with 12 seeds in each row. How many seeds does he plant?","48",["16","36","44"],"4 × 12 = 48"],
+["A tank holds 500 litres. 175 litres are used in the morning and 125 litres in the evening. How many litres are left?","200 litres",["325 litres","375 litres","300 litres"],"175 + 125 = 300, then 500 − 300 = 200"],
+["A snail climbs 3 cm every minute. How far does it climb in 9 minutes?","27 cm",["12 cm","24 cm","30 cm"],"3 × 9 = 27"],
+["Kofi has ₦500. He buys 2 toys that cost ₦150 each. How much money does he have left?","₦200",["₦350","₦250","₦300"],"2 × 150 = 300, then 500 − 300 = 200"],
+["Ben has twice as many marbles as Dan. Dan has 14 marbles. How many marbles does Ben have?","28",["16","7","24"],"2 × 14 = 28"],
+["30 pencils are shared equally among 5 pupils. Then each pupil loses 2 pencils. How many pencils does each pupil have now?","4",["6","8","3"],"30 ÷ 5 = 6, then 6 − 2 = 4"],
+["A film is 90 minutes long. How long is that in hours and minutes?","1 hour 30 minutes",["1 hour 10 minutes","9 hours","2 hours"],"60 minutes = 1 hour, so 90 minutes = 1 hour 30 minutes"],
+["A ribbon is 3 m long. It is cut into pieces that are each 50 cm long. How many pieces are there?","6",["5","3","8"],"3 m = 300 cm, and 300 ÷ 50 = 6"],
+["A basket has 20 mangoes. One quarter of them are rotten. How many mangoes are rotten?","5",["4","10","15"],"20 ÷ 4 = 5"],
+["A library has 8 shelves with 25 books on each shelf. How many books are there?","200",["33","160","225"],"8 × 25 = 200"],
+["A concert starts at 6:30 p.m. and ends at 9:00 p.m. How long does it last?","2 hours 30 minutes",["3 hours 30 minutes","2 hours","3 hours"],"From 6:30 to 9:00 is 2 hours 30 minutes"],
+["Amina saves ₦50 every week for 8 weeks. How much does she save?","₦400",["₦58","₦350","₦450"],"50 × 8 = 400"],
+["There are 150 pupils in 5 equal classes. Two classes go on a trip. How many pupils go on the trip?","60",["30","90","120"],"150 ÷ 5 = 30 pupils per class, then 2 × 30 = 60"]
 ];
 const c=document.getElementById('c');
 let list,i,score,answers,locked;
 const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
-let best=null;try{best=localStorage.getItem('mq_best')}catch(e){}
+let best=null;try{best=localStorage.getItem('g3wp_best')}catch(e){}
 function home(){
- c.innerHTML=`<div class="big">🧮</div><h1 class="center">Maths Quiz</h1>
+ c.innerHTML=`<div class="big">🧮</div><h1 class="center">Maths Word Problems</h1>
  <p class="sub center">50 questions · pick the right answer · see the working after each one</p>
  ${best?`<p class="center">🏆 Best score: <b>${best}/50</b></p>`:''}
  <div class="center"><button class="btn" onclick="start()">Start Quiz</button></div>`;
@@ -121,7 +121,7 @@ function pick(k){
 }
 function next(){i++;i<50?show():finish()}
 function finish(){
- try{if(best===null||score>+best){best=score;localStorage.setItem('mq_best',score)}}catch(e){}
+ try{if(best===null||score>+best){best=score;localStorage.setItem('g3wp_best',score)}}catch(e){}
  const m=score>=45?'🏆 Maths superstar!':score>=35?'🌟 Great job!':score>=25?'👍 Good effort, keep practising!':'💪 Keep going, you will get better!';
  const wrong=answers.filter(a=>!a.ok);
  c.innerHTML=`<div class="big">🎊</div><div class="score">${score} / 50</div><p class="center"><b>${m}</b></p>
