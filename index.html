@@ -1,134 +1,161 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Grade 3 Maths Word Problems Quiz</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multiplication Quiz – Exercises 1 &amp; 2</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:linear-gradient(160deg,#e0f2fe,#fef9c3);min-height:100vh;color:#1e293b;display:flex;justify-content:center;padding:16px}
-.app{width:100%;max-width:680px}
-.card{background:#fff;border-radius:20px;padding:24px;box-shadow:0 8px 24px rgba(0,0,0,.1)}
-h1{margin:0 0 6px;font-size:1.7rem;color:#0369a1}
-.sub{color:#475569;margin-bottom:18px}
-.btn{background:#0ea5e9;color:#fff;border:0;border-radius:12px;padding:12px 22px;font-size:1.05rem;font-weight:600;cursor:pointer}
-.btn:hover{background:#0284c7}
-.btn.alt{background:#f59e0b}.btn.alt:hover{background:#d97706}
-.top{display:flex;justify-content:space-between;font-weight:600;margin-bottom:8px;color:#0369a1}
-.bar{height:10px;background:#e2e8f0;border-radius:6px;overflow:hidden;margin-bottom:18px}
-.bar>div{height:100%;background:#22c55e;transition:width .3s}
-.q{font-size:1.25rem;line-height:1.5;margin-bottom:16px;font-weight:600}
-.opt{display:block;width:100%;text-align:left;background:#f1f5f9;border:2px solid #e2e8f0;border-radius:12px;padding:12px 16px;margin-bottom:10px;font-size:1.1rem;cursor:pointer}
-.opt:hover:not(:disabled){border-color:#0ea5e9;background:#e0f2fe}
-.opt.right{background:#dcfce7;border-color:#22c55e}
-.opt.wrong{background:#fee2e2;border-color:#ef4444}
-.fb{margin:12px 0;padding:12px 14px;border-radius:12px;background:#fef9c3;display:none}
-.big{font-size:3rem;text-align:center}
-.score{font-size:2.2rem;text-align:center;font-weight:700;color:#0369a1}
-.rev{max-height:300px;overflow:auto;margin-top:14px;font-size:.95rem}
-.rev div{padding:8px 0;border-bottom:1px solid #e2e8f0}
-.center{text-align:center}
+  :root{
+    --bg:#f4f6fb; --card:#fff; --ink:#1f2937; --muted:#6b7280; --brand:#4f46e5; --brand2:#eef2ff;
+    --ok:#15803d; --okbg:#dcfce7; --bad:#b91c1c; --badbg:#fee2e2; --line:#e5e7eb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+  .wrap{max-width:720px;margin:0 auto;padding:20px 16px 60px}
+  h1{font-size:1.6rem;margin:8px 0 4px}
+  .sub{color:var(--muted);margin:0 0 20px}
+  .card{background:var(--card);border-radius:16px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0 18px}
+  .bar>i{display:block;height:100%;background:var(--brand);width:0;transition:width .3s}
+  .meta{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted)}
+  .tag{display:inline-block;background:var(--brand2);color:var(--brand);font-weight:600;font-size:.8rem;padding:2px 10px;border-radius:99px}
+  .q{font-size:1.25rem;font-weight:600;margin:14px 0 18px}
+  .opts{display:grid;gap:10px}
+  .opt{display:flex;gap:12px;align-items:center;text-align:left;width:100%;padding:14px 16px;border:2px solid var(--line);background:#fff;border-radius:12px;font:inherit;cursor:pointer;color:var(--ink)}
+  .opt:hover:not(:disabled){border-color:var(--brand);background:var(--brand2)}
+  .opt b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--brand2);color:var(--brand);display:grid;place-items:center;font-size:.85rem}
+  .opt.ok{border-color:var(--ok);background:var(--okbg)}
+  .opt.bad{border-color:var(--bad);background:var(--badbg)}
+  .opt:disabled{cursor:default}
+  .fb{margin-top:16px;padding:14px 16px;border-radius:12px;display:none}
+  .fb.ok{display:block;background:var(--okbg);color:#14532d}
+  .fb.bad{display:block;background:var(--badbg);color:#7f1d1d}
+  button.main{margin-top:16px;background:var(--brand);color:#fff;border:0;border-radius:12px;padding:12px 22px;font:inherit;font-weight:600;cursor:pointer}
+  button.main:hover{filter:brightness(1.08)}
+  button.alt{background:#fff;color:var(--brand);border:2px solid var(--brand)}
+  .score{font-size:3rem;font-weight:800;color:var(--brand);margin:6px 0}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+  .split div{background:var(--brand2);border-radius:12px;padding:12px}
+  .rev{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
+  .rev details{border-bottom:1px solid var(--line);padding:8px 0}
+  .rev summary{cursor:pointer;font-weight:600}
+  .hide{display:none}
+  @media(max-width:480px){.q{font-size:1.1rem}.split{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="app"><div class="card" id="c"></div></div>
+<div class="wrap">
+  <h1>Multiplication Quiz</h1>
+  <p class="sub">Chapter 4 · Exercises 1 &amp; 2 · 50 questions</p>
+
+  <div class="card" id="start">
+    <p>Mental maths, estimating and multiplying by a 1-digit number. Pick the correct answer for each question. You will see the working after every answer.</p>
+    <button class="main" id="go">Start quiz</button>
+  </div>
+
+  <div class="card hide" id="quiz">
+    <div class="meta"><span id="count"></span><span id="score"></span></div>
+    <div class="bar"><i id="prog"></i></div>
+    <span class="tag" id="tag"></span>
+    <div class="q" id="q"></div>
+    <div class="opts" id="opts"></div>
+    <div class="fb" id="fb"></div>
+    <button class="main hide" id="next">Next question</button>
+  </div>
+
+  <div class="card hide" id="end">
+    <h2 style="margin-top:0">Quiz complete</h2>
+    <div class="score" id="final"></div>
+    <div class="split">
+      <div><b>Exercise 1</b><br><span id="e1"></span></div>
+      <div><b>Exercise 2</b><br><span id="e2"></span></div>
+    </div>
+    <button class="main" id="again">Try again</button>
+    <button class="main alt" id="wrongOnly">Retry missed questions</button>
+    <div class="rev" id="rev"></div>
+  </div>
+</div>
+
 <script>
-// [question, correct answer, [3 wrong answers], explanation]
-const Q=[
-["Ade has 245 stickers. Bola gives him 128 more. How many stickers does Ade have now?","373",["363","383","117"],"245 + 128 = 373"],
-["A school library had 512 books. 187 were borrowed. How many books are left?","325",["335","699","425"],"512 − 187 = 325"],
-["There are 6 boxes with 8 pencils in each box. How many pencils are there altogether?","48",["14","42","56"],"6 × 8 = 48"],
-["36 cookies are shared equally among 4 children. How many cookies does each child get?","9",["8","32","12"],"36 ÷ 4 = 9"],
-["A farmer plants 7 rows of trees with 9 trees in each row. How many trees are there?","63",["54","56","16"],"7 × 9 = 63"],
-["Tom has ₦150. He buys a pen for ₦45. How much money does he have left?","₦105",["₦195","₦115","₦95"],"150 − 45 = 105"],
-["There are 28 pupils in a class. 15 are girls. How many are boys?","13",["43","12","14"],"28 − 15 = 13"],
-["72 apples are packed 8 to a bag. How many bags are needed?","9",["8","64","10"],"72 ÷ 8 = 9"],
-["A bus carries 45 passengers in the morning and 38 in the afternoon. How many passengers is that in all?","83",["73","93","7"],"45 + 38 = 83"],
-["One ticket costs ₦20. How much do 5 tickets cost?","₦100",["₦25","₦80","₦120"],"5 × 20 = 100"],
-["3 friends each have 12 marbles. How many marbles do they have altogether?","36",["15","24","39"],"3 × 12 = 36"],
-["There are 64 chairs arranged in 8 equal rows. How many chairs are in each row?","8",["7","9","56"],"64 ÷ 8 = 8"],
-["A film starts at 3:00 and lasts 2 hours. What time does it end?","5:00",["1:00","4:00","6:00"],"3:00 + 2 hours = 5:00"],
-["A rope is 100 cm long. Mia cuts off 35 cm. How long is the rope now?","65 cm",["75 cm","135 cm","55 cm"],"100 − 35 = 65"],
-["Mum buys 4 packs of balloons with 6 balloons in each pack. 5 balloons burst. How many balloons are left?","19",["29","15","20"],"4 × 6 = 24, then 24 − 5 = 19"],
-["Sara reads 15 pages each day for 6 days. How many pages does she read?","90",["21","80","75"],"15 × 6 = 90"],
-["Ngozi has 18 sweets. She gives away half of them. How many sweets does she give away?","9",["36","8","6"],"Half of 18 is 18 ÷ 2 = 9"],
-["A pizza is cut into 8 equal slices. Kemi eats 3 slices. What fraction of the pizza did she eat?","3/8",["3/5","5/8","8/3"],"3 slices out of 8 equal slices = 3/8"],
-["A baker makes 120 rolls in the morning and 85 in the afternoon. He sells 150 rolls. How many are left?","55",["355","65","45"],"120 + 85 = 205, then 205 − 150 = 55"],
-["A water bottle holds 2 litres. How many litres do 5 bottles hold?","10 litres",["7 litres","12 litres","8 litres"],"5 × 2 = 10"],
-["One box has a mass of 350 g and another has a mass of 275 g. What is their total mass?","625 g",["525 g","635 g","75 g"],"350 + 275 = 625"],
-["A rectangular garden is 9 m long and 5 m wide. What is its perimeter?","28 m",["14 m","45 m","24 m"],"9 + 5 + 9 + 5 = 28"],
-["A square has sides of 6 cm. What is its perimeter?","24 cm",["12 cm","36 cm","18 cm"],"4 × 6 = 24"],
-["5 girls each have 7 beads. How many beads do they have altogether?","35",["12","30","42"],"5 × 7 = 35"],
-["48 stickers are shared equally among 6 children. How many stickers does each child get?","8",["7","9","42"],"48 ÷ 6 = 8"],
-["Mum buys 3 books that cost ₦200 each. How much does she spend?","₦600",["₦203","₦500","₦300"],"3 × 200 = 600"],
-["A shop has 346 red balloons and 289 blue balloons. How many balloons are there altogether?","635",["625","545","735"],"346 + 289 = 635"],
-["A train has 600 seats. 275 seats are taken. How many seats are empty?","325",["425","375","875"],"600 − 275 = 325"],
-["John is 8 years old. His father is 4 times as old as John. How old is his father?","32",["12","24","36"],"4 × 8 = 32"],
-["A jug holds 1000 ml of juice. Each cup takes 250 ml. How many cups can be filled?","4",["3","5","6"],"1000 ÷ 250 = 4"],
-["A lesson starts at 9:15 and lasts 45 minutes. What time does it end?","10:00",["9:45","10:15","10:30"],"9:15 + 45 minutes = 10:00"],
-["Lisa sleeps 9 hours every night for 7 nights. How many hours does she sleep in all?","63",["56","16","54"],"9 × 7 = 63"],
-["A notebook costs ₦120 and a pencil costs ₦30. How much do 2 notebooks and 1 pencil cost?","₦270",["₦150","₦240","₦300"],"2 × 120 = 240, then 240 + 30 = 270"],
-["4 children each get 3 sweets and there are 2 sweets left over. How many sweets were there at the start?","14",["12","10","18"],"4 × 3 = 12, then 12 + 2 = 14"],
-["A garden has 56 flowers. 17 are red, 20 are yellow and the rest are white. How many are white?","19",["37","39","93"],"17 + 20 = 37, then 56 − 37 = 19"],
-["A box holds 10 pencils. How many boxes are needed to pack 95 pencils?","10 boxes",["9 boxes","95 boxes","11 boxes"],"95 ÷ 10 = 9 remainder 5, so the 5 extra pencils need one more box: 10 boxes"],
-["2 pizzas each have 8 slices. 5 children each eat 3 slices. How many slices are left?","1",["3","8","11"],"2 × 8 = 16 slices, 5 × 3 = 15 eaten, 16 − 15 = 1"],
-["Mr Obi plants 4 rows of beans with 12 seeds in each row. How many seeds does he plant?","48",["16","36","44"],"4 × 12 = 48"],
-["A tank holds 500 litres. 175 litres are used in the morning and 125 litres in the evening. How many litres are left?","200 litres",["325 litres","375 litres","300 litres"],"175 + 125 = 300, then 500 − 300 = 200"],
-["A snail climbs 3 cm every minute. How far does it climb in 9 minutes?","27 cm",["12 cm","24 cm","30 cm"],"3 × 9 = 27"],
-["Kofi has ₦500. He buys 2 toys that cost ₦150 each. How much money does he have left?","₦200",["₦350","₦250","₦300"],"2 × 150 = 300, then 500 − 300 = 200"],
-["Ben has twice as many marbles as Dan. Dan has 14 marbles. How many marbles does Ben have?","28",["16","7","24"],"2 × 14 = 28"],
-["30 pencils are shared equally among 5 pupils. Then each pupil loses 2 pencils. How many pencils does each pupil have now?","4",["6","8","3"],"30 ÷ 5 = 6, then 6 − 2 = 4"],
-["A film is 90 minutes long. How long is that in hours and minutes?","1 hour 30 minutes",["1 hour 10 minutes","9 hours","2 hours"],"60 minutes = 1 hour, so 90 minutes = 1 hour 30 minutes"],
-["A ribbon is 3 m long. It is cut into pieces that are each 50 cm long. How many pieces are there?","6",["5","3","8"],"3 m = 300 cm, and 300 ÷ 50 = 6"],
-["A basket has 20 mangoes. One quarter of them are rotten. How many mangoes are rotten?","5",["4","10","15"],"20 ÷ 4 = 5"],
-["A library has 8 shelves with 25 books on each shelf. How many books are there?","200",["33","160","225"],"8 × 25 = 200"],
-["A concert starts at 6:30 p.m. and ends at 9:00 p.m. How long does it last?","2 hours 30 minutes",["3 hours 30 minutes","2 hours","3 hours"],"From 6:30 to 9:00 is 2 hours 30 minutes"],
-["Amina saves ₦50 every week for 8 weeks. How much does she save?","₦400",["₦58","₦350","₦450"],"50 × 8 = 400"],
-["There are 150 pupils in 5 equal classes. Two classes go on a trip. How many pupils go on the trip?","60",["30","90","120"],"150 ÷ 5 = 30 pupils per class, then 2 × 30 = 60"]
-];
-const c=document.getElementById('c');
-let list,i,score,answers,locked;
-const shuffle=a=>{a=a.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}return a};
-let best=null;try{best=localStorage.getItem('g3wp_best')}catch(e){}
-function home(){
- c.innerHTML=`<div class="big">🧮</div><h1 class="center">Maths Word Problems</h1>
- <p class="sub center">50 questions · pick the right answer · see the working after each one</p>
- ${best?`<p class="center">🏆 Best score: <b>${best}/50</b></p>`:''}
- <div class="center"><button class="btn" onclick="start()">Start Quiz</button></div>`;
+const DATA = [{"ex": 1, "q": "12 × 3 = 30 + 6 = ?", "a": "36", "w": ["63", "306", "39"], "e": "Split 12 into 10 and 2. 10 × 3 = 30 and 2 × 3 = 6, so 30 + 6 = 36."}, {"ex": 1, "q": "12 hundreds × 3 = 36 hundreds. What is that as a number?", "a": "3,600", "w": ["360", "36,000", "306"], "e": "36 hundreds = 36 × 100 = 3,600."}, {"ex": 1, "q": "12 thousands × 3 = 36 thousands. What is that as a number?", "a": "36,000", "w": ["3,600", "360,000", "306,000"], "e": "36 thousands = 36 × 1,000 = 36,000."}, {"ex": 1, "q": "Fill in the blank: 35 × 4 = 120 + ___", "a": "20", "w": ["5", "9", "24"], "e": "Split 35 into 30 and 5. 30 × 4 = 120 and 5 × 4 = 20."}, {"ex": 1, "q": "35 × 4 = ?", "a": "140", "w": ["120", "1,400", "130"], "e": "30 × 4 = 120 and 5 × 4 = 20, so 120 + 20 = 140."}, {"ex": 1, "q": "350 × 4 = ?", "a": "1,400", "w": ["140", "14,000", "1,200"], "e": "35 × 4 = 140, so 350 × 4 is 10 times bigger: 1,400."}, {"ex": 1, "q": "3,500 × 4 = ?", "a": "14,000", "w": ["1,400", "140,000", "12,000"], "e": "35 hundreds × 4 = 140 hundreds = 14,000."}, {"ex": 1, "q": "35,000 × 4 = ?", "a": "140,000", "w": ["14,000", "1,400,000", "120,000"], "e": "35 thousands × 4 = 140 thousands = 140,000."}, {"ex": 1, "q": "99 × 7 = ?  (Hint: 100 × 7 = 700)", "a": "693", "w": ["707", "639", "790"], "e": "99 is 1 less than 100, so take one 7 away from 700: 700 − 7 = 693."}, {"ex": 1, "q": "199 × 7 = ?  (Hint: 200 × 7 = 1,400)", "a": "1,393", "w": ["1,407", "1,293", "1,399"], "e": "199 is 1 less than 200, so 1,400 − 7 = 1,393."}, {"ex": 1, "q": "299 × 7 = ?  (Hint: 300 × 7 = 2,100)", "a": "2,093", "w": ["2,107", "2,193", "2,099"], "e": "299 is 1 less than 300, so 2,100 − 7 = 2,093."}, {"ex": 1, "q": "2,999 × 7 = ?  (Hint: 3,000 × 7 = 21,000)", "a": "20,993", "w": ["21,007", "20,907", "21,993"], "e": "2,999 is 1 less than 3,000, so 21,000 − 7 = 20,993."}, {"ex": 1, "q": "150 × 9 = ?", "a": "1,350", "w": ["135", "1,050", "1,450"], "e": "15 × 9 = 135, and 150 is 10 times 15, so 1,350."}, {"ex": 1, "q": "40,000 × 8 = ?", "a": "320,000", "w": ["32,000", "3,200,000", "280,000"], "e": "4 × 8 = 32, then 4 ten-thousands × 8 = 32 ten-thousands = 320,000."}, {"ex": 1, "q": "1,300 × 5 = ?", "a": "6,500", "w": ["650", "5,500", "65,000"], "e": "13 hundreds × 5 = 65 hundreds = 6,500."}, {"ex": 1, "q": "2,500 × 4 = ?", "a": "10,000", "w": ["8,000", "1,000", "20,000"], "e": "25 hundreds × 4 = 100 hundreds = 10,000."}, {"ex": 1, "q": "910 × 2 = ?", "a": "1,820", "w": ["182", "1,020", "1,810"], "e": "91 × 2 = 182, and 910 is 10 times 91, so 1,820."}, {"ex": 1, "q": "15,000 × 3 = ?", "a": "45,000", "w": ["4,500", "35,000", "450,000"], "e": "15 thousands × 3 = 45 thousands = 45,000."}, {"ex": 1, "q": "7,200 × 8 = ?", "a": "57,600", "w": ["56,000", "5,760", "49,600"], "e": "72 hundreds × 8 = 576 hundreds = 57,600. (7,000 × 8 = 56,000 leaves out 200 × 8.)"}, {"ex": 1, "q": "5 × 42,000 = ?", "a": "210,000", "w": ["21,000", "200,000", "2,100,000"], "e": "5 × 42 = 210, so 5 × 42 thousands = 210 thousands = 210,000."}, {"ex": 1, "q": "98 × 6 = ?  (Hint: 100 × 6 = 600)", "a": "588", "w": ["612", "568", "608"], "e": "98 is 2 less than 100, so take away two 6s: 600 − 12 = 588."}, {"ex": 1, "q": "5 × 399 = ?", "a": "1,995", "w": ["2,005", "1,905", "1,985"], "e": "399 is 1 less than 400. 5 × 400 = 2,000, so 2,000 − 5 = 1,995."}, {"ex": 1, "q": "3 × 599 = ?", "a": "1,797", "w": ["1,803", "1,697", "1,787"], "e": "599 is 1 less than 600. 3 × 600 = 1,800, so 1,800 − 3 = 1,797."}, {"ex": 1, "q": "6,999 × 4 = ?", "a": "27,996", "w": ["28,004", "27,896", "27,986"], "e": "7,000 × 4 = 28,000, then take away 1 × 4 = 4: 27,996."}, {"ex": 1, "q": "A 24-foot-wide greenhouse frame costs $4,999. A farm buys 5 of them. What is the total cost?", "a": "$24,995", "w": ["$25,005", "$24,895", "$24,955"], "e": "5 × $5,000 = $25,000. Each frame is $1 less, so take away 5 × $1: $24,995."}, {"ex": 1, "q": "The pediatric clinic needs 250 bandages a week and the central clinic needs 600 a week. How many bandages should the two clinics order for 8 weeks?", "a": "6,800", "w": ["2,000", "4,800", "6,200"], "e": "Together they need 250 + 600 = 850 a week. 850 × 8 = 6,800."}, {"ex": 2, "q": "Estimate 5,172 × 4 by rounding 5,172 down to 5,000. What is 5,000 × 4?", "a": "20,000", "w": ["2,000", "200,000", "21,000"], "e": "5 × 4 = 20, so 5 thousands × 4 = 20,000."}, {"ex": 2, "q": "Estimate 5,172 × 4 by rounding 5,172 up to 5,200. What is 5,200 × 4?", "a": "20,800", "w": ["2,080", "20,400", "20,200"], "e": "52 hundreds × 4 = 208 hundreds = 20,800."}, {"ex": 2, "q": "5,172 × 4 = ?", "a": "20,688", "w": ["20,628", "20,788", "20,608"], "e": "2 ones × 4 = 8; 7 tens × 4 = 28 tens (carry 2 hundreds); 1 hundred × 4 + 2 hundreds = 6 hundreds; 5 thousands × 4 = 20 thousands. Answer: 20,688."}, {"ex": 2, "q": "In 5,172 × 4, what is 7 tens × 4?", "a": "28 tens (280)", "w": ["2 tens (20)", "28 hundreds (2,800)", "11 tens (110)"], "e": "7 × 4 = 28, so 7 tens × 4 = 28 tens, which is 280. That means 2 hundreds are carried and 8 tens stay."}, {"ex": 2, "q": "The exact answer to 5,172 × 4 is 20,688. Two estimates were 20,000 and 20,800. Which estimate is closer?", "a": "20,800, because it is only 112 away", "w": ["20,000, because it is a rounder number", "20,000, because it is lower than the answer", "They are the same distance away"], "e": "20,688 − 20,000 = 688, but 20,800 − 20,688 = 112. The smaller gap means 20,800 is closer."}, {"ex": 2, "q": "Dion estimated 3,521 × 3 to be 12,000. What number did he replace 3,521 with?", "a": "4,000", "w": ["3,000", "3,500", "4,500"], "e": "12,000 ÷ 3 = 4,000, so he rounded 3,521 up to 4,000."}, {"ex": 2, "q": "Mei estimated 3,521 × 3 to be 9,900. What number did she replace 3,521 with?", "a": "3,300", "w": ["3,000", "3,500", "3,330"], "e": "9,900 ÷ 3 = 3,300, so she used 3,300."}, {"ex": 2, "q": "The exact product of 3,521 and 3 is 10,563. Dion's estimate was 12,000 and Mei's was 9,900. Whose estimate is closer?", "a": "Mei, because 9,900 is 663 away", "w": ["Dion, because 12,000 is a rounder number", "Dion, because his estimate is higher than the answer", "They are equally close"], "e": "12,000 − 10,563 = 1,437 but 10,563 − 9,900 = 663. Mei's gap is smaller."}, {"ex": 2, "q": "3,521 × 3 = ?", "a": "10,563", "w": ["10,463", "10,553", "10,623"], "e": "1 × 3 = 3; 2 tens × 3 = 6 tens; 5 hundreds × 3 = 15 hundreds; 3 thousands × 3 = 9 thousands + 1 thousand carried = 10 thousands. Total 10,563."}, {"ex": 2, "q": "Which estimate shows that 9,183 × 3 is greater than 25,000?", "a": "9,000 × 3 = 27,000, which is greater than 25,000", "w": ["9,000 × 3 = 27,000, which is less than 25,000", "9,000 × 3 = 2,700, which is less than 25,000", "10,000 × 3 = 30,000, so the answer is exactly 30,000"], "e": "9,183 is more than 9,000, so the answer is more than 27,000. That is greater than 25,000. (Exact: 27,549.)"}, {"ex": 2, "q": "The product of 4,962 and 8 is closest to which multiple of 10,000?", "a": "40,000", "w": ["30,000", "50,000", "400,000"], "e": "4,962 is about 5,000 and 5,000 × 8 = 40,000. The exact answer 39,696 is closest to 40,000."}, {"ex": 2, "q": "4,962 × 8 = ?", "a": "39,696", "w": ["39,796", "38,696", "39,676"], "e": "2 × 8 = 16; 6 tens × 8 = 48 tens; 9 hundreds × 8 = 72 hundreds; 4 thousands × 8 = 32 thousands. Adding with carrying gives 39,696."}, {"ex": 2, "q": "Is 7 × 986 = 6,902 reasonable?", "a": "Yes, because 7 × 1,000 = 7,000 is close to 6,902", "w": ["No, because 7 × 1,000 = 7,000 is much bigger than 6,902", "No, because 7 × 986 should be about 700", "Yes, because any answer in the thousands is reasonable"], "e": "986 is close to 1,000, and 7 × 1,000 = 7,000. 6,902 is just under that, so it is reasonable."}, {"ex": 2, "q": "Is 71,081 × 8 = 57,448 reasonable?", "a": "No, because 70,000 × 8 = 560,000, so 57,448 is far too small", "w": ["Yes, because 70,000 × 8 = 560,000 is close to 57,448", "No, because 70,000 × 8 = 56,000 is smaller than 57,448", "Yes, because the answer has 5 digits like 71,081"], "e": "71,081 is about 70,000 and 7 × 8 = 56, so 70,000 × 8 = 560,000. 57,448 is about 10 times too small (exact: 568,648)."}, {"ex": 2, "q": "Which is the best estimate for 8,292 × 3?", "a": "24,000", "w": ["2,400", "240,000", "21,000"], "e": "Round 8,292 to 8,000. 8,000 × 3 = 24,000."}, {"ex": 2, "q": "8,292 × 3 = ?", "a": "24,876", "w": ["24,786", "24,976", "23,876"], "e": "2 × 3 = 6; 9 tens × 3 = 27 tens; 2 hundreds × 3 = 6 hundreds + 2 carried; 8 thousands × 3 = 24 thousands. Total 24,876."}, {"ex": 2, "q": "6,710 × 8 = ?", "a": "53,680", "w": ["52,680", "53,580", "54,680"], "e": "671 tens × 8 = 5,368 tens = 53,680. (Estimate: 7,000 × 8 = 56,000.)"}, {"ex": 2, "q": "6,114 × 7 = ?", "a": "42,798", "w": ["42,698", "42,788", "43,798"], "e": "4 × 7 = 28; 1 ten × 7 = 7 tens; 1 hundred × 7 = 7 hundreds; 6 thousands × 7 = 42 thousands. With carrying: 42,798."}, {"ex": 2, "q": "11,771 × 6 = ?", "a": "70,626", "w": ["70,426", "71,626", "69,626"], "e": "Estimate: 12,000 × 6 = 72,000. Exactly: 11,771 × 6 = 70,626."}, {"ex": 2, "q": "A backhoe costs $12,199 and an excavator costs $165,599. A company buys 4 backhoes and 1 excavator. What is the total cost?", "a": "$214,395", "w": ["$177,798", "$214,195", "$214,495"], "e": "4 × $12,199 = $48,796. Then $48,796 + $165,599 = $214,395."}, {"ex": 2, "q": "Challenge: 1,089 × 4 = ?", "a": "4,356", "w": ["4,256", "4,346", "4,456"], "e": "9 × 4 = 36; 8 tens × 4 = 32 tens; 0 hundreds + 3 carried; 1 thousand × 4 = 4 thousands. Answer: 4,356."}, {"ex": 2, "q": "Challenge: 1,089 × 9 = ?", "a": "9,801", "w": ["9,081", "9,891", "9,711"], "e": "1,089 × 9 = 9,801. Pattern: 1,089 × 9 is 1,089 written backwards!"}, {"ex": 2, "q": "Challenge: S, T, O and P are different digits. STOP × 4 = POTS. What is the number POTS?", "a": "8,712", "w": ["2,178", "7,812", "8,172"], "e": "STOP = 2,178 (S=2, T=1, O=7, P=8) and 2,178 × 4 = 8,712. So POTS = 8,712."}, {"ex": 2, "q": "Challenge: 1,089 × 5 = ?", "a": "5,445", "w": ["5,345", "5,545", "5,435"], "e": "9 × 5 = 45; 8 tens × 5 = 40 tens; 0 hundreds + 4 carried; 1 thousand × 5 = 5 thousands. Answer: 5,445."}];
+
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+const $ = id => document.getElementById(id);
+let order, idx, correct, results;
+
+function begin(list){
+  order = shuffle(list);
+  idx = 0; correct = 0; results = [];
+  $('start').classList.add('hide'); $('end').classList.add('hide'); $('quiz').classList.remove('hide');
+  show();
 }
-function start(){
- list=shuffle(Q).map(q=>({q:q[0],a:q[1],o:shuffle([q[1],...q[2]]),e:q[3]}));
- i=0;score=0;answers=[];show();
-}
+
 function show(){
- const x=list[i];locked=false;
- c.innerHTML=`<div class="top"><span>Question ${i+1} of 50</span><span>⭐ ${score}</span></div>
- <div class="bar"><div style="width:${i/50*100}%"></div></div>
- <div class="q">${x.q}</div>
- ${x.o.map((o,k)=>`<button class="opt" onclick="pick(${k})">${o}</button>`).join('')}
- <div class="fb" id="fb"></div>
- <div class="center"><button class="btn" id="nx" style="display:none" onclick="next()">${i==49?'See Results':'Next →'}</button></div>`;
+  const item = order[idx];
+  $('count').textContent = 'Question ' + (idx+1) + ' of ' + order.length;
+  $('score').textContent = 'Score: ' + correct;
+  $('prog').style.width = (idx/order.length*100) + '%';
+  $('tag').textContent = 'Exercise ' + item.ex;
+  $('q').textContent = item.q;
+  $('fb').className = 'fb'; $('fb').textContent = '';
+  $('next').classList.add('hide');
+  const box = $('opts'); box.innerHTML = '';
+  const choices = shuffle([item.a, ...item.w]);
+  choices.forEach((c,i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.innerHTML = '<b>' + 'ABCD'[i] + '</b><span></span>';
+    b.querySelector('span').textContent = c;
+    b.onclick = () => pick(b, c, item);
+    box.appendChild(b);
+  });
 }
-function pick(k){
- if(locked)return;locked=true;
- const x=list[i],ok=x.o[k]===x.a;
- if(ok)score++;
- answers.push({q:x.q,a:x.a,ok});
- document.querySelectorAll('.opt').forEach((b,n)=>{b.disabled=true;if(x.o[n]===x.a)b.classList.add('right');else if(n===k)b.classList.add('wrong')});
- const f=document.getElementById('fb');f.style.display='block';
- f.innerHTML=(ok?'🎉 <b>Correct!</b> ':'❌ <b>Not quite.</b> The answer is <b>'+x.a+'</b>. ')+'<br>'+x.e;
- document.getElementById('nx').style.display='inline-block';
+
+function pick(btn, choice, item){
+  const ok = choice === item.a;
+  [...document.querySelectorAll('.opt')].forEach(b=>{
+    b.disabled = true;
+    if (b.querySelector('span').textContent === item.a) b.classList.add('ok');
+  });
+  if (!ok) btn.classList.add('bad');
+  if (ok) correct++;
+  results.push({item, choice, ok});
+  const fb = $('fb');
+  fb.className = 'fb ' + (ok ? 'ok' : 'bad');
+  fb.textContent = (ok ? 'Correct! ' : 'Not quite. The answer is ' + item.a + '. ') + item.e;
+  $('score').textContent = 'Score: ' + correct;
+  const n = $('next'); n.classList.remove('hide');
+  n.textContent = idx === order.length-1 ? 'See results' : 'Next question';
 }
-function next(){i++;i<50?show():finish()}
+
+$('next').onclick = () => {
+  idx++;
+  if (idx >= order.length) finish(); else show();
+};
+
 function finish(){
- try{if(best===null||score>+best){best=score;localStorage.setItem('g3wp_best',score)}}catch(e){}
- const m=score>=45?'🏆 Maths superstar!':score>=35?'🌟 Great job!':score>=25?'👍 Good effort, keep practising!':'💪 Keep going, you will get better!';
- const wrong=answers.filter(a=>!a.ok);
- c.innerHTML=`<div class="big">🎊</div><div class="score">${score} / 50</div><p class="center"><b>${m}</b></p>
- ${wrong.length?`<p><b>Questions to review (${wrong.length}):</b></p><div class="rev">${wrong.map(w=>`<div>${w.q}<br><b>Answer: ${w.a}</b></div>`).join('')}</div>`:'<p class="center">Perfect score, nothing to review!</p>'}
- <div class="center" style="margin-top:16px"><button class="btn alt" onclick="start()">Play Again</button></div>`;
+  $('quiz').classList.add('hide'); $('end').classList.remove('hide');
+  $('final').textContent = correct + ' / ' + order.length;
+  const by = ex => { const r = results.filter(x=>x.item.ex===ex); return r.filter(x=>x.ok).length + ' / ' + r.length; };
+  $('e1').textContent = by(1); $('e2').textContent = by(2);
+  const missed = results.filter(r=>!r.ok);
+  $('wrongOnly').classList.toggle('hide', missed.length===0);
+  const rev = $('rev'); rev.innerHTML = '';
+  if (missed.length){
+    const h = document.createElement('h3'); h.textContent = 'Questions to review'; rev.appendChild(h);
+    missed.forEach(r=>{
+      const d = document.createElement('details');
+      const s = document.createElement('summary'); s.textContent = r.item.q;
+      const p = document.createElement('p');
+      p.textContent = 'Your answer: ' + r.choice + '. Correct answer: ' + r.item.a + '. ' + r.item.e;
+      d.appendChild(s); d.appendChild(p); rev.appendChild(d);
+    });
+  }
 }
-home();
+
+$('go').onclick = () => begin(DATA);
+$('again').onclick = () => begin(DATA);
+$('wrongOnly').onclick = () => begin(results.filter(r=>!r.ok).map(r=>r.item));
 </script>
 </body>
 </html>
