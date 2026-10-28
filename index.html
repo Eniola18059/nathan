@@ -1,161 +1,257 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Multiplication Quiz – Exercises 1 &amp; 2</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grade 2 Maths Quiz</title>
 <style>
-  :root{
-    --bg:#f4f6fb; --card:#fff; --ink:#1f2937; --muted:#6b7280; --brand:#4f46e5; --brand2:#eef2ff;
-    --ok:#15803d; --okbg:#dcfce7; --bad:#b91c1c; --badbg:#fee2e2; --line:#e5e7eb;
-  }
-  *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-  .wrap{max-width:720px;margin:0 auto;padding:20px 16px 60px}
-  h1{font-size:1.6rem;margin:8px 0 4px}
-  .sub{color:var(--muted);margin:0 0 20px}
-  .card{background:var(--card);border-radius:16px;padding:22px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0 18px}
-  .bar>i{display:block;height:100%;background:var(--brand);width:0;transition:width .3s}
-  .meta{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted)}
-  .tag{display:inline-block;background:var(--brand2);color:var(--brand);font-weight:600;font-size:.8rem;padding:2px 10px;border-radius:99px}
-  .q{font-size:1.25rem;font-weight:600;margin:14px 0 18px}
-  .opts{display:grid;gap:10px}
-  .opt{display:flex;gap:12px;align-items:center;text-align:left;width:100%;padding:14px 16px;border:2px solid var(--line);background:#fff;border-radius:12px;font:inherit;cursor:pointer;color:var(--ink)}
-  .opt:hover:not(:disabled){border-color:var(--brand);background:var(--brand2)}
-  .opt b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--brand2);color:var(--brand);display:grid;place-items:center;font-size:.85rem}
-  .opt.ok{border-color:var(--ok);background:var(--okbg)}
-  .opt.bad{border-color:var(--bad);background:var(--badbg)}
-  .opt:disabled{cursor:default}
-  .fb{margin-top:16px;padding:14px 16px;border-radius:12px;display:none}
-  .fb.ok{display:block;background:var(--okbg);color:#14532d}
-  .fb.bad{display:block;background:var(--badbg);color:#7f1d1d}
-  button.main{margin-top:16px;background:var(--brand);color:#fff;border:0;border-radius:12px;padding:12px 22px;font:inherit;font-weight:600;cursor:pointer}
-  button.main:hover{filter:brightness(1.08)}
-  button.alt{background:#fff;color:var(--brand);border:2px solid var(--brand)}
-  .score{font-size:3rem;font-weight:800;color:var(--brand);margin:6px 0}
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
-  .split div{background:var(--brand2);border-radius:12px;padding:12px}
-  .rev{margin-top:18px;border-top:1px solid var(--line);padding-top:12px}
-  .rev details{border-bottom:1px solid var(--line);padding:8px 0}
-  .rev summary{cursor:pointer;font-weight:600}
-  .hide{display:none}
-  @media(max-width:480px){.q{font-size:1.1rem}.split{grid-template-columns:1fr}}
+:root{--bg:#fff8e7;--card:#fff;--ink:#2b2d42;--muted:#6b6f85;--blue:#3a86ff;--green:#2dc653;--red:#ef476f;--yellow:#ffbe0b;--purple:#8338ec;--line:#e9e3d0}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;justify-content:center;padding:16px}
+.wrap{width:100%;max-width:720px}
+.card{background:var(--card);border-radius:22px;padding:24px;box-shadow:0 6px 0 var(--line),0 10px 30px rgba(0,0,0,.06)}
+h1{margin:0 0 6px;font-size:clamp(26px,6vw,38px);color:var(--purple)}
+h2{margin:0 0 12px}
+.sub{color:var(--muted);font-size:17px;margin:0 0 18px}
+.hero{font-size:64px;text-align:center;margin-bottom:6px}
+input[type=text]{width:100%;font-size:20px;padding:12px 14px;border:3px solid var(--line);border-radius:14px;margin-bottom:14px;font-family:inherit}
+input[type=text]:focus{outline:none;border-color:var(--blue)}
+.btn{display:inline-block;border:0;border-radius:16px;padding:14px 26px;font-size:20px;font-weight:700;font-family:inherit;color:#fff;background:var(--blue);cursor:pointer;box-shadow:0 5px 0 #2563c7;transition:transform .05s}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #2563c7}
+.btn.green{background:var(--green);box-shadow:0 5px 0 #1e9a3e}
+.btn.purple{background:var(--purple);box-shadow:0 5px 0 #6122bb}
+.btn.block{width:100%}
+.topics{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
+.chip{background:#f1ecff;color:var(--purple);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:700}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;font-weight:700;color:var(--muted)}
+.bar{height:14px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:18px}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--yellow),var(--green));width:0;transition:width .4s}
+.tag{display:inline-block;background:#e8f1ff;color:var(--blue);border-radius:10px;padding:4px 10px;font-size:14px;font-weight:700;margin-bottom:10px}
+.q{font-size:clamp(21px,5vw,27px);font-weight:700;line-height:1.35;margin:0 0 8px}
+.vis{font-size:34px;letter-spacing:4px;margin:4px 0 12px;line-height:1.3;word-break:break-word}
+.opts{display:grid;gap:12px;margin-top:14px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;width:100%;background:#fff;border:3px solid var(--line);border-radius:16px;padding:14px 16px;font-size:21px;font-family:inherit;color:var(--ink);cursor:pointer;font-weight:600}
+.opt:hover:not(:disabled){border-color:var(--blue);background:#f4f8ff}
+.opt .k{flex:none;width:34px;height:34px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:16px;font-weight:800}
+.opt.right{border-color:var(--green);background:#e9fbee}
+.opt.right .k{background:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:#ffeef2}
+.opt.wrong .k{background:var(--red);color:#fff}
+.opt:disabled{cursor:default}
+.fb{margin-top:18px;border-radius:16px;padding:16px 18px;font-size:18px;line-height:1.5;display:none}
+.fb.show{display:block}
+.fb.good{background:#e9fbee;border:2px solid var(--green)}
+.fb.bad{background:#fff3e0;border:2px solid var(--yellow)}
+.fb b.t{display:block;font-size:22px;margin-bottom:4px}
+.next{margin-top:16px;text-align:right;display:none}
+.next.show{display:block}
+.score{font-size:64px;font-weight:800;text-align:center;color:var(--purple);margin:4px 0}
+.stars{font-size:42px;text-align:center;margin-bottom:6px}
+.msg{text-align:center;font-size:20px;margin-bottom:18px}
+.tbl{width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:16px}
+.tbl td{padding:8px 6px;border-bottom:1px solid var(--line)}
+.tbl td:last-child{text-align:right;font-weight:800}
+.miss{border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;font-size:16px;line-height:1.5}
+.miss .a{color:#1e9a3e;font-weight:700}
+.miss .y{color:var(--red);font-weight:700}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.hide{display:none}
+@media(max-width:480px){.card{padding:18px}.opt{font-size:19px}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Multiplication Quiz</h1>
-  <p class="sub">Chapter 4 · Exercises 1 &amp; 2 · 50 questions</p>
 
-  <div class="card" id="start">
-    <p>Mental maths, estimating and multiplying by a 1-digit number. Pick the correct answer for each question. You will see the working after every answer.</p>
-    <button class="main" id="go">Start quiz</button>
+<div id="start" class="card">
+  <div class="hero">🧮</div>
+  <h1>Grade 2 Maths Quiz</h1>
+  <p class="sub">50 questions. Read each one carefully, pick your answer, then read the explanation to learn from it.</p>
+  <div class="topics">
+    <span class="chip">Place value</span><span class="chip">Comparing</span><span class="chip">Skip counting</span><span class="chip">Even &amp; odd</span><span class="chip">Add &amp; subtract</span><span class="chip">Money</span><span class="chip">Time</span><span class="chip">Measuring</span><span class="chip">Shapes</span><span class="chip">Fractions</span><span class="chip">Equal groups</span><span class="chip">Word problems</span><span class="chip">Data</span>
   </div>
+  <label for="nm" style="font-weight:700;display:block;margin-bottom:6px">What is your name?</label>
+  <input id="nm" type="text" maxlength="30" placeholder="Type your name here" autocomplete="off">
+  <button class="btn green block" id="go">Start the quiz ▶</button>
+</div>
 
-  <div class="card hide" id="quiz">
-    <div class="meta"><span id="count"></span><span id="score"></span></div>
-    <div class="bar"><i id="prog"></i></div>
-    <span class="tag" id="tag"></span>
-    <div class="q" id="q"></div>
-    <div class="opts" id="opts"></div>
-    <div class="fb" id="fb"></div>
-    <button class="main hide" id="next">Next question</button>
-  </div>
+<div id="quiz" class="card hide">
+  <div class="top"><span id="cnt">Question 1 of 50</span><span id="sc">⭐ 0</span></div>
+  <div class="bar"><div id="pb"></div></div>
+  <span class="tag" id="topic"></span>
+  <p class="q" id="qt"></p>
+  <div class="vis" id="vis"></div>
+  <div class="opts" id="opts"></div>
+  <div class="fb" id="fb"></div>
+  <div class="next" id="nx"><button class="btn" id="nb">Next ▶</button></div>
+</div>
 
-  <div class="card hide" id="end">
-    <h2 style="margin-top:0">Quiz complete</h2>
-    <div class="score" id="final"></div>
-    <div class="split">
-      <div><b>Exercise 1</b><br><span id="e1"></span></div>
-      <div><b>Exercise 2</b><br><span id="e2"></span></div>
-    </div>
-    <button class="main" id="again">Try again</button>
-    <button class="main alt" id="wrongOnly">Retry missed questions</button>
-    <div class="rev" id="rev"></div>
-  </div>
+<div id="end" class="card hide">
+  <div class="stars" id="stars"></div>
+  <h2 style="text-align:center" id="who"></h2>
+  <div class="score" id="fs"></div>
+  <p class="msg" id="fm"></p>
+  <h3>How you did by topic</h3>
+  <table class="tbl" id="tt"></table>
+  <div id="missWrap"><h3>Questions to look at again</h3><div id="miss"></div></div>
+  <div class="row"><button class="btn purple" id="again">Try again 🔁</button></div>
+</div>
+
 </div>
 
 <script>
-const DATA = [{"ex": 1, "q": "12 × 3 = 30 + 6 = ?", "a": "36", "w": ["63", "306", "39"], "e": "Split 12 into 10 and 2. 10 × 3 = 30 and 2 × 3 = 6, so 30 + 6 = 36."}, {"ex": 1, "q": "12 hundreds × 3 = 36 hundreds. What is that as a number?", "a": "3,600", "w": ["360", "36,000", "306"], "e": "36 hundreds = 36 × 100 = 3,600."}, {"ex": 1, "q": "12 thousands × 3 = 36 thousands. What is that as a number?", "a": "36,000", "w": ["3,600", "360,000", "306,000"], "e": "36 thousands = 36 × 1,000 = 36,000."}, {"ex": 1, "q": "Fill in the blank: 35 × 4 = 120 + ___", "a": "20", "w": ["5", "9", "24"], "e": "Split 35 into 30 and 5. 30 × 4 = 120 and 5 × 4 = 20."}, {"ex": 1, "q": "35 × 4 = ?", "a": "140", "w": ["120", "1,400", "130"], "e": "30 × 4 = 120 and 5 × 4 = 20, so 120 + 20 = 140."}, {"ex": 1, "q": "350 × 4 = ?", "a": "1,400", "w": ["140", "14,000", "1,200"], "e": "35 × 4 = 140, so 350 × 4 is 10 times bigger: 1,400."}, {"ex": 1, "q": "3,500 × 4 = ?", "a": "14,000", "w": ["1,400", "140,000", "12,000"], "e": "35 hundreds × 4 = 140 hundreds = 14,000."}, {"ex": 1, "q": "35,000 × 4 = ?", "a": "140,000", "w": ["14,000", "1,400,000", "120,000"], "e": "35 thousands × 4 = 140 thousands = 140,000."}, {"ex": 1, "q": "99 × 7 = ?  (Hint: 100 × 7 = 700)", "a": "693", "w": ["707", "639", "790"], "e": "99 is 1 less than 100, so take one 7 away from 700: 700 − 7 = 693."}, {"ex": 1, "q": "199 × 7 = ?  (Hint: 200 × 7 = 1,400)", "a": "1,393", "w": ["1,407", "1,293", "1,399"], "e": "199 is 1 less than 200, so 1,400 − 7 = 1,393."}, {"ex": 1, "q": "299 × 7 = ?  (Hint: 300 × 7 = 2,100)", "a": "2,093", "w": ["2,107", "2,193", "2,099"], "e": "299 is 1 less than 300, so 2,100 − 7 = 2,093."}, {"ex": 1, "q": "2,999 × 7 = ?  (Hint: 3,000 × 7 = 21,000)", "a": "20,993", "w": ["21,007", "20,907", "21,993"], "e": "2,999 is 1 less than 3,000, so 21,000 − 7 = 20,993."}, {"ex": 1, "q": "150 × 9 = ?", "a": "1,350", "w": ["135", "1,050", "1,450"], "e": "15 × 9 = 135, and 150 is 10 times 15, so 1,350."}, {"ex": 1, "q": "40,000 × 8 = ?", "a": "320,000", "w": ["32,000", "3,200,000", "280,000"], "e": "4 × 8 = 32, then 4 ten-thousands × 8 = 32 ten-thousands = 320,000."}, {"ex": 1, "q": "1,300 × 5 = ?", "a": "6,500", "w": ["650", "5,500", "65,000"], "e": "13 hundreds × 5 = 65 hundreds = 6,500."}, {"ex": 1, "q": "2,500 × 4 = ?", "a": "10,000", "w": ["8,000", "1,000", "20,000"], "e": "25 hundreds × 4 = 100 hundreds = 10,000."}, {"ex": 1, "q": "910 × 2 = ?", "a": "1,820", "w": ["182", "1,020", "1,810"], "e": "91 × 2 = 182, and 910 is 10 times 91, so 1,820."}, {"ex": 1, "q": "15,000 × 3 = ?", "a": "45,000", "w": ["4,500", "35,000", "450,000"], "e": "15 thousands × 3 = 45 thousands = 45,000."}, {"ex": 1, "q": "7,200 × 8 = ?", "a": "57,600", "w": ["56,000", "5,760", "49,600"], "e": "72 hundreds × 8 = 576 hundreds = 57,600. (7,000 × 8 = 56,000 leaves out 200 × 8.)"}, {"ex": 1, "q": "5 × 42,000 = ?", "a": "210,000", "w": ["21,000", "200,000", "2,100,000"], "e": "5 × 42 = 210, so 5 × 42 thousands = 210 thousands = 210,000."}, {"ex": 1, "q": "98 × 6 = ?  (Hint: 100 × 6 = 600)", "a": "588", "w": ["612", "568", "608"], "e": "98 is 2 less than 100, so take away two 6s: 600 − 12 = 588."}, {"ex": 1, "q": "5 × 399 = ?", "a": "1,995", "w": ["2,005", "1,905", "1,985"], "e": "399 is 1 less than 400. 5 × 400 = 2,000, so 2,000 − 5 = 1,995."}, {"ex": 1, "q": "3 × 599 = ?", "a": "1,797", "w": ["1,803", "1,697", "1,787"], "e": "599 is 1 less than 600. 3 × 600 = 1,800, so 1,800 − 3 = 1,797."}, {"ex": 1, "q": "6,999 × 4 = ?", "a": "27,996", "w": ["28,004", "27,896", "27,986"], "e": "7,000 × 4 = 28,000, then take away 1 × 4 = 4: 27,996."}, {"ex": 1, "q": "A 24-foot-wide greenhouse frame costs $4,999. A farm buys 5 of them. What is the total cost?", "a": "$24,995", "w": ["$25,005", "$24,895", "$24,955"], "e": "5 × $5,000 = $25,000. Each frame is $1 less, so take away 5 × $1: $24,995."}, {"ex": 1, "q": "The pediatric clinic needs 250 bandages a week and the central clinic needs 600 a week. How many bandages should the two clinics order for 8 weeks?", "a": "6,800", "w": ["2,000", "4,800", "6,200"], "e": "Together they need 250 + 600 = 850 a week. 850 × 8 = 6,800."}, {"ex": 2, "q": "Estimate 5,172 × 4 by rounding 5,172 down to 5,000. What is 5,000 × 4?", "a": "20,000", "w": ["2,000", "200,000", "21,000"], "e": "5 × 4 = 20, so 5 thousands × 4 = 20,000."}, {"ex": 2, "q": "Estimate 5,172 × 4 by rounding 5,172 up to 5,200. What is 5,200 × 4?", "a": "20,800", "w": ["2,080", "20,400", "20,200"], "e": "52 hundreds × 4 = 208 hundreds = 20,800."}, {"ex": 2, "q": "5,172 × 4 = ?", "a": "20,688", "w": ["20,628", "20,788", "20,608"], "e": "2 ones × 4 = 8; 7 tens × 4 = 28 tens (carry 2 hundreds); 1 hundred × 4 + 2 hundreds = 6 hundreds; 5 thousands × 4 = 20 thousands. Answer: 20,688."}, {"ex": 2, "q": "In 5,172 × 4, what is 7 tens × 4?", "a": "28 tens (280)", "w": ["2 tens (20)", "28 hundreds (2,800)", "11 tens (110)"], "e": "7 × 4 = 28, so 7 tens × 4 = 28 tens, which is 280. That means 2 hundreds are carried and 8 tens stay."}, {"ex": 2, "q": "The exact answer to 5,172 × 4 is 20,688. Two estimates were 20,000 and 20,800. Which estimate is closer?", "a": "20,800, because it is only 112 away", "w": ["20,000, because it is a rounder number", "20,000, because it is lower than the answer", "They are the same distance away"], "e": "20,688 − 20,000 = 688, but 20,800 − 20,688 = 112. The smaller gap means 20,800 is closer."}, {"ex": 2, "q": "Dion estimated 3,521 × 3 to be 12,000. What number did he replace 3,521 with?", "a": "4,000", "w": ["3,000", "3,500", "4,500"], "e": "12,000 ÷ 3 = 4,000, so he rounded 3,521 up to 4,000."}, {"ex": 2, "q": "Mei estimated 3,521 × 3 to be 9,900. What number did she replace 3,521 with?", "a": "3,300", "w": ["3,000", "3,500", "3,330"], "e": "9,900 ÷ 3 = 3,300, so she used 3,300."}, {"ex": 2, "q": "The exact product of 3,521 and 3 is 10,563. Dion's estimate was 12,000 and Mei's was 9,900. Whose estimate is closer?", "a": "Mei, because 9,900 is 663 away", "w": ["Dion, because 12,000 is a rounder number", "Dion, because his estimate is higher than the answer", "They are equally close"], "e": "12,000 − 10,563 = 1,437 but 10,563 − 9,900 = 663. Mei's gap is smaller."}, {"ex": 2, "q": "3,521 × 3 = ?", "a": "10,563", "w": ["10,463", "10,553", "10,623"], "e": "1 × 3 = 3; 2 tens × 3 = 6 tens; 5 hundreds × 3 = 15 hundreds; 3 thousands × 3 = 9 thousands + 1 thousand carried = 10 thousands. Total 10,563."}, {"ex": 2, "q": "Which estimate shows that 9,183 × 3 is greater than 25,000?", "a": "9,000 × 3 = 27,000, which is greater than 25,000", "w": ["9,000 × 3 = 27,000, which is less than 25,000", "9,000 × 3 = 2,700, which is less than 25,000", "10,000 × 3 = 30,000, so the answer is exactly 30,000"], "e": "9,183 is more than 9,000, so the answer is more than 27,000. That is greater than 25,000. (Exact: 27,549.)"}, {"ex": 2, "q": "The product of 4,962 and 8 is closest to which multiple of 10,000?", "a": "40,000", "w": ["30,000", "50,000", "400,000"], "e": "4,962 is about 5,000 and 5,000 × 8 = 40,000. The exact answer 39,696 is closest to 40,000."}, {"ex": 2, "q": "4,962 × 8 = ?", "a": "39,696", "w": ["39,796", "38,696", "39,676"], "e": "2 × 8 = 16; 6 tens × 8 = 48 tens; 9 hundreds × 8 = 72 hundreds; 4 thousands × 8 = 32 thousands. Adding with carrying gives 39,696."}, {"ex": 2, "q": "Is 7 × 986 = 6,902 reasonable?", "a": "Yes, because 7 × 1,000 = 7,000 is close to 6,902", "w": ["No, because 7 × 1,000 = 7,000 is much bigger than 6,902", "No, because 7 × 986 should be about 700", "Yes, because any answer in the thousands is reasonable"], "e": "986 is close to 1,000, and 7 × 1,000 = 7,000. 6,902 is just under that, so it is reasonable."}, {"ex": 2, "q": "Is 71,081 × 8 = 57,448 reasonable?", "a": "No, because 70,000 × 8 = 560,000, so 57,448 is far too small", "w": ["Yes, because 70,000 × 8 = 560,000 is close to 57,448", "No, because 70,000 × 8 = 56,000 is smaller than 57,448", "Yes, because the answer has 5 digits like 71,081"], "e": "71,081 is about 70,000 and 7 × 8 = 56, so 70,000 × 8 = 560,000. 57,448 is about 10 times too small (exact: 568,648)."}, {"ex": 2, "q": "Which is the best estimate for 8,292 × 3?", "a": "24,000", "w": ["2,400", "240,000", "21,000"], "e": "Round 8,292 to 8,000. 8,000 × 3 = 24,000."}, {"ex": 2, "q": "8,292 × 3 = ?", "a": "24,876", "w": ["24,786", "24,976", "23,876"], "e": "2 × 3 = 6; 9 tens × 3 = 27 tens; 2 hundreds × 3 = 6 hundreds + 2 carried; 8 thousands × 3 = 24 thousands. Total 24,876."}, {"ex": 2, "q": "6,710 × 8 = ?", "a": "53,680", "w": ["52,680", "53,580", "54,680"], "e": "671 tens × 8 = 5,368 tens = 53,680. (Estimate: 7,000 × 8 = 56,000.)"}, {"ex": 2, "q": "6,114 × 7 = ?", "a": "42,798", "w": ["42,698", "42,788", "43,798"], "e": "4 × 7 = 28; 1 ten × 7 = 7 tens; 1 hundred × 7 = 7 hundreds; 6 thousands × 7 = 42 thousands. With carrying: 42,798."}, {"ex": 2, "q": "11,771 × 6 = ?", "a": "70,626", "w": ["70,426", "71,626", "69,626"], "e": "Estimate: 12,000 × 6 = 72,000. Exactly: 11,771 × 6 = 70,626."}, {"ex": 2, "q": "A backhoe costs $12,199 and an excavator costs $165,599. A company buys 4 backhoes and 1 excavator. What is the total cost?", "a": "$214,395", "w": ["$177,798", "$214,195", "$214,495"], "e": "4 × $12,199 = $48,796. Then $48,796 + $165,599 = $214,395."}, {"ex": 2, "q": "Challenge: 1,089 × 4 = ?", "a": "4,356", "w": ["4,256", "4,346", "4,456"], "e": "9 × 4 = 36; 8 tens × 4 = 32 tens; 0 hundreds + 3 carried; 1 thousand × 4 = 4 thousands. Answer: 4,356."}, {"ex": 2, "q": "Challenge: 1,089 × 9 = ?", "a": "9,801", "w": ["9,081", "9,891", "9,711"], "e": "1,089 × 9 = 9,801. Pattern: 1,089 × 9 is 1,089 written backwards!"}, {"ex": 2, "q": "Challenge: S, T, O and P are different digits. STOP × 4 = POTS. What is the number POTS?", "a": "8,712", "w": ["2,178", "7,812", "8,172"], "e": "STOP = 2,178 (S=2, T=1, O=7, P=8) and 2,178 × 4 = 8,712. So POTS = 8,712."}, {"ex": 2, "q": "Challenge: 1,089 × 5 = ?", "a": "5,445", "w": ["5,345", "5,545", "5,435"], "e": "9 × 5 = 45; 8 tens × 5 = 40 tens; 0 hundreds + 4 carried; 1 thousand × 5 = 5 thousands. Answer: 5,445."}];
+// [topic, question, visual, correct answer, [3 plausible wrong answers], explanation]
+const Q = [
+// ---------- PLACE VALUE ----------
+["Place value","What is the value of the 6 in the number 364?","","60",["6","600","36"],"In 364 the 6 is in the tens place. It means 6 tens, and 6 tens = 60. The 3 means 300 and the 4 means 4 ones."],
+["Place value","What number is 5 hundreds + 2 tens + 8 ones?","","528",["582","258","825"],"Write the hundreds first, then the tens, then the ones: 5 hundreds, 2 tens, 8 ones makes 528."],
+["Place value","Which number has a 4 in the tens place?","","645",["456","564","704"],"The tens place is the middle digit. In 645 the middle digit is 4. In 456 the 4 is hundreds, in 564 and 704 the 4 is in the ones place."],
+["Place value","Which shows 482 in expanded form?","","400 + 80 + 2",["400 + 8 + 2","40 + 80 + 2","4 + 80 + 200"],"The 4 is in the hundreds place, so it is 400. The 8 is in the tens place, so it is 80. The 2 is in the ones place, so it is 2. 400 + 80 + 2 = 482."],
+["Place value","Which is the correct number name for 305?","","three hundred five",["three hundred fifty","thirty-five","three thousand five"],"305 has 3 hundreds, 0 tens and 5 ones. With 0 tens we skip the tens words and say \"three hundred five\"."],
+["Place value","What is 10 more than 47?","","57",["48","37","67"],"Adding 10 changes the tens digit by one. 4 tens becomes 5 tens, and the ones stay the same: 57."],
+["Place value","What is 100 less than 523?","","423",["513","533","623"],"Taking away 100 changes only the hundreds digit. 5 hundreds becomes 4 hundreds, so 523 becomes 423."],
+["Place value","Which number is 3 hundreds, 0 tens and 9 ones?","","309",["390","39","903"],"Hundreds go first (3), then tens (0), then ones (9). That gives 309. The zero holds the tens place."],
 
-function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
-const $ = id => document.getElementById(id);
-let order, idx, correct, results;
+// ---------- COMPARING ----------
+["Comparing numbers","Which number is the greatest?","276, 267, 627, 672","672",["627","276","267"],"Compare the hundreds first: 6 is bigger than 2, so 627 and 672 are bigger. Then compare the tens: 7 tens beats 2 tens, so 672 is the greatest."],
+["Comparing numbers","Which sign makes this true?  458 ◯ 485","","<",[">","="],"The hundreds are the same (4). In the tens, 5 is less than 8, so 458 is less than 485. The open mouth of the sign points to the bigger number."],
+["Comparing numbers","Which list is in order from smallest to largest?","","53, 305, 350, 530",["305, 53, 350, 530","530, 350, 305, 53","53, 350, 305, 530"],"53 has only 2 digits, so it is smallest. Then 305 (3 hundreds, 0 tens) is smaller than 350 (3 hundreds, 5 tens). 530 is largest."],
+["Comparing numbers","What number comes just after 299?","","300",["290","399","2100"],"Counting on: 298, 299, 300. When the ones and tens are full (99), the next number moves to the next hundred."],
 
-function begin(list){
-  order = shuffle(list);
-  idx = 0; correct = 0; results = [];
-  $('start').classList.add('hide'); $('end').classList.add('hide'); $('quiz').classList.remove('hide');
+// ---------- SKIP COUNTING ----------
+["Skip counting","Count by 5s. What number comes next?","5, 10, 15, 20, ___","25",["30","24","21"],"We add 5 each time: 20 + 5 = 25."],
+["Skip counting","Count by 10s. What number comes next?","34, 44, 54, ___","64",["74","55","65"],"Counting by 10s changes the tens digit by 1 each time. 54 has 5 tens, so the next number has 6 tens: 64."],
+["Skip counting","Count by 2s. What number comes next?","18, 20, 22, ___","24",["23","26","25"],"We add 2 each time: 22 + 2 = 24."],
+["Skip counting","Count by 100s. What number comes next?","100, 200, 300, ___","400",["310","301","500"],"Adding 100 changes the hundreds digit by one: 3 hundreds becomes 4 hundreds, which is 400."],
+
+// ---------- EVEN / ODD ----------
+["Even and odd","Which of these numbers is odd?","","241",["130","246","458"],"Look at the ones digit. Even numbers end in 0, 2, 4, 6 or 8. Odd numbers end in 1, 3, 5, 7 or 9. 241 ends in 1, so it is odd."],
+["Even and odd","You have 14 shoes. Can they all be put into pairs?","","Yes, 7 pairs with none left over",["No, 1 shoe is left over","Yes, 14 pairs with none left over","No, 2 shoes are left over"],"14 is even, so it can be shared into pairs with none left over. 2 + 2 + 2 + 2 + 2 + 2 + 2 = 14, which is 7 pairs."],
+
+// ---------- ADD & SUBTRACT ----------
+["Adding and subtracting","34 + 25 = ?","","59",["49","69","58"],"Add the ones: 4 + 5 = 9. Add the tens: 30 + 20 = 50. Together: 50 + 9 = 59."],
+["Adding and subtracting","46 + 38 = ?","","84",["74","714","83"],"Ones: 6 + 8 = 14, so write 4 and carry 1 ten. Tens: 4 + 3 + 1 (carried) = 8. The answer is 84."],
+["Adding and subtracting","57 + 26 = ?","","83",["73","713","82"],"Ones: 7 + 6 = 13, so write 3 and carry 1 ten. Tens: 5 + 2 + 1 = 8. The answer is 83."],
+["Adding and subtracting","78 − 35 = ?","","43",["53","113","42"],"Subtract the ones: 8 − 5 = 3. Subtract the tens: 70 − 30 = 40. Together: 43."],
+["Adding and subtracting","64 − 28 = ?","","36",["44","46","92"],"4 is smaller than 8, so we regroup: take 1 ten from 60. Now 14 − 8 = 6 and the tens are 5 − 2 = 3. The answer is 36. You can check it: 36 + 28 = 64."],
+["Adding and subtracting","100 − 40 = ?","","60",["140","50","70"],"10 tens take away 4 tens leaves 6 tens, which is 60."],
+["Adding and subtracting","What number do you add to 70 to make 100?","","30",["70","40","20"],"Count up from 70 to 100 in tens: 80, 90, 100. That is 3 tens, so 30. Check: 70 + 30 = 100."],
+["Adding and subtracting","If 8 + 7 = 15, then 15 − 8 = ?","","7",["8","23","15"],"Addition and subtraction are opposites. If 8 + 7 = 15, taking 8 away from 15 leaves the other part, 7."],
+["Adding and subtracting","Find the missing number:  25 + ___ = 61","","36",["86","46","26"],"Start at 25 and count up to 61. Subtract to find the gap: 61 − 25 = 36. Check: 25 + 36 = 61."],
+["Adding and subtracting","230 + 140 = ?","","370",["360","380","270"],"Add the hundreds: 200 + 100 = 300. Add the tens: 30 + 40 = 70. Together: 370."],
+
+// ---------- MONEY ----------
+["Money","You have 3 dimes (10¢ each) and 2 nickels (5¢ each). How much money is that?","🪙🪙🪙 + 🪙🪙","40¢",["32¢","35¢","50¢"],"Dimes: 10 + 10 + 10 = 30¢. Nickels: 5 + 5 = 10¢. Altogether 30 + 10 = 40¢."],
+["Money","A pencil costs $3 and an eraser costs $2. You pay with $10. How much change do you get?","","$5",["$15","$7","$8"],"First find the total: 3 + 2 = $5. Then take it from 10: 10 − 5 = $5 change."],
+["Money","Which amount is the same as 1 dollar?","","100 cents",["10 cents","50 cents","1000 cents"],"There are 100 cents in 1 dollar. 10 dimes also make 1 dollar."],
+
+// ---------- TIME ----------
+["Time","The short hand points to 3 and the long hand points to 12. What time is it?","🕒","3 o'clock",["12 o'clock","3:12","12:15"],"When the long (minute) hand is on 12, it is an o'clock time. The short (hour) hand shows which hour: 3 o'clock."],
+["Time","Which time is half past 4?","","4:30",["4:15","5:30","4:06"],"Half past means 30 minutes after the hour. Half past 4 is 4:30."],
+["Time","How many minutes are in 1 hour?","","60",["100","30","12"],"There are 60 minutes in 1 hour. Half an hour is 30 minutes."],
+
+// ---------- MEASUREMENT ----------
+["Measuring","Which unit is best for measuring the length of a pencil?","✏️","centimetres",["metres","kilometres","litres"],"A pencil is short, so we use small units: centimetres. Metres are for a classroom, kilometres for roads, and litres measure liquids."],
+["Measuring","A ribbon is 45 cm long. You cut off 20 cm. How long is the ribbon now?","","25 cm",["65 cm","35 cm","24 cm"],"Cutting means taking away: 45 − 20 = 25. Take 2 tens from 4 tens and keep the 5 ones."],
+["Measuring","How many centimetres are in 1 metre?","","100",["10","1000","60"],"1 metre = 100 centimetres. A metre stick has 100 little centimetre marks."],
+
+// ---------- SHAPES ----------
+["Shapes","How many sides does a hexagon have?","⬡","6",["5","8","4"],"Hex means six. A hexagon has 6 sides. A pentagon has 5 and an octagon has 8."],
+["Shapes","Which shape has 4 equal sides and 4 square corners?","","square",["rectangle","triangle","pentagon"],"A square has 4 sides that are all the same length. A rectangle also has 4 square corners, but only its opposite sides are equal."],
+["Shapes","Which 3D shape looks like a ball?","","sphere",["cube","cone","cylinder"],"A sphere is round all over, like a ball. A cube is like a dice, a cone is like an ice-cream cone, and a cylinder is like a can."],
+["Shapes","How many faces does a cube have?","🎲","6",["4","8","12"],"A cube has 6 flat faces (top, bottom and 4 sides). It has 8 corners and 12 edges."],
+
+// ---------- FRACTIONS ----------
+["Fractions","A pizza is cut into 4 equal slices. You eat 1 slice. What fraction of the pizza did you eat?","🍕","1/4",["1/3","4/1","1/2"],"The bottom number tells how many equal parts the whole is cut into (4). The top number tells how many you took (1). So 1/4."],
+["Fractions","Which fraction is the largest piece?","","1/2",["1/3","1/4","1/8"],"The more pieces a whole is cut into, the smaller each piece is. Halves are the biggest of these, and eighths are the smallest."],
+["Fractions","What is half of 12?","","6",["24","10","4"],"Half means sharing into 2 equal groups. 12 shared into 2 groups is 6 each. Check: 6 + 6 = 12."],
+
+// ---------- EQUAL GROUPS ----------
+["Equal groups","There are 4 bags with 5 apples in each bag. How many apples are there altogether?","🍎🍎🍎🍎🍎 × 4 bags","20",["9","25","15"],"Equal groups mean we can use repeated addition: 5 + 5 + 5 + 5 = 20. Counting by 5s: 5, 10, 15, 20."],
+["Equal groups","An array has 3 rows with 6 dots in each row. How many dots are there in all?","● ● ● ● ● ●\n● ● ● ● ● ●\n● ● ● ● ● ●","18",["9","15","21"],"Add the rows: 6 + 6 + 6 = 18. An array is rows of equal size, so we can add the same number again and again."],
+
+// ---------- WORD PROBLEMS ----------
+["Word problems","Ada has 23 marbles. She wins 19 more. How many marbles does she have now?","🔵","42",["32","52","4"],"\"Wins more\" means add. 23 + 19: ones 3 + 9 = 12, write 2 and carry 1; tens 2 + 1 + 1 = 4. The answer is 42."],
+["Word problems","There are 52 children on a bus. At the stop, 17 children get off. How many children are on the bus now?","🚌","35",["45","69","25"],"\"Get off\" means take away. 52 − 17: regroup to make 12 − 7 = 5 ones, and the tens are 4 − 1 = 3. The answer is 35."],
+["Word problems","A baker makes 36 buns in the morning and 28 buns in the afternoon. She sells 40 buns. How many buns are left?","🥖","24",["64","104","34"],"This has two steps. Step 1: 36 + 28 = 64 buns made. Step 2: 64 − 40 = 24 buns left."],
+
+// ---------- DATA ----------
+["Data","Children voted for a favourite colour. Red: 6 votes, Blue: 9 votes, Green: 4 votes. How many more children chose blue than green?","🔴 6   🔵 9   🟢 4","5",["13","3","9"],"\"How many more\" means find the difference. Blue is 9 and green is 4, so 9 − 4 = 5."]
+];
+
+const $=id=>document.getElementById(id);
+let order,idx,score,answers,locked,name;
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+
+function begin(){
+  name=$("nm").value.trim()||"Friend";
+  idx=0;score=0;answers=[];
+  $("start").classList.add("hide");$("end").classList.add("hide");$("quiz").classList.remove("hide");
   show();
 }
-
 function show(){
-  const item = order[idx];
-  $('count').textContent = 'Question ' + (idx+1) + ' of ' + order.length;
-  $('score').textContent = 'Score: ' + correct;
-  $('prog').style.width = (idx/order.length*100) + '%';
-  $('tag').textContent = 'Exercise ' + item.ex;
-  $('q').textContent = item.q;
-  $('fb').className = 'fb'; $('fb').textContent = '';
-  $('next').classList.add('hide');
-  const box = $('opts'); box.innerHTML = '';
-  const choices = shuffle([item.a, ...item.w]);
-  choices.forEach((c,i)=>{
-    const b = document.createElement('button');
-    b.className = 'opt';
-    b.innerHTML = '<b>' + 'ABCD'[i] + '</b><span></span>';
-    b.querySelector('span').textContent = c;
-    b.onclick = () => pick(b, c, item);
+  locked=false;
+  const q=Q[idx];
+  $("cnt").textContent="Question "+(idx+1)+" of "+Q.length;
+  $("sc").textContent="⭐ "+score;
+  $("pb").style.width=(idx/Q.length*100)+"%";
+  $("topic").textContent=q[0];
+  $("qt").textContent=q[1];
+  const v=$("vis");v.textContent=q[2];v.style.whiteSpace=q[2].includes("\n")?"pre":"normal";
+  v.style.fontSize=q[2].length>14&&!q[2].includes("\n")?"26px":"34px";
+  v.classList.toggle("hide",!q[2]);
+  const box=$("opts");box.innerHTML="";
+  shuffle([q[3]].concat(q[4])).forEach((o,i)=>{
+    const b=document.createElement("button");b.className="opt";
+    b.innerHTML='<span class="k">'+"ABCD"[i]+'</span><span></span>';
+    b.lastChild.textContent=o;
+    b.onclick=()=>pick(b,o);
     box.appendChild(b);
   });
+  $("fb").className="fb";$("nx").classList.remove("show");
+  $("nb").textContent=idx===Q.length-1?"See my results 🏆":"Next ▶";
 }
-
-function pick(btn, choice, item){
-  const ok = choice === item.a;
-  [...document.querySelectorAll('.opt')].forEach(b=>{
-    b.disabled = true;
-    if (b.querySelector('span').textContent === item.a) b.classList.add('ok');
+function pick(btn,val){
+  if(locked)return;locked=true;
+  const q=Q[idx],ok=val===q[3];
+  document.querySelectorAll(".opt").forEach(b=>{
+    b.disabled=true;
+    if(b.lastChild.textContent===q[3])b.classList.add("right");
   });
-  if (!ok) btn.classList.add('bad');
-  if (ok) correct++;
-  results.push({item, choice, ok});
-  const fb = $('fb');
-  fb.className = 'fb ' + (ok ? 'ok' : 'bad');
-  fb.textContent = (ok ? 'Correct! ' : 'Not quite. The answer is ' + item.a + '. ') + item.e;
-  $('score').textContent = 'Score: ' + correct;
-  const n = $('next'); n.classList.remove('hide');
-  n.textContent = idx === order.length-1 ? 'See results' : 'Next question';
+  if(!ok)btn.classList.add("wrong");
+  if(ok)score++;
+  answers.push({i:idx,ok,val});
+  $("sc").textContent="⭐ "+score;
+  const f=$("fb");
+  f.className="fb show "+(ok?"good":"bad");
+  f.innerHTML='<b class="t">'+(ok?"✅ Correct! Well done!":"❌ Not quite. The answer is "+esc(q[3])+".")+'</b>'+esc(q[5]);
+  $("nx").classList.add("show");
+  $("nb").focus();
 }
-
-$('next').onclick = () => {
-  idx++;
-  if (idx >= order.length) finish(); else show();
-};
-
+function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
+function next(){ if(idx<Q.length-1){idx++;show();window.scrollTo(0,0)} else finish(); }
 function finish(){
-  $('quiz').classList.add('hide'); $('end').classList.remove('hide');
-  $('final').textContent = correct + ' / ' + order.length;
-  const by = ex => { const r = results.filter(x=>x.item.ex===ex); return r.filter(x=>x.ok).length + ' / ' + r.length; };
-  $('e1').textContent = by(1); $('e2').textContent = by(2);
-  const missed = results.filter(r=>!r.ok);
-  $('wrongOnly').classList.toggle('hide', missed.length===0);
-  const rev = $('rev'); rev.innerHTML = '';
-  if (missed.length){
-    const h = document.createElement('h3'); h.textContent = 'Questions to review'; rev.appendChild(h);
-    missed.forEach(r=>{
-      const d = document.createElement('details');
-      const s = document.createElement('summary'); s.textContent = r.item.q;
-      const p = document.createElement('p');
-      p.textContent = 'Your answer: ' + r.choice + '. Correct answer: ' + r.item.a + '. ' + r.item.e;
-      d.appendChild(s); d.appendChild(p); rev.appendChild(d);
-    });
-  }
+  $("quiz").classList.add("hide");$("end").classList.remove("hide");window.scrollTo(0,0);
+  const pct=Math.round(score/Q.length*100);
+  $("who").textContent="Great effort, "+name+"!";
+  $("fs").textContent=score+" / "+Q.length;
+  $("stars").textContent=pct>=90?"🌟🌟🌟":pct>=70?"🌟🌟":pct>=50?"🌟":"💪";
+  $("fm").textContent=pct>=90?"Amazing! You are a maths superstar!":pct>=70?"Very good work! You know lots of maths.":pct>=50?"Good try! Read the explanations below and practise again.":"Keep practising. Every try makes you stronger!";
+  const t={};
+  answers.forEach(a=>{const k=Q[a.i][0];t[k]=t[k]||[0,0];t[k][1]++;if(a.ok)t[k][0]++});
+  $("tt").innerHTML=Object.keys(t).map(k=>"<tr><td>"+k+"</td><td>"+t[k][0]+" / "+t[k][1]+"</td></tr>").join("");
+  const wrong=answers.filter(a=>!a.ok);
+  $("missWrap").classList.toggle("hide",!wrong.length);
+  $("miss").innerHTML=wrong.map(a=>{const q=Q[a.i];return '<div class="miss"><b>Q'+(a.i+1)+'. '+esc(q[1])+'</b>'+(q[2]&&!q[2].includes("\n")?'<br>'+esc(q[2]):'')+'<br><span class="y">You chose: '+esc(a.val)+'</span> &nbsp; <span class="a">Correct: '+esc(q[3])+'</span><br>'+esc(q[5])+'</div>'}).join("");
 }
-
-$('go').onclick = () => begin(DATA);
-$('again').onclick = () => begin(DATA);
-$('wrongOnly').onclick = () => begin(results.filter(r=>!r.ok).map(r=>r.item));
+$("go").onclick=begin;
+$("nb").onclick=next;
+$("again").onclick=()=>{$("end").classList.add("hide");$("start").classList.remove("hide")};
+$("nm").addEventListener("keydown",e=>{if(e.key==="Enter")begin()});
+document.addEventListener("keydown",e=>{
+  if($("quiz").classList.contains("hide"))return;
+  const k=e.key.toUpperCase();
+  if(!locked&&"ABCD".includes(k)&&k.length===1){const b=document.querySelectorAll(".opt")["ABCD".indexOf(k)];if(b)b.click()}
+});
 </script>
 </body>
 </html>
