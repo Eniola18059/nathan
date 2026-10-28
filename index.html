@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zion's Gator Swamp Quiz</title>
+<title>Zion's Magic E Word Quiz</title>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -127,11 +127,33 @@ h1{margin:0;font-size:clamp(34px,8vw,58px);line-height:1;text-align:center;color
 .miss{background:#fff7f0;border:4px solid #ffb066;border-radius:18px;padding:8px 14px;margin:8px 0;font-weight:700;font-size:clamp(16px,4vw,20px)}
 canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== Magic E theme overrides ===== */
+body{background:linear-gradient(#2d1f78 0%,#6a4cc8 40%,#4cc94a 40%,#2f9e3c 100%);background-attachment:fixed}
+.sun{background:#fff6c2;box-shadow:0 0 0 12px #fff6c288,0 0 0 26px #fff6c244}
+.cloud{background:#d9ccff;opacity:.55}.cloud:before,.cloud:after{background:#d9ccff}
+.l5{background:#e0457b}.l6{background:#3d7be0}
+.wordcard{font-size:clamp(54px,16vw,96px);font-weight:800;text-align:center;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:6px 30px;letter-spacing:3px;line-height:1.15}
+.wordcard .mi{color:#ff7a00}.wordcard .me{color:#e0457b}
+.picbig{font-size:clamp(90px,28vw,150px);line-height:1.1;text-align:center}
+.picpair{font-size:clamp(60px,18vw,100px);line-height:1.1;text-align:center}
+.vcol{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%}
+.caption{text-align:center;font-weight:700;font-size:clamp(18px,4.6vw,26px);background:#f3ecff;border-radius:16px;padding:6px 14px}
+.sentcard{font-size:clamp(26px,7vw,40px);font-weight:800;text-align:center;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:14px 18px;line-height:1.35;width:100%}
+.blank{display:inline-block;min-width:2.6em;border-bottom:6px solid var(--purple);color:var(--purple);text-align:center;line-height:1}
+.chain{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.cw{font-size:clamp(38px,11vw,60px);font-weight:800;background:#e9f7ff;border:5px solid var(--sky);border-radius:18px;padding:0 16px}
+.cw.q{background:#fff0f7;border:5px dashed var(--pink);color:var(--pink)}
+.ct{font-size:clamp(16px,4.2vw,22px);font-weight:800;background:#ffe98a;border:4px dotted var(--sun-d);border-radius:14px;padding:4px 10px;text-align:center}
+.arr{font-size:clamp(28px,8vw,40px);font-weight:800}
+.opts.long{grid-template-columns:1fr}
+.opt.long{font-size:clamp(20px,5.2vw,30px);min-height:76px;padding:10px 16px;text-align:left;line-height:1.2}
+.opt.emoji{font-size:clamp(52px,16vw,84px)}
+.opt.word{font-size:clamp(32px,9vw,52px)}
 </style>
 </head>
 <body>
 <div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
-<div class="pad" style="left:4%">🪷</div><div class="pad" style="left:46%;animation-delay:-1.5s">🐸</div><div class="pad" style="right:5%;animation-delay:-2.5s">🪷</div>
+<div class="pad" style="left:4%">🍄</div><div class="pad" style="left:46%;animation-delay:-1.5s">🦉</div><div class="pad" style="right:5%;animation-delay:-2.5s">🍄</div>
 <canvas id="fx"></canvas>
 <div id="app"></div>
 
@@ -139,164 +161,152 @@ canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
 /* ============ helpers ============ */
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
 function uniq(a){return a.filter(function(v,i){return a.indexOf(v)===i;});}
-
-/* Wrong choices are plausible mistakes. We always mix at least one smaller
-   and one bigger wrong choice, and shuffle positions every time, so the right
-   answer can never be spotted by its size or its place. */
+/* Wrong choices are plausible mistakes (short vowel, swapped letters, sound-it-out spellings).
+   3 of the wrong choices are picked at random and positions are shuffled every time,
+   so the right answer can never be spotted by its place or its look. */
 function optionsFor(q){
-  var pool=uniq(q.pool).filter(function(v){return v!==q.ans && v>=0;});
-  var lower=shuffle(pool.filter(function(v){return v<q.ans;}));
-  var upper=shuffle(pool.filter(function(v){return v>q.ans;}));
-  var picks=[];
-  if(lower.length) picks.push(lower.shift());
-  if(upper.length) picks.push(upper.shift());
-  var rest=shuffle(lower.concat(upper));
-  while(picks.length<3 && rest.length) picks.push(rest.shift());
-  return shuffle([q.ans].concat(picks));
+  var pool=uniq(q.pool).filter(function(v){return v!==q.ans;});
+  return shuffle([q.ans].concat(shuffle(pool).slice(0,3)));
+}
+function spaced(w){return w.split('').join(' - ');}
+function hl(w){
+  var m=w.match(/^([a-z]*?)i([a-z]+)e$/);
+  return m ? m[1]+'<span class="mi">i</span>'+m[2]+'<span class="me">e</span>' : w;
 }
 
 /* ============ questions ============ */
 var SECTIONS=[
-  {id:'A',name:'Swamp Sums',icon:'➕',cls:'l1',desc:'Add and take away'},
-  {id:'B',name:'Ten Jumps',icon:'🦘',cls:'l2',desc:'+10 and −10 jumps'},
-  {id:'C',name:'Cube Count',icon:'🧊',cls:'l3',desc:'Tens and ones'},
-  {id:'D',name:'Gator Greatest',icon:'🐊',cls:'l4',desc:'Big and small numbers'}
+  {id:'A',name:'Picture Match',icon:'🖼️',cls:'l1'},
+  {id:'B',name:'Spell It!',icon:'✏️',cls:'l2'},
+  {id:'C',name:'Fill the Blank',icon:'🧩',cls:'l3'},
+  {id:'D',name:'Sentence Match',icon:'📖',cls:'l4'},
+  {id:'E',name:'Word Chains',icon:'🔗',cls:'l5'},
+  {id:'F',name:'Heart Words & Rhymes',icon:'❤️',cls:'l6'}
 ];
-
-function calcQ(a,op,b){
-  var ans = op==='+' ? a+b : a-b;
-  var pool = op==='+' ? [ans-1,ans+1,ans-2,ans+2,Math.abs(a-b),ans+3]
-                      : [ans-1,ans+1,ans+2,a+b,ans-2,ans+3];
-  return {sec:'A',type:'calc',a:a,op:op,b:b,ans:ans,pool:pool,
-    prompt: op==='+' ? 'Add the numbers!' : 'Take away to find the answer!'};
-}
-function arrowQ(start,sign,end,missing,pool){
-  var ans = missing==='end' ? end : start;
-  return {sec:'B',type:'arrow',start:start,sign:sign,end:end,missing:missing,ans:ans,pool:pool,
-    prompt: missing==='end' ? 'Follow the arrow. What number do you land on?' : 'Which number did the jump start from?'};
-}
-function cubeQ(tens,ones,pool){
-  var n=tens*10+ones;
-  var q={sec:'C',type:'cubes',tens:tens,ones:ones,ans:n};
-  if(pool){q.pool=pool;}
-  else{
-    var a=tens,b=ones;
-    q.pool=[b*10+a, a+b, a*10+b+1, a*10+b-1, a*10+b+10, a*10+b-10, a*10];
-  }
-  q.prompt='How many cubes are there in all?';
-  return q;
-}
-function textQ(sec,prompt,html,ans,pool,why,hint){
-  return {sec:sec,type:'text',prompt:prompt,html:html,ans:ans,pool:pool,why:why,hint:hint};
-}
-function gatorQ(mode,list){
-  var ans = mode==='most' ? Math.max.apply(null,list) : Math.min.apply(null,list);
-  return {sec:'D',type:'gator',mode:mode,list:list,ans:ans,pool:list,
-    prompt: mode==='most' ? 'The alligator is hungry! Which is the GREATEST number?' : 'Which is the SMALLEST number?'};
-}
-function T(t,o){return '<span class="t">'+t+' ten'+(t===1?'':'s')+'</span> and <span class="o">'+o+' one'+(o===1?'':'s')+'</span>';}
-
 var QUESTIONS=[];
-/* A: 15 add / subtract within 10 */
-[[3,'+',2],[5,'+',2],[6,'+',4],[9,'-',5],[7,'+',3],[7,'-',1],[8,'+',1],[3,'+',5],
- [5,'+',4],[7,'-',4],[10,'-',1],[9,'-',2],[6,'+',3],[10,'-',7],[8,'-',6]
-].forEach(function(r){QUESTIONS.push(calcQ(r[0],r[1],r[2]));});
 
-/* B: 10 ten jumps */
-QUESTIONS.push(
-  arrowQ(23,'-',13,'end',[33,22,3,14,12]),
-  arrowQ(22,'+',32,'end',[12,23,42,21,33]),
-  arrowQ(28,'-',18,'end',[38,27,8,29,17]),
-  arrowQ(18,'+',28,'end',[8,19,38,17,29]),
-  arrowQ(17,'-',7,'end',[27,16,18,10,6]),
-  arrowQ(34,'-',24,'start',[14,25,23,44,35]),
-  arrowQ(37,'-',27,'start',[17,28,26,47,38]),
-  arrowQ(20,'+',30,'start',[40,29,31,10,21]),
-  arrowQ(35,'-',25,'start',[15,26,24,45,36]),
-  arrowQ(11,'+',21,'start',[31,20,22,1,12])
-);
+/* A: 8 read the word, pick the picture */
+[['kite','🪁',['🎈','🚲','🪀','🛝']],
+ ['bike','🚲',['🪁','🛴','🚗','🛵']],
+ ['fire','🔥',['💧','❄️','🌧️','🌳']],
+ ['drive','🚗',['🚲','✈️','🚤','🛶']],
+ ['pile','🥞',['🍔','🍩','🌲','🍕']],
+ ['slide','🛝',['🎡','🪁','🏊','🚲']],
+ ['smile','😀',['😢','😠','😴','😮']],
+ ['hive','🐝',['🐞','🦋','🐜','🪰']]
+].forEach(function(r){
+  QUESTIONS.push({sec:'A',type:'pic',word:r[0],ans:r[1],pool:r[2],
+    prompt:'Read the word. Which picture matches?',
+    why:'The word '+r[0]+' ('+spaced(r[0])+') matches this picture: '+r[1]});
+});
 
-/* C: 10 cube counting / tens and ones */
-QUESTIONS.push(
-  cubeQ(3,2), cubeQ(2,5), cubeQ(2,8), cubeQ(4,1), cubeQ(1,5), cubeQ(2,0), cubeQ(5,3)
-);
-(function(){
-  var q=cubeQ(3,10,[30,13,4,50,41,310]);
-  q.ans=40; q.tricky=true;
-  q.prompt='TRICKY! How many cubes are there in all?';
-  QUESTIONS.push(q);
-})();
-QUESTIONS.push(
-  textQ('C','How many TENS are in this number?','<span class="t">4</span><span class="o">7</span>',4,[7,3,5,6,11],
-    'In 47 the first digit is the tens. 4 tens = 40, and 7 ones.','Look at the digit on the left. It tells the tens.'),
-  textQ('C','How many ONES are in this number?','<span class="t">6</span><span class="o">3</span>',3,[6,9,4,2,5],
-    'In 63 the second digit is the ones. 6 tens and 3 ones.','Look at the digit on the right. It tells the ones.')
-);
+/* B: 8 picture -> spelling */
+[['🪁','kite',['kit','kiet','kyte','kight'],'You fly it in the sky.'],
+ ['🚲','bike',['bik','biek','byke','bick'],'You pedal it.'],
+ ['🔥','fire',['fir','fier','fyre','fiar'],'It is hot and bright.'],
+ ['🥞','pile',['pil','piel','pyle','pill'],'A big ___ of pancakes.'],
+ ['🛝','slide',['slid','slied','slyde','slidde'],'You go down it at the park.'],
+ ['😀','smile',['smil','smiel','smyle','smill'],'A happy face makes a big ___.'],
+ ['🐝','hive',['hiv','hiev','hyve','hife'],'Bees live in a ___.'],
+ ['🎡','ride',['rid','ried','ryde','rite'],'Go on the Ferris wheel ___.']
+].forEach(function(r){
+  QUESTIONS.push({sec:'B',type:'spell',emoji:r[0],ans:r[1],pool:r[2],caption:r[3],
+    prompt:'Which is the right spelling for this picture?',
+    why:r[1]+' is spelled '+spaced(r[1])+'. The magic e at the end makes the i say its name!'});
+});
 
-/* D: 15 gator greatest / smallest + build the number */
-QUESTIONS.push(
-  gatorQ('most',[13,31,21,12]), gatorQ('most',[35,36,25,16]), gatorQ('most',[27,31,13,22]),
-  gatorQ('most',[29,28,19,26]), gatorQ('most',[27,17,12,26]), gatorQ('most',[14,41,24,11]),
-  gatorQ('most',[30,29,20,28]), gatorQ('most',[4,40,14,30]),
-  gatorQ('least',[13,31,22,41]), gatorQ('least',[29,28,30,40]), gatorQ('least',[14,41,24,34]),
-  textQ('D','Which number is this?','<span class="t">3 tens</span> and <span class="o">5 ones</span>',35,[53,8,30,36,25,45],
-    '3 tens is 30. Add 5 ones to make 35.','Put the tens digit first, then the ones digit.'),
-  textQ('D','Which number is this?','<span class="t">4 tens</span> and <span class="o">0 ones</span>',40,[4,44,14,41,30,50],
-    '4 tens is 40. There are no ones, so it is 40.','Zero ones means the ones place holds a 0.'),
-  textQ('D','Which number is this?','<span class="o">9 ones</span> and <span class="t">2 tens</span>',29,[92,11,20,28,30,19],
-    '2 tens is 20. Add 9 ones to make 29. The tens digit always goes first!','The tens digit always goes first, even if the words are in a different order.'),
-  textQ('D','Which number is this?','<span class="o">6 ones</span> and <span class="t">5 tens</span>',56,[65,11,50,55,57,46],
-    '5 tens is 50. Add 6 ones to make 56. The tens digit always goes first!','The tens digit always goes first, even if the words are in a different order.')
-);
+/* C: 8 fill in the blank (worksheet sentences) */
+[['Mike can ride his white ___ for nine miles!','bike',['kite','dive','pile','fire','vine']],
+ ['Jake and Kate had fun on the big ___.','ride',['vine','dive','kite','fire']],
+ ['Dave can ___ from his pals and run to base to be safe.','hide',['dive','vine','kite','pile']],
+ ['Mike likes to ___ into the lake and swim to the side.','dive',['hide','ride','bike','kite']],
+ ['Finn made a ___ with sticks and logs from a pine.','fire',['vine','kite','bike','dive']],
+ ['That small bug can walk up the ___ and munch on it.','vine',['kite','fire','bike','dive']],
+ ['Kate’s ___ with stripes got stuck on a branch.','kite',['dive','pile','fire','hide']],
+ ['My dad made me a big ___ of pancakes.','pile',['fire','vine','hide','dive']]
+].forEach(function(r){
+  QUESTIONS.push({sec:'C',type:'fill',sentence:r[0],ans:r[1],pool:r[2],
+    prompt:'Which word makes sense in the sentence?',
+    why:'“'+r[1]+'” makes sense: '+r[0].replace('___',r[1])});
+});
+
+/* D: 6 sentence match (reading sentences) */
+[['🚗💥','Mike and Kate like to drive and bump.',['Mike and Kate like to dive into the lake.','Mike and Kate like to dive and bump.','Mike and Kate like to drive into the lake.']],
+ ['🍋😋','Jake likes to take a bite of my lime.',['Jake likes to take a ride on his bike.','Jake likes to take a bite of my line.','Jake likes to take a ride on my lime.']],
+ ['🚗🌲🏞️','Miles likes to take a drive by the lake.',['Miles can run nine miles with his pals.','Miles likes to take a dive by the lake.','Miles can drive nine miles with his pals.']],
+ ['🚴🚴🏙️','Kate and Dave ride their bikes in the bike lane.',['Kate and Dave ride their bike on the plane.','Kate and Dave hike their bikes in the bike lane.','Kate and Dave ride their bikes in the bike line.']],
+ ['🧍🧍🧍','The kids have to stand in line to get on the ride.',['The kids can go on the swings and the slide.','The kids have to stand in a pile to get on the ride.','The kids have to stand in line to get on the slide.']],
+ ['🐝🏠🥾','Cade can see a big hive on his hike.',['Cade can see a big cake on his hike.','Cade can see a big hive on his bike.','Cade can see a big hike on his hive.']]
+].forEach(function(r){
+  QUESTIONS.push({sec:'D',type:'sent',emoji:r[0],ans:r[1],pool:r[2],
+    prompt:'Read the sentences. Which one matches the picture?',
+    why:'This sentence tells what the picture shows: “'+r[1]+'” Read each word carefully!'});
+});
+
+/* E: 8 word chains */
+function chainQ(steps,ans,pool,prompt,why){
+  QUESTIONS.push({sec:'E',type:'chain',steps:steps,ans:ans,pool:pool,prompt:prompt,why:why});
+}
+chainQ([{w:'cut'},{t:'c → b'},{q:1}],'but',['cub','bat','bit','cot','bud'],
+  'Write the word cut. Change the c to b. What word is this?','Change the c in cut to b and you get b-u-t: but.');
+chainQ([{w:'but'},{t:'u → e'},{q:1}],'bet',['bat','bit','bot','beat','bait'],
+  'Change the /u/ in but to /e/. What word is this?','Change the u in but to e and you get b-e-t: bet.');
+chainQ([{w:'bet'},{t:'b → m'},{q:1}],'met',['net','mat','set','mit','wet'],
+  'Change the b to m. What word is this?','Change the b in bet to m and you get m-e-t: met.');
+chainQ([{w:'send'},{t:'d → t'},{q:1}],'sent',['tend','sand','sell','seat','bend'],
+  'Write the word send. Change the d to t. What word is this?','Change the d in send to t and you get s-e-n-t: sent.');
+chainQ([{w:'sent'},{t:'s → w'},{q:1}],'went',['west','want','tent','wet','rent'],
+  'Change the /s/ in sent to /w/. What word is this?','Change the s in sent to w and you get w-e-n-t: went.');
+chainQ([{w:'went'},{t:'n → s'},{q:1}],'west',['vest','wet','best','wets','wept'],
+  'Change the n to s. What word is this?','Change the n in went to s and you get w-e-s-t: west.');
+chainQ([{w:'dim'},{t:'add magic e'},{q:1}],'dime',['dine','dame','mime','dip','dome'],
+  'Start with dim. Add the magic e. What word is this?','dim + magic e = dime. The i now says its name!');
+chainQ([{w:'bit'},{t:'add magic e'},{w:'bite'},{t:'b → k'},{q:1}],'kite',['kit','bite','bike','kate','kitt'],
+  'Start with bit. Add the magic e. Then change the b to k. What word is this?','bit + e = bite. Change the b to k: k-i-t-e, kite!');
+
+/* F: 12 heart words, rhymes, sentences */
+[['Do ___ like to run?','you',['yu','yoo','yew','yuo']],
+ ['It ___ a hot day.','was',['wuz','woz','wos','wus']],
+ ['I ___ a pet dog.','have',['hav','hauv','haev','hve']],
+ ['___ is your name?','What',['Wat','Wut','Whut','Wot']],
+ ['___ at the dog and cat run!','Look',['Luk','Lok','Loke','Lock']]
+].forEach(function(r){
+  QUESTIONS.push({sec:'F',type:'heart',sentence:r[0],ans:r[1],pool:r[2],
+    prompt:'This is a heart word! Which spelling is right?',
+    why:'The heart word is spelled '+spaced(r[1])+'. Some parts you just learn by heart!'});
+});
+[['bend','send',['band','bond','bind','sand']],
+ ['west','best',['bust','bat','fist','mist']],
+ ['fled','sled',['slid','slide','slip','sad']],
+ ['rent','tent',['tint','tan','rant','rest']]
+].forEach(function(r){
+  QUESTIONS.push({sec:'F',type:'rhyme',word:r[0],ans:r[1],pool:r[2],
+    prompt:'Which word rhymes with '+r[0]+'?',
+    why:r[0]+' and '+r[1]+' sound the same at the end: -'+r[0].slice(r[0].length-3)+'.'});
+});
+[['What did you get?',['What did you get.','what did you get?','What did you get','What did yu get?']],
+ ['Look at the dog and cat run!',['look at the dog and cat run!','Look at the dog and cat run?','Look at the dog and cat run','Look at the dog and cat ron!']],
+ ['Have you sent the text?',['have you sent the text?','Have you sent the text.','Have you sent the tex?','Have you sent the text']]
+].forEach(function(r){
+  QUESTIONS.push({sec:'F',type:'sentfix',ans:r[0],pool:r[1],
+    prompt:'Which sentence is written the right way?',
+    why:'A sentence starts with a capital letter, has every word spelled right, and ends with the right mark: '+r[0]});
+});
 
 /* ============ explanations & hints ============ */
-function explain(q){
-  if(q.type==='calc'){
-    return q.op==='+'
-      ? q.a+' + '+q.b+' = '+q.ans+'. Start at '+q.a+' and count up '+q.b+' more.'
-      : q.a+' − '+q.b+' = '+q.ans+'. Start at '+q.a+' and count back '+q.b+'.';
-  }
-  if(q.type==='arrow'){
-    var dir = q.sign==='+' ? 'more' : 'fewer';
-    var d = q.sign==='+' ? 'goes UP by 1' : 'goes DOWN by 1';
-    if(q.missing==='end') return q.start+' '+(q.sign==='+'?'+':'−')+' 10 = '+q.end+'. The tens digit '+d+' and the ones stay the same.';
-    return 'Go backwards! '+q.ans+' '+(q.sign==='+'?'+':'−')+' 10 = '+q.end+'. So the jump started at '+q.ans+'.';
-  }
-  if(q.type==='cubes'){
-    if(q.tricky) return '10 loose cubes make 1 more ten! So 3 tens + 1 ten = 4 tens. That is 40 cubes.';
-    return q.tens+' rod'+(q.tens===1?'':'s')+' = '+(q.tens*10)+', and '+q.ones+' cube'+(q.ones===1?'':'s')+'. '+(q.tens*10)+' + '+q.ones+' = '+q.ans+'.';
-  }
-  if(q.type==='gator'){
-    return q.mode==='most'
-      ? q.ans+' is the greatest. Look at the tens first: the number with the most tens wins!'
-      : q.ans+' is the smallest. Look at the tens first: the number with the fewest tens is smallest!';
-  }
-  return q.why;
-}
+function explain(q){return q.why;}
 function hintHTML(q){
-  if(q.type==='calc'){
-    var h='<div class="dots">',i;
-    if(q.op==='+'){
-      for(i=0;i<q.a;i++)h+='<span>🍎</span>';
-      for(i=0;i<q.b;i++)h+='<span>🍏</span>';
-      h+='</div>Count ALL the apples!';
-    }else{
-      for(i=0;i<q.a;i++)h+='<span class="'+(i>=q.a-q.b?'x':'')+'">🍎</span>';
-      h+='</div>Count the apples that are NOT crossed out!';
-    }
-    return h;
-  }
-  if(q.type==='arrow') return q.missing==='end'
-    ? 'The arrow changes the TENS digit only. '+(q.sign==='+'?'+10 means one more ten.':'−10 means one less ten.')
-    : 'Go backwards! Do the opposite jump from the end number to find the start.';
-  if(q.type==='cubes') return q.tricky
-    ? 'Tall rods are tens. Count the loose cubes too. Can 10 loose cubes make a new ten?'
-    : 'Each tall rod is 10. Count the rods first, then the little cubes.';
-  if(q.type==='gator') return 'Look at the tens digit first (the left one). More tens means a bigger number!';
-  return q.hint;
+  if(q.type==='pic') return 'Sound it out letter by letter: <b>'+spaced(q.word)+'</b>. The magic e at the end makes the i say its name.';
+  if(q.type==='spell') return 'Say the word slowly. Listen for the long i sound, like in <b>bike</b>. Which spelling has i ... e?';
+  if(q.type==='fill') return 'Read the sentence and try each word in the blank. Which one makes sense?';
+  if(q.type==='sent') return 'Look at the picture first. Then read each sentence slowly and check every word.';
+  if(q.type==='chain') return 'Change <b>only</b> the letter you are told. Keep all the other letters the same!';
+  if(q.type==='heart') return 'Read the whole sentence. Which spelling looks right from your books?';
+  if(q.type==='rhyme') return 'Rhyming words sound the same at the end. Say them out loud!';
+  return 'A sentence needs a Capital letter at the start and . ? or ! at the end.';
 }
 function gatorSay(good){
-  var g=['Chomp-tastic!','You got it!','Snap! Perfect!','Roar-some job!','Super swamp star!','Wow, so clever!','Yay, Zion!','Splash! Correct!'];
+  var g=['Magic! ✨','Chomp-tastic!','You got it!','Spell-tacular!','Super wizard!','Wow, so clever!','Yay, Zion!','Abracadabra! Correct!'];
   var b=['Good try!','Oopsie! Let’s learn it.','Almost! Look at the answer.','No worries, Zion!','Nice try, keep going!'];
   var a=good?g:b; return a[Math.floor(Math.random()*a.length)];
 }
@@ -311,14 +321,14 @@ function gatorSVG(mood){
     : '<path d="M56 98 Q100 140 144 98" stroke="#1f3a2b" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M70 112 l6 10 l6 -8 M118 112 l6 -8 l6 8" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>';
   var pupils = mood==='sad' ? '<circle cx="62" cy="44" r="7" fill="#1f3a2b"/><circle cx="138" cy="44" r="7" fill="#1f3a2b"/>'
                             : '<circle cx="64" cy="40" r="8" fill="#1f3a2b"/><circle cx="136" cy="40" r="8" fill="#1f3a2b"/><circle cx="67" cy="37" r="3" fill="#fff"/><circle cx="139" cy="37" r="3" fill="#fff"/>';
-  return '<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Friendly alligator">'+
+  var hat='<polygon points="100,-22 70,34 130,34" fill="#8a6bff" stroke="#5b3fd0" stroke-width="4" stroke-linejoin="round"/><ellipse cx="100" cy="34" rx="42" ry="8" fill="#8a6bff" stroke="#5b3fd0" stroke-width="4"/><text x="100" y="22" font-size="22" text-anchor="middle" fill="#ffd23f">★</text>';
+  return '<svg viewBox="0 -26 200 186" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Friendly wizard alligator">'+
     '<ellipse cx="100" cy="88" rx="86" ry="56" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
-    '<circle cx="62" cy="42" r="24" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/><circle cx="138" cy="42" r="24" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
-    '<circle cx="62" cy="42" r="16" fill="#fff"/><circle cx="138" cy="42" r="16" fill="#fff"/>'+pupils+
+    '<circle cx="62" cy="48" r="22" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/><circle cx="138" cy="48" r="22" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
+    '<circle cx="62" cy="44" r="16" fill="#fff"/><circle cx="138" cy="44" r="16" fill="#fff"/>'+pupils+
     '<circle cx="84" cy="78" r="4" fill="#2f9e3c"/><circle cx="116" cy="78" r="4" fill="#2f9e3c"/>'+
     '<circle cx="34" cy="92" r="10" fill="#ff9ec7" opacity=".7"/><circle cx="166" cy="92" r="10" fill="#ff9ec7" opacity=".7"/>'+
-    '<path d="M60 22 l8 -14 l8 14 M92 14 l8 -14 l8 14 M124 22 l8 -14 l8 14" fill="#2f9e3c" opacity=".0"/>'+
-    mouth+'</svg>';
+    hat+mouth+'</svg>';
 }
 
 /* ============ confetti ============ */
@@ -342,21 +352,20 @@ function loop(){
 
 /* ============ app ============ */
 var app=document.getElementById('app');
-var order=[],idx=0,score=0,log=[],streak=0,practice=false,hintUsed=false,locked=false;
-
-function best(){try{return parseInt(localStorage.getItem('zionGatorBest')||'0',10);}catch(e){return 0;}}
-function saveBest(s){try{if(s>best())localStorage.setItem('zionGatorBest',String(s));}catch(e){}}
+var order=[],idx=0,score=0,log=[],streak=0,practice=false,locked=false;
+function best(){try{return parseInt(localStorage.getItem('zionPhonicsBest')||'0',10);}catch(e){return 0;}}
+function saveBest(s){try{if(s>best())localStorage.setItem('zionPhonicsBest',String(s));}catch(e){}}
 
 function home(){
   var b=best();
   app.innerHTML=
   '<div class="card">'+
-    '<h1>Zion’s Gator<br>Swamp Quiz!</h1>'+
+    '<h1>Zion’s Magic E<br>Word Quiz!</h1>'+
     '<div class="mascot-wrap"><div class="mascot">'+gatorSVG('open')+'</div></div>'+
-    '<div class="sub">Hi Zion! I’m Chomper the alligator.<br>Help me finish <b>50</b> swamp puzzles!</div>'+
+    '<div class="sub">Hi Zion! I’m Chomper the wizard gator.<br>Help me cast <b>50</b> word spells! ✨</div>'+
     '<div class="levels">'+SECTIONS.map(function(s,i){return '<div class="lvl '+s.cls+'"><b>'+s.icon+'</b><div>Level '+(i+1)+'<br>'+s.name+'</div></div>';}).join('')+'</div>'+
     (b?'<div class="sub">⭐ Your best score: <b>'+b+' / 50</b></div>':'')+
-    '<div class="center"><button class="btn go" id="start">Let’s Go! 🐊</button></div>'+
+    '<div class="center"><button class="btn go" id="start">Let’s Go! 🪄</button></div>'+
   '</div>';
   document.getElementById('start').onclick=function(){begin(false);};
 }
@@ -368,47 +377,38 @@ function begin(onlyMissed){
     list=shuffle(log.filter(function(l){return !l.ok;}).map(function(l){return l.q;}));
   }else{
     list=[];
-    SECTIONS.forEach(function(s){
-      list=list.concat(shuffle(QUESTIONS.filter(function(q){return q.sec===s.id;})));
-    });
+    SECTIONS.forEach(function(s){list=list.concat(shuffle(QUESTIONS.filter(function(q){return q.sec===s.id;})));});
   }
   order=list;idx=0;score=0;log=[];streak=0;
   show();
 }
 
 function visual(q){
-  if(q.type==='calc'){
-    return '<div class="calc"><div class="op"></div><div class="n">'+q.a+'</div>'+
-           '<div class="op">'+(q.op==='+'?'+':'−')+'</div><div class="n">'+q.b+'</div>'+
-           '<div class="line"></div><div class="q">?</div></div>';
+  if(q.type==='pic') return '<div class="wordcard">'+hl(q.word)+'</div>';
+  if(q.type==='spell') return '<div class="vcol"><div class="picbig">'+q.emoji+'</div><div class="caption">'+q.caption+'</div></div>';
+  if(q.type==='fill'||q.type==='heart') return '<div class="sentcard">'+q.sentence.replace('___','<span class="blank">&nbsp;?&nbsp;</span>')+'</div>';
+  if(q.type==='sent') return '<div class="picpair">'+q.emoji+'</div>';
+  if(q.type==='chain'){
+    return '<div class="chain">'+q.steps.map(function(s,i){
+      var arrow=i>0?'<span class="arr">➜</span>':'';
+      if(s.w) return arrow+'<span class="cw">'+s.w+'</span>';
+      if(s.t) return arrow+'<span class="ct">'+s.t+'</span>';
+      return '<span class="cw q">?</span>';
+    }).join('')+'</div>';
   }
-  if(q.type==='arrow'){
-    var arrow='<div class="jump"><div class="tag '+(q.sign==='-'?'minus':'')+'">'+(q.sign==='+'?'+10':'−10')+'</div>'+
-      '<svg viewBox="0 0 130 50"><path d="M4 18h84V4l38 21-38 21V32H4z" fill="#fff" stroke="#1f3a2b" stroke-width="4" stroke-linejoin="round"/></svg></div>';
-    var l = q.missing==='start' ? '<div class="numbox mystery">?</div>' : '<div class="numbox">'+q.start+'</div>';
-    var r = q.missing==='end' ? '<div class="numbox mystery">?</div>' : '<div class="numbox">'+q.end+'</div>';
-    return '<div class="arrowrow">'+l+arrow+r+'</div>';
-  }
-  if(q.type==='cubes'){
-    var rods='',i;
-    for(i=0;i<q.tens;i++){rods+='<div class="rod">'+new Array(11).join('<i></i>')+'</div>';}
-    var ones='';
-    for(i=0;i<q.ones;i++){ones+='<div class="cube"></div>';}
-    return '<div class="cubes"><div class="rods">'+rods+'</div>'+(q.ones?'<div class="ones">'+ones+'</div>':'')+
-      '<div class="legend">Tall rod = 10 &nbsp;·&nbsp; little cube = 1</div></div>';
-  }
-  if(q.type==='gator'){
-    return '<div class="gatorvis">'+gatorSVG('open')+'</div>'+
-      '<div class="center"><span class="bigword '+(q.mode==='most'?'':'small')+'">'+(q.mode==='most'?'GREATEST':'SMALLEST')+'</span></div>';
-  }
-  return '<div class="textvis">'+q.html+'</div>';
+  if(q.type==='rhyme') return '<div class="wordcard">'+q.word+'</div><div class="caption">🎵 Which word rhymes?</div>';
+  return '<div class="picbig" style="font-size:clamp(60px,18vw,90px)">📝</div>';
+}
+
+function optClass(q){
+  return q.type==='pic'?'emoji':(q.type==='sent'||q.type==='sentfix')?'long':'word';
 }
 
 function show(){
-  locked=false;hintUsed=false;
+  locked=false;
   var q=order[idx],sec=SECTIONS.filter(function(s){return s.id===q.sec;})[0];
   var pct=idx/order.length*100;
-  var opts=optionsFor(q);
+  var opts=optionsFor(q),oc=optClass(q);
   app.innerHTML=
   '<div class="card">'+
     '<div class="top"><span class="pill">'+(practice?'Practice ':'Question ')+(idx+1)+' of '+order.length+'</span><span class="pill">⭐ '+score+'</span></div>'+
@@ -416,28 +416,26 @@ function show(){
     '<div class="chip '+sec.cls+'">'+sec.icon+' Level '+(SECTIONS.indexOf(sec)+1)+': '+sec.name+'</div>'+
     '<div class="say"><div id="mood">'+gatorSVG('smile')+'</div><div class="bubble" id="bubble">'+q.prompt+'</div></div>'+
     '<div class="vis">'+visual(q)+'</div>'+
-    '<div class="opts" id="opts">'+opts.map(function(o){return '<button class="opt" data-v="'+o+'">'+o+'</button>';}).join('')+'</div>'+
+    '<div class="opts'+(oc==='long'?' long':'')+'" id="opts">'+opts.map(function(o,i){return '<button class="opt '+oc+'" data-i="'+i+'">'+o+'</button>';}).join('')+'</div>'+
     '<div id="hint"></div><div id="fb"></div>'+
     '<div class="actions"><button class="btn sm" id="hintbtn">💡 Help me</button><span id="nextwrap"></span></div>'+
   '</div>';
   Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){
-    b.onclick=function(){answer(b,q);};
+    b.onclick=function(){answer(b,q,opts);};
   });
   document.getElementById('hintbtn').onclick=function(){
     if(locked)return;
-    hintUsed=true;
     document.getElementById('hint').innerHTML='<div class="hintbox">💡 '+hintHTML(q)+'</div>';
   };
   scrollTo({top:0,behavior:'smooth'});
 }
 
-function answer(btn,q){
+function answer(btn,q,opts){
   if(locked)return;locked=true;
-  var v=parseInt(btn.getAttribute('data-v'),10),ok=v===q.ans;
-  var all=document.querySelectorAll('.opt');
-  Array.prototype.forEach.call(all,function(b){
+  var v=opts[parseInt(btn.getAttribute('data-i'),10)],ok=v===q.ans;
+  Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){
     b.disabled=true;
-    if(parseInt(b.getAttribute('data-v'),10)===q.ans)b.classList.add('right');
+    if(opts[parseInt(b.getAttribute('data-i'),10)]===q.ans)b.classList.add('right');
   });
   if(!ok)btn.classList.add('wrong');
   document.getElementById('opts').classList.add('done');
@@ -447,7 +445,7 @@ function answer(btn,q){
   document.getElementById('mood').innerHTML=gatorSVG(ok?'open':'sad');
   document.getElementById('bubble').textContent=gatorSay(ok);
   document.getElementById('fb').innerHTML=
-    '<div class="fb '+(ok?'good':'bad')+'"><h3>'+(ok?'✅ Yes! '+q.ans:'🤔 The answer is '+q.ans)+'</h3>'+explain(q)+'</div>';
+    '<div class="fb '+(ok?'good':'bad')+'"><h3>'+(ok?'✅ Yes!':'🤔 The answer is:')+' '+q.ans+'</h3>'+explain(q)+'</div>';
   if(ok&&streak>0&&streak%5===0){burst(70);document.getElementById('bubble').textContent='🔥 '+streak+' in a row! Amazing!';}
   var last=idx===order.length-1;
   var nb=document.createElement('button');nb.className='btn go';nb.style.fontSize='26px';nb.style.padding='12px 28px';
@@ -457,16 +455,26 @@ function answer(btn,q){
   setTimeout(function(){nb.scrollIntoView({behavior:'smooth',block:'center'});},120);
 }
 
+function missLine(q){
+  if(q.type==='pic')return 'Picture for the word “'+q.word+'”';
+  if(q.type==='spell')return 'Spell '+q.emoji+' ('+q.caption+')';
+  if(q.type==='fill'||q.type==='heart')return q.sentence;
+  if(q.type==='sent')return 'Sentence for '+q.emoji;
+  if(q.type==='chain')return q.prompt;
+  if(q.type==='rhyme')return 'Rhymes with “'+q.word+'”';
+  return 'Write the sentence the right way';
+}
+
 function results(){
   var total=order.length,pct=score/total;
   var stars=pct>=.9?3:pct>=.7?2:pct>=.4?1:0;
   if(!practice)saveBest(score);
-  var msg=pct>=.9?'SUPER SWAMP CHAMPION!':pct>=.7?'Great job, Zion!':pct>=.4?'Good work! Let’s keep practising!':'You tried so hard! Try again!';
-  var by=SECTIONS.map(function(s,i){
+  var msg=pct>=.9?'SUPER WORD WIZARD!':pct>=.7?'Great job, Zion!':pct>=.4?'Good work! Let’s keep practising!':'You tried so hard! Try again!';
+  var by=SECTIONS.map(function(s){
     var items=log.filter(function(l){return l.q.sec===s.id;});
     if(!items.length)return '';
     var c=items.filter(function(l){return l.ok;}).length;
-    return '<div class="brow"><span style="width:2em">'+s.icon+'</span><span style="min-width:9.5em">'+s.name+'</span><div class="bar"><div style="width:'+(c/items.length*100)+'%"></div></div><span>'+c+'/'+items.length+'</span></div>';
+    return '<div class="brow"><span style="width:2em">'+s.icon+'</span><span style="min-width:10.5em">'+s.name+'</span><div class="bar"><div style="width:'+(c/items.length*100)+'%"></div></div><span>'+c+'/'+items.length+'</span></div>';
   }).join('');
   var missed=log.filter(function(l){return !l.ok;});
   var missHTML=missed.length
@@ -482,524 +490,13 @@ function results(){
     '<div class="break">'+by+'</div>'+missHTML+
     '<div class="actions" style="justify-content:center;margin-top:20px">'+
       (missed.length?'<button class="btn alt" id="pm">Practice my mistakes 💪</button>':'')+
-      '<button class="btn go" id="again" style="font-size:26px">Play again 🐊</button>'+
+      '<button class="btn go" id="again" style="font-size:26px">Play again 🪄</button>'+
     '</div>'+
   '</div>';
   var pm=document.getElementById('pm');if(pm)pm.onclick=function(){begin(true);};
   document.getElementById('again').onclick=function(){begin(false);};
   if(pct>=.4)burst(pct>=.9?220:120);
   scrollTo({top:0});
-}
-function missLine(q){
-  if(q.type==='calc')return q.a+' '+(q.op==='+'?'+':'−')+' '+q.b+' = ?';
-  if(q.type==='arrow')return q.missing==='end' ? q.start+' '+(q.sign==='+'?'+':'−')+'10 → ?' : '? '+(q.sign==='+'?'+':'−')+'10 → '+q.end;
-  if(q.type==='cubes')return q.tricky?'Cubes: 3 rods and 10 loose cubes':'Cubes: '+q.tens+' rod'+(q.tens===1?'':'s')+' and '+q.ones+' cube'+(q.ones===1?'':'s');
-  if(q.type==='gator')return (q.mode==='most'?'Greatest':'Smallest')+' of '+q.list.join(', ');
-  return q.prompt.replace('?','')+' '+q.html.replace(/<[^>]+>/g,'');
-}
-
-home();
-}
-</script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zion's Gator Swamp Quiz</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --green:#4cc94a; --green-d:#2f9e3c; --lime:#b8f06a; --sun:#ffd23f; --sun-d:#f5a800;
-  --sky:#6ec8ff; --pink:#ff7eb6; --purple:#8a6bff; --red:#ff5a5f; --ink:#1f3a2b; --card:#ffffff;
-}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%}
-body{
-  font-family:'Baloo 2','Comic Sans MS','Chalkboard SE','Trebuchet MS',sans-serif;
-  color:var(--ink);
-  background:linear-gradient(#8fdcff 0%,#c8f2ff 38%,#9be37a 38%,#4cc94a 100%);
-  background-attachment:fixed;
-  overflow-x:hidden;
-}
-.sun{position:fixed;top:16px;right:20px;width:70px;height:70px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 12px #ffe98a88,0 0 0 26px #ffe98a44;z-index:0}
-.cloud{position:fixed;background:#fff;border-radius:50px;opacity:.9;z-index:0;animation:drift 60s linear infinite}
-.cloud:before,.cloud:after{content:"";position:absolute;background:#fff;border-radius:50%}
-.cloud.c1{top:40px;left:-120px;width:100px;height:32px}
-.cloud.c1:before{width:44px;height:44px;top:-22px;left:14px}.cloud.c1:after{width:34px;height:34px;top:-14px;left:50px}
-.cloud.c2{top:100px;left:-200px;width:80px;height:26px;animation-duration:85s;animation-delay:-20s}
-.cloud.c2:before{width:36px;height:36px;top:-18px;left:10px}.cloud.c2:after{width:28px;height:28px;top:-10px;left:40px}
-@keyframes drift{to{transform:translateX(130vw)}}
-.pad{position:fixed;bottom:-10px;font-size:46px;z-index:0;opacity:.85;animation:bob 4s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-8px) rotate(4deg)}}
-#app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:14px 14px 70px}
-.card{background:var(--card);border-radius:28px;border:5px solid var(--green-d);box-shadow:0 8px 0 var(--green-d),0 14px 24px #0002;padding:18px}
-h1{margin:0;font-size:clamp(34px,8vw,58px);line-height:1;text-align:center;color:var(--green-d);text-shadow:3px 3px 0 var(--sun)}
-.sub{text-align:center;font-size:clamp(18px,4.5vw,24px);font-weight:700;margin:8px 0 14px}
-.btn{
-  font-family:inherit;font-weight:800;font-size:clamp(22px,5.5vw,30px);cursor:pointer;
-  border:none;border-radius:22px;padding:14px 28px;color:#fff;background:var(--purple);
-  box-shadow:0 7px 0 #5b3fd0;transition:transform .08s, box-shadow .08s;
-}
-.btn:active{transform:translateY(5px);box-shadow:0 2px 0 #5b3fd0}
-.btn.go{background:var(--green);box-shadow:0 7px 0 var(--green-d);font-size:clamp(26px,7vw,38px);padding:16px 40px}
-.btn.go:active{box-shadow:0 2px 0 var(--green-d)}
-.btn.alt{background:var(--sky);box-shadow:0 7px 0 #2f90d0}
-.btn.alt:active{box-shadow:0 2px 0 #2f90d0}
-.btn.sm{font-size:20px;padding:8px 18px;border-radius:16px;box-shadow:0 5px 0 #5b3fd0}
-.center{text-align:center}
-.hidden{display:none!important}
-.levels{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-.lvl{border-radius:20px;padding:10px 12px;font-weight:700;font-size:clamp(16px,4vw,20px);color:#fff;display:flex;gap:8px;align-items:center}
-.lvl b{font-size:30px}
-.l1{background:var(--pink)}.l2{background:var(--purple)}.l3{background:#ff9d2e}.l4{background:#19b5a5}
-.mascot-wrap{display:flex;justify-content:center}
-.mascot{width:min(280px,70vw);animation:wiggle 3s ease-in-out infinite}
-@keyframes wiggle{50%{transform:rotate(-3deg) translateY(-4px)}}
-/* top bar */
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;font-weight:800;font-size:clamp(16px,4.2vw,22px)}
-.pill{background:#fff;border:4px solid var(--green-d);border-radius:999px;padding:2px 14px;box-shadow:0 4px 0 var(--green-d)}
-.track{position:relative;height:22px;background:#fff;border:4px solid var(--green-d);border-radius:999px;margin:6px 4px 16px}
-.fill{height:100%;background:repeating-linear-gradient(45deg,var(--lime) 0 12px,#9fe34f 12px 24px);border-radius:999px;width:0;transition:width .5s}
-.runner{position:absolute;top:-22px;font-size:34px;transition:left .5s;transform:translateX(-50%)}
-.chip{display:inline-block;color:#fff;border-radius:999px;padding:2px 16px;font-weight:800;font-size:clamp(16px,4vw,20px);margin-bottom:8px}
-/* speech */
-.say{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-.say svg{width:92px;flex:none}
-.bubble{position:relative;background:#f0fff0;border:4px solid var(--green);border-radius:22px;padding:10px 14px;font-weight:700;font-size:clamp(20px,5vw,28px);line-height:1.15;flex:1}
-.bubble:before{content:"";position:absolute;left:-18px;top:50%;margin-top:-10px;border:10px solid transparent;border-right-color:var(--green);border-left:0}
-/* visuals */
-.vis{display:flex;justify-content:center;align-items:center;margin:8px 0 14px;min-height:90px;flex-wrap:wrap;gap:10px}
-.calc{display:inline-grid;grid-template-columns:auto auto;font-weight:800;font-size:clamp(54px,15vw,84px);line-height:1;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:12px 26px}
-.calc .op{text-align:left;padding-right:16px;color:var(--pink)}
-.calc .n{text-align:right}
-.calc .line{grid-column:1/3;border-top:7px solid var(--ink);margin:6px 0;border-radius:4px}
-.calc .q{grid-column:1/3;text-align:right;color:var(--purple)}
-.arrowrow{display:flex;align-items:center;gap:6px;font-weight:800;font-size:clamp(40px,11vw,64px)}
-.numbox{min-width:1.7em;text-align:center;background:#e9f7ff;border:5px solid var(--sky);border-radius:18px;padding:2px 10px}
-.numbox.mystery{background:#fff0f7;border:5px dashed var(--pink);color:var(--pink)}
-.jump{position:relative;display:flex;flex-direction:column;align-items:center}
-.jump .tag{font-size:.5em;background:var(--sun);border:4px dotted var(--sun-d);border-radius:12px;padding:0 10px;margin-bottom:-4px}
-.jump .tag.minus{background:#ffd9e6;border-color:var(--pink)}
-.jump svg{width:clamp(80px,22vw,130px);height:auto}
-.cubes{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;justify-content:center;background:#eefaff;border:5px solid var(--sky);border-radius:22px;padding:14px 18px}
-.rods{display:flex;gap:8px;align-items:flex-end}
-.rod{display:flex;flex-direction:column;border:3px solid #1e6fa0;border-radius:6px;overflow:hidden;background:#3aa7e8}
-.rod i{display:block;width:20px;height:14px;border-bottom:2px solid #1e6fa0;background:linear-gradient(135deg,#7bd0ff,#3aa7e8)}
-.rod i:last-child{border-bottom:none}
-.ones{display:grid;grid-template-columns:repeat(2,22px);gap:6px}
-.cube{width:22px;height:22px;border:3px solid #c25b00;border-radius:5px;background:linear-gradient(135deg,#ffd27a,#ff9d2e)}
-.legend{width:100%;text-align:center;font-weight:700;font-size:16px;color:#476}
-.gatorvis{display:flex;justify-content:center}
-.gatorvis svg{width:min(210px,52vw)}
-.bigword{display:inline-block;background:var(--pink);color:#fff;border-radius:12px;padding:0 10px}
-.bigword.small{background:#19b5a5}
-.textvis{font-size:clamp(34px,9vw,54px);font-weight:800;text-align:center;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:10px 24px}
-.textvis span.t{color:var(--purple)} .textvis span.o{color:#ff7a00}
-/* options */
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
-.opt{
-  font-family:inherit;font-weight:800;font-size:clamp(38px,11vw,60px);cursor:pointer;
-  min-height:92px;border-radius:24px;border:5px solid var(--ink);background:#fff;color:var(--ink);
-  box-shadow:0 7px 0 var(--ink);transition:transform .08s, box-shadow .08s, background .2s;
-}
-.opt:nth-child(1):hover,.opt:nth-child(2):hover,.opt:nth-child(3):hover,.opt:nth-child(4):hover{background:#fffbe0}
-.opt:active{transform:translateY(5px);box-shadow:0 2px 0 var(--ink)}
-.opt.right{background:var(--green);color:#fff;border-color:var(--green-d);box-shadow:0 7px 0 var(--green-d);animation:pop .5s}
-.opt.wrong{background:var(--red);color:#fff;border-color:#c23;box-shadow:0 7px 0 #c23;animation:shake .4s}
-.opt[disabled]{cursor:default}
-.opts.done .opt:not(.right):not(.wrong){opacity:.45}
-@keyframes pop{40%{transform:scale(1.12)}}
-@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.fb{margin-top:16px;border-radius:22px;padding:12px 16px;font-weight:700;font-size:clamp(18px,4.6vw,24px);line-height:1.25;animation:slide .3s}
-.fb.good{background:#e6ffe0;border:4px solid var(--green)} .fb.bad{background:#fff0f0;border:4px solid var(--red)}
-.fb h3{margin:0 0 4px;font-size:1.3em}
-@keyframes slide{from{opacity:0;transform:translateY(10px)}}
-.hintbox{margin-top:12px;background:#eef;border:4px dashed var(--purple);border-radius:18px;padding:10px 14px;font-weight:700;font-size:clamp(17px,4.4vw,22px)}
-.dots{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin:6px 0;font-size:30px}
-.dots .x{opacity:.35;position:relative}
-.dots .x:after{content:"✖";position:absolute;left:4px;top:-2px;color:var(--red);font-size:30px;opacity:1}
-.actions{display:flex;justify-content:space-between;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap}
-/* results */
-.stars{font-size:clamp(50px,14vw,80px);text-align:center;letter-spacing:6px}
-.big{font-size:clamp(44px,13vw,76px);font-weight:800;text-align:center;line-height:1;color:var(--purple)}
-.break{display:grid;gap:8px;margin:14px 0}
-.brow{display:flex;align-items:center;gap:10px;font-weight:800;font-size:clamp(16px,4vw,20px)}
-.brow .bar{flex:1;height:20px;border-radius:999px;background:#e8f5e8;border:3px solid var(--green-d);overflow:hidden}
-.brow .bar div{height:100%;background:var(--green)}
-.miss{background:#fff7f0;border:4px solid #ffb066;border-radius:18px;padding:8px 14px;margin:8px 0;font-weight:700;font-size:clamp(16px,4vw,20px)}
-canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
-</head>
-<body>
-<div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
-<div class="pad" style="left:4%">🪷</div><div class="pad" style="left:46%;animation-delay:-1.5s">🐸</div><div class="pad" style="right:5%;animation-delay:-2.5s">🪷</div>
-<canvas id="fx"></canvas>
-<div id="app"></div>
-
-<script>
-/* ============ helpers ============ */
-function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
-function uniq(a){return a.filter(function(v,i){return a.indexOf(v)===i;});}
-
-/* Wrong choices are plausible mistakes. We always mix at least one smaller
-   and one bigger wrong choice, and shuffle positions every time, so the right
-   answer can never be spotted by its size or its place. */
-function optionsFor(q){
-  var pool=uniq(q.pool).filter(function(v){return v!==q.ans && v>=0;});
-  var lower=shuffle(pool.filter(function(v){return v<q.ans;}));
-  var upper=shuffle(pool.filter(function(v){return v>q.ans;}));
-  var picks=[];
-  if(lower.length) picks.push(lower.shift());
-  if(upper.length) picks.push(upper.shift());
-  var rest=shuffle(lower.concat(upper));
-  while(picks.length<3 && rest.length) picks.push(rest.shift());
-  return shuffle([q.ans].concat(picks));
-}
-
-/* ============ questions ============ */
-var SECTIONS=[
-  {id:'A',name:'Swamp Sums',icon:'➕',cls:'l1',desc:'Add and take away'},
-  {id:'B',name:'Ten Jumps',icon:'🦘',cls:'l2',desc:'+10 and −10 jumps'},
-  {id:'C',name:'Cube Count',icon:'🧊',cls:'l3',desc:'Tens and ones'},
-  {id:'D',name:'Gator Greatest',icon:'🐊',cls:'l4',desc:'Big and small numbers'}
-];
-
-function calcQ(a,op,b){
-  var ans = op==='+' ? a+b : a-b;
-  var pool = op==='+' ? [ans-1,ans+1,ans-2,ans+2,Math.abs(a-b),ans+3]
-                      : [ans-1,ans+1,ans+2,a+b,ans-2,ans+3];
-  return {sec:'A',type:'calc',a:a,op:op,b:b,ans:ans,pool:pool,
-    prompt: op==='+' ? 'Add the numbers!' : 'Take away to find the answer!'};
-}
-function arrowQ(start,sign,end,missing,pool){
-  var ans = missing==='end' ? end : start;
-  return {sec:'B',type:'arrow',start:start,sign:sign,end:end,missing:missing,ans:ans,pool:pool,
-    prompt: missing==='end' ? 'Follow the arrow. What number do you land on?' : 'Which number did the jump start from?'};
-}
-function cubeQ(tens,ones,pool){
-  var n=tens*10+ones;
-  var q={sec:'C',type:'cubes',tens:tens,ones:ones,ans:n};
-  if(pool){q.pool=pool;}
-  else{
-    var a=tens,b=ones;
-    q.pool=[b*10+a, a+b, a*10+b+1, a*10+b-1, a*10+b+10, a*10+b-10, a*10];
-  }
-  q.prompt='How many cubes are there in all?';
-  return q;
-}
-function textQ(sec,prompt,html,ans,pool,why,hint){
-  return {sec:sec,type:'text',prompt:prompt,html:html,ans:ans,pool:pool,why:why,hint:hint};
-}
-function gatorQ(mode,list){
-  var ans = mode==='most' ? Math.max.apply(null,list) : Math.min.apply(null,list);
-  return {sec:'D',type:'gator',mode:mode,list:list,ans:ans,pool:list,
-    prompt: mode==='most' ? 'The alligator is hungry! Which is the GREATEST number?' : 'Which is the SMALLEST number?'};
-}
-function T(t,o){return '<span class="t">'+t+' ten'+(t===1?'':'s')+'</span> and <span class="o">'+o+' one'+(o===1?'':'s')+'</span>';}
-
-var QUESTIONS=[];
-/* A: 15 add / subtract within 10 */
-[[3,'+',2],[5,'+',2],[6,'+',4],[9,'-',5],[7,'+',3],[7,'-',1],[8,'+',1],[3,'+',5],
- [5,'+',4],[7,'-',4],[10,'-',1],[9,'-',2],[6,'+',3],[10,'-',7],[8,'-',6]
-].forEach(function(r){QUESTIONS.push(calcQ(r[0],r[1],r[2]));});
-
-/* B: 10 ten jumps */
-QUESTIONS.push(
-  arrowQ(23,'-',13,'end',[33,22,3,14,12]),
-  arrowQ(22,'+',32,'end',[12,23,42,21,33]),
-  arrowQ(28,'-',18,'end',[38,27,8,29,17]),
-  arrowQ(18,'+',28,'end',[8,19,38,17,29]),
-  arrowQ(17,'-',7,'end',[27,16,18,10,6]),
-  arrowQ(34,'-',24,'start',[14,25,23,44,35]),
-  arrowQ(37,'-',27,'start',[17,28,26,47,38]),
-  arrowQ(20,'+',30,'start',[40,29,31,10,21]),
-  arrowQ(35,'-',25,'start',[15,26,24,45,36]),
-  arrowQ(11,'+',21,'start',[31,20,22,1,12])
-);
-
-/* C: 10 cube counting / tens and ones */
-QUESTIONS.push(
-  cubeQ(3,2), cubeQ(2,5), cubeQ(2,8), cubeQ(4,1), cubeQ(1,5), cubeQ(2,0), cubeQ(5,3)
-);
-(function(){
-  var q=cubeQ(3,10,[30,13,4,50,41,310]);
-  q.ans=40; q.tricky=true;
-  q.prompt='TRICKY! How many cubes are there in all?';
-  QUESTIONS.push(q);
-})();
-QUESTIONS.push(
-  textQ('C','How many TENS are in this number?','<span class="t">4</span><span class="o">7</span>',4,[7,3,5,6,11],
-    'In 47 the first digit is the tens. 4 tens = 40, and 7 ones.','Look at the digit on the left. It tells the tens.'),
-  textQ('C','How many ONES are in this number?','<span class="t">6</span><span class="o">3</span>',3,[6,9,4,2,5],
-    'In 63 the second digit is the ones. 6 tens and 3 ones.','Look at the digit on the right. It tells the ones.')
-);
-
-/* D: 15 gator greatest / smallest + build the number */
-QUESTIONS.push(
-  gatorQ('most',[13,31,21,12]), gatorQ('most',[35,36,25,16]), gatorQ('most',[27,31,13,22]),
-  gatorQ('most',[29,28,19,26]), gatorQ('most',[27,17,12,26]), gatorQ('most',[14,41,24,11]),
-  gatorQ('most',[30,29,20,28]), gatorQ('most',[4,40,14,30]),
-  gatorQ('least',[13,31,22,41]), gatorQ('least',[29,28,30,40]), gatorQ('least',[14,41,24,34]),
-  textQ('D','Which number is this?','<span class="t">3 tens</span> and <span class="o">5 ones</span>',35,[53,8,30,36,25,45],
-    '3 tens is 30. Add 5 ones to make 35.','Put the tens digit first, then the ones digit.'),
-  textQ('D','Which number is this?','<span class="t">4 tens</span> and <span class="o">0 ones</span>',40,[4,44,14,41,30,50],
-    '4 tens is 40. There are no ones, so it is 40.','Zero ones means the ones place holds a 0.'),
-  textQ('D','Which number is this?','<span class="o">9 ones</span> and <span class="t">2 tens</span>',29,[92,11,20,28,30,19],
-    '2 tens is 20. Add 9 ones to make 29. The tens digit always goes first!','The tens digit always goes first, even if the words are in a different order.'),
-  textQ('D','Which number is this?','<span class="o">6 ones</span> and <span class="t">5 tens</span>',56,[65,11,50,55,57,46],
-    '5 tens is 50. Add 6 ones to make 56. The tens digit always goes first!','The tens digit always goes first, even if the words are in a different order.')
-);
-
-/* ============ explanations & hints ============ */
-function explain(q){
-  if(q.type==='calc'){
-    return q.op==='+'
-      ? q.a+' + '+q.b+' = '+q.ans+'. Start at '+q.a+' and count up '+q.b+' more.'
-      : q.a+' − '+q.b+' = '+q.ans+'. Start at '+q.a+' and count back '+q.b+'.';
-  }
-  if(q.type==='arrow'){
-    var dir = q.sign==='+' ? 'more' : 'fewer';
-    var d = q.sign==='+' ? 'goes UP by 1' : 'goes DOWN by 1';
-    if(q.missing==='end') return q.start+' '+(q.sign==='+'?'+':'−')+' 10 = '+q.end+'. The tens digit '+d+' and the ones stay the same.';
-    return 'Go backwards! '+q.ans+' '+(q.sign==='+'?'+':'−')+' 10 = '+q.end+'. So the jump started at '+q.ans+'.';
-  }
-  if(q.type==='cubes'){
-    if(q.tricky) return '10 loose cubes make 1 more ten! So 3 tens + 1 ten = 4 tens. That is 40 cubes.';
-    return q.tens+' rod'+(q.tens===1?'':'s')+' = '+(q.tens*10)+', and '+q.ones+' cube'+(q.ones===1?'':'s')+'. '+(q.tens*10)+' + '+q.ones+' = '+q.ans+'.';
-  }
-  if(q.type==='gator'){
-    return q.mode==='most'
-      ? q.ans+' is the greatest. Look at the tens first: the number with the most tens wins!'
-      : q.ans+' is the smallest. Look at the tens first: the number with the fewest tens is smallest!';
-  }
-  return q.why;
-}
-function hintHTML(q){
-  if(q.type==='calc'){
-    var h='<div class="dots">',i;
-    if(q.op==='+'){
-      for(i=0;i<q.a;i++)h+='<span>🍎</span>';
-      for(i=0;i<q.b;i++)h+='<span>🍏</span>';
-      h+='</div>Count ALL the apples!';
-    }else{
-      for(i=0;i<q.a;i++)h+='<span class="'+(i>=q.a-q.b?'x':'')+'">🍎</span>';
-      h+='</div>Count the apples that are NOT crossed out!';
-    }
-    return h;
-  }
-  if(q.type==='arrow') return q.missing==='end'
-    ? 'The arrow changes the TENS digit only. '+(q.sign==='+'?'+10 means one more ten.':'−10 means one less ten.')
-    : 'Go backwards! Do the opposite jump from the end number to find the start.';
-  if(q.type==='cubes') return q.tricky
-    ? 'Tall rods are tens. Count the loose cubes too. Can 10 loose cubes make a new ten?'
-    : 'Each tall rod is 10. Count the rods first, then the little cubes.';
-  if(q.type==='gator') return 'Look at the tens digit first (the left one). More tens means a bigger number!';
-  return q.hint;
-}
-function gatorSay(good){
-  var g=['Chomp-tastic!','You got it!','Snap! Perfect!','Roar-some job!','Super swamp star!','Wow, so clever!','Yay, Zion!','Splash! Correct!'];
-  var b=['Good try!','Oopsie! Let’s learn it.','Almost! Look at the answer.','No worries, Zion!','Nice try, keep going!'];
-  var a=good?g:b; return a[Math.floor(Math.random()*a.length)];
-}
-
-if(typeof document!=='undefined'){
-/* ============ mascot ============ */
-function gatorSVG(mood){
-  var mouth = mood==='sad'
-    ? '<path d="M70 108 Q100 96 130 108" stroke="#1f3a2b" stroke-width="6" fill="none" stroke-linecap="round"/>'
-    : mood==='open'
-    ? '<path d="M52 98 Q100 150 148 98 Z" fill="#7a1f2b" stroke="#1f3a2b" stroke-width="5"/><path d="M62 100 l8 14 l8 -13 M84 106 l8 13 l8 -12 M108 106 l8 12 l8 -13" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><ellipse cx="100" cy="125" rx="20" ry="9" fill="#ff7e8b"/>'
-    : '<path d="M56 98 Q100 140 144 98" stroke="#1f3a2b" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M70 112 l6 10 l6 -8 M118 112 l6 -8 l6 8" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>';
-  var pupils = mood==='sad' ? '<circle cx="62" cy="44" r="7" fill="#1f3a2b"/><circle cx="138" cy="44" r="7" fill="#1f3a2b"/>'
-                            : '<circle cx="64" cy="40" r="8" fill="#1f3a2b"/><circle cx="136" cy="40" r="8" fill="#1f3a2b"/><circle cx="67" cy="37" r="3" fill="#fff"/><circle cx="139" cy="37" r="3" fill="#fff"/>';
-  return '<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Friendly alligator">'+
-    '<ellipse cx="100" cy="88" rx="86" ry="56" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
-    '<circle cx="62" cy="42" r="24" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/><circle cx="138" cy="42" r="24" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
-    '<circle cx="62" cy="42" r="16" fill="#fff"/><circle cx="138" cy="42" r="16" fill="#fff"/>'+pupils+
-    '<circle cx="84" cy="78" r="4" fill="#2f9e3c"/><circle cx="116" cy="78" r="4" fill="#2f9e3c"/>'+
-    '<circle cx="34" cy="92" r="10" fill="#ff9ec7" opacity=".7"/><circle cx="166" cy="92" r="10" fill="#ff9ec7" opacity=".7"/>'+
-    '<path d="M60 22 l8 -14 l8 14 M92 14 l8 -14 l8 14 M124 22 l8 -14 l8 14" fill="#2f9e3c" opacity=".0"/>'+
-    mouth+'</svg>';
-}
-
-/* ============ confetti ============ */
-var cv=document.getElementById('fx'),cx=cv.getContext('2d'),parts=[],raf=null;
-function sizeCv(){cv.width=innerWidth;cv.height=innerHeight;}
-sizeCv();addEventListener('resize',sizeCv);
-function burst(n){
-  var cols=['#ff7eb6','#ffd23f','#6ec8ff','#4cc94a','#8a6bff','#ff9d2e'];
-  for(var i=0;i<n;i++)parts.push({x:innerWidth/2+(Math.random()-.5)*200,y:innerHeight*0.35,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,
-    s:6+Math.random()*8,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.4,life:120+Math.random()*60});
-  if(!raf)loop();
-}
-function loop(){
-  cx.clearRect(0,0,cv.width,cv.height);
-  parts=parts.filter(function(p){return p.life>0&&p.y<cv.height+20;});
-  parts.forEach(function(p){p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;
-    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6);cx.restore();});
-  raf = parts.length ? requestAnimationFrame(loop) : null;
-  if(!raf)cx.clearRect(0,0,cv.width,cv.height);
-}
-
-/* ============ app ============ */
-var app=document.getElementById('app');
-var order=[],idx=0,score=0,log=[],streak=0,practice=false,hintUsed=false,locked=false;
-
-function best(){try{return parseInt(localStorage.getItem('zionGatorBest')||'0',10);}catch(e){return 0;}}
-function saveBest(s){try{if(s>best())localStorage.setItem('zionGatorBest',String(s));}catch(e){}}
-
-function home(){
-  var b=best();
-  app.innerHTML=
-  '<div class="card">'+
-    '<h1>Zion’s Gator<br>Swamp Quiz!</h1>'+
-    '<div class="mascot-wrap"><div class="mascot">'+gatorSVG('open')+'</div></div>'+
-    '<div class="sub">Hi Zion! I’m Chomper the alligator.<br>Help me finish <b>50</b> swamp puzzles!</div>'+
-    '<div class="levels">'+SECTIONS.map(function(s,i){return '<div class="lvl '+s.cls+'"><b>'+s.icon+'</b><div>Level '+(i+1)+'<br>'+s.name+'</div></div>';}).join('')+'</div>'+
-    (b?'<div class="sub">⭐ Your best score: <b>'+b+' / 50</b></div>':'')+
-    '<div class="center"><button class="btn go" id="start">Let’s Go! 🐊</button></div>'+
-  '</div>';
-  document.getElementById('start').onclick=function(){begin(false);};
-}
-
-function begin(onlyMissed){
-  practice=onlyMissed;
-  var list;
-  if(onlyMissed){
-    list=shuffle(log.filter(function(l){return !l.ok;}).map(function(l){return l.q;}));
-  }else{
-    list=[];
-    SECTIONS.forEach(function(s){
-      list=list.concat(shuffle(QUESTIONS.filter(function(q){return q.sec===s.id;})));
-    });
-  }
-  order=list;idx=0;score=0;log=[];streak=0;
-  show();
-}
-
-function visual(q){
-  if(q.type==='calc'){
-    return '<div class="calc"><div class="op"></div><div class="n">'+q.a+'</div>'+
-           '<div class="op">'+(q.op==='+'?'+':'−')+'</div><div class="n">'+q.b+'</div>'+
-           '<div class="line"></div><div class="q">?</div></div>';
-  }
-  if(q.type==='arrow'){
-    var arrow='<div class="jump"><div class="tag '+(q.sign==='-'?'minus':'')+'">'+(q.sign==='+'?'+10':'−10')+'</div>'+
-      '<svg viewBox="0 0 130 50"><path d="M4 18h84V4l38 21-38 21V32H4z" fill="#fff" stroke="#1f3a2b" stroke-width="4" stroke-linejoin="round"/></svg></div>';
-    var l = q.missing==='start' ? '<div class="numbox mystery">?</div>' : '<div class="numbox">'+q.start+'</div>';
-    var r = q.missing==='end' ? '<div class="numbox mystery">?</div>' : '<div class="numbox">'+q.end+'</div>';
-    return '<div class="arrowrow">'+l+arrow+r+'</div>';
-  }
-  if(q.type==='cubes'){
-    var rods='',i;
-    for(i=0;i<q.tens;i++){rods+='<div class="rod">'+new Array(11).join('<i></i>')+'</div>';}
-    var ones='';
-    for(i=0;i<q.ones;i++){ones+='<div class="cube"></div>';}
-    return '<div class="cubes"><div class="rods">'+rods+'</div>'+(q.ones?'<div class="ones">'+ones+'</div>':'')+
-      '<div class="legend">Tall rod = 10 &nbsp;·&nbsp; little cube = 1</div></div>';
-  }
-  if(q.type==='gator'){
-    return '<div class="gatorvis">'+gatorSVG('open')+'</div>'+
-      '<div class="center"><span class="bigword '+(q.mode==='most'?'':'small')+'">'+(q.mode==='most'?'GREATEST':'SMALLEST')+'</span></div>';
-  }
-  return '<div class="textvis">'+q.html+'</div>';
-}
-
-function show(){
-  locked=false;hintUsed=false;
-  var q=order[idx],sec=SECTIONS.filter(function(s){return s.id===q.sec;})[0];
-  var pct=idx/order.length*100;
-  var opts=optionsFor(q);
-  app.innerHTML=
-  '<div class="card">'+
-    '<div class="top"><span class="pill">'+(practice?'Practice ':'Question ')+(idx+1)+' of '+order.length+'</span><span class="pill">⭐ '+score+'</span></div>'+
-    '<div class="track"><div class="fill" style="width:'+pct+'%"></div><div class="runner" style="left:'+Math.max(pct,3)+'%">🐊</div></div>'+
-    '<div class="chip '+sec.cls+'">'+sec.icon+' Level '+(SECTIONS.indexOf(sec)+1)+': '+sec.name+'</div>'+
-    '<div class="say"><div id="mood">'+gatorSVG('smile')+'</div><div class="bubble" id="bubble">'+q.prompt+'</div></div>'+
-    '<div class="vis">'+visual(q)+'</div>'+
-    '<div class="opts" id="opts">'+opts.map(function(o){return '<button class="opt" data-v="'+o+'">'+o+'</button>';}).join('')+'</div>'+
-    '<div id="hint"></div><div id="fb"></div>'+
-    '<div class="actions"><button class="btn sm" id="hintbtn">💡 Help me</button><span id="nextwrap"></span></div>'+
-  '</div>';
-  Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){
-    b.onclick=function(){answer(b,q);};
-  });
-  document.getElementById('hintbtn').onclick=function(){
-    if(locked)return;
-    hintUsed=true;
-    document.getElementById('hint').innerHTML='<div class="hintbox">💡 '+hintHTML(q)+'</div>';
-  };
-  scrollTo({top:0,behavior:'smooth'});
-}
-
-function answer(btn,q){
-  if(locked)return;locked=true;
-  var v=parseInt(btn.getAttribute('data-v'),10),ok=v===q.ans;
-  var all=document.querySelectorAll('.opt');
-  Array.prototype.forEach.call(all,function(b){
-    b.disabled=true;
-    if(parseInt(b.getAttribute('data-v'),10)===q.ans)b.classList.add('right');
-  });
-  if(!ok)btn.classList.add('wrong');
-  document.getElementById('opts').classList.add('done');
-  document.getElementById('hintbtn').classList.add('hidden');
-  log.push({q:q,ok:ok,chosen:v});
-  if(ok){score++;streak++;}else{streak=0;}
-  document.getElementById('mood').innerHTML=gatorSVG(ok?'open':'sad');
-  document.getElementById('bubble').textContent=gatorSay(ok);
-  document.getElementById('fb').innerHTML=
-    '<div class="fb '+(ok?'good':'bad')+'"><h3>'+(ok?'✅ Yes! '+q.ans:'🤔 The answer is '+q.ans)+'</h3>'+explain(q)+'</div>';
-  if(ok&&streak>0&&streak%5===0){burst(70);document.getElementById('bubble').textContent='🔥 '+streak+' in a row! Amazing!';}
-  var last=idx===order.length-1;
-  var nb=document.createElement('button');nb.className='btn go';nb.style.fontSize='26px';nb.style.padding='12px 28px';
-  nb.textContent=last?'See my stars! ⭐':'Next ➜';
-  nb.onclick=function(){if(last){results();}else{idx++;show();}};
-  document.getElementById('nextwrap').appendChild(nb);
-  setTimeout(function(){nb.scrollIntoView({behavior:'smooth',block:'center'});},120);
-}
-
-function results(){
-  var total=order.length,pct=score/total;
-  var stars=pct>=.9?3:pct>=.7?2:pct>=.4?1:0;
-  if(!practice)saveBest(score);
-  var msg=pct>=.9?'SUPER SWAMP CHAMPION!':pct>=.7?'Great job, Zion!':pct>=.4?'Good work! Let’s keep practising!':'You tried so hard! Try again!';
-  var by=SECTIONS.map(function(s,i){
-    var items=log.filter(function(l){return l.q.sec===s.id;});
-    if(!items.length)return '';
-    var c=items.filter(function(l){return l.ok;}).length;
-    return '<div class="brow"><span style="width:2em">'+s.icon+'</span><span style="min-width:9.5em">'+s.name+'</span><div class="bar"><div style="width:'+(c/items.length*100)+'%"></div></div><span>'+c+'/'+items.length+'</span></div>';
-  }).join('');
-  var missed=log.filter(function(l){return !l.ok;});
-  var missHTML=missed.length
-    ? '<h2 style="text-align:center;margin:16px 0 4px">Let’s look at these again 👀</h2>'+missed.map(function(l){return '<div class="miss">'+missLine(l.q)+' → <b>'+l.q.ans+'</b><br><small>'+explain(l.q)+'</small></div>';}).join('')
-    : '<div class="sub">🎉 No mistakes at all!</div>';
-  app.innerHTML=
-  '<div class="card">'+
-    '<h1>'+(practice?'Practice done!':'All done!')+'</h1>'+
-    '<div class="mascot-wrap"><div class="mascot">'+gatorSVG(pct>=.4?'open':'smile')+'</div></div>'+
-    '<div class="stars">'+(stars?new Array(stars+1).join('⭐'):'🌱')+'</div>'+
-    '<div class="big">'+score+' / '+total+'</div>'+
-    '<div class="sub">'+msg+'</div>'+
-    '<div class="break">'+by+'</div>'+missHTML+
-    '<div class="actions" style="justify-content:center;margin-top:20px">'+
-      (missed.length?'<button class="btn alt" id="pm">Practice my mistakes 💪</button>':'')+
-      '<button class="btn go" id="again" style="font-size:26px">Play again 🐊</button>'+
-    '</div>'+
-  '</div>';
-  var pm=document.getElementById('pm');if(pm)pm.onclick=function(){begin(true);};
-  document.getElementById('again').onclick=function(){begin(false);};
-  if(pct>=.4)burst(pct>=.9?220:120);
-  scrollTo({top:0});
-}
-function missLine(q){
-  if(q.type==='calc')return q.a+' '+(q.op==='+'?'+':'−')+' '+q.b+' = ?';
-  if(q.type==='arrow')return q.missing==='end' ? q.start+' '+(q.sign==='+'?'+':'−')+'10 → ?' : '? '+(q.sign==='+'?'+':'−')+'10 → '+q.end;
-  if(q.type==='cubes')return q.tricky?'Cubes: 3 rods and 10 loose cubes':'Cubes: '+q.tens+' rod'+(q.tens===1?'':'s')+' and '+q.ones+' cube'+(q.ones===1?'':'s');
-  if(q.type==='gator')return (q.mode==='most'?'Greatest':'Smallest')+' of '+q.list.join(', ');
-  return q.prompt.replace('?','')+' '+q.html.replace(/<[^>]+>/g,'');
 }
 
 home();
