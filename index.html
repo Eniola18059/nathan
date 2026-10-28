@@ -1,257 +1,1009 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Grade 2 Maths Quiz</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zion's Gator Swamp Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#fff8e7;--card:#fff;--ink:#2b2d42;--muted:#6b6f85;--blue:#3a86ff;--green:#2dc653;--red:#ef476f;--yellow:#ffbe0b;--purple:#8338ec;--line:#e9e3d0}
+:root{
+  --green:#4cc94a; --green-d:#2f9e3c; --lime:#b8f06a; --sun:#ffd23f; --sun-d:#f5a800;
+  --sky:#6ec8ff; --pink:#ff7eb6; --purple:#8a6bff; --red:#ff5a5f; --ink:#1f3a2b; --card:#ffffff;
+}
 *{box-sizing:border-box}
-body{margin:0;font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;justify-content:center;padding:16px}
-.wrap{width:100%;max-width:720px}
-.card{background:var(--card);border-radius:22px;padding:24px;box-shadow:0 6px 0 var(--line),0 10px 30px rgba(0,0,0,.06)}
-h1{margin:0 0 6px;font-size:clamp(26px,6vw,38px);color:var(--purple)}
-h2{margin:0 0 12px}
-.sub{color:var(--muted);font-size:17px;margin:0 0 18px}
-.hero{font-size:64px;text-align:center;margin-bottom:6px}
-input[type=text]{width:100%;font-size:20px;padding:12px 14px;border:3px solid var(--line);border-radius:14px;margin-bottom:14px;font-family:inherit}
-input[type=text]:focus{outline:none;border-color:var(--blue)}
-.btn{display:inline-block;border:0;border-radius:16px;padding:14px 26px;font-size:20px;font-weight:700;font-family:inherit;color:#fff;background:var(--blue);cursor:pointer;box-shadow:0 5px 0 #2563c7;transition:transform .05s}
-.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #2563c7}
-.btn.green{background:var(--green);box-shadow:0 5px 0 #1e9a3e}
-.btn.purple{background:var(--purple);box-shadow:0 5px 0 #6122bb}
-.btn.block{width:100%}
-.topics{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}
-.chip{background:#f1ecff;color:var(--purple);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:700}
-.top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;font-weight:700;color:var(--muted)}
-.bar{height:14px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:18px}
-.bar>div{height:100%;background:linear-gradient(90deg,var(--yellow),var(--green));width:0;transition:width .4s}
-.tag{display:inline-block;background:#e8f1ff;color:var(--blue);border-radius:10px;padding:4px 10px;font-size:14px;font-weight:700;margin-bottom:10px}
-.q{font-size:clamp(21px,5vw,27px);font-weight:700;line-height:1.35;margin:0 0 8px}
-.vis{font-size:34px;letter-spacing:4px;margin:4px 0 12px;line-height:1.3;word-break:break-word}
-.opts{display:grid;gap:12px;margin-top:14px}
-.opt{display:flex;align-items:center;gap:12px;text-align:left;width:100%;background:#fff;border:3px solid var(--line);border-radius:16px;padding:14px 16px;font-size:21px;font-family:inherit;color:var(--ink);cursor:pointer;font-weight:600}
-.opt:hover:not(:disabled){border-color:var(--blue);background:#f4f8ff}
-.opt .k{flex:none;width:34px;height:34px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:16px;font-weight:800}
-.opt.right{border-color:var(--green);background:#e9fbee}
-.opt.right .k{background:var(--green);color:#fff}
-.opt.wrong{border-color:var(--red);background:#ffeef2}
-.opt.wrong .k{background:var(--red);color:#fff}
-.opt:disabled{cursor:default}
-.fb{margin-top:18px;border-radius:16px;padding:16px 18px;font-size:18px;line-height:1.5;display:none}
-.fb.show{display:block}
-.fb.good{background:#e9fbee;border:2px solid var(--green)}
-.fb.bad{background:#fff3e0;border:2px solid var(--yellow)}
-.fb b.t{display:block;font-size:22px;margin-bottom:4px}
-.next{margin-top:16px;text-align:right;display:none}
-.next.show{display:block}
-.score{font-size:64px;font-weight:800;text-align:center;color:var(--purple);margin:4px 0}
-.stars{font-size:42px;text-align:center;margin-bottom:6px}
-.msg{text-align:center;font-size:20px;margin-bottom:18px}
-.tbl{width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:16px}
-.tbl td{padding:8px 6px;border-bottom:1px solid var(--line)}
-.tbl td:last-child{text-align:right;font-weight:800}
-.miss{border:2px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;font-size:16px;line-height:1.5}
-.miss .a{color:#1e9a3e;font-weight:700}
-.miss .y{color:var(--red);font-weight:700}
-.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.hide{display:none}
-@media(max-width:480px){.card{padding:18px}.opt{font-size:19px}}
+html,body{margin:0;min-height:100%}
+body{
+  font-family:'Baloo 2','Comic Sans MS','Chalkboard SE','Trebuchet MS',sans-serif;
+  color:var(--ink);
+  background:linear-gradient(#8fdcff 0%,#c8f2ff 38%,#9be37a 38%,#4cc94a 100%);
+  background-attachment:fixed;
+  overflow-x:hidden;
+}
+.sun{position:fixed;top:16px;right:20px;width:70px;height:70px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 12px #ffe98a88,0 0 0 26px #ffe98a44;z-index:0}
+.cloud{position:fixed;background:#fff;border-radius:50px;opacity:.9;z-index:0;animation:drift 60s linear infinite}
+.cloud:before,.cloud:after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud.c1{top:40px;left:-120px;width:100px;height:32px}
+.cloud.c1:before{width:44px;height:44px;top:-22px;left:14px}.cloud.c1:after{width:34px;height:34px;top:-14px;left:50px}
+.cloud.c2{top:100px;left:-200px;width:80px;height:26px;animation-duration:85s;animation-delay:-20s}
+.cloud.c2:before{width:36px;height:36px;top:-18px;left:10px}.cloud.c2:after{width:28px;height:28px;top:-10px;left:40px}
+@keyframes drift{to{transform:translateX(130vw)}}
+.pad{position:fixed;bottom:-10px;font-size:46px;z-index:0;opacity:.85;animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(4deg)}}
+#app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:14px 14px 70px}
+.card{background:var(--card);border-radius:28px;border:5px solid var(--green-d);box-shadow:0 8px 0 var(--green-d),0 14px 24px #0002;padding:18px}
+h1{margin:0;font-size:clamp(34px,8vw,58px);line-height:1;text-align:center;color:var(--green-d);text-shadow:3px 3px 0 var(--sun)}
+.sub{text-align:center;font-size:clamp(18px,4.5vw,24px);font-weight:700;margin:8px 0 14px}
+.btn{
+  font-family:inherit;font-weight:800;font-size:clamp(22px,5.5vw,30px);cursor:pointer;
+  border:none;border-radius:22px;padding:14px 28px;color:#fff;background:var(--purple);
+  box-shadow:0 7px 0 #5b3fd0;transition:transform .08s, box-shadow .08s;
+}
+.btn:active{transform:translateY(5px);box-shadow:0 2px 0 #5b3fd0}
+.btn.go{background:var(--green);box-shadow:0 7px 0 var(--green-d);font-size:clamp(26px,7vw,38px);padding:16px 40px}
+.btn.go:active{box-shadow:0 2px 0 var(--green-d)}
+.btn.alt{background:var(--sky);box-shadow:0 7px 0 #2f90d0}
+.btn.alt:active{box-shadow:0 2px 0 #2f90d0}
+.btn.sm{font-size:20px;padding:8px 18px;border-radius:16px;box-shadow:0 5px 0 #5b3fd0}
+.center{text-align:center}
+.hidden{display:none!important}
+.levels{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.lvl{border-radius:20px;padding:10px 12px;font-weight:700;font-size:clamp(16px,4vw,20px);color:#fff;display:flex;gap:8px;align-items:center}
+.lvl b{font-size:30px}
+.l1{background:var(--pink)}.l2{background:var(--purple)}.l3{background:#ff9d2e}.l4{background:#19b5a5}
+.mascot-wrap{display:flex;justify-content:center}
+.mascot{width:min(280px,70vw);animation:wiggle 3s ease-in-out infinite}
+@keyframes wiggle{50%{transform:rotate(-3deg) translateY(-4px)}}
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;font-weight:800;font-size:clamp(16px,4.2vw,22px)}
+.pill{background:#fff;border:4px solid var(--green-d);border-radius:999px;padding:2px 14px;box-shadow:0 4px 0 var(--green-d)}
+.track{position:relative;height:22px;background:#fff;border:4px solid var(--green-d);border-radius:999px;margin:6px 4px 16px}
+.fill{height:100%;background:repeating-linear-gradient(45deg,var(--lime) 0 12px,#9fe34f 12px 24px);border-radius:999px;width:0;transition:width .5s}
+.runner{position:absolute;top:-22px;font-size:34px;transition:left .5s;transform:translateX(-50%)}
+.chip{display:inline-block;color:#fff;border-radius:999px;padding:2px 16px;font-weight:800;font-size:clamp(16px,4vw,20px);margin-bottom:8px}
+/* speech */
+.say{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.say svg{width:92px;flex:none}
+.bubble{position:relative;background:#f0fff0;border:4px solid var(--green);border-radius:22px;padding:10px 14px;font-weight:700;font-size:clamp(20px,5vw,28px);line-height:1.15;flex:1}
+.bubble:before{content:"";position:absolute;left:-18px;top:50%;margin-top:-10px;border:10px solid transparent;border-right-color:var(--green);border-left:0}
+/* visuals */
+.vis{display:flex;justify-content:center;align-items:center;margin:8px 0 14px;min-height:90px;flex-wrap:wrap;gap:10px}
+.calc{display:inline-grid;grid-template-columns:auto auto;font-weight:800;font-size:clamp(54px,15vw,84px);line-height:1;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:12px 26px}
+.calc .op{text-align:left;padding-right:16px;color:var(--pink)}
+.calc .n{text-align:right}
+.calc .line{grid-column:1/3;border-top:7px solid var(--ink);margin:6px 0;border-radius:4px}
+.calc .q{grid-column:1/3;text-align:right;color:var(--purple)}
+.arrowrow{display:flex;align-items:center;gap:6px;font-weight:800;font-size:clamp(40px,11vw,64px)}
+.numbox{min-width:1.7em;text-align:center;background:#e9f7ff;border:5px solid var(--sky);border-radius:18px;padding:2px 10px}
+.numbox.mystery{background:#fff0f7;border:5px dashed var(--pink);color:var(--pink)}
+.jump{position:relative;display:flex;flex-direction:column;align-items:center}
+.jump .tag{font-size:.5em;background:var(--sun);border:4px dotted var(--sun-d);border-radius:12px;padding:0 10px;margin-bottom:-4px}
+.jump .tag.minus{background:#ffd9e6;border-color:var(--pink)}
+.jump svg{width:clamp(80px,22vw,130px);height:auto}
+.cubes{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;justify-content:center;background:#eefaff;border:5px solid var(--sky);border-radius:22px;padding:14px 18px}
+.rods{display:flex;gap:8px;align-items:flex-end}
+.rod{display:flex;flex-direction:column;border:3px solid #1e6fa0;border-radius:6px;overflow:hidden;background:#3aa7e8}
+.rod i{display:block;width:20px;height:14px;border-bottom:2px solid #1e6fa0;background:linear-gradient(135deg,#7bd0ff,#3aa7e8)}
+.rod i:last-child{border-bottom:none}
+.ones{display:grid;grid-template-columns:repeat(2,22px);gap:6px}
+.cube{width:22px;height:22px;border:3px solid #c25b00;border-radius:5px;background:linear-gradient(135deg,#ffd27a,#ff9d2e)}
+.legend{width:100%;text-align:center;font-weight:700;font-size:16px;color:#476}
+.gatorvis{display:flex;justify-content:center}
+.gatorvis svg{width:min(210px,52vw)}
+.bigword{display:inline-block;background:var(--pink);color:#fff;border-radius:12px;padding:0 10px}
+.bigword.small{background:#19b5a5}
+.textvis{font-size:clamp(34px,9vw,54px);font-weight:800;text-align:center;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:10px 24px}
+.textvis span.t{color:var(--purple)} .textvis span.o{color:#ff7a00}
+/* options */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.opt{
+  font-family:inherit;font-weight:800;font-size:clamp(38px,11vw,60px);cursor:pointer;
+  min-height:92px;border-radius:24px;border:5px solid var(--ink);background:#fff;color:var(--ink);
+  box-shadow:0 7px 0 var(--ink);transition:transform .08s, box-shadow .08s, background .2s;
+}
+.opt:nth-child(1):hover,.opt:nth-child(2):hover,.opt:nth-child(3):hover,.opt:nth-child(4):hover{background:#fffbe0}
+.opt:active{transform:translateY(5px);box-shadow:0 2px 0 var(--ink)}
+.opt.right{background:var(--green);color:#fff;border-color:var(--green-d);box-shadow:0 7px 0 var(--green-d);animation:pop .5s}
+.opt.wrong{background:var(--red);color:#fff;border-color:#c23;box-shadow:0 7px 0 #c23;animation:shake .4s}
+.opt[disabled]{cursor:default}
+.opts.done .opt:not(.right):not(.wrong){opacity:.45}
+@keyframes pop{40%{transform:scale(1.12)}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.fb{margin-top:16px;border-radius:22px;padding:12px 16px;font-weight:700;font-size:clamp(18px,4.6vw,24px);line-height:1.25;animation:slide .3s}
+.fb.good{background:#e6ffe0;border:4px solid var(--green)} .fb.bad{background:#fff0f0;border:4px solid var(--red)}
+.fb h3{margin:0 0 4px;font-size:1.3em}
+@keyframes slide{from{opacity:0;transform:translateY(10px)}}
+.hintbox{margin-top:12px;background:#eef;border:4px dashed var(--purple);border-radius:18px;padding:10px 14px;font-weight:700;font-size:clamp(17px,4.4vw,22px)}
+.dots{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin:6px 0;font-size:30px}
+.dots .x{opacity:.35;position:relative}
+.dots .x:after{content:"✖";position:absolute;left:4px;top:-2px;color:var(--red);font-size:30px;opacity:1}
+.actions{display:flex;justify-content:space-between;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap}
+/* results */
+.stars{font-size:clamp(50px,14vw,80px);text-align:center;letter-spacing:6px}
+.big{font-size:clamp(44px,13vw,76px);font-weight:800;text-align:center;line-height:1;color:var(--purple)}
+.break{display:grid;gap:8px;margin:14px 0}
+.brow{display:flex;align-items:center;gap:10px;font-weight:800;font-size:clamp(16px,4vw,20px)}
+.brow .bar{flex:1;height:20px;border-radius:999px;background:#e8f5e8;border:3px solid var(--green-d);overflow:hidden}
+.brow .bar div{height:100%;background:var(--green)}
+.miss{background:#fff7f0;border:4px solid #ffb066;border-radius:18px;padding:8px 14px;margin:8px 0;font-weight:700;font-size:clamp(16px,4vw,20px)}
+canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<div id="start" class="card">
-  <div class="hero">🧮</div>
-  <h1>Grade 2 Maths Quiz</h1>
-  <p class="sub">50 questions. Read each one carefully, pick your answer, then read the explanation to learn from it.</p>
-  <div class="topics">
-    <span class="chip">Place value</span><span class="chip">Comparing</span><span class="chip">Skip counting</span><span class="chip">Even &amp; odd</span><span class="chip">Add &amp; subtract</span><span class="chip">Money</span><span class="chip">Time</span><span class="chip">Measuring</span><span class="chip">Shapes</span><span class="chip">Fractions</span><span class="chip">Equal groups</span><span class="chip">Word problems</span><span class="chip">Data</span>
-  </div>
-  <label for="nm" style="font-weight:700;display:block;margin-bottom:6px">What is your name?</label>
-  <input id="nm" type="text" maxlength="30" placeholder="Type your name here" autocomplete="off">
-  <button class="btn green block" id="go">Start the quiz ▶</button>
-</div>
-
-<div id="quiz" class="card hide">
-  <div class="top"><span id="cnt">Question 1 of 50</span><span id="sc">⭐ 0</span></div>
-  <div class="bar"><div id="pb"></div></div>
-  <span class="tag" id="topic"></span>
-  <p class="q" id="qt"></p>
-  <div class="vis" id="vis"></div>
-  <div class="opts" id="opts"></div>
-  <div class="fb" id="fb"></div>
-  <div class="next" id="nx"><button class="btn" id="nb">Next ▶</button></div>
-</div>
-
-<div id="end" class="card hide">
-  <div class="stars" id="stars"></div>
-  <h2 style="text-align:center" id="who"></h2>
-  <div class="score" id="fs"></div>
-  <p class="msg" id="fm"></p>
-  <h3>How you did by topic</h3>
-  <table class="tbl" id="tt"></table>
-  <div id="missWrap"><h3>Questions to look at again</h3><div id="miss"></div></div>
-  <div class="row"><button class="btn purple" id="again">Try again 🔁</button></div>
-</div>
-
-</div>
+<div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
+<div class="pad" style="left:4%">🪷</div><div class="pad" style="left:46%;animation-delay:-1.5s">🐸</div><div class="pad" style="right:5%;animation-delay:-2.5s">🪷</div>
+<canvas id="fx"></canvas>
+<div id="app"></div>
 
 <script>
-// [topic, question, visual, correct answer, [3 plausible wrong answers], explanation]
-const Q = [
-// ---------- PLACE VALUE ----------
-["Place value","What is the value of the 6 in the number 364?","","60",["6","600","36"],"In 364 the 6 is in the tens place. It means 6 tens, and 6 tens = 60. The 3 means 300 and the 4 means 4 ones."],
-["Place value","What number is 5 hundreds + 2 tens + 8 ones?","","528",["582","258","825"],"Write the hundreds first, then the tens, then the ones: 5 hundreds, 2 tens, 8 ones makes 528."],
-["Place value","Which number has a 4 in the tens place?","","645",["456","564","704"],"The tens place is the middle digit. In 645 the middle digit is 4. In 456 the 4 is hundreds, in 564 and 704 the 4 is in the ones place."],
-["Place value","Which shows 482 in expanded form?","","400 + 80 + 2",["400 + 8 + 2","40 + 80 + 2","4 + 80 + 200"],"The 4 is in the hundreds place, so it is 400. The 8 is in the tens place, so it is 80. The 2 is in the ones place, so it is 2. 400 + 80 + 2 = 482."],
-["Place value","Which is the correct number name for 305?","","three hundred five",["three hundred fifty","thirty-five","three thousand five"],"305 has 3 hundreds, 0 tens and 5 ones. With 0 tens we skip the tens words and say \"three hundred five\"."],
-["Place value","What is 10 more than 47?","","57",["48","37","67"],"Adding 10 changes the tens digit by one. 4 tens becomes 5 tens, and the ones stay the same: 57."],
-["Place value","What is 100 less than 523?","","423",["513","533","623"],"Taking away 100 changes only the hundreds digit. 5 hundreds becomes 4 hundreds, so 523 becomes 423."],
-["Place value","Which number is 3 hundreds, 0 tens and 9 ones?","","309",["390","39","903"],"Hundreds go first (3), then tens (0), then ones (9). That gives 309. The zero holds the tens place."],
+/* ============ helpers ============ */
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function uniq(a){return a.filter(function(v,i){return a.indexOf(v)===i;});}
 
-// ---------- COMPARING ----------
-["Comparing numbers","Which number is the greatest?","276, 267, 627, 672","672",["627","276","267"],"Compare the hundreds first: 6 is bigger than 2, so 627 and 672 are bigger. Then compare the tens: 7 tens beats 2 tens, so 672 is the greatest."],
-["Comparing numbers","Which sign makes this true?  458 ◯ 485","","<",[">","="],"The hundreds are the same (4). In the tens, 5 is less than 8, so 458 is less than 485. The open mouth of the sign points to the bigger number."],
-["Comparing numbers","Which list is in order from smallest to largest?","","53, 305, 350, 530",["305, 53, 350, 530","530, 350, 305, 53","53, 350, 305, 530"],"53 has only 2 digits, so it is smallest. Then 305 (3 hundreds, 0 tens) is smaller than 350 (3 hundreds, 5 tens). 530 is largest."],
-["Comparing numbers","What number comes just after 299?","","300",["290","399","2100"],"Counting on: 298, 299, 300. When the ones and tens are full (99), the next number moves to the next hundred."],
+/* Wrong choices are plausible mistakes. We always mix at least one smaller
+   and one bigger wrong choice, and shuffle positions every time, so the right
+   answer can never be spotted by its size or its place. */
+function optionsFor(q){
+  var pool=uniq(q.pool).filter(function(v){return v!==q.ans && v>=0;});
+  var lower=shuffle(pool.filter(function(v){return v<q.ans;}));
+  var upper=shuffle(pool.filter(function(v){return v>q.ans;}));
+  var picks=[];
+  if(lower.length) picks.push(lower.shift());
+  if(upper.length) picks.push(upper.shift());
+  var rest=shuffle(lower.concat(upper));
+  while(picks.length<3 && rest.length) picks.push(rest.shift());
+  return shuffle([q.ans].concat(picks));
+}
 
-// ---------- SKIP COUNTING ----------
-["Skip counting","Count by 5s. What number comes next?","5, 10, 15, 20, ___","25",["30","24","21"],"We add 5 each time: 20 + 5 = 25."],
-["Skip counting","Count by 10s. What number comes next?","34, 44, 54, ___","64",["74","55","65"],"Counting by 10s changes the tens digit by 1 each time. 54 has 5 tens, so the next number has 6 tens: 64."],
-["Skip counting","Count by 2s. What number comes next?","18, 20, 22, ___","24",["23","26","25"],"We add 2 each time: 22 + 2 = 24."],
-["Skip counting","Count by 100s. What number comes next?","100, 200, 300, ___","400",["310","301","500"],"Adding 100 changes the hundreds digit by one: 3 hundreds becomes 4 hundreds, which is 400."],
-
-// ---------- EVEN / ODD ----------
-["Even and odd","Which of these numbers is odd?","","241",["130","246","458"],"Look at the ones digit. Even numbers end in 0, 2, 4, 6 or 8. Odd numbers end in 1, 3, 5, 7 or 9. 241 ends in 1, so it is odd."],
-["Even and odd","You have 14 shoes. Can they all be put into pairs?","","Yes, 7 pairs with none left over",["No, 1 shoe is left over","Yes, 14 pairs with none left over","No, 2 shoes are left over"],"14 is even, so it can be shared into pairs with none left over. 2 + 2 + 2 + 2 + 2 + 2 + 2 = 14, which is 7 pairs."],
-
-// ---------- ADD & SUBTRACT ----------
-["Adding and subtracting","34 + 25 = ?","","59",["49","69","58"],"Add the ones: 4 + 5 = 9. Add the tens: 30 + 20 = 50. Together: 50 + 9 = 59."],
-["Adding and subtracting","46 + 38 = ?","","84",["74","714","83"],"Ones: 6 + 8 = 14, so write 4 and carry 1 ten. Tens: 4 + 3 + 1 (carried) = 8. The answer is 84."],
-["Adding and subtracting","57 + 26 = ?","","83",["73","713","82"],"Ones: 7 + 6 = 13, so write 3 and carry 1 ten. Tens: 5 + 2 + 1 = 8. The answer is 83."],
-["Adding and subtracting","78 − 35 = ?","","43",["53","113","42"],"Subtract the ones: 8 − 5 = 3. Subtract the tens: 70 − 30 = 40. Together: 43."],
-["Adding and subtracting","64 − 28 = ?","","36",["44","46","92"],"4 is smaller than 8, so we regroup: take 1 ten from 60. Now 14 − 8 = 6 and the tens are 5 − 2 = 3. The answer is 36. You can check it: 36 + 28 = 64."],
-["Adding and subtracting","100 − 40 = ?","","60",["140","50","70"],"10 tens take away 4 tens leaves 6 tens, which is 60."],
-["Adding and subtracting","What number do you add to 70 to make 100?","","30",["70","40","20"],"Count up from 70 to 100 in tens: 80, 90, 100. That is 3 tens, so 30. Check: 70 + 30 = 100."],
-["Adding and subtracting","If 8 + 7 = 15, then 15 − 8 = ?","","7",["8","23","15"],"Addition and subtraction are opposites. If 8 + 7 = 15, taking 8 away from 15 leaves the other part, 7."],
-["Adding and subtracting","Find the missing number:  25 + ___ = 61","","36",["86","46","26"],"Start at 25 and count up to 61. Subtract to find the gap: 61 − 25 = 36. Check: 25 + 36 = 61."],
-["Adding and subtracting","230 + 140 = ?","","370",["360","380","270"],"Add the hundreds: 200 + 100 = 300. Add the tens: 30 + 40 = 70. Together: 370."],
-
-// ---------- MONEY ----------
-["Money","You have 3 dimes (10¢ each) and 2 nickels (5¢ each). How much money is that?","🪙🪙🪙 + 🪙🪙","40¢",["32¢","35¢","50¢"],"Dimes: 10 + 10 + 10 = 30¢. Nickels: 5 + 5 = 10¢. Altogether 30 + 10 = 40¢."],
-["Money","A pencil costs $3 and an eraser costs $2. You pay with $10. How much change do you get?","","$5",["$15","$7","$8"],"First find the total: 3 + 2 = $5. Then take it from 10: 10 − 5 = $5 change."],
-["Money","Which amount is the same as 1 dollar?","","100 cents",["10 cents","50 cents","1000 cents"],"There are 100 cents in 1 dollar. 10 dimes also make 1 dollar."],
-
-// ---------- TIME ----------
-["Time","The short hand points to 3 and the long hand points to 12. What time is it?","🕒","3 o'clock",["12 o'clock","3:12","12:15"],"When the long (minute) hand is on 12, it is an o'clock time. The short (hour) hand shows which hour: 3 o'clock."],
-["Time","Which time is half past 4?","","4:30",["4:15","5:30","4:06"],"Half past means 30 minutes after the hour. Half past 4 is 4:30."],
-["Time","How many minutes are in 1 hour?","","60",["100","30","12"],"There are 60 minutes in 1 hour. Half an hour is 30 minutes."],
-
-// ---------- MEASUREMENT ----------
-["Measuring","Which unit is best for measuring the length of a pencil?","✏️","centimetres",["metres","kilometres","litres"],"A pencil is short, so we use small units: centimetres. Metres are for a classroom, kilometres for roads, and litres measure liquids."],
-["Measuring","A ribbon is 45 cm long. You cut off 20 cm. How long is the ribbon now?","","25 cm",["65 cm","35 cm","24 cm"],"Cutting means taking away: 45 − 20 = 25. Take 2 tens from 4 tens and keep the 5 ones."],
-["Measuring","How many centimetres are in 1 metre?","","100",["10","1000","60"],"1 metre = 100 centimetres. A metre stick has 100 little centimetre marks."],
-
-// ---------- SHAPES ----------
-["Shapes","How many sides does a hexagon have?","⬡","6",["5","8","4"],"Hex means six. A hexagon has 6 sides. A pentagon has 5 and an octagon has 8."],
-["Shapes","Which shape has 4 equal sides and 4 square corners?","","square",["rectangle","triangle","pentagon"],"A square has 4 sides that are all the same length. A rectangle also has 4 square corners, but only its opposite sides are equal."],
-["Shapes","Which 3D shape looks like a ball?","","sphere",["cube","cone","cylinder"],"A sphere is round all over, like a ball. A cube is like a dice, a cone is like an ice-cream cone, and a cylinder is like a can."],
-["Shapes","How many faces does a cube have?","🎲","6",["4","8","12"],"A cube has 6 flat faces (top, bottom and 4 sides). It has 8 corners and 12 edges."],
-
-// ---------- FRACTIONS ----------
-["Fractions","A pizza is cut into 4 equal slices. You eat 1 slice. What fraction of the pizza did you eat?","🍕","1/4",["1/3","4/1","1/2"],"The bottom number tells how many equal parts the whole is cut into (4). The top number tells how many you took (1). So 1/4."],
-["Fractions","Which fraction is the largest piece?","","1/2",["1/3","1/4","1/8"],"The more pieces a whole is cut into, the smaller each piece is. Halves are the biggest of these, and eighths are the smallest."],
-["Fractions","What is half of 12?","","6",["24","10","4"],"Half means sharing into 2 equal groups. 12 shared into 2 groups is 6 each. Check: 6 + 6 = 12."],
-
-// ---------- EQUAL GROUPS ----------
-["Equal groups","There are 4 bags with 5 apples in each bag. How many apples are there altogether?","🍎🍎🍎🍎🍎 × 4 bags","20",["9","25","15"],"Equal groups mean we can use repeated addition: 5 + 5 + 5 + 5 = 20. Counting by 5s: 5, 10, 15, 20."],
-["Equal groups","An array has 3 rows with 6 dots in each row. How many dots are there in all?","● ● ● ● ● ●\n● ● ● ● ● ●\n● ● ● ● ● ●","18",["9","15","21"],"Add the rows: 6 + 6 + 6 = 18. An array is rows of equal size, so we can add the same number again and again."],
-
-// ---------- WORD PROBLEMS ----------
-["Word problems","Ada has 23 marbles. She wins 19 more. How many marbles does she have now?","🔵","42",["32","52","4"],"\"Wins more\" means add. 23 + 19: ones 3 + 9 = 12, write 2 and carry 1; tens 2 + 1 + 1 = 4. The answer is 42."],
-["Word problems","There are 52 children on a bus. At the stop, 17 children get off. How many children are on the bus now?","🚌","35",["45","69","25"],"\"Get off\" means take away. 52 − 17: regroup to make 12 − 7 = 5 ones, and the tens are 4 − 1 = 3. The answer is 35."],
-["Word problems","A baker makes 36 buns in the morning and 28 buns in the afternoon. She sells 40 buns. How many buns are left?","🥖","24",["64","104","34"],"This has two steps. Step 1: 36 + 28 = 64 buns made. Step 2: 64 − 40 = 24 buns left."],
-
-// ---------- DATA ----------
-["Data","Children voted for a favourite colour. Red: 6 votes, Blue: 9 votes, Green: 4 votes. How many more children chose blue than green?","🔴 6   🔵 9   🟢 4","5",["13","3","9"],"\"How many more\" means find the difference. Blue is 9 and green is 4, so 9 − 4 = 5."]
+/* ============ questions ============ */
+var SECTIONS=[
+  {id:'A',name:'Swamp Sums',icon:'➕',cls:'l1',desc:'Add and take away'},
+  {id:'B',name:'Ten Jumps',icon:'🦘',cls:'l2',desc:'+10 and −10 jumps'},
+  {id:'C',name:'Cube Count',icon:'🧊',cls:'l3',desc:'Tens and ones'},
+  {id:'D',name:'Gator Greatest',icon:'🐊',cls:'l4',desc:'Big and small numbers'}
 ];
 
-const $=id=>document.getElementById(id);
-let order,idx,score,answers,locked,name;
-const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function calcQ(a,op,b){
+  var ans = op==='+' ? a+b : a-b;
+  var pool = op==='+' ? [ans-1,ans+1,ans-2,ans+2,Math.abs(a-b),ans+3]
+                      : [ans-1,ans+1,ans+2,a+b,ans-2,ans+3];
+  return {sec:'A',type:'calc',a:a,op:op,b:b,ans:ans,pool:pool,
+    prompt: op==='+' ? 'Add the numbers!' : 'Take away to find the answer!'};
+}
+function arrowQ(start,sign,end,missing,pool){
+  var ans = missing==='end' ? end : start;
+  return {sec:'B',type:'arrow',start:start,sign:sign,end:end,missing:missing,ans:ans,pool:pool,
+    prompt: missing==='end' ? 'Follow the arrow. What number do you land on?' : 'Which number did the jump start from?'};
+}
+function cubeQ(tens,ones,pool){
+  var n=tens*10+ones;
+  var q={sec:'C',type:'cubes',tens:tens,ones:ones,ans:n};
+  if(pool){q.pool=pool;}
+  else{
+    var a=tens,b=ones;
+    q.pool=[b*10+a, a+b, a*10+b+1, a*10+b-1, a*10+b+10, a*10+b-10, a*10];
+  }
+  q.prompt='How many cubes are there in all?';
+  return q;
+}
+function textQ(sec,prompt,html,ans,pool,why,hint){
+  return {sec:sec,type:'text',prompt:prompt,html:html,ans:ans,pool:pool,why:why,hint:hint};
+}
+function gatorQ(mode,list){
+  var ans = mode==='most' ? Math.max.apply(null,list) : Math.min.apply(null,list);
+  return {sec:'D',type:'gator',mode:mode,list:list,ans:ans,pool:list,
+    prompt: mode==='most' ? 'The alligator is hungry! Which is the GREATEST number?' : 'Which is the SMALLEST number?'};
+}
+function T(t,o){return '<span class="t">'+t+' ten'+(t===1?'':'s')+'</span> and <span class="o">'+o+' one'+(o===1?'':'s')+'</span>';}
 
-function begin(){
-  name=$("nm").value.trim()||"Friend";
-  idx=0;score=0;answers=[];
-  $("start").classList.add("hide");$("end").classList.add("hide");$("quiz").classList.remove("hide");
+var QUESTIONS=[];
+/* A: 15 add / subtract within 10 */
+[[3,'+',2],[5,'+',2],[6,'+',4],[9,'-',5],[7,'+',3],[7,'-',1],[8,'+',1],[3,'+',5],
+ [5,'+',4],[7,'-',4],[10,'-',1],[9,'-',2],[6,'+',3],[10,'-',7],[8,'-',6]
+].forEach(function(r){QUESTIONS.push(calcQ(r[0],r[1],r[2]));});
+
+/* B: 10 ten jumps */
+QUESTIONS.push(
+  arrowQ(23,'-',13,'end',[33,22,3,14,12]),
+  arrowQ(22,'+',32,'end',[12,23,42,21,33]),
+  arrowQ(28,'-',18,'end',[38,27,8,29,17]),
+  arrowQ(18,'+',28,'end',[8,19,38,17,29]),
+  arrowQ(17,'-',7,'end',[27,16,18,10,6]),
+  arrowQ(34,'-',24,'start',[14,25,23,44,35]),
+  arrowQ(37,'-',27,'start',[17,28,26,47,38]),
+  arrowQ(20,'+',30,'start',[40,29,31,10,21]),
+  arrowQ(35,'-',25,'start',[15,26,24,45,36]),
+  arrowQ(11,'+',21,'start',[31,20,22,1,12])
+);
+
+/* C: 10 cube counting / tens and ones */
+QUESTIONS.push(
+  cubeQ(3,2), cubeQ(2,5), cubeQ(2,8), cubeQ(4,1), cubeQ(1,5), cubeQ(2,0), cubeQ(5,3)
+);
+(function(){
+  var q=cubeQ(3,10,[30,13,4,50,41,310]);
+  q.ans=40; q.tricky=true;
+  q.prompt='TRICKY! How many cubes are there in all?';
+  QUESTIONS.push(q);
+})();
+QUESTIONS.push(
+  textQ('C','How many TENS are in this number?','<span class="t">4</span><span class="o">7</span>',4,[7,3,5,6,11],
+    'In 47 the first digit is the tens. 4 tens = 40, and 7 ones.','Look at the digit on the left. It tells the tens.'),
+  textQ('C','How many ONES are in this number?','<span class="t">6</span><span class="o">3</span>',3,[6,9,4,2,5],
+    'In 63 the second digit is the ones. 6 tens and 3 ones.','Look at the digit on the right. It tells the ones.')
+);
+
+/* D: 15 gator greatest / smallest + build the number */
+QUESTIONS.push(
+  gatorQ('most',[13,31,21,12]), gatorQ('most',[35,36,25,16]), gatorQ('most',[27,31,13,22]),
+  gatorQ('most',[29,28,19,26]), gatorQ('most',[27,17,12,26]), gatorQ('most',[14,41,24,11]),
+  gatorQ('most',[30,29,20,28]), gatorQ('most',[4,40,14,30]),
+  gatorQ('least',[13,31,22,41]), gatorQ('least',[29,28,30,40]), gatorQ('least',[14,41,24,34]),
+  textQ('D','Which number is this?','<span class="t">3 tens</span> and <span class="o">5 ones</span>',35,[53,8,30,36,25,45],
+    '3 tens is 30. Add 5 ones to make 35.','Put the tens digit first, then the ones digit.'),
+  textQ('D','Which number is this?','<span class="t">4 tens</span> and <span class="o">0 ones</span>',40,[4,44,14,41,30,50],
+    '4 tens is 40. There are no ones, so it is 40.','Zero ones means the ones place holds a 0.'),
+  textQ('D','Which number is this?','<span class="o">9 ones</span> and <span class="t">2 tens</span>',29,[92,11,20,28,30,19],
+    '2 tens is 20. Add 9 ones to make 29. The tens digit always goes first!','The tens digit always goes first, even if the words are in a different order.'),
+  textQ('D','Which number is this?','<span class="o">6 ones</span> and <span class="t">5 tens</span>',56,[65,11,50,55,57,46],
+    '5 tens is 50. Add 6 ones to make 56. The tens digit always goes first!','The tens digit always goes first, even if the words are in a different order.')
+);
+
+/* ============ explanations & hints ============ */
+function explain(q){
+  if(q.type==='calc'){
+    return q.op==='+'
+      ? q.a+' + '+q.b+' = '+q.ans+'. Start at '+q.a+' and count up '+q.b+' more.'
+      : q.a+' − '+q.b+' = '+q.ans+'. Start at '+q.a+' and count back '+q.b+'.';
+  }
+  if(q.type==='arrow'){
+    var dir = q.sign==='+' ? 'more' : 'fewer';
+    var d = q.sign==='+' ? 'goes UP by 1' : 'goes DOWN by 1';
+    if(q.missing==='end') return q.start+' '+(q.sign==='+'?'+':'−')+' 10 = '+q.end+'. The tens digit '+d+' and the ones stay the same.';
+    return 'Go backwards! '+q.ans+' '+(q.sign==='+'?'+':'−')+' 10 = '+q.end+'. So the jump started at '+q.ans+'.';
+  }
+  if(q.type==='cubes'){
+    if(q.tricky) return '10 loose cubes make 1 more ten! So 3 tens + 1 ten = 4 tens. That is 40 cubes.';
+    return q.tens+' rod'+(q.tens===1?'':'s')+' = '+(q.tens*10)+', and '+q.ones+' cube'+(q.ones===1?'':'s')+'. '+(q.tens*10)+' + '+q.ones+' = '+q.ans+'.';
+  }
+  if(q.type==='gator'){
+    return q.mode==='most'
+      ? q.ans+' is the greatest. Look at the tens first: the number with the most tens wins!'
+      : q.ans+' is the smallest. Look at the tens first: the number with the fewest tens is smallest!';
+  }
+  return q.why;
+}
+function hintHTML(q){
+  if(q.type==='calc'){
+    var h='<div class="dots">',i;
+    if(q.op==='+'){
+      for(i=0;i<q.a;i++)h+='<span>🍎</span>';
+      for(i=0;i<q.b;i++)h+='<span>🍏</span>';
+      h+='</div>Count ALL the apples!';
+    }else{
+      for(i=0;i<q.a;i++)h+='<span class="'+(i>=q.a-q.b?'x':'')+'">🍎</span>';
+      h+='</div>Count the apples that are NOT crossed out!';
+    }
+    return h;
+  }
+  if(q.type==='arrow') return q.missing==='end'
+    ? 'The arrow changes the TENS digit only. '+(q.sign==='+'?'+10 means one more ten.':'−10 means one less ten.')
+    : 'Go backwards! Do the opposite jump from the end number to find the start.';
+  if(q.type==='cubes') return q.tricky
+    ? 'Tall rods are tens. Count the loose cubes too. Can 10 loose cubes make a new ten?'
+    : 'Each tall rod is 10. Count the rods first, then the little cubes.';
+  if(q.type==='gator') return 'Look at the tens digit first (the left one). More tens means a bigger number!';
+  return q.hint;
+}
+function gatorSay(good){
+  var g=['Chomp-tastic!','You got it!','Snap! Perfect!','Roar-some job!','Super swamp star!','Wow, so clever!','Yay, Zion!','Splash! Correct!'];
+  var b=['Good try!','Oopsie! Let’s learn it.','Almost! Look at the answer.','No worries, Zion!','Nice try, keep going!'];
+  var a=good?g:b; return a[Math.floor(Math.random()*a.length)];
+}
+
+if(typeof document!=='undefined'){
+/* ============ mascot ============ */
+function gatorSVG(mood){
+  var mouth = mood==='sad'
+    ? '<path d="M70 108 Q100 96 130 108" stroke="#1f3a2b" stroke-width="6" fill="none" stroke-linecap="round"/>'
+    : mood==='open'
+    ? '<path d="M52 98 Q100 150 148 98 Z" fill="#7a1f2b" stroke="#1f3a2b" stroke-width="5"/><path d="M62 100 l8 14 l8 -13 M84 106 l8 13 l8 -12 M108 106 l8 12 l8 -13" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><ellipse cx="100" cy="125" rx="20" ry="9" fill="#ff7e8b"/>'
+    : '<path d="M56 98 Q100 140 144 98" stroke="#1f3a2b" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M70 112 l6 10 l6 -8 M118 112 l6 -8 l6 8" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>';
+  var pupils = mood==='sad' ? '<circle cx="62" cy="44" r="7" fill="#1f3a2b"/><circle cx="138" cy="44" r="7" fill="#1f3a2b"/>'
+                            : '<circle cx="64" cy="40" r="8" fill="#1f3a2b"/><circle cx="136" cy="40" r="8" fill="#1f3a2b"/><circle cx="67" cy="37" r="3" fill="#fff"/><circle cx="139" cy="37" r="3" fill="#fff"/>';
+  return '<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Friendly alligator">'+
+    '<ellipse cx="100" cy="88" rx="86" ry="56" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
+    '<circle cx="62" cy="42" r="24" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/><circle cx="138" cy="42" r="24" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
+    '<circle cx="62" cy="42" r="16" fill="#fff"/><circle cx="138" cy="42" r="16" fill="#fff"/>'+pupils+
+    '<circle cx="84" cy="78" r="4" fill="#2f9e3c"/><circle cx="116" cy="78" r="4" fill="#2f9e3c"/>'+
+    '<circle cx="34" cy="92" r="10" fill="#ff9ec7" opacity=".7"/><circle cx="166" cy="92" r="10" fill="#ff9ec7" opacity=".7"/>'+
+    '<path d="M60 22 l8 -14 l8 14 M92 14 l8 -14 l8 14 M124 22 l8 -14 l8 14" fill="#2f9e3c" opacity=".0"/>'+
+    mouth+'</svg>';
+}
+
+/* ============ confetti ============ */
+var cv=document.getElementById('fx'),cx=cv.getContext('2d'),parts=[],raf=null;
+function sizeCv(){cv.width=innerWidth;cv.height=innerHeight;}
+sizeCv();addEventListener('resize',sizeCv);
+function burst(n){
+  var cols=['#ff7eb6','#ffd23f','#6ec8ff','#4cc94a','#8a6bff','#ff9d2e'];
+  for(var i=0;i<n;i++)parts.push({x:innerWidth/2+(Math.random()-.5)*200,y:innerHeight*0.35,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,
+    s:6+Math.random()*8,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.4,life:120+Math.random()*60});
+  if(!raf)loop();
+}
+function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  parts=parts.filter(function(p){return p.life>0&&p.y<cv.height+20;});
+  parts.forEach(function(p){p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;
+    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6);cx.restore();});
+  raf = parts.length ? requestAnimationFrame(loop) : null;
+  if(!raf)cx.clearRect(0,0,cv.width,cv.height);
+}
+
+/* ============ app ============ */
+var app=document.getElementById('app');
+var order=[],idx=0,score=0,log=[],streak=0,practice=false,hintUsed=false,locked=false;
+
+function best(){try{return parseInt(localStorage.getItem('zionGatorBest')||'0',10);}catch(e){return 0;}}
+function saveBest(s){try{if(s>best())localStorage.setItem('zionGatorBest',String(s));}catch(e){}}
+
+function home(){
+  var b=best();
+  app.innerHTML=
+  '<div class="card">'+
+    '<h1>Zion’s Gator<br>Swamp Quiz!</h1>'+
+    '<div class="mascot-wrap"><div class="mascot">'+gatorSVG('open')+'</div></div>'+
+    '<div class="sub">Hi Zion! I’m Chomper the alligator.<br>Help me finish <b>50</b> swamp puzzles!</div>'+
+    '<div class="levels">'+SECTIONS.map(function(s,i){return '<div class="lvl '+s.cls+'"><b>'+s.icon+'</b><div>Level '+(i+1)+'<br>'+s.name+'</div></div>';}).join('')+'</div>'+
+    (b?'<div class="sub">⭐ Your best score: <b>'+b+' / 50</b></div>':'')+
+    '<div class="center"><button class="btn go" id="start">Let’s Go! 🐊</button></div>'+
+  '</div>';
+  document.getElementById('start').onclick=function(){begin(false);};
+}
+
+function begin(onlyMissed){
+  practice=onlyMissed;
+  var list;
+  if(onlyMissed){
+    list=shuffle(log.filter(function(l){return !l.ok;}).map(function(l){return l.q;}));
+  }else{
+    list=[];
+    SECTIONS.forEach(function(s){
+      list=list.concat(shuffle(QUESTIONS.filter(function(q){return q.sec===s.id;})));
+    });
+  }
+  order=list;idx=0;score=0;log=[];streak=0;
   show();
 }
+
+function visual(q){
+  if(q.type==='calc'){
+    return '<div class="calc"><div class="op"></div><div class="n">'+q.a+'</div>'+
+           '<div class="op">'+(q.op==='+'?'+':'−')+'</div><div class="n">'+q.b+'</div>'+
+           '<div class="line"></div><div class="q">?</div></div>';
+  }
+  if(q.type==='arrow'){
+    var arrow='<div class="jump"><div class="tag '+(q.sign==='-'?'minus':'')+'">'+(q.sign==='+'?'+10':'−10')+'</div>'+
+      '<svg viewBox="0 0 130 50"><path d="M4 18h84V4l38 21-38 21V32H4z" fill="#fff" stroke="#1f3a2b" stroke-width="4" stroke-linejoin="round"/></svg></div>';
+    var l = q.missing==='start' ? '<div class="numbox mystery">?</div>' : '<div class="numbox">'+q.start+'</div>';
+    var r = q.missing==='end' ? '<div class="numbox mystery">?</div>' : '<div class="numbox">'+q.end+'</div>';
+    return '<div class="arrowrow">'+l+arrow+r+'</div>';
+  }
+  if(q.type==='cubes'){
+    var rods='',i;
+    for(i=0;i<q.tens;i++){rods+='<div class="rod">'+new Array(11).join('<i></i>')+'</div>';}
+    var ones='';
+    for(i=0;i<q.ones;i++){ones+='<div class="cube"></div>';}
+    return '<div class="cubes"><div class="rods">'+rods+'</div>'+(q.ones?'<div class="ones">'+ones+'</div>':'')+
+      '<div class="legend">Tall rod = 10 &nbsp;·&nbsp; little cube = 1</div></div>';
+  }
+  if(q.type==='gator'){
+    return '<div class="gatorvis">'+gatorSVG('open')+'</div>'+
+      '<div class="center"><span class="bigword '+(q.mode==='most'?'':'small')+'">'+(q.mode==='most'?'GREATEST':'SMALLEST')+'</span></div>';
+  }
+  return '<div class="textvis">'+q.html+'</div>';
+}
+
 function show(){
-  locked=false;
-  const q=Q[idx];
-  $("cnt").textContent="Question "+(idx+1)+" of "+Q.length;
-  $("sc").textContent="⭐ "+score;
-  $("pb").style.width=(idx/Q.length*100)+"%";
-  $("topic").textContent=q[0];
-  $("qt").textContent=q[1];
-  const v=$("vis");v.textContent=q[2];v.style.whiteSpace=q[2].includes("\n")?"pre":"normal";
-  v.style.fontSize=q[2].length>14&&!q[2].includes("\n")?"26px":"34px";
-  v.classList.toggle("hide",!q[2]);
-  const box=$("opts");box.innerHTML="";
-  shuffle([q[3]].concat(q[4])).forEach((o,i)=>{
-    const b=document.createElement("button");b.className="opt";
-    b.innerHTML='<span class="k">'+"ABCD"[i]+'</span><span></span>';
-    b.lastChild.textContent=o;
-    b.onclick=()=>pick(b,o);
-    box.appendChild(b);
+  locked=false;hintUsed=false;
+  var q=order[idx],sec=SECTIONS.filter(function(s){return s.id===q.sec;})[0];
+  var pct=idx/order.length*100;
+  var opts=optionsFor(q);
+  app.innerHTML=
+  '<div class="card">'+
+    '<div class="top"><span class="pill">'+(practice?'Practice ':'Question ')+(idx+1)+' of '+order.length+'</span><span class="pill">⭐ '+score+'</span></div>'+
+    '<div class="track"><div class="fill" style="width:'+pct+'%"></div><div class="runner" style="left:'+Math.max(pct,3)+'%">🐊</div></div>'+
+    '<div class="chip '+sec.cls+'">'+sec.icon+' Level '+(SECTIONS.indexOf(sec)+1)+': '+sec.name+'</div>'+
+    '<div class="say"><div id="mood">'+gatorSVG('smile')+'</div><div class="bubble" id="bubble">'+q.prompt+'</div></div>'+
+    '<div class="vis">'+visual(q)+'</div>'+
+    '<div class="opts" id="opts">'+opts.map(function(o){return '<button class="opt" data-v="'+o+'">'+o+'</button>';}).join('')+'</div>'+
+    '<div id="hint"></div><div id="fb"></div>'+
+    '<div class="actions"><button class="btn sm" id="hintbtn">💡 Help me</button><span id="nextwrap"></span></div>'+
+  '</div>';
+  Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){
+    b.onclick=function(){answer(b,q);};
   });
-  $("fb").className="fb";$("nx").classList.remove("show");
-  $("nb").textContent=idx===Q.length-1?"See my results 🏆":"Next ▶";
+  document.getElementById('hintbtn').onclick=function(){
+    if(locked)return;
+    hintUsed=true;
+    document.getElementById('hint').innerHTML='<div class="hintbox">💡 '+hintHTML(q)+'</div>';
+  };
+  scrollTo({top:0,behavior:'smooth'});
 }
-function pick(btn,val){
+
+function answer(btn,q){
   if(locked)return;locked=true;
-  const q=Q[idx],ok=val===q[3];
-  document.querySelectorAll(".opt").forEach(b=>{
+  var v=parseInt(btn.getAttribute('data-v'),10),ok=v===q.ans;
+  var all=document.querySelectorAll('.opt');
+  Array.prototype.forEach.call(all,function(b){
     b.disabled=true;
-    if(b.lastChild.textContent===q[3])b.classList.add("right");
+    if(parseInt(b.getAttribute('data-v'),10)===q.ans)b.classList.add('right');
   });
-  if(!ok)btn.classList.add("wrong");
-  if(ok)score++;
-  answers.push({i:idx,ok,val});
-  $("sc").textContent="⭐ "+score;
-  const f=$("fb");
-  f.className="fb show "+(ok?"good":"bad");
-  f.innerHTML='<b class="t">'+(ok?"✅ Correct! Well done!":"❌ Not quite. The answer is "+esc(q[3])+".")+'</b>'+esc(q[5]);
-  $("nx").classList.add("show");
-  $("nb").focus();
+  if(!ok)btn.classList.add('wrong');
+  document.getElementById('opts').classList.add('done');
+  document.getElementById('hintbtn').classList.add('hidden');
+  log.push({q:q,ok:ok,chosen:v});
+  if(ok){score++;streak++;}else{streak=0;}
+  document.getElementById('mood').innerHTML=gatorSVG(ok?'open':'sad');
+  document.getElementById('bubble').textContent=gatorSay(ok);
+  document.getElementById('fb').innerHTML=
+    '<div class="fb '+(ok?'good':'bad')+'"><h3>'+(ok?'✅ Yes! '+q.ans:'🤔 The answer is '+q.ans)+'</h3>'+explain(q)+'</div>';
+  if(ok&&streak>0&&streak%5===0){burst(70);document.getElementById('bubble').textContent='🔥 '+streak+' in a row! Amazing!';}
+  var last=idx===order.length-1;
+  var nb=document.createElement('button');nb.className='btn go';nb.style.fontSize='26px';nb.style.padding='12px 28px';
+  nb.textContent=last?'See my stars! ⭐':'Next ➜';
+  nb.onclick=function(){if(last){results();}else{idx++;show();}};
+  document.getElementById('nextwrap').appendChild(nb);
+  setTimeout(function(){nb.scrollIntoView({behavior:'smooth',block:'center'});},120);
 }
-function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
-function next(){ if(idx<Q.length-1){idx++;show();window.scrollTo(0,0)} else finish(); }
-function finish(){
-  $("quiz").classList.add("hide");$("end").classList.remove("hide");window.scrollTo(0,0);
-  const pct=Math.round(score/Q.length*100);
-  $("who").textContent="Great effort, "+name+"!";
-  $("fs").textContent=score+" / "+Q.length;
-  $("stars").textContent=pct>=90?"🌟🌟🌟":pct>=70?"🌟🌟":pct>=50?"🌟":"💪";
-  $("fm").textContent=pct>=90?"Amazing! You are a maths superstar!":pct>=70?"Very good work! You know lots of maths.":pct>=50?"Good try! Read the explanations below and practise again.":"Keep practising. Every try makes you stronger!";
-  const t={};
-  answers.forEach(a=>{const k=Q[a.i][0];t[k]=t[k]||[0,0];t[k][1]++;if(a.ok)t[k][0]++});
-  $("tt").innerHTML=Object.keys(t).map(k=>"<tr><td>"+k+"</td><td>"+t[k][0]+" / "+t[k][1]+"</td></tr>").join("");
-  const wrong=answers.filter(a=>!a.ok);
-  $("missWrap").classList.toggle("hide",!wrong.length);
-  $("miss").innerHTML=wrong.map(a=>{const q=Q[a.i];return '<div class="miss"><b>Q'+(a.i+1)+'. '+esc(q[1])+'</b>'+(q[2]&&!q[2].includes("\n")?'<br>'+esc(q[2]):'')+'<br><span class="y">You chose: '+esc(a.val)+'</span> &nbsp; <span class="a">Correct: '+esc(q[3])+'</span><br>'+esc(q[5])+'</div>'}).join("");
+
+function results(){
+  var total=order.length,pct=score/total;
+  var stars=pct>=.9?3:pct>=.7?2:pct>=.4?1:0;
+  if(!practice)saveBest(score);
+  var msg=pct>=.9?'SUPER SWAMP CHAMPION!':pct>=.7?'Great job, Zion!':pct>=.4?'Good work! Let’s keep practising!':'You tried so hard! Try again!';
+  var by=SECTIONS.map(function(s,i){
+    var items=log.filter(function(l){return l.q.sec===s.id;});
+    if(!items.length)return '';
+    var c=items.filter(function(l){return l.ok;}).length;
+    return '<div class="brow"><span style="width:2em">'+s.icon+'</span><span style="min-width:9.5em">'+s.name+'</span><div class="bar"><div style="width:'+(c/items.length*100)+'%"></div></div><span>'+c+'/'+items.length+'</span></div>';
+  }).join('');
+  var missed=log.filter(function(l){return !l.ok;});
+  var missHTML=missed.length
+    ? '<h2 style="text-align:center;margin:16px 0 4px">Let’s look at these again 👀</h2>'+missed.map(function(l){return '<div class="miss">'+missLine(l.q)+' → <b>'+l.q.ans+'</b><br><small>'+explain(l.q)+'</small></div>';}).join('')
+    : '<div class="sub">🎉 No mistakes at all!</div>';
+  app.innerHTML=
+  '<div class="card">'+
+    '<h1>'+(practice?'Practice done!':'All done!')+'</h1>'+
+    '<div class="mascot-wrap"><div class="mascot">'+gatorSVG(pct>=.4?'open':'smile')+'</div></div>'+
+    '<div class="stars">'+(stars?new Array(stars+1).join('⭐'):'🌱')+'</div>'+
+    '<div class="big">'+score+' / '+total+'</div>'+
+    '<div class="sub">'+msg+'</div>'+
+    '<div class="break">'+by+'</div>'+missHTML+
+    '<div class="actions" style="justify-content:center;margin-top:20px">'+
+      (missed.length?'<button class="btn alt" id="pm">Practice my mistakes 💪</button>':'')+
+      '<button class="btn go" id="again" style="font-size:26px">Play again 🐊</button>'+
+    '</div>'+
+  '</div>';
+  var pm=document.getElementById('pm');if(pm)pm.onclick=function(){begin(true);};
+  document.getElementById('again').onclick=function(){begin(false);};
+  if(pct>=.4)burst(pct>=.9?220:120);
+  scrollTo({top:0});
 }
-$("go").onclick=begin;
-$("nb").onclick=next;
-$("again").onclick=()=>{$("end").classList.add("hide");$("start").classList.remove("hide")};
-$("nm").addEventListener("keydown",e=>{if(e.key==="Enter")begin()});
-document.addEventListener("keydown",e=>{
-  if($("quiz").classList.contains("hide"))return;
-  const k=e.key.toUpperCase();
-  if(!locked&&"ABCD".includes(k)&&k.length===1){const b=document.querySelectorAll(".opt")["ABCD".indexOf(k)];if(b)b.click()}
-});
+function missLine(q){
+  if(q.type==='calc')return q.a+' '+(q.op==='+'?'+':'−')+' '+q.b+' = ?';
+  if(q.type==='arrow')return q.missing==='end' ? q.start+' '+(q.sign==='+'?'+':'−')+'10 → ?' : '? '+(q.sign==='+'?'+':'−')+'10 → '+q.end;
+  if(q.type==='cubes')return q.tricky?'Cubes: 3 rods and 10 loose cubes':'Cubes: '+q.tens+' rod'+(q.tens===1?'':'s')+' and '+q.ones+' cube'+(q.ones===1?'':'s');
+  if(q.type==='gator')return (q.mode==='most'?'Greatest':'Smallest')+' of '+q.list.join(', ');
+  return q.prompt.replace('?','')+' '+q.html.replace(/<[^>]+>/g,'');
+}
+
+home();
+}
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zion's Gator Swamp Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#4cc94a; --green-d:#2f9e3c; --lime:#b8f06a; --sun:#ffd23f; --sun-d:#f5a800;
+  --sky:#6ec8ff; --pink:#ff7eb6; --purple:#8a6bff; --red:#ff5a5f; --ink:#1f3a2b; --card:#ffffff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{
+  font-family:'Baloo 2','Comic Sans MS','Chalkboard SE','Trebuchet MS',sans-serif;
+  color:var(--ink);
+  background:linear-gradient(#8fdcff 0%,#c8f2ff 38%,#9be37a 38%,#4cc94a 100%);
+  background-attachment:fixed;
+  overflow-x:hidden;
+}
+.sun{position:fixed;top:16px;right:20px;width:70px;height:70px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 12px #ffe98a88,0 0 0 26px #ffe98a44;z-index:0}
+.cloud{position:fixed;background:#fff;border-radius:50px;opacity:.9;z-index:0;animation:drift 60s linear infinite}
+.cloud:before,.cloud:after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud.c1{top:40px;left:-120px;width:100px;height:32px}
+.cloud.c1:before{width:44px;height:44px;top:-22px;left:14px}.cloud.c1:after{width:34px;height:34px;top:-14px;left:50px}
+.cloud.c2{top:100px;left:-200px;width:80px;height:26px;animation-duration:85s;animation-delay:-20s}
+.cloud.c2:before{width:36px;height:36px;top:-18px;left:10px}.cloud.c2:after{width:28px;height:28px;top:-10px;left:40px}
+@keyframes drift{to{transform:translateX(130vw)}}
+.pad{position:fixed;bottom:-10px;font-size:46px;z-index:0;opacity:.85;animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(4deg)}}
+#app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:14px 14px 70px}
+.card{background:var(--card);border-radius:28px;border:5px solid var(--green-d);box-shadow:0 8px 0 var(--green-d),0 14px 24px #0002;padding:18px}
+h1{margin:0;font-size:clamp(34px,8vw,58px);line-height:1;text-align:center;color:var(--green-d);text-shadow:3px 3px 0 var(--sun)}
+.sub{text-align:center;font-size:clamp(18px,4.5vw,24px);font-weight:700;margin:8px 0 14px}
+.btn{
+  font-family:inherit;font-weight:800;font-size:clamp(22px,5.5vw,30px);cursor:pointer;
+  border:none;border-radius:22px;padding:14px 28px;color:#fff;background:var(--purple);
+  box-shadow:0 7px 0 #5b3fd0;transition:transform .08s, box-shadow .08s;
+}
+.btn:active{transform:translateY(5px);box-shadow:0 2px 0 #5b3fd0}
+.btn.go{background:var(--green);box-shadow:0 7px 0 var(--green-d);font-size:clamp(26px,7vw,38px);padding:16px 40px}
+.btn.go:active{box-shadow:0 2px 0 var(--green-d)}
+.btn.alt{background:var(--sky);box-shadow:0 7px 0 #2f90d0}
+.btn.alt:active{box-shadow:0 2px 0 #2f90d0}
+.btn.sm{font-size:20px;padding:8px 18px;border-radius:16px;box-shadow:0 5px 0 #5b3fd0}
+.center{text-align:center}
+.hidden{display:none!important}
+.levels{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.lvl{border-radius:20px;padding:10px 12px;font-weight:700;font-size:clamp(16px,4vw,20px);color:#fff;display:flex;gap:8px;align-items:center}
+.lvl b{font-size:30px}
+.l1{background:var(--pink)}.l2{background:var(--purple)}.l3{background:#ff9d2e}.l4{background:#19b5a5}
+.mascot-wrap{display:flex;justify-content:center}
+.mascot{width:min(280px,70vw);animation:wiggle 3s ease-in-out infinite}
+@keyframes wiggle{50%{transform:rotate(-3deg) translateY(-4px)}}
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;font-weight:800;font-size:clamp(16px,4.2vw,22px)}
+.pill{background:#fff;border:4px solid var(--green-d);border-radius:999px;padding:2px 14px;box-shadow:0 4px 0 var(--green-d)}
+.track{position:relative;height:22px;background:#fff;border:4px solid var(--green-d);border-radius:999px;margin:6px 4px 16px}
+.fill{height:100%;background:repeating-linear-gradient(45deg,var(--lime) 0 12px,#9fe34f 12px 24px);border-radius:999px;width:0;transition:width .5s}
+.runner{position:absolute;top:-22px;font-size:34px;transition:left .5s;transform:translateX(-50%)}
+.chip{display:inline-block;color:#fff;border-radius:999px;padding:2px 16px;font-weight:800;font-size:clamp(16px,4vw,20px);margin-bottom:8px}
+/* speech */
+.say{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.say svg{width:92px;flex:none}
+.bubble{position:relative;background:#f0fff0;border:4px solid var(--green);border-radius:22px;padding:10px 14px;font-weight:700;font-size:clamp(20px,5vw,28px);line-height:1.15;flex:1}
+.bubble:before{content:"";position:absolute;left:-18px;top:50%;margin-top:-10px;border:10px solid transparent;border-right-color:var(--green);border-left:0}
+/* visuals */
+.vis{display:flex;justify-content:center;align-items:center;margin:8px 0 14px;min-height:90px;flex-wrap:wrap;gap:10px}
+.calc{display:inline-grid;grid-template-columns:auto auto;font-weight:800;font-size:clamp(54px,15vw,84px);line-height:1;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:12px 26px}
+.calc .op{text-align:left;padding-right:16px;color:var(--pink)}
+.calc .n{text-align:right}
+.calc .line{grid-column:1/3;border-top:7px solid var(--ink);margin:6px 0;border-radius:4px}
+.calc .q{grid-column:1/3;text-align:right;color:var(--purple)}
+.arrowrow{display:flex;align-items:center;gap:6px;font-weight:800;font-size:clamp(40px,11vw,64px)}
+.numbox{min-width:1.7em;text-align:center;background:#e9f7ff;border:5px solid var(--sky);border-radius:18px;padding:2px 10px}
+.numbox.mystery{background:#fff0f7;border:5px dashed var(--pink);color:var(--pink)}
+.jump{position:relative;display:flex;flex-direction:column;align-items:center}
+.jump .tag{font-size:.5em;background:var(--sun);border:4px dotted var(--sun-d);border-radius:12px;padding:0 10px;margin-bottom:-4px}
+.jump .tag.minus{background:#ffd9e6;border-color:var(--pink)}
+.jump svg{width:clamp(80px,22vw,130px);height:auto}
+.cubes{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;justify-content:center;background:#eefaff;border:5px solid var(--sky);border-radius:22px;padding:14px 18px}
+.rods{display:flex;gap:8px;align-items:flex-end}
+.rod{display:flex;flex-direction:column;border:3px solid #1e6fa0;border-radius:6px;overflow:hidden;background:#3aa7e8}
+.rod i{display:block;width:20px;height:14px;border-bottom:2px solid #1e6fa0;background:linear-gradient(135deg,#7bd0ff,#3aa7e8)}
+.rod i:last-child{border-bottom:none}
+.ones{display:grid;grid-template-columns:repeat(2,22px);gap:6px}
+.cube{width:22px;height:22px;border:3px solid #c25b00;border-radius:5px;background:linear-gradient(135deg,#ffd27a,#ff9d2e)}
+.legend{width:100%;text-align:center;font-weight:700;font-size:16px;color:#476}
+.gatorvis{display:flex;justify-content:center}
+.gatorvis svg{width:min(210px,52vw)}
+.bigword{display:inline-block;background:var(--pink);color:#fff;border-radius:12px;padding:0 10px}
+.bigword.small{background:#19b5a5}
+.textvis{font-size:clamp(34px,9vw,54px);font-weight:800;text-align:center;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:10px 24px}
+.textvis span.t{color:var(--purple)} .textvis span.o{color:#ff7a00}
+/* options */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+.opt{
+  font-family:inherit;font-weight:800;font-size:clamp(38px,11vw,60px);cursor:pointer;
+  min-height:92px;border-radius:24px;border:5px solid var(--ink);background:#fff;color:var(--ink);
+  box-shadow:0 7px 0 var(--ink);transition:transform .08s, box-shadow .08s, background .2s;
+}
+.opt:nth-child(1):hover,.opt:nth-child(2):hover,.opt:nth-child(3):hover,.opt:nth-child(4):hover{background:#fffbe0}
+.opt:active{transform:translateY(5px);box-shadow:0 2px 0 var(--ink)}
+.opt.right{background:var(--green);color:#fff;border-color:var(--green-d);box-shadow:0 7px 0 var(--green-d);animation:pop .5s}
+.opt.wrong{background:var(--red);color:#fff;border-color:#c23;box-shadow:0 7px 0 #c23;animation:shake .4s}
+.opt[disabled]{cursor:default}
+.opts.done .opt:not(.right):not(.wrong){opacity:.45}
+@keyframes pop{40%{transform:scale(1.12)}}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.fb{margin-top:16px;border-radius:22px;padding:12px 16px;font-weight:700;font-size:clamp(18px,4.6vw,24px);line-height:1.25;animation:slide .3s}
+.fb.good{background:#e6ffe0;border:4px solid var(--green)} .fb.bad{background:#fff0f0;border:4px solid var(--red)}
+.fb h3{margin:0 0 4px;font-size:1.3em}
+@keyframes slide{from{opacity:0;transform:translateY(10px)}}
+.hintbox{margin-top:12px;background:#eef;border:4px dashed var(--purple);border-radius:18px;padding:10px 14px;font-weight:700;font-size:clamp(17px,4.4vw,22px)}
+.dots{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin:6px 0;font-size:30px}
+.dots .x{opacity:.35;position:relative}
+.dots .x:after{content:"✖";position:absolute;left:4px;top:-2px;color:var(--red);font-size:30px;opacity:1}
+.actions{display:flex;justify-content:space-between;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap}
+/* results */
+.stars{font-size:clamp(50px,14vw,80px);text-align:center;letter-spacing:6px}
+.big{font-size:clamp(44px,13vw,76px);font-weight:800;text-align:center;line-height:1;color:var(--purple)}
+.break{display:grid;gap:8px;margin:14px 0}
+.brow{display:flex;align-items:center;gap:10px;font-weight:800;font-size:clamp(16px,4vw,20px)}
+.brow .bar{flex:1;height:20px;border-radius:999px;background:#e8f5e8;border:3px solid var(--green-d);overflow:hidden}
+.brow .bar div{height:100%;background:var(--green)}
+.miss{background:#fff7f0;border:4px solid #ffb066;border-radius:18px;padding:8px 14px;margin:8px 0;font-weight:700;font-size:clamp(16px,4vw,20px)}
+canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
+<div class="pad" style="left:4%">🪷</div><div class="pad" style="left:46%;animation-delay:-1.5s">🐸</div><div class="pad" style="right:5%;animation-delay:-2.5s">🪷</div>
+<canvas id="fx"></canvas>
+<div id="app"></div>
+
+<script>
+/* ============ helpers ============ */
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function uniq(a){return a.filter(function(v,i){return a.indexOf(v)===i;});}
+
+/* Wrong choices are plausible mistakes. We always mix at least one smaller
+   and one bigger wrong choice, and shuffle positions every time, so the right
+   answer can never be spotted by its size or its place. */
+function optionsFor(q){
+  var pool=uniq(q.pool).filter(function(v){return v!==q.ans && v>=0;});
+  var lower=shuffle(pool.filter(function(v){return v<q.ans;}));
+  var upper=shuffle(pool.filter(function(v){return v>q.ans;}));
+  var picks=[];
+  if(lower.length) picks.push(lower.shift());
+  if(upper.length) picks.push(upper.shift());
+  var rest=shuffle(lower.concat(upper));
+  while(picks.length<3 && rest.length) picks.push(rest.shift());
+  return shuffle([q.ans].concat(picks));
+}
+
+/* ============ questions ============ */
+var SECTIONS=[
+  {id:'A',name:'Swamp Sums',icon:'➕',cls:'l1',desc:'Add and take away'},
+  {id:'B',name:'Ten Jumps',icon:'🦘',cls:'l2',desc:'+10 and −10 jumps'},
+  {id:'C',name:'Cube Count',icon:'🧊',cls:'l3',desc:'Tens and ones'},
+  {id:'D',name:'Gator Greatest',icon:'🐊',cls:'l4',desc:'Big and small numbers'}
+];
+
+function calcQ(a,op,b){
+  var ans = op==='+' ? a+b : a-b;
+  var pool = op==='+' ? [ans-1,ans+1,ans-2,ans+2,Math.abs(a-b),ans+3]
+                      : [ans-1,ans+1,ans+2,a+b,ans-2,ans+3];
+  return {sec:'A',type:'calc',a:a,op:op,b:b,ans:ans,pool:pool,
+    prompt: op==='+' ? 'Add the numbers!' : 'Take away to find the answer!'};
+}
+function arrowQ(start,sign,end,missing,pool){
+  var ans = missing==='end' ? end : start;
+  return {sec:'B',type:'arrow',start:start,sign:sign,end:end,missing:missing,ans:ans,pool:pool,
+    prompt: missing==='end' ? 'Follow the arrow. What number do you land on?' : 'Which number did the jump start from?'};
+}
+function cubeQ(tens,ones,pool){
+  var n=tens*10+ones;
+  var q={sec:'C',type:'cubes',tens:tens,ones:ones,ans:n};
+  if(pool){q.pool=pool;}
+  else{
+    var a=tens,b=ones;
+    q.pool=[b*10+a, a+b, a*10+b+1, a*10+b-1, a*10+b+10, a*10+b-10, a*10];
+  }
+  q.prompt='How many cubes are there in all?';
+  return q;
+}
+function textQ(sec,prompt,html,ans,pool,why,hint){
+  return {sec:sec,type:'text',prompt:prompt,html:html,ans:ans,pool:pool,why:why,hint:hint};
+}
+function gatorQ(mode,list){
+  var ans = mode==='most' ? Math.max.apply(null,list) : Math.min.apply(null,list);
+  return {sec:'D',type:'gator',mode:mode,list:list,ans:ans,pool:list,
+    prompt: mode==='most' ? 'The alligator is hungry! Which is the GREATEST number?' : 'Which is the SMALLEST number?'};
+}
+function T(t,o){return '<span class="t">'+t+' ten'+(t===1?'':'s')+'</span> and <span class="o">'+o+' one'+(o===1?'':'s')+'</span>';}
+
+var QUESTIONS=[];
+/* A: 15 add / subtract within 10 */
+[[3,'+',2],[5,'+',2],[6,'+',4],[9,'-',5],[7,'+',3],[7,'-',1],[8,'+',1],[3,'+',5],
+ [5,'+',4],[7,'-',4],[10,'-',1],[9,'-',2],[6,'+',3],[10,'-',7],[8,'-',6]
+].forEach(function(r){QUESTIONS.push(calcQ(r[0],r[1],r[2]));});
+
+/* B: 10 ten jumps */
+QUESTIONS.push(
+  arrowQ(23,'-',13,'end',[33,22,3,14,12]),
+  arrowQ(22,'+',32,'end',[12,23,42,21,33]),
+  arrowQ(28,'-',18,'end',[38,27,8,29,17]),
+  arrowQ(18,'+',28,'end',[8,19,38,17,29]),
+  arrowQ(17,'-',7,'end',[27,16,18,10,6]),
+  arrowQ(34,'-',24,'start',[14,25,23,44,35]),
+  arrowQ(37,'-',27,'start',[17,28,26,47,38]),
+  arrowQ(20,'+',30,'start',[40,29,31,10,21]),
+  arrowQ(35,'-',25,'start',[15,26,24,45,36]),
+  arrowQ(11,'+',21,'start',[31,20,22,1,12])
+);
+
+/* C: 10 cube counting / tens and ones */
+QUESTIONS.push(
+  cubeQ(3,2), cubeQ(2,5), cubeQ(2,8), cubeQ(4,1), cubeQ(1,5), cubeQ(2,0), cubeQ(5,3)
+);
+(function(){
+  var q=cubeQ(3,10,[30,13,4,50,41,310]);
+  q.ans=40; q.tricky=true;
+  q.prompt='TRICKY! How many cubes are there in all?';
+  QUESTIONS.push(q);
+})();
+QUESTIONS.push(
+  textQ('C','How many TENS are in this number?','<span class="t">4</span><span class="o">7</span>',4,[7,3,5,6,11],
+    'In 47 the first digit is the tens. 4 tens = 40, and 7 ones.','Look at the digit on the left. It tells the tens.'),
+  textQ('C','How many ONES are in this number?','<span class="t">6</span><span class="o">3</span>',3,[6,9,4,2,5],
+    'In 63 the second digit is the ones. 6 tens and 3 ones.','Look at the digit on the right. It tells the ones.')
+);
+
+/* D: 15 gator greatest / smallest + build the number */
+QUESTIONS.push(
+  gatorQ('most',[13,31,21,12]), gatorQ('most',[35,36,25,16]), gatorQ('most',[27,31,13,22]),
+  gatorQ('most',[29,28,19,26]), gatorQ('most',[27,17,12,26]), gatorQ('most',[14,41,24,11]),
+  gatorQ('most',[30,29,20,28]), gatorQ('most',[4,40,14,30]),
+  gatorQ('least',[13,31,22,41]), gatorQ('least',[29,28,30,40]), gatorQ('least',[14,41,24,34]),
+  textQ('D','Which number is this?','<span class="t">3 tens</span> and <span class="o">5 ones</span>',35,[53,8,30,36,25,45],
+    '3 tens is 30. Add 5 ones to make 35.','Put the tens digit first, then the ones digit.'),
+  textQ('D','Which number is this?','<span class="t">4 tens</span> and <span class="o">0 ones</span>',40,[4,44,14,41,30,50],
+    '4 tens is 40. There are no ones, so it is 40.','Zero ones means the ones place holds a 0.'),
+  textQ('D','Which number is this?','<span class="o">9 ones</span> and <span class="t">2 tens</span>',29,[92,11,20,28,30,19],
+    '2 tens is 20. Add 9 ones to make 29. The tens digit always goes first!','The tens digit always goes first, even if the words are in a different order.'),
+  textQ('D','Which number is this?','<span class="o">6 ones</span> and <span class="t">5 tens</span>',56,[65,11,50,55,57,46],
+    '5 tens is 50. Add 6 ones to make 56. The tens digit always goes first!','The tens digit always goes first, even if the words are in a different order.')
+);
+
+/* ============ explanations & hints ============ */
+function explain(q){
+  if(q.type==='calc'){
+    return q.op==='+'
+      ? q.a+' + '+q.b+' = '+q.ans+'. Start at '+q.a+' and count up '+q.b+' more.'
+      : q.a+' − '+q.b+' = '+q.ans+'. Start at '+q.a+' and count back '+q.b+'.';
+  }
+  if(q.type==='arrow'){
+    var dir = q.sign==='+' ? 'more' : 'fewer';
+    var d = q.sign==='+' ? 'goes UP by 1' : 'goes DOWN by 1';
+    if(q.missing==='end') return q.start+' '+(q.sign==='+'?'+':'−')+' 10 = '+q.end+'. The tens digit '+d+' and the ones stay the same.';
+    return 'Go backwards! '+q.ans+' '+(q.sign==='+'?'+':'−')+' 10 = '+q.end+'. So the jump started at '+q.ans+'.';
+  }
+  if(q.type==='cubes'){
+    if(q.tricky) return '10 loose cubes make 1 more ten! So 3 tens + 1 ten = 4 tens. That is 40 cubes.';
+    return q.tens+' rod'+(q.tens===1?'':'s')+' = '+(q.tens*10)+', and '+q.ones+' cube'+(q.ones===1?'':'s')+'. '+(q.tens*10)+' + '+q.ones+' = '+q.ans+'.';
+  }
+  if(q.type==='gator'){
+    return q.mode==='most'
+      ? q.ans+' is the greatest. Look at the tens first: the number with the most tens wins!'
+      : q.ans+' is the smallest. Look at the tens first: the number with the fewest tens is smallest!';
+  }
+  return q.why;
+}
+function hintHTML(q){
+  if(q.type==='calc'){
+    var h='<div class="dots">',i;
+    if(q.op==='+'){
+      for(i=0;i<q.a;i++)h+='<span>🍎</span>';
+      for(i=0;i<q.b;i++)h+='<span>🍏</span>';
+      h+='</div>Count ALL the apples!';
+    }else{
+      for(i=0;i<q.a;i++)h+='<span class="'+(i>=q.a-q.b?'x':'')+'">🍎</span>';
+      h+='</div>Count the apples that are NOT crossed out!';
+    }
+    return h;
+  }
+  if(q.type==='arrow') return q.missing==='end'
+    ? 'The arrow changes the TENS digit only. '+(q.sign==='+'?'+10 means one more ten.':'−10 means one less ten.')
+    : 'Go backwards! Do the opposite jump from the end number to find the start.';
+  if(q.type==='cubes') return q.tricky
+    ? 'Tall rods are tens. Count the loose cubes too. Can 10 loose cubes make a new ten?'
+    : 'Each tall rod is 10. Count the rods first, then the little cubes.';
+  if(q.type==='gator') return 'Look at the tens digit first (the left one). More tens means a bigger number!';
+  return q.hint;
+}
+function gatorSay(good){
+  var g=['Chomp-tastic!','You got it!','Snap! Perfect!','Roar-some job!','Super swamp star!','Wow, so clever!','Yay, Zion!','Splash! Correct!'];
+  var b=['Good try!','Oopsie! Let’s learn it.','Almost! Look at the answer.','No worries, Zion!','Nice try, keep going!'];
+  var a=good?g:b; return a[Math.floor(Math.random()*a.length)];
+}
+
+if(typeof document!=='undefined'){
+/* ============ mascot ============ */
+function gatorSVG(mood){
+  var mouth = mood==='sad'
+    ? '<path d="M70 108 Q100 96 130 108" stroke="#1f3a2b" stroke-width="6" fill="none" stroke-linecap="round"/>'
+    : mood==='open'
+    ? '<path d="M52 98 Q100 150 148 98 Z" fill="#7a1f2b" stroke="#1f3a2b" stroke-width="5"/><path d="M62 100 l8 14 l8 -13 M84 106 l8 13 l8 -12 M108 106 l8 12 l8 -13" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><ellipse cx="100" cy="125" rx="20" ry="9" fill="#ff7e8b"/>'
+    : '<path d="M56 98 Q100 140 144 98" stroke="#1f3a2b" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M70 112 l6 10 l6 -8 M118 112 l6 -8 l6 8" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>';
+  var pupils = mood==='sad' ? '<circle cx="62" cy="44" r="7" fill="#1f3a2b"/><circle cx="138" cy="44" r="7" fill="#1f3a2b"/>'
+                            : '<circle cx="64" cy="40" r="8" fill="#1f3a2b"/><circle cx="136" cy="40" r="8" fill="#1f3a2b"/><circle cx="67" cy="37" r="3" fill="#fff"/><circle cx="139" cy="37" r="3" fill="#fff"/>';
+  return '<svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Friendly alligator">'+
+    '<ellipse cx="100" cy="88" rx="86" ry="56" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
+    '<circle cx="62" cy="42" r="24" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/><circle cx="138" cy="42" r="24" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
+    '<circle cx="62" cy="42" r="16" fill="#fff"/><circle cx="138" cy="42" r="16" fill="#fff"/>'+pupils+
+    '<circle cx="84" cy="78" r="4" fill="#2f9e3c"/><circle cx="116" cy="78" r="4" fill="#2f9e3c"/>'+
+    '<circle cx="34" cy="92" r="10" fill="#ff9ec7" opacity=".7"/><circle cx="166" cy="92" r="10" fill="#ff9ec7" opacity=".7"/>'+
+    '<path d="M60 22 l8 -14 l8 14 M92 14 l8 -14 l8 14 M124 22 l8 -14 l8 14" fill="#2f9e3c" opacity=".0"/>'+
+    mouth+'</svg>';
+}
+
+/* ============ confetti ============ */
+var cv=document.getElementById('fx'),cx=cv.getContext('2d'),parts=[],raf=null;
+function sizeCv(){cv.width=innerWidth;cv.height=innerHeight;}
+sizeCv();addEventListener('resize',sizeCv);
+function burst(n){
+  var cols=['#ff7eb6','#ffd23f','#6ec8ff','#4cc94a','#8a6bff','#ff9d2e'];
+  for(var i=0;i<n;i++)parts.push({x:innerWidth/2+(Math.random()-.5)*200,y:innerHeight*0.35,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,
+    s:6+Math.random()*8,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.4,life:120+Math.random()*60});
+  if(!raf)loop();
+}
+function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  parts=parts.filter(function(p){return p.life>0&&p.y<cv.height+20;});
+  parts.forEach(function(p){p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;
+    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6);cx.restore();});
+  raf = parts.length ? requestAnimationFrame(loop) : null;
+  if(!raf)cx.clearRect(0,0,cv.width,cv.height);
+}
+
+/* ============ app ============ */
+var app=document.getElementById('app');
+var order=[],idx=0,score=0,log=[],streak=0,practice=false,hintUsed=false,locked=false;
+
+function best(){try{return parseInt(localStorage.getItem('zionGatorBest')||'0',10);}catch(e){return 0;}}
+function saveBest(s){try{if(s>best())localStorage.setItem('zionGatorBest',String(s));}catch(e){}}
+
+function home(){
+  var b=best();
+  app.innerHTML=
+  '<div class="card">'+
+    '<h1>Zion’s Gator<br>Swamp Quiz!</h1>'+
+    '<div class="mascot-wrap"><div class="mascot">'+gatorSVG('open')+'</div></div>'+
+    '<div class="sub">Hi Zion! I’m Chomper the alligator.<br>Help me finish <b>50</b> swamp puzzles!</div>'+
+    '<div class="levels">'+SECTIONS.map(function(s,i){return '<div class="lvl '+s.cls+'"><b>'+s.icon+'</b><div>Level '+(i+1)+'<br>'+s.name+'</div></div>';}).join('')+'</div>'+
+    (b?'<div class="sub">⭐ Your best score: <b>'+b+' / 50</b></div>':'')+
+    '<div class="center"><button class="btn go" id="start">Let’s Go! 🐊</button></div>'+
+  '</div>';
+  document.getElementById('start').onclick=function(){begin(false);};
+}
+
+function begin(onlyMissed){
+  practice=onlyMissed;
+  var list;
+  if(onlyMissed){
+    list=shuffle(log.filter(function(l){return !l.ok;}).map(function(l){return l.q;}));
+  }else{
+    list=[];
+    SECTIONS.forEach(function(s){
+      list=list.concat(shuffle(QUESTIONS.filter(function(q){return q.sec===s.id;})));
+    });
+  }
+  order=list;idx=0;score=0;log=[];streak=0;
+  show();
+}
+
+function visual(q){
+  if(q.type==='calc'){
+    return '<div class="calc"><div class="op"></div><div class="n">'+q.a+'</div>'+
+           '<div class="op">'+(q.op==='+'?'+':'−')+'</div><div class="n">'+q.b+'</div>'+
+           '<div class="line"></div><div class="q">?</div></div>';
+  }
+  if(q.type==='arrow'){
+    var arrow='<div class="jump"><div class="tag '+(q.sign==='-'?'minus':'')+'">'+(q.sign==='+'?'+10':'−10')+'</div>'+
+      '<svg viewBox="0 0 130 50"><path d="M4 18h84V4l38 21-38 21V32H4z" fill="#fff" stroke="#1f3a2b" stroke-width="4" stroke-linejoin="round"/></svg></div>';
+    var l = q.missing==='start' ? '<div class="numbox mystery">?</div>' : '<div class="numbox">'+q.start+'</div>';
+    var r = q.missing==='end' ? '<div class="numbox mystery">?</div>' : '<div class="numbox">'+q.end+'</div>';
+    return '<div class="arrowrow">'+l+arrow+r+'</div>';
+  }
+  if(q.type==='cubes'){
+    var rods='',i;
+    for(i=0;i<q.tens;i++){rods+='<div class="rod">'+new Array(11).join('<i></i>')+'</div>';}
+    var ones='';
+    for(i=0;i<q.ones;i++){ones+='<div class="cube"></div>';}
+    return '<div class="cubes"><div class="rods">'+rods+'</div>'+(q.ones?'<div class="ones">'+ones+'</div>':'')+
+      '<div class="legend">Tall rod = 10 &nbsp;·&nbsp; little cube = 1</div></div>';
+  }
+  if(q.type==='gator'){
+    return '<div class="gatorvis">'+gatorSVG('open')+'</div>'+
+      '<div class="center"><span class="bigword '+(q.mode==='most'?'':'small')+'">'+(q.mode==='most'?'GREATEST':'SMALLEST')+'</span></div>';
+  }
+  return '<div class="textvis">'+q.html+'</div>';
+}
+
+function show(){
+  locked=false;hintUsed=false;
+  var q=order[idx],sec=SECTIONS.filter(function(s){return s.id===q.sec;})[0];
+  var pct=idx/order.length*100;
+  var opts=optionsFor(q);
+  app.innerHTML=
+  '<div class="card">'+
+    '<div class="top"><span class="pill">'+(practice?'Practice ':'Question ')+(idx+1)+' of '+order.length+'</span><span class="pill">⭐ '+score+'</span></div>'+
+    '<div class="track"><div class="fill" style="width:'+pct+'%"></div><div class="runner" style="left:'+Math.max(pct,3)+'%">🐊</div></div>'+
+    '<div class="chip '+sec.cls+'">'+sec.icon+' Level '+(SECTIONS.indexOf(sec)+1)+': '+sec.name+'</div>'+
+    '<div class="say"><div id="mood">'+gatorSVG('smile')+'</div><div class="bubble" id="bubble">'+q.prompt+'</div></div>'+
+    '<div class="vis">'+visual(q)+'</div>'+
+    '<div class="opts" id="opts">'+opts.map(function(o){return '<button class="opt" data-v="'+o+'">'+o+'</button>';}).join('')+'</div>'+
+    '<div id="hint"></div><div id="fb"></div>'+
+    '<div class="actions"><button class="btn sm" id="hintbtn">💡 Help me</button><span id="nextwrap"></span></div>'+
+  '</div>';
+  Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){
+    b.onclick=function(){answer(b,q);};
+  });
+  document.getElementById('hintbtn').onclick=function(){
+    if(locked)return;
+    hintUsed=true;
+    document.getElementById('hint').innerHTML='<div class="hintbox">💡 '+hintHTML(q)+'</div>';
+  };
+  scrollTo({top:0,behavior:'smooth'});
+}
+
+function answer(btn,q){
+  if(locked)return;locked=true;
+  var v=parseInt(btn.getAttribute('data-v'),10),ok=v===q.ans;
+  var all=document.querySelectorAll('.opt');
+  Array.prototype.forEach.call(all,function(b){
+    b.disabled=true;
+    if(parseInt(b.getAttribute('data-v'),10)===q.ans)b.classList.add('right');
+  });
+  if(!ok)btn.classList.add('wrong');
+  document.getElementById('opts').classList.add('done');
+  document.getElementById('hintbtn').classList.add('hidden');
+  log.push({q:q,ok:ok,chosen:v});
+  if(ok){score++;streak++;}else{streak=0;}
+  document.getElementById('mood').innerHTML=gatorSVG(ok?'open':'sad');
+  document.getElementById('bubble').textContent=gatorSay(ok);
+  document.getElementById('fb').innerHTML=
+    '<div class="fb '+(ok?'good':'bad')+'"><h3>'+(ok?'✅ Yes! '+q.ans:'🤔 The answer is '+q.ans)+'</h3>'+explain(q)+'</div>';
+  if(ok&&streak>0&&streak%5===0){burst(70);document.getElementById('bubble').textContent='🔥 '+streak+' in a row! Amazing!';}
+  var last=idx===order.length-1;
+  var nb=document.createElement('button');nb.className='btn go';nb.style.fontSize='26px';nb.style.padding='12px 28px';
+  nb.textContent=last?'See my stars! ⭐':'Next ➜';
+  nb.onclick=function(){if(last){results();}else{idx++;show();}};
+  document.getElementById('nextwrap').appendChild(nb);
+  setTimeout(function(){nb.scrollIntoView({behavior:'smooth',block:'center'});},120);
+}
+
+function results(){
+  var total=order.length,pct=score/total;
+  var stars=pct>=.9?3:pct>=.7?2:pct>=.4?1:0;
+  if(!practice)saveBest(score);
+  var msg=pct>=.9?'SUPER SWAMP CHAMPION!':pct>=.7?'Great job, Zion!':pct>=.4?'Good work! Let’s keep practising!':'You tried so hard! Try again!';
+  var by=SECTIONS.map(function(s,i){
+    var items=log.filter(function(l){return l.q.sec===s.id;});
+    if(!items.length)return '';
+    var c=items.filter(function(l){return l.ok;}).length;
+    return '<div class="brow"><span style="width:2em">'+s.icon+'</span><span style="min-width:9.5em">'+s.name+'</span><div class="bar"><div style="width:'+(c/items.length*100)+'%"></div></div><span>'+c+'/'+items.length+'</span></div>';
+  }).join('');
+  var missed=log.filter(function(l){return !l.ok;});
+  var missHTML=missed.length
+    ? '<h2 style="text-align:center;margin:16px 0 4px">Let’s look at these again 👀</h2>'+missed.map(function(l){return '<div class="miss">'+missLine(l.q)+' → <b>'+l.q.ans+'</b><br><small>'+explain(l.q)+'</small></div>';}).join('')
+    : '<div class="sub">🎉 No mistakes at all!</div>';
+  app.innerHTML=
+  '<div class="card">'+
+    '<h1>'+(practice?'Practice done!':'All done!')+'</h1>'+
+    '<div class="mascot-wrap"><div class="mascot">'+gatorSVG(pct>=.4?'open':'smile')+'</div></div>'+
+    '<div class="stars">'+(stars?new Array(stars+1).join('⭐'):'🌱')+'</div>'+
+    '<div class="big">'+score+' / '+total+'</div>'+
+    '<div class="sub">'+msg+'</div>'+
+    '<div class="break">'+by+'</div>'+missHTML+
+    '<div class="actions" style="justify-content:center;margin-top:20px">'+
+      (missed.length?'<button class="btn alt" id="pm">Practice my mistakes 💪</button>':'')+
+      '<button class="btn go" id="again" style="font-size:26px">Play again 🐊</button>'+
+    '</div>'+
+  '</div>';
+  var pm=document.getElementById('pm');if(pm)pm.onclick=function(){begin(true);};
+  document.getElementById('again').onclick=function(){begin(false);};
+  if(pct>=.4)burst(pct>=.9?220:120);
+  scrollTo({top:0});
+}
+function missLine(q){
+  if(q.type==='calc')return q.a+' '+(q.op==='+'?'+':'−')+' '+q.b+' = ?';
+  if(q.type==='arrow')return q.missing==='end' ? q.start+' '+(q.sign==='+'?'+':'−')+'10 → ?' : '? '+(q.sign==='+'?'+':'−')+'10 → '+q.end;
+  if(q.type==='cubes')return q.tricky?'Cubes: 3 rods and 10 loose cubes':'Cubes: '+q.tens+' rod'+(q.tens===1?'':'s')+' and '+q.ones+' cube'+(q.ones===1?'':'s');
+  if(q.type==='gator')return (q.mode==='most'?'Greatest':'Smallest')+' of '+q.list.join(', ');
+  return q.prompt.replace('?','')+' '+q.html.replace(/<[^>]+>/g,'');
+}
+
+home();
+}
 </script>
 </body>
 </html>
