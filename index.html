@@ -1,506 +1,456 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zion's Magic E Word Quiz</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<title>Grade 4 Word Problems Quiz</title>
 <style>
-:root{
-  --green:#4cc94a; --green-d:#2f9e3c; --lime:#b8f06a; --sun:#ffd23f; --sun-d:#f5a800;
-  --sky:#6ec8ff; --pink:#ff7eb6; --purple:#8a6bff; --red:#ff5a5f; --ink:#1f3a2b; --card:#ffffff;
-}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%}
-body{
-  font-family:'Baloo 2','Comic Sans MS','Chalkboard SE','Trebuchet MS',sans-serif;
-  color:var(--ink);
-  background:linear-gradient(#8fdcff 0%,#c8f2ff 38%,#9be37a 38%,#4cc94a 100%);
-  background-attachment:fixed;
-  overflow-x:hidden;
-}
-.sun{position:fixed;top:16px;right:20px;width:70px;height:70px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 12px #ffe98a88,0 0 0 26px #ffe98a44;z-index:0}
-.cloud{position:fixed;background:#fff;border-radius:50px;opacity:.9;z-index:0;animation:drift 60s linear infinite}
-.cloud:before,.cloud:after{content:"";position:absolute;background:#fff;border-radius:50%}
-.cloud.c1{top:40px;left:-120px;width:100px;height:32px}
-.cloud.c1:before{width:44px;height:44px;top:-22px;left:14px}.cloud.c1:after{width:34px;height:34px;top:-14px;left:50px}
-.cloud.c2{top:100px;left:-200px;width:80px;height:26px;animation-duration:85s;animation-delay:-20s}
-.cloud.c2:before{width:36px;height:36px;top:-18px;left:10px}.cloud.c2:after{width:28px;height:28px;top:-10px;left:40px}
-@keyframes drift{to{transform:translateX(130vw)}}
-.pad{position:fixed;bottom:-10px;font-size:46px;z-index:0;opacity:.85;animation:bob 4s ease-in-out infinite}
-@keyframes bob{50%{transform:translateY(-8px) rotate(4deg)}}
-#app{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:14px 14px 70px}
-.card{background:var(--card);border-radius:28px;border:5px solid var(--green-d);box-shadow:0 8px 0 var(--green-d),0 14px 24px #0002;padding:18px}
-h1{margin:0;font-size:clamp(34px,8vw,58px);line-height:1;text-align:center;color:var(--green-d);text-shadow:3px 3px 0 var(--sun)}
-.sub{text-align:center;font-size:clamp(18px,4.5vw,24px);font-weight:700;margin:8px 0 14px}
-.btn{
-  font-family:inherit;font-weight:800;font-size:clamp(22px,5.5vw,30px);cursor:pointer;
-  border:none;border-radius:22px;padding:14px 28px;color:#fff;background:var(--purple);
-  box-shadow:0 7px 0 #5b3fd0;transition:transform .08s, box-shadow .08s;
-}
-.btn:active{transform:translateY(5px);box-shadow:0 2px 0 #5b3fd0}
-.btn.go{background:var(--green);box-shadow:0 7px 0 var(--green-d);font-size:clamp(26px,7vw,38px);padding:16px 40px}
-.btn.go:active{box-shadow:0 2px 0 var(--green-d)}
-.btn.alt{background:var(--sky);box-shadow:0 7px 0 #2f90d0}
-.btn.alt:active{box-shadow:0 2px 0 #2f90d0}
-.btn.sm{font-size:20px;padding:8px 18px;border-radius:16px;box-shadow:0 5px 0 #5b3fd0}
-.center{text-align:center}
-.hidden{display:none!important}
-.levels{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-.lvl{border-radius:20px;padding:10px 12px;font-weight:700;font-size:clamp(16px,4vw,20px);color:#fff;display:flex;gap:8px;align-items:center}
-.lvl b{font-size:30px}
-.l1{background:var(--pink)}.l2{background:var(--purple)}.l3{background:#ff9d2e}.l4{background:#19b5a5}
-.mascot-wrap{display:flex;justify-content:center}
-.mascot{width:min(280px,70vw);animation:wiggle 3s ease-in-out infinite}
-@keyframes wiggle{50%{transform:rotate(-3deg) translateY(-4px)}}
-/* top bar */
-.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;font-weight:800;font-size:clamp(16px,4.2vw,22px)}
-.pill{background:#fff;border:4px solid var(--green-d);border-radius:999px;padding:2px 14px;box-shadow:0 4px 0 var(--green-d)}
-.track{position:relative;height:22px;background:#fff;border:4px solid var(--green-d);border-radius:999px;margin:6px 4px 16px}
-.fill{height:100%;background:repeating-linear-gradient(45deg,var(--lime) 0 12px,#9fe34f 12px 24px);border-radius:999px;width:0;transition:width .5s}
-.runner{position:absolute;top:-22px;font-size:34px;transition:left .5s;transform:translateX(-50%)}
-.chip{display:inline-block;color:#fff;border-radius:999px;padding:2px 16px;font-weight:800;font-size:clamp(16px,4vw,20px);margin-bottom:8px}
-/* speech */
-.say{display:flex;gap:10px;align-items:center;margin-bottom:10px}
-.say svg{width:92px;flex:none}
-.bubble{position:relative;background:#f0fff0;border:4px solid var(--green);border-radius:22px;padding:10px 14px;font-weight:700;font-size:clamp(20px,5vw,28px);line-height:1.15;flex:1}
-.bubble:before{content:"";position:absolute;left:-18px;top:50%;margin-top:-10px;border:10px solid transparent;border-right-color:var(--green);border-left:0}
-/* visuals */
-.vis{display:flex;justify-content:center;align-items:center;margin:8px 0 14px;min-height:90px;flex-wrap:wrap;gap:10px}
-.calc{display:inline-grid;grid-template-columns:auto auto;font-weight:800;font-size:clamp(54px,15vw,84px);line-height:1;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:12px 26px}
-.calc .op{text-align:left;padding-right:16px;color:var(--pink)}
-.calc .n{text-align:right}
-.calc .line{grid-column:1/3;border-top:7px solid var(--ink);margin:6px 0;border-radius:4px}
-.calc .q{grid-column:1/3;text-align:right;color:var(--purple)}
-.arrowrow{display:flex;align-items:center;gap:6px;font-weight:800;font-size:clamp(40px,11vw,64px)}
-.numbox{min-width:1.7em;text-align:center;background:#e9f7ff;border:5px solid var(--sky);border-radius:18px;padding:2px 10px}
-.numbox.mystery{background:#fff0f7;border:5px dashed var(--pink);color:var(--pink)}
-.jump{position:relative;display:flex;flex-direction:column;align-items:center}
-.jump .tag{font-size:.5em;background:var(--sun);border:4px dotted var(--sun-d);border-radius:12px;padding:0 10px;margin-bottom:-4px}
-.jump .tag.minus{background:#ffd9e6;border-color:var(--pink)}
-.jump svg{width:clamp(80px,22vw,130px);height:auto}
-.cubes{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;justify-content:center;background:#eefaff;border:5px solid var(--sky);border-radius:22px;padding:14px 18px}
-.rods{display:flex;gap:8px;align-items:flex-end}
-.rod{display:flex;flex-direction:column;border:3px solid #1e6fa0;border-radius:6px;overflow:hidden;background:#3aa7e8}
-.rod i{display:block;width:20px;height:14px;border-bottom:2px solid #1e6fa0;background:linear-gradient(135deg,#7bd0ff,#3aa7e8)}
-.rod i:last-child{border-bottom:none}
-.ones{display:grid;grid-template-columns:repeat(2,22px);gap:6px}
-.cube{width:22px;height:22px;border:3px solid #c25b00;border-radius:5px;background:linear-gradient(135deg,#ffd27a,#ff9d2e)}
-.legend{width:100%;text-align:center;font-weight:700;font-size:16px;color:#476}
-.gatorvis{display:flex;justify-content:center}
-.gatorvis svg{width:min(210px,52vw)}
-.bigword{display:inline-block;background:var(--pink);color:#fff;border-radius:12px;padding:0 10px}
-.bigword.small{background:#19b5a5}
-.textvis{font-size:clamp(34px,9vw,54px);font-weight:800;text-align:center;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:10px 24px}
-.textvis span.t{color:var(--purple)} .textvis span.o{color:#ff7a00}
-/* options */
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
-.opt{
-  font-family:inherit;font-weight:800;font-size:clamp(38px,11vw,60px);cursor:pointer;
-  min-height:92px;border-radius:24px;border:5px solid var(--ink);background:#fff;color:var(--ink);
-  box-shadow:0 7px 0 var(--ink);transition:transform .08s, box-shadow .08s, background .2s;
-}
-.opt:nth-child(1):hover,.opt:nth-child(2):hover,.opt:nth-child(3):hover,.opt:nth-child(4):hover{background:#fffbe0}
-.opt:active{transform:translateY(5px);box-shadow:0 2px 0 var(--ink)}
-.opt.right{background:var(--green);color:#fff;border-color:var(--green-d);box-shadow:0 7px 0 var(--green-d);animation:pop .5s}
-.opt.wrong{background:var(--red);color:#fff;border-color:#c23;box-shadow:0 7px 0 #c23;animation:shake .4s}
-.opt[disabled]{cursor:default}
-.opts.done .opt:not(.right):not(.wrong){opacity:.45}
-@keyframes pop{40%{transform:scale(1.12)}}
-@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.fb{margin-top:16px;border-radius:22px;padding:12px 16px;font-weight:700;font-size:clamp(18px,4.6vw,24px);line-height:1.25;animation:slide .3s}
-.fb.good{background:#e6ffe0;border:4px solid var(--green)} .fb.bad{background:#fff0f0;border:4px solid var(--red)}
-.fb h3{margin:0 0 4px;font-size:1.3em}
-@keyframes slide{from{opacity:0;transform:translateY(10px)}}
-.hintbox{margin-top:12px;background:#eef;border:4px dashed var(--purple);border-radius:18px;padding:10px 14px;font-weight:700;font-size:clamp(17px,4.4vw,22px)}
-.dots{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin:6px 0;font-size:30px}
-.dots .x{opacity:.35;position:relative}
-.dots .x:after{content:"✖";position:absolute;left:4px;top:-2px;color:var(--red);font-size:30px;opacity:1}
-.actions{display:flex;justify-content:space-between;gap:10px;margin-top:16px;align-items:center;flex-wrap:wrap}
-/* results */
-.stars{font-size:clamp(50px,14vw,80px);text-align:center;letter-spacing:6px}
-.big{font-size:clamp(44px,13vw,76px);font-weight:800;text-align:center;line-height:1;color:var(--purple)}
-.break{display:grid;gap:8px;margin:14px 0}
-.brow{display:flex;align-items:center;gap:10px;font-weight:800;font-size:clamp(16px,4vw,20px)}
-.brow .bar{flex:1;height:20px;border-radius:999px;background:#e8f5e8;border:3px solid var(--green-d);overflow:hidden}
-.brow .bar div{height:100%;background:var(--green)}
-.miss{background:#fff7f0;border:4px solid #ffb066;border-radius:18px;padding:8px 14px;margin:8px 0;font-weight:700;font-size:clamp(16px,4vw,20px)}
-canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:9}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-/* ===== Magic E theme overrides ===== */
-body{background:linear-gradient(#2d1f78 0%,#6a4cc8 40%,#4cc94a 40%,#2f9e3c 100%);background-attachment:fixed}
-.sun{background:#fff6c2;box-shadow:0 0 0 12px #fff6c288,0 0 0 26px #fff6c244}
-.cloud{background:#d9ccff;opacity:.55}.cloud:before,.cloud:after{background:#d9ccff}
-.l5{background:#e0457b}.l6{background:#3d7be0}
-.wordcard{font-size:clamp(54px,16vw,96px);font-weight:800;text-align:center;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:6px 30px;letter-spacing:3px;line-height:1.15}
-.wordcard .mi{color:#ff7a00}.wordcard .me{color:#e0457b}
-.picbig{font-size:clamp(90px,28vw,150px);line-height:1.1;text-align:center}
-.picpair{font-size:clamp(60px,18vw,100px);line-height:1.1;text-align:center}
-.vcol{display:flex;flex-direction:column;align-items:center;gap:4px;width:100%}
-.caption{text-align:center;font-weight:700;font-size:clamp(18px,4.6vw,26px);background:#f3ecff;border-radius:16px;padding:6px 14px}
-.sentcard{font-size:clamp(26px,7vw,40px);font-weight:800;text-align:center;background:#fff8d6;border:5px dashed var(--sun-d);border-radius:22px;padding:14px 18px;line-height:1.35;width:100%}
-.blank{display:inline-block;min-width:2.6em;border-bottom:6px solid var(--purple);color:var(--purple);text-align:center;line-height:1}
-.chain{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
-.cw{font-size:clamp(38px,11vw,60px);font-weight:800;background:#e9f7ff;border:5px solid var(--sky);border-radius:18px;padding:0 16px}
-.cw.q{background:#fff0f7;border:5px dashed var(--pink);color:var(--pink)}
-.ct{font-size:clamp(16px,4.2vw,22px);font-weight:800;background:#ffe98a;border:4px dotted var(--sun-d);border-radius:14px;padding:4px 10px;text-align:center}
-.arr{font-size:clamp(28px,8vw,40px);font-weight:800}
-.opts.long{grid-template-columns:1fr}
-.opt.long{font-size:clamp(20px,5.2vw,30px);min-height:76px;padding:10px 16px;text-align:left;line-height:1.2}
-.opt.emoji{font-size:clamp(52px,16vw,84px)}
-.opt.word{font-size:clamp(32px,9vw,52px)}
+  :root{
+    --bg:#fff7e6; --card:#ffffff; --ink:#26324a; --muted:#6b7490;
+    --brand:#4f46e5; --brand2:#7c3aed; --good:#16a34a; --goodbg:#e7f8ed;
+    --bad:#dc2626; --badbg:#fdeaea; --line:#e6e0d0; --gold:#f59e0b;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+    background:var(--bg); color:var(--ink); min-height:100vh;
+    background-image:radial-gradient(circle at 10% 10%,#ffe9b8 0,transparent 35%),radial-gradient(circle at 90% 90%,#dcd6ff 0,transparent 35%);
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:18px 16px 48px}
+  header.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+  .logo{font-weight:800;font-size:1.05rem;color:var(--brand)}
+  .pill{background:#fff;border:2px solid var(--line);border-radius:999px;padding:5px 12px;font-weight:700;font-size:.9rem}
+  .card{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 8px 0 rgba(0,0,0,.04)}
+  h1{margin:0 0 6px;font-size:1.9rem;line-height:1.15}
+  h2{margin:0 0 10px;font-size:1.35rem}
+  p{line-height:1.5}
+  .muted{color:var(--muted)}
+  .hero{text-align:center}
+  .hero .emoji{font-size:3.2rem}
+  .topics{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 18px}
+  .tag{padding:6px 12px;border-radius:999px;font-weight:700;font-size:.85rem;color:#fff}
+  .t-hotel{background:#0ea5e9}.t-print{background:#8b5cf6}.t-factory{background:#f97316}.t-school{background:#16a34a}.t-mixed{background:#e11d48}
+  input[type=text]{width:100%;max-width:320px;padding:12px 14px;border-radius:14px;border:2px solid var(--line);font-size:1rem;font-family:inherit;margin:6px 0 14px}
+  input[type=text]:focus{outline:3px solid #c7c2ff;border-color:var(--brand)}
+  button{font-family:inherit;cursor:pointer}
+  .btn{background:linear-gradient(180deg,var(--brand),var(--brand2));color:#fff;border:0;border-radius:16px;padding:13px 26px;font-size:1.05rem;font-weight:800;box-shadow:0 5px 0 #3b34b5;transition:transform .08s}
+  .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #3b34b5}
+  .btn.alt{background:#fff;color:var(--brand);border:2px solid var(--brand);box-shadow:0 5px 0 #d9d6fb}
+  .btn[disabled]{opacity:.5;cursor:not-allowed}
+  .progress{height:14px;background:#efe8d4;border-radius:999px;overflow:hidden;margin-bottom:14px}
+  .progress>div{height:100%;width:0;background:linear-gradient(90deg,#22c55e,#16a34a);transition:width .3s}
+  .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px;flex-wrap:wrap}
+  .ctx{background:#f4f1ff;border-left:6px solid var(--brand);border-radius:12px;padding:10px 14px;margin:0 0 12px;color:#3a3470;font-size:.95rem}
+  .qtext{font-size:1.25rem;font-weight:700;line-height:1.4;margin:0 0 16px}
+  .opts{display:grid;gap:10px}
+  .opt{display:flex;align-items:center;gap:12px;text-align:left;width:100%;background:#fff;border:2px solid var(--line);border-radius:16px;padding:13px 14px;font-size:1.05rem;font-weight:600;color:var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.05)}
+  .opt:hover:not([disabled]){border-color:var(--brand);background:#faf9ff}
+  .opt .let{flex:0 0 32px;height:32px;border-radius:10px;background:#eceaff;color:var(--brand);display:grid;place-items:center;font-weight:800}
+  .opt.correct{background:var(--goodbg);border-color:var(--good)}
+  .opt.correct .let{background:var(--good);color:#fff}
+  .opt.wrong{background:var(--badbg);border-color:var(--bad)}
+  .opt.wrong .let{background:var(--bad);color:#fff}
+  .opt[disabled]{cursor:default}
+  .fb{margin-top:16px;border-radius:16px;padding:14px 16px;display:none}
+  .fb.show{display:block}
+  .fb.good{background:var(--goodbg);border:2px solid var(--good)}
+  .fb.bad{background:var(--badbg);border:2px solid var(--bad)}
+  .fb strong{display:block;font-size:1.1rem;margin-bottom:4px}
+  .fb .why{margin:0}
+  .nextrow{margin-top:16px;text-align:right}
+  .score-big{font-size:3.4rem;font-weight:900;color:var(--brand);line-height:1}
+  .stars{font-size:2rem;letter-spacing:4px;margin:6px 0}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+  .stat{background:#faf7ee;border:2px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+  .stat b{display:block;font-size:1.4rem}
+  .bytopic{margin:12px 0 18px}
+  .bt-row{display:flex;align-items:center;gap:10px;margin:7px 0;font-weight:700;font-size:.92rem}
+  .bt-row .nm{flex:0 0 110px}
+  .bt-bar{flex:1;height:12px;background:#efe8d4;border-radius:999px;overflow:hidden}
+  .bt-bar>div{height:100%;border-radius:999px}
+  .bt-row .val{flex:0 0 52px;text-align:right}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:14px}
+  .review{margin-top:22px;text-align:left}
+  .rev-item{border:2px solid var(--line);border-radius:16px;padding:12px 14px;margin:10px 0;background:#fffdf7}
+  .rev-item .q{font-weight:700;margin:0 0 6px}
+  .rev-item .yours{color:var(--bad);font-weight:700}
+  .rev-item .right{color:var(--good);font-weight:700}
+  .rev-item .ex{color:var(--muted);margin:6px 0 0;font-size:.95rem}
+  .hidden{display:none}
+  .note{font-size:.85rem;color:var(--muted);margin-top:14px;text-align:center}
+  @media (max-width:480px){h1{font-size:1.55rem}.qtext{font-size:1.12rem}.bt-row .nm{flex-basis:84px}}
 </style>
 </head>
 <body>
-<div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
-<div class="pad" style="left:4%">🍄</div><div class="pad" style="left:46%;animation-delay:-1.5s">🦉</div><div class="pad" style="right:5%;animation-delay:-2.5s">🍄</div>
-<canvas id="fx"></canvas>
-<div id="app"></div>
+<div class="wrap">
+  <header class="top">
+    <div class="logo">🧮 Word Problems Quiz</div>
+    <div class="pill hidden" id="scorePill">Score: <span id="liveScore">0</span></div>
+  </header>
+
+  <!-- START -->
+  <section class="card hero" id="start">
+    <div class="emoji">🏨 🖨️ 🚗 🏫</div>
+    <h1>Grade 4 Word Problems Quiz</h1>
+    <p class="muted">50 questions on multiplication and division. Read each problem carefully, think it through, then pick the best answer.</p>
+    <div class="topics">
+      <span class="tag t-hotel">Hotel</span>
+      <span class="tag t-print">Printing Company</span>
+      <span class="tag t-factory">Car Factory</span>
+      <span class="tag t-school">School</span>
+      <span class="tag t-mixed">Mixed Problems</span>
+    </div>
+    <label for="nameIn"><b>What is your name?</b></label><br>
+    <input type="text" id="nameIn" maxlength="24" placeholder="Type your name" autocomplete="off"><br>
+    <button class="btn" id="startBtn">Start the Quiz</button>
+    <p class="note" id="bestNote"></p>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="hidden" id="quiz">
+    <div class="progress"><div id="bar"></div></div>
+    <div class="card">
+      <div class="meta">
+        <span class="tag" id="secTag">Hotel</span>
+        <span class="pill" id="counter">Question 1 of 50</span>
+      </div>
+      <p class="ctx hidden" id="ctx"></p>
+      <p class="qtext" id="qtext"></p>
+      <div class="opts" id="opts"></div>
+      <div class="fb" id="fb"><strong id="fbTitle"></strong><p class="why" id="fbWhy"></p></div>
+      <div class="nextrow"><button class="btn hidden" id="nextBtn">Next</button></div>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="card hero hidden" id="result">
+    <h2 id="resName">Great work!</h2>
+    <div class="score-big"><span id="resScore">0</span>/<span id="resTotal">50</span></div>
+    <div class="stars" id="stars"></div>
+    <p id="resMsg" class="muted"></p>
+    <div class="stats">
+      <div class="stat"><b id="stPct">0%</b>Score</div>
+      <div class="stat"><b id="stRight">0</b>Correct</div>
+      <div class="stat"><b id="stBest">0</b>Best streak</div>
+    </div>
+    <div class="bytopic" id="byTopic"></div>
+    <div class="actions">
+      <button class="btn" id="againBtn">Try Again</button>
+      <button class="btn alt hidden" id="missedBtn">Practise Missed Ones</button>
+    </div>
+    <div class="review hidden" id="review">
+      <h2>Let's look at the ones to learn from</h2>
+      <div id="revList"></div>
+    </div>
+  </section>
+</div>
 
 <script>
-/* ============ helpers ============ */
-function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
-function uniq(a){return a.filter(function(v,i){return a.indexOf(v)===i;});}
-/* Wrong choices are plausible mistakes (short vowel, swapped letters, sound-it-out spellings).
-   3 of the wrong choices are picked at random and positions are shuffled every time,
-   so the right answer can never be spotted by its place or its look. */
-function optionsFor(q){
-  var pool=uniq(q.pool).filter(function(v){return v!==q.ans;});
-  return shuffle([q.ans].concat(shuffle(pool).slice(0,3)));
-}
-function spaced(w){return w.split('').join(' - ');}
-function hl(w){
-  var m=w.match(/^([a-z]*?)i([a-z]+)e$/);
-  return m ? m[1]+'<span class="mi">i</span>'+m[2]+'<span class="me">e</span>' : w;
-}
+/* Each question: s = section, c = context, q = question, a = correct answer, w = three plausible wrong answers, e = explanation */
+const HOTEL = "A hotel has 7 floors. The lobby, restaurant and gym are on the ground floor. The guestrooms are on the 1st to 6th floors.";
+const PRINT = "A printing company has 6 printing machines.";
+const CAR   = "In a car factory, there are 8 assembly lines. Each assembly line makes cars at the same speed. There are 2 supervisors and 12 workers on each line.";
+const SCH   = "In a school, there are 12 classes and 30 teachers. Each class has 35 students.";
 
-/* ============ questions ============ */
-var SECTIONS=[
-  {id:'A',name:'Picture Match',icon:'🖼️',cls:'l1'},
-  {id:'B',name:'Spell It!',icon:'✏️',cls:'l2'},
-  {id:'C',name:'Fill the Blank',icon:'🧩',cls:'l3'},
-  {id:'D',name:'Sentence Match',icon:'📖',cls:'l4'},
-  {id:'E',name:'Word Chains',icon:'🔗',cls:'l5'},
-  {id:'F',name:'Heart Words & Rhymes',icon:'❤️',cls:'l6'}
+const Q = [
+ /* ---------- HOTEL (worksheet) ---------- */
+ {s:"Hotel", c:HOTEL, q:"There are 35 standard rooms on each guest floor. How many standard rooms are there in the hotel?",
+  a:"210", w:["245","41","180"],
+  e:"Guestrooms are only on floors 1 to 6, so there are 6 guest floors, not 7. 35 × 6 = 210."},
+ {s:"Hotel", c:HOTEL+" There are 35 standard rooms on each floor.", q:"There are 4 housekeepers on each floor and one room needs one housekeeper. If they share the work as equally as possible, how many housekeepers must clean more rooms than the others?",
+  a:"3", w:["8","4","9"],
+  e:"35 ÷ 4 = 8 remainder 3. Everyone cleans 8 rooms, and the 3 leftover rooms go to 3 different housekeepers, so 3 of them clean 9 rooms."},
+ {s:"Hotel", c:HOTEL+" There are 35 standard rooms on each floor, and each standard room fits 2 guests.", q:"What is the maximum number of guests that all the standard rooms can hold?",
+  a:"420", w:["490","212","210"],
+  e:"Rooms: 35 × 6 = 210. Guests: 210 × 2 = 420."},
+ {s:"Hotel", c:HOTEL+" The hotel has 18 suites altogether and every guest floor has the same floorplan.", q:"How many suites are on each guest floor?",
+  a:"3", w:["2","12","6"],
+  e:"Suites are on the 6 guest floors. 18 ÷ 6 = 3 suites per floor."},
+ {s:"Hotel", c:HOTEL+" There are 18 suites. Each suite has 3 beds, with a bedside table on each side of each bed.", q:"How many bedside tables are there in all the suites?",
+  a:"108", w:["54","36","21"],
+  e:"Each bed has 2 tables (one each side), so one suite has 3 × 2 = 6 tables. 18 suites × 6 = 108."},
+ {s:"Hotel", c:"A standard room costs $250 per night. A couple stayed for x nights and their total room charge was $750.", q:"Which equation and answer are correct?",
+  a:"250 × x = 750, so x = 3", w:["250 + x = 750, so x = 500","250 × x = 750, so x = 4","x ÷ 250 = 750, so x = 187,500"],
+  e:"Cost per night × number of nights = total, so 250 × x = 750. Divide: x = 750 ÷ 250 = 3 nights."},
+
+ /* ---------- PRINTING (worksheet) ---------- */
+ {s:"Printing", c:PRINT, q:"Each printing machine costs $4,500. How much did the company pay for all the machines?",
+  a:"$27,000", w:["$24,000","$4,506","$2,700"],
+  e:"6 × 4,500 = 27,000. (6 × 4,000 = 24,000 and 6 × 500 = 3,000, then 24,000 + 3,000 = 27,000.)"},
+ {s:"Printing", c:PRINT+" All 6 machines together print 222 pages in one minute.", q:"How many pages can each machine print in one hour?",
+  a:"2,220", w:["37","1,332","13,320"],
+  e:"One machine in 1 minute: 222 ÷ 6 = 37 pages. In 1 hour (60 minutes): 37 × 60 = 2,220."},
+ {s:"Printing", c:PRINT, q:"A new order needs 3,800 pages, but one machine is out of order. If each working machine prints the same number of pages, how many pages does each one print?",
+  a:"760", w:["633","950","3,795"],
+  e:"Only 6 − 1 = 5 machines are working. 3,800 ÷ 5 = 760."},
+ {s:"Printing", c:PRINT+" There are 3 teams of maintenance staff. Each team takes 8-hour shifts and has 4 members.", q:"How many maintenance staff are there?",
+  a:"12", w:["7","96","24"],
+  e:"3 teams × 4 members = 12 people. The 8-hour shift length is extra information."},
+ {s:"Printing", c:PRINT+" There are 5 salespersons and 22 clients. Each client deals with only one salesperson, and clients are shared as equally as possible.", q:"How many salespersons are responsible for 5 clients?",
+  a:"2", w:["4","3","5"],
+  e:"22 ÷ 5 = 4 remainder 2. Everyone gets 4 clients, and the 2 leftover clients go to 2 different salespersons, who then have 5 clients each."},
+ {s:"Printing", c:"Three orders are to be done today. Each order involves printing x pages. There are 9,900 pages to be printed in total today.", q:"Which equation and answer are correct?",
+  a:"3 × x = 9,900, so x = 3,300", w:["3 + x = 9,900, so x = 9,897","3 × x = 9,900, so x = 330","x ÷ 3 = 9,900, so x = 29,700"],
+  e:"3 orders × x pages = 9,900. Divide: x = 9,900 ÷ 3 = 3,300 pages per order."},
+
+ /* ---------- CAR FACTORY (worksheet) ---------- */
+ {s:"Car Factory", c:CAR, q:"How many workers are there in total? (Do not count the supervisors.)",
+  a:"96", w:["112","20","12"],
+  e:"12 workers on each of 8 lines: 12 × 8 = 96."},
+ {s:"Car Factory", c:CAR, q:"The factory makes 48 cars in a day. How many cars does each assembly line make each day?",
+  a:"6", w:["56","384","40"],
+  e:"48 cars shared by 8 lines: 48 ÷ 8 = 6 cars per line."},
+ {s:"Car Factory", c:CAR+" All lines run for 12 hours a day.", q:"How long does it take one assembly line to produce one car?",
+  a:"2 hours", w:["6 hours","12 hours","4 hours"],
+  e:"One line makes 6 cars in 12 hours. 12 ÷ 6 = 2 hours for each car."},
+ {s:"Car Factory", c:CAR+" Lines run 12 hours a day. The factory pays each supervisor $30 per hour and each worker $80 per day.", q:"How much does each supervisor get paid each day?",
+  a:"$360", w:["$80","$110","$240"],
+  e:"A supervisor works the 12-hour day at $30 per hour: 30 × 12 = $360."},
+ {s:"Car Factory", c:CAR+" Each worker is paid $80 per day.", q:"What is the total daily salary of all the workers?",
+  a:"$7,680", w:["$960","$640","$8,960"],
+  e:"There are 96 workers. 96 × 80 = 7,680. (Supervisors are not counted as workers here.)"},
+ {s:"Car Factory", c:"The factory makes 48 cars every day. It received an order for x cars and finished the order in 18 days.", q:"Which equation and answer are correct?",
+  a:"48 × 18 = x, so x = 864", w:["48 + 18 = x, so x = 66","48 − 18 = x, so x = 30","48 × 18 = x, so x = 764"],
+  e:"Cars per day × days = total cars. 48 × 18 = 864. (48 × 10 = 480 and 48 × 8 = 384, then 480 + 384 = 864.)"},
+
+ /* ---------- SCHOOL (worksheet) ---------- */
+ {s:"School", c:SCH, q:"How many students are there in total?",
+  a:"420", w:["47","360","450"],
+  e:"12 classes × 35 students = 420."},
+ {s:"School", c:SCH+" There are 420 students altogether.", q:"If the students are divided equally among the teachers, how many students is each teacher responsible for?",
+  a:"14", w:["35","140","12"],
+  e:"420 ÷ 30 = 14 students per teacher."},
+ {s:"School", c:SCH+" Most teachers are assigned to a homeroom, and they are shared equally among the classes.", q:"How many homeroom teachers are assigned to each class?",
+  a:"2", w:["3","6","18"],
+  e:"30 ÷ 12 = 2 remainder 6. Each class gets 2 homeroom teachers, and 6 teachers are left over."},
+ {s:"School", c:SCH+" Each class has 2 homeroom teachers.", q:"How many teachers are not assigned a homeroom?",
+  a:"6", w:["2","24","18"],
+  e:"12 classes × 2 teachers = 24 homeroom teachers. 30 − 24 = 6 teachers without a homeroom."},
+ {s:"School", c:SCH+" On Friday, 5 classes went on a field trip.", q:"How many students are left at the school?",
+  a:"245", w:["175","415","385"],
+  e:"12 − 5 = 7 classes stayed behind. 7 × 35 = 245 students."},
+ {s:"School", c:"One teacher is needed for every 25 students on a field trip. 5 classes of 35 students went on the trip. So x teachers went.", q:"Which equation and answer are correct?",
+  a:"25 × x = 175, so x = 7", w:["25 + x = 175, so x = 150","x ÷ 25 = 175, so x = 4,375","25 × x = 175, so x = 5"],
+  e:"5 classes × 35 = 175 students. 1 teacher for every 25 students means 25 × x = 175, so x = 175 ÷ 25 = 7 teachers."},
+
+ /* ---------- NEW: HOTEL ---------- */
+ {s:"Hotel", c:"A hotel has 8 floors. The lobby is on the ground floor and the guestrooms are on floors 1 to 7. Each guest floor has 24 rooms.", q:"How many guestrooms does the hotel have?",
+  a:"168", w:["192","31","158"],
+  e:"There are 7 guest floors. 24 × 7 = 168. (192 wrongly counts the ground floor.)"},
+ {s:"Hotel", c:"Each hotel housekeeper cleans 9 rooms a day.", q:"How many rooms can 6 housekeepers clean in one day?",
+  a:"54", w:["15","45","63"],
+  e:"6 × 9 = 54 rooms."},
+ {s:"Hotel", c:"The hotel restaurant has 12 tables. Each table seats 8 people.", q:"How many people can sit in the restaurant at once?",
+  a:"96", w:["20","86","108"],
+  e:"12 × 8 = 96. (8 × 10 = 80 and 8 × 2 = 16, then 80 + 16 = 96.)"},
+ {s:"Hotel", c:"The hotel buys 144 towels and shares them equally among its 6 guest floors.", q:"How many towels does each floor get?",
+  a:"24", w:["22","26","864"],
+  e:"144 ÷ 6 = 24 towels per floor."},
+ {s:"Hotel", c:"A hotel room costs $120 per night. A guest paid $480 in total for x nights.", q:"Which equation and answer are correct?",
+  a:"120 × x = 480, so x = 4", w:["120 + x = 480, so x = 360","x ÷ 120 = 480, so x = 57,600","120 × x = 480, so x = 40"],
+  e:"Price per night × nights = total, so 120 × x = 480. x = 480 ÷ 120 = 4 nights."},
+
+ /* ---------- NEW: PRINTING ---------- */
+ {s:"Printing", c:"Each printing machine uses 5 reams of paper a day. The company has 6 machines.", q:"How many reams of paper do all 6 machines use in 4 days?",
+  a:"120", w:["30","24","150"],
+  e:"Per day: 6 × 5 = 30 reams. In 4 days: 30 × 4 = 120 reams."},
+ {s:"Printing", c:"The company prints 4,200 flyers and packs them equally into 7 boxes.", q:"How many flyers are in each box?",
+  a:"600", w:["60","6,000","650"],
+  e:"4,200 ÷ 7 = 600. (42 hundreds ÷ 7 = 6 hundreds.)"},
+ {s:"Printing", c:"Each printing machine uses 3 ink cartridges a week. The company has 6 machines.", q:"How many cartridges do all the machines use in 5 weeks?",
+  a:"90", w:["18","15","96"],
+  e:"Per week: 6 × 3 = 18 cartridges. In 5 weeks: 18 × 5 = 90."},
+ {s:"Printing", c:"One printing machine prints 37 pages every minute.", q:"How many pages can 4 machines print together in one minute?",
+  a:"148", w:["128","41","158"],
+  e:"37 × 4: 7 × 4 = 28 (write 8, carry 2); 3 × 4 = 12, plus 2 = 14. So 148."},
+ {s:"Printing", c:"A box of printing paper costs $15. The company bought x boxes and paid $135.", q:"Which equation and answer are correct?",
+  a:"15 × x = 135, so x = 9", w:["15 + x = 135, so x = 120","15 × x = 135, so x = 8","x ÷ 15 = 135, so x = 2,025"],
+  e:"Price × number of boxes = total, so 15 × x = 135. x = 135 ÷ 15 = 9 boxes."},
+
+ /* ---------- NEW: CAR FACTORY ---------- */
+ {s:"Car Factory", c:"Each car needs 4 tires. The factory makes 48 cars every day.", q:"How many tires does the factory need each day for the new cars?",
+  a:"192", w:["48","32","152"],
+  e:"48 × 4 = 192. (40 × 4 = 160 and 8 × 4 = 32, then 160 + 32 = 192.)"},
+ {s:"Car Factory", c:"One assembly line makes 6 cars every day.", q:"How many cars does one line make in 5 days?",
+  a:"30", w:["11","36","24"],
+  e:"6 × 5 = 30 cars."},
+ {s:"Car Factory", c:"The factory has 144 car doors and packs them equally into 8 crates.", q:"How many doors go in each crate?",
+  a:"18", w:["16","19","22"],
+  e:"144 ÷ 8 = 18. (8 × 18 = 144.)"},
+ {s:"Car Factory", c:"A supervisor is paid $30 for every hour worked.", q:"How much does a supervisor earn for an 8-hour shift?",
+  a:"$240", w:["$38","$210","$280"],
+  e:"30 × 8 = 240 dollars."},
+ {s:"Car Factory", c:"The factory makes 48 cars each day. After x days it has made 336 cars.", q:"Which equation and answer are correct?",
+  a:"48 × x = 336, so x = 7", w:["48 + x = 336, so x = 288","x ÷ 48 = 336, so x = 16,128","48 × x = 336, so x = 8"],
+  e:"Cars per day × days = total, so 48 × x = 336. x = 336 ÷ 48 = 7 days."},
+
+ /* ---------- NEW: SCHOOL ---------- */
+ {s:"School", c:"A school has 8 Grade 4 classes. Each class has 32 students.", q:"How many Grade 4 students are there?",
+  a:"256", w:["246","40","266"],
+  e:"32 × 8: 2 × 8 = 16 (write 6, carry 1); 3 × 8 = 24, plus 1 = 25. So 256."},
+ {s:"School", c:"A teacher gives each student 3 pencils. There are 28 students in the class.", q:"How many pencils does the teacher give out?",
+  a:"84", w:["31","74","94"],
+  e:"28 × 3 = 84. (20 × 3 = 60 and 8 × 3 = 24, then 60 + 24 = 84.)"},
+ {s:"School", c:"For sports day, 90 students are split equally into 6 teams.", q:"How many students are on each team?",
+  a:"15", w:["84","14","540"],
+  e:"90 ÷ 6 = 15."},
+ {s:"School", c:"Each school bus holds 40 students. A total of 175 students are going on a trip.", q:"How many buses are needed so that every student has a seat?",
+  a:"5", w:["4","6","7"],
+  e:"175 ÷ 40 = 4 remainder 15. Four buses are not enough for the last 15 students, so a 5th bus is needed."},
+ {s:"School", c:"A teacher gives out 112 stickers equally to 28 students. Each student gets x stickers.", q:"Which equation and answer are correct?",
+  a:"112 ÷ 28 = x, so x = 4", w:["112 × 28 = x, so x = 3,136","112 − 28 = x, so x = 84","112 ÷ 28 = x, so x = 5"],
+  e:"Sharing equally means dividing: 112 ÷ 28 = 4 stickers each."},
+
+ /* ---------- NEW: MIXED ---------- */
+ {s:"Mixed", c:"A library has 6 shelves. Each shelf holds 45 books.", q:"How many books are on the shelves altogether?",
+  a:"270", w:["51","240","370"],
+  e:"45 × 6: 5 × 6 = 30 (write 0, carry 3); 4 × 6 = 24, plus 3 = 27. So 270."},
+ {s:"Mixed", c:"A farmer packs 144 eggs into cartons. Each carton holds 12 eggs.", q:"How many cartons does the farmer fill?",
+  a:"12", w:["132","156","14"],
+  e:"144 ÷ 12 = 12 cartons (12 × 12 = 144)."},
+ {s:"Mixed", c:"A bakery bakes 8 trays of muffins with 12 muffins on each tray. It sells 75 muffins.", q:"How many muffins are left?",
+  a:"21", w:["171","29","11"],
+  e:"Muffins baked: 8 × 12 = 96. Left: 96 − 75 = 21."},
+ {s:"Mixed", c:"Pencils come in packs of 6. A shop sold x packs and that was 72 pencils in total.", q:"Which equation and answer are correct?",
+  a:"6 × x = 72, so x = 12", w:["6 + x = 72, so x = 66","6 × x = 72, so x = 14","x ÷ 6 = 72, so x = 432"],
+  e:"Pencils per pack × packs = total, so 6 × x = 72. x = 72 ÷ 6 = 12 packs."},
+ {s:"Mixed", c:"Marcus has 50 marbles. He puts 8 marbles into each bag.", q:"How many full bags can he make?",
+  a:"6", w:["7","2","5"],
+  e:"50 ÷ 8 = 6 remainder 2. He fills 6 bags and has 2 marbles left over, not enough for a 7th full bag."},
+ {s:"Mixed", c:"Five friends share $135 equally.", q:"How much money does each friend get?",
+  a:"$27", w:["$25","$29","$130"],
+  e:"135 ÷ 5 = 27 dollars each (5 × 27 = 135)."}
 ];
-var QUESTIONS=[];
 
-/* A: 8 read the word, pick the picture */
-[['kite','🪁',['🎈','🚲','🪀','🛝']],
- ['bike','🚲',['🪁','🛴','🚗','🛵']],
- ['fire','🔥',['💧','❄️','🌧️','🌳']],
- ['drive','🚗',['🚲','✈️','🚤','🛶']],
- ['pile','🥞',['🍔','🍩','🌲','🍕']],
- ['slide','🛝',['🎡','🪁','🏊','🚲']],
- ['smile','😀',['😢','😠','😴','😮']],
- ['hive','🐝',['🐞','🦋','🐜','🪰']]
-].forEach(function(r){
-  QUESTIONS.push({sec:'A',type:'pic',word:r[0],ans:r[1],pool:r[2],
-    prompt:'Read the word. Which picture matches?',
-    why:'The word '+r[0]+' ('+spaced(r[0])+') matches this picture: '+r[1]});
-});
+/* ---------- App ---------- */
+const TAGCLASS = {"Hotel":"t-hotel","Printing":"t-print","Car Factory":"t-factory","School":"t-school","Mixed":"t-mixed"};
+const TAGCOLOR = {"Hotel":"#0ea5e9","Printing":"#8b5cf6","Car Factory":"#f97316","School":"#16a34a","Mixed":"#e11d48"};
+const $ = id => document.getElementById(id);
+const LET = ["A","B","C","D"];
+let order=[], idx=0, score=0, streak=0, bestStreak=0, answers=[], locked=false, playerName="", fullRun=true;
 
-/* B: 8 picture -> spelling */
-[['🪁','kite',['kit','kiet','kyte','kight'],'You fly it in the sky.'],
- ['🚲','bike',['bik','biek','byke','bick'],'You pedal it.'],
- ['🔥','fire',['fir','fier','fyre','fiar'],'It is hot and bright.'],
- ['🥞','pile',['pil','piel','pyle','pill'],'A big ___ of pancakes.'],
- ['🛝','slide',['slid','slied','slyde','slidde'],'You go down it at the park.'],
- ['😀','smile',['smil','smiel','smyle','smill'],'A happy face makes a big ___.'],
- ['🐝','hive',['hiv','hiev','hyve','hife'],'Bees live in a ___.'],
- ['🎡','ride',['rid','ried','ryde','rite'],'Go on the Ferris wheel ___.']
-].forEach(function(r){
-  QUESTIONS.push({sec:'B',type:'spell',emoji:r[0],ans:r[1],pool:r[2],caption:r[3],
-    prompt:'Which is the right spelling for this picture?',
-    why:r[1]+' is spelled '+spaced(r[1])+'. The magic e at the end makes the i say its name!'});
-});
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]];} return a; }
+function show(id){ ["start","quiz","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id)); window.scrollTo({top:0,behavior:"smooth"}); }
+function bestGet(){ try{ return parseInt(localStorage.getItem("wpq_best")||"0",10)||0; }catch(e){ return 0; } }
+function bestSet(v){ try{ localStorage.setItem("wpq_best",String(v)); }catch(e){} }
 
-/* C: 8 fill in the blank (worksheet sentences) */
-[['Mike can ride his white ___ for nine miles!','bike',['kite','dive','pile','fire','vine']],
- ['Jake and Kate had fun on the big ___.','ride',['vine','dive','kite','fire']],
- ['Dave can ___ from his pals and run to base to be safe.','hide',['dive','vine','kite','pile']],
- ['Mike likes to ___ into the lake and swim to the side.','dive',['hide','ride','bike','kite']],
- ['Finn made a ___ with sticks and logs from a pine.','fire',['vine','kite','bike','dive']],
- ['That small bug can walk up the ___ and munch on it.','vine',['kite','fire','bike','dive']],
- ['Kate’s ___ with stripes got stuck on a branch.','kite',['dive','pile','fire','hide']],
- ['My dad made me a big ___ of pancakes.','pile',['fire','vine','hide','dive']]
-].forEach(function(r){
-  QUESTIONS.push({sec:'C',type:'fill',sentence:r[0],ans:r[1],pool:r[2],
-    prompt:'Which word makes sense in the sentence?',
-    why:'“'+r[1]+'” makes sense: '+r[0].replace('___',r[1])});
-});
-
-/* D: 6 sentence match (reading sentences) */
-[['🚗💥','Mike and Kate like to drive and bump.',['Mike and Kate like to dive into the lake.','Mike and Kate like to dive and bump.','Mike and Kate like to drive into the lake.']],
- ['🍋😋','Jake likes to take a bite of my lime.',['Jake likes to take a ride on his bike.','Jake likes to take a bite of my line.','Jake likes to take a ride on my lime.']],
- ['🚗🌲🏞️','Miles likes to take a drive by the lake.',['Miles can run nine miles with his pals.','Miles likes to take a dive by the lake.','Miles can drive nine miles with his pals.']],
- ['🚴🚴🏙️','Kate and Dave ride their bikes in the bike lane.',['Kate and Dave ride their bike on the plane.','Kate and Dave hike their bikes in the bike lane.','Kate and Dave ride their bikes in the bike line.']],
- ['🧍🧍🧍','The kids have to stand in line to get on the ride.',['The kids can go on the swings and the slide.','The kids have to stand in a pile to get on the ride.','The kids have to stand in line to get on the slide.']],
- ['🐝🏠🥾','Cade can see a big hive on his hike.',['Cade can see a big cake on his hike.','Cade can see a big hive on his bike.','Cade can see a big hike on his hive.']]
-].forEach(function(r){
-  QUESTIONS.push({sec:'D',type:'sent',emoji:r[0],ans:r[1],pool:r[2],
-    prompt:'Read the sentences. Which one matches the picture?',
-    why:'This sentence tells what the picture shows: “'+r[1]+'” Read each word carefully!'});
-});
-
-/* E: 8 word chains */
-function chainQ(steps,ans,pool,prompt,why){
-  QUESTIONS.push({sec:'E',type:'chain',steps:steps,ans:ans,pool:pool,prompt:prompt,why:why});
-}
-chainQ([{w:'cut'},{t:'c → b'},{q:1}],'but',['cub','bat','bit','cot','bud'],
-  'Write the word cut. Change the c to b. What word is this?','Change the c in cut to b and you get b-u-t: but.');
-chainQ([{w:'but'},{t:'u → e'},{q:1}],'bet',['bat','bit','bot','beat','bait'],
-  'Change the /u/ in but to /e/. What word is this?','Change the u in but to e and you get b-e-t: bet.');
-chainQ([{w:'bet'},{t:'b → m'},{q:1}],'met',['net','mat','set','mit','wet'],
-  'Change the b to m. What word is this?','Change the b in bet to m and you get m-e-t: met.');
-chainQ([{w:'send'},{t:'d → t'},{q:1}],'sent',['tend','sand','sell','seat','bend'],
-  'Write the word send. Change the d to t. What word is this?','Change the d in send to t and you get s-e-n-t: sent.');
-chainQ([{w:'sent'},{t:'s → w'},{q:1}],'went',['west','want','tent','wet','rent'],
-  'Change the /s/ in sent to /w/. What word is this?','Change the s in sent to w and you get w-e-n-t: went.');
-chainQ([{w:'went'},{t:'n → s'},{q:1}],'west',['vest','wet','best','wets','wept'],
-  'Change the n to s. What word is this?','Change the n in went to s and you get w-e-s-t: west.');
-chainQ([{w:'dim'},{t:'add magic e'},{q:1}],'dime',['dine','dame','mime','dip','dome'],
-  'Start with dim. Add the magic e. What word is this?','dim + magic e = dime. The i now says its name!');
-chainQ([{w:'bit'},{t:'add magic e'},{w:'bite'},{t:'b → k'},{q:1}],'kite',['kit','bite','bike','kate','kitt'],
-  'Start with bit. Add the magic e. Then change the b to k. What word is this?','bit + e = bite. Change the b to k: k-i-t-e, kite!');
-
-/* F: 12 heart words, rhymes, sentences */
-[['Do ___ like to run?','you',['yu','yoo','yew','yuo']],
- ['It ___ a hot day.','was',['wuz','woz','wos','wus']],
- ['I ___ a pet dog.','have',['hav','hauv','haev','hve']],
- ['___ is your name?','What',['Wat','Wut','Whut','Wot']],
- ['___ at the dog and cat run!','Look',['Luk','Lok','Loke','Lock']]
-].forEach(function(r){
-  QUESTIONS.push({sec:'F',type:'heart',sentence:r[0],ans:r[1],pool:r[2],
-    prompt:'This is a heart word! Which spelling is right?',
-    why:'The heart word is spelled '+spaced(r[1])+'. Some parts you just learn by heart!'});
-});
-[['bend','send',['band','bond','bind','sand']],
- ['west','best',['bust','bat','fist','mist']],
- ['fled','sled',['slid','slide','slip','sad']],
- ['rent','tent',['tint','tan','rant','rest']]
-].forEach(function(r){
-  QUESTIONS.push({sec:'F',type:'rhyme',word:r[0],ans:r[1],pool:r[2],
-    prompt:'Which word rhymes with '+r[0]+'?',
-    why:r[0]+' and '+r[1]+' sound the same at the end: -'+r[0].slice(r[0].length-3)+'.'});
-});
-[['What did you get?',['What did you get.','what did you get?','What did you get','What did yu get?']],
- ['Look at the dog and cat run!',['look at the dog and cat run!','Look at the dog and cat run?','Look at the dog and cat run','Look at the dog and cat ron!']],
- ['Have you sent the text?',['have you sent the text?','Have you sent the text.','Have you sent the tex?','Have you sent the text']]
-].forEach(function(r){
-  QUESTIONS.push({sec:'F',type:'sentfix',ans:r[0],pool:r[1],
-    prompt:'Which sentence is written the right way?',
-    why:'A sentence starts with a capital letter, has every word spelled right, and ends with the right mark: '+r[0]});
-});
-
-/* ============ explanations & hints ============ */
-function explain(q){return q.why;}
-function hintHTML(q){
-  if(q.type==='pic') return 'Sound it out letter by letter: <b>'+spaced(q.word)+'</b>. The magic e at the end makes the i say its name.';
-  if(q.type==='spell') return 'Say the word slowly. Listen for the long i sound, like in <b>bike</b>. Which spelling has i ... e?';
-  if(q.type==='fill') return 'Read the sentence and try each word in the blank. Which one makes sense?';
-  if(q.type==='sent') return 'Look at the picture first. Then read each sentence slowly and check every word.';
-  if(q.type==='chain') return 'Change <b>only</b> the letter you are told. Keep all the other letters the same!';
-  if(q.type==='heart') return 'Read the whole sentence. Which spelling looks right from your books?';
-  if(q.type==='rhyme') return 'Rhyming words sound the same at the end. Say them out loud!';
-  return 'A sentence needs a Capital letter at the start and . ? or ! at the end.';
-}
-function gatorSay(good){
-  var g=['Magic! ✨','Chomp-tastic!','You got it!','Spell-tacular!','Super wizard!','Wow, so clever!','Yay, Zion!','Abracadabra! Correct!'];
-  var b=['Good try!','Oopsie! Let’s learn it.','Almost! Look at the answer.','No worries, Zion!','Nice try, keep going!'];
-  var a=good?g:b; return a[Math.floor(Math.random()*a.length)];
+function begin(list, isFull){
+  fullRun = isFull;
+  order = shuffle(list);
+  idx=0; score=0; streak=0; bestStreak=0; answers=[];
+  $("liveScore").textContent="0";
+  $("scorePill").classList.remove("hidden");
+  show("quiz");
+  render();
 }
 
-if(typeof document!=='undefined'){
-/* ============ mascot ============ */
-function gatorSVG(mood){
-  var mouth = mood==='sad'
-    ? '<path d="M70 108 Q100 96 130 108" stroke="#1f3a2b" stroke-width="6" fill="none" stroke-linecap="round"/>'
-    : mood==='open'
-    ? '<path d="M52 98 Q100 150 148 98 Z" fill="#7a1f2b" stroke="#1f3a2b" stroke-width="5"/><path d="M62 100 l8 14 l8 -13 M84 106 l8 13 l8 -12 M108 106 l8 12 l8 -13" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/><ellipse cx="100" cy="125" rx="20" ry="9" fill="#ff7e8b"/>'
-    : '<path d="M56 98 Q100 140 144 98" stroke="#1f3a2b" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M70 112 l6 10 l6 -8 M118 112 l6 -8 l6 8" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/>';
-  var pupils = mood==='sad' ? '<circle cx="62" cy="44" r="7" fill="#1f3a2b"/><circle cx="138" cy="44" r="7" fill="#1f3a2b"/>'
-                            : '<circle cx="64" cy="40" r="8" fill="#1f3a2b"/><circle cx="136" cy="40" r="8" fill="#1f3a2b"/><circle cx="67" cy="37" r="3" fill="#fff"/><circle cx="139" cy="37" r="3" fill="#fff"/>';
-  var hat='<polygon points="100,-22 70,34 130,34" fill="#8a6bff" stroke="#5b3fd0" stroke-width="4" stroke-linejoin="round"/><ellipse cx="100" cy="34" rx="42" ry="8" fill="#8a6bff" stroke="#5b3fd0" stroke-width="4"/><text x="100" y="22" font-size="22" text-anchor="middle" fill="#ffd23f">★</text>';
-  return '<svg viewBox="0 -26 200 186" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Friendly wizard alligator">'+
-    '<ellipse cx="100" cy="88" rx="86" ry="56" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
-    '<circle cx="62" cy="48" r="22" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/><circle cx="138" cy="48" r="22" fill="#4cc94a" stroke="#2f9e3c" stroke-width="6"/>'+
-    '<circle cx="62" cy="44" r="16" fill="#fff"/><circle cx="138" cy="44" r="16" fill="#fff"/>'+pupils+
-    '<circle cx="84" cy="78" r="4" fill="#2f9e3c"/><circle cx="116" cy="78" r="4" fill="#2f9e3c"/>'+
-    '<circle cx="34" cy="92" r="10" fill="#ff9ec7" opacity=".7"/><circle cx="166" cy="92" r="10" fill="#ff9ec7" opacity=".7"/>'+
-    hat+mouth+'</svg>';
-}
-
-/* ============ confetti ============ */
-var cv=document.getElementById('fx'),cx=cv.getContext('2d'),parts=[],raf=null;
-function sizeCv(){cv.width=innerWidth;cv.height=innerHeight;}
-sizeCv();addEventListener('resize',sizeCv);
-function burst(n){
-  var cols=['#ff7eb6','#ffd23f','#6ec8ff','#4cc94a','#8a6bff','#ff9d2e'];
-  for(var i=0;i<n;i++)parts.push({x:innerWidth/2+(Math.random()-.5)*200,y:innerHeight*0.35,vx:(Math.random()-.5)*14,vy:-Math.random()*14-4,
-    s:6+Math.random()*8,c:cols[i%cols.length],r:Math.random()*6,vr:(Math.random()-.5)*.4,life:120+Math.random()*60});
-  if(!raf)loop();
-}
-function loop(){
-  cx.clearRect(0,0,cv.width,cv.height);
-  parts=parts.filter(function(p){return p.life>0&&p.y<cv.height+20;});
-  parts.forEach(function(p){p.vy+=.35;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;
-    cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/3,p.s,p.s*.6);cx.restore();});
-  raf = parts.length ? requestAnimationFrame(loop) : null;
-  if(!raf)cx.clearRect(0,0,cv.width,cv.height);
-}
-
-/* ============ app ============ */
-var app=document.getElementById('app');
-var order=[],idx=0,score=0,log=[],streak=0,practice=false,locked=false;
-function best(){try{return parseInt(localStorage.getItem('zionPhonicsBest')||'0',10);}catch(e){return 0;}}
-function saveBest(s){try{if(s>best())localStorage.setItem('zionPhonicsBest',String(s));}catch(e){}}
-
-function home(){
-  var b=best();
-  app.innerHTML=
-  '<div class="card">'+
-    '<h1>Zion’s Magic E<br>Word Quiz!</h1>'+
-    '<div class="mascot-wrap"><div class="mascot">'+gatorSVG('open')+'</div></div>'+
-    '<div class="sub">Hi Zion! I’m Chomper the wizard gator.<br>Help me cast <b>50</b> word spells! ✨</div>'+
-    '<div class="levels">'+SECTIONS.map(function(s,i){return '<div class="lvl '+s.cls+'"><b>'+s.icon+'</b><div>Level '+(i+1)+'<br>'+s.name+'</div></div>';}).join('')+'</div>'+
-    (b?'<div class="sub">⭐ Your best score: <b>'+b+' / 50</b></div>':'')+
-    '<div class="center"><button class="btn go" id="start">Let’s Go! 🪄</button></div>'+
-  '</div>';
-  document.getElementById('start').onclick=function(){begin(false);};
-}
-
-function begin(onlyMissed){
-  practice=onlyMissed;
-  var list;
-  if(onlyMissed){
-    list=shuffle(log.filter(function(l){return !l.ok;}).map(function(l){return l.q;}));
-  }else{
-    list=[];
-    SECTIONS.forEach(function(s){list=list.concat(shuffle(QUESTIONS.filter(function(q){return q.sec===s.id;})));});
-  }
-  order=list;idx=0;score=0;log=[];streak=0;
-  show();
-}
-
-function visual(q){
-  if(q.type==='pic') return '<div class="wordcard">'+hl(q.word)+'</div>';
-  if(q.type==='spell') return '<div class="vcol"><div class="picbig">'+q.emoji+'</div><div class="caption">'+q.caption+'</div></div>';
-  if(q.type==='fill'||q.type==='heart') return '<div class="sentcard">'+q.sentence.replace('___','<span class="blank">&nbsp;?&nbsp;</span>')+'</div>';
-  if(q.type==='sent') return '<div class="picpair">'+q.emoji+'</div>';
-  if(q.type==='chain'){
-    return '<div class="chain">'+q.steps.map(function(s,i){
-      var arrow=i>0?'<span class="arr">➜</span>':'';
-      if(s.w) return arrow+'<span class="cw">'+s.w+'</span>';
-      if(s.t) return arrow+'<span class="ct">'+s.t+'</span>';
-      return '<span class="cw q">?</span>';
-    }).join('')+'</div>';
-  }
-  if(q.type==='rhyme') return '<div class="wordcard">'+q.word+'</div><div class="caption">🎵 Which word rhymes?</div>';
-  return '<div class="picbig" style="font-size:clamp(60px,18vw,90px)">📝</div>';
-}
-
-function optClass(q){
-  return q.type==='pic'?'emoji':(q.type==='sent'||q.type==='sentfix')?'long':'word';
-}
-
-function show(){
+function render(){
   locked=false;
-  var q=order[idx],sec=SECTIONS.filter(function(s){return s.id===q.sec;})[0];
-  var pct=idx/order.length*100;
-  var opts=optionsFor(q),oc=optClass(q);
-  app.innerHTML=
-  '<div class="card">'+
-    '<div class="top"><span class="pill">'+(practice?'Practice ':'Question ')+(idx+1)+' of '+order.length+'</span><span class="pill">⭐ '+score+'</span></div>'+
-    '<div class="track"><div class="fill" style="width:'+pct+'%"></div><div class="runner" style="left:'+Math.max(pct,3)+'%">🐊</div></div>'+
-    '<div class="chip '+sec.cls+'">'+sec.icon+' Level '+(SECTIONS.indexOf(sec)+1)+': '+sec.name+'</div>'+
-    '<div class="say"><div id="mood">'+gatorSVG('smile')+'</div><div class="bubble" id="bubble">'+q.prompt+'</div></div>'+
-    '<div class="vis">'+visual(q)+'</div>'+
-    '<div class="opts'+(oc==='long'?' long':'')+'" id="opts">'+opts.map(function(o,i){return '<button class="opt '+oc+'" data-i="'+i+'">'+o+'</button>';}).join('')+'</div>'+
-    '<div id="hint"></div><div id="fb"></div>'+
-    '<div class="actions"><button class="btn sm" id="hintbtn">💡 Help me</button><span id="nextwrap"></span></div>'+
-  '</div>';
-  Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){
-    b.onclick=function(){answer(b,q,opts);};
+  const item = order[idx];
+  $("counter").textContent = "Question "+(idx+1)+" of "+order.length;
+  $("bar").style.width = (idx/order.length*100)+"%";
+  const tag = $("secTag"); tag.textContent=item.s; tag.className="tag "+TAGCLASS[item.s];
+  const ctx=$("ctx"); ctx.textContent=item.c; ctx.classList.toggle("hidden",!item.c);
+  $("qtext").textContent=item.q;
+  const opts = shuffle([item.a].concat(item.w));
+  const box=$("opts"); box.innerHTML="";
+  opts.forEach((t,i)=>{
+    const b=document.createElement("button");
+    b.className="opt"; b.type="button";
+    b.innerHTML='<span class="let">'+LET[i]+'</span><span></span>';
+    b.lastChild.textContent=t;
+    b.addEventListener("click",()=>choose(b,t,item,box));
+    box.appendChild(b);
   });
-  document.getElementById('hintbtn').onclick=function(){
-    if(locked)return;
-    document.getElementById('hint').innerHTML='<div class="hintbox">💡 '+hintHTML(q)+'</div>';
-  };
-  scrollTo({top:0,behavior:'smooth'});
+  $("fb").className="fb";
+  $("nextBtn").classList.add("hidden");
 }
 
-function answer(btn,q,opts){
-  if(locked)return;locked=true;
-  var v=opts[parseInt(btn.getAttribute('data-i'),10)],ok=v===q.ans;
-  Array.prototype.forEach.call(document.querySelectorAll('.opt'),function(b){
+function choose(btn,text,item,box){
+  if(locked) return; locked=true;
+  const right = text===item.a;
+  [...box.children].forEach(b=>{
     b.disabled=true;
-    if(opts[parseInt(b.getAttribute('data-i'),10)]===q.ans)b.classList.add('right');
+    const t=b.lastChild.textContent;
+    if(t===item.a) b.classList.add("correct");
   });
-  if(!ok)btn.classList.add('wrong');
-  document.getElementById('opts').classList.add('done');
-  document.getElementById('hintbtn').classList.add('hidden');
-  log.push({q:q,ok:ok,chosen:v});
-  if(ok){score++;streak++;}else{streak=0;}
-  document.getElementById('mood').innerHTML=gatorSVG(ok?'open':'sad');
-  document.getElementById('bubble').textContent=gatorSay(ok);
-  document.getElementById('fb').innerHTML=
-    '<div class="fb '+(ok?'good':'bad')+'"><h3>'+(ok?'✅ Yes!':'🤔 The answer is:')+' '+q.ans+'</h3>'+explain(q)+'</div>';
-  if(ok&&streak>0&&streak%5===0){burst(70);document.getElementById('bubble').textContent='🔥 '+streak+' in a row! Amazing!';}
-  var last=idx===order.length-1;
-  var nb=document.createElement('button');nb.className='btn go';nb.style.fontSize='26px';nb.style.padding='12px 28px';
-  nb.textContent=last?'See my stars! ⭐':'Next ➜';
-  nb.onclick=function(){if(last){results();}else{idx++;show();}};
-  document.getElementById('nextwrap').appendChild(nb);
-  setTimeout(function(){nb.scrollIntoView({behavior:'smooth',block:'center'});},120);
+  if(!right) btn.classList.add("wrong");
+  if(right){ score++; streak++; bestStreak=Math.max(bestStreak,streak); } else { streak=0; }
+  $("liveScore").textContent=score;
+  answers.push({item, chosen:text, right});
+  const fb=$("fb");
+  fb.className="fb show "+(right?"good":"bad");
+  $("fbTitle").textContent = right ? "✅ Correct! Well done." : "❌ Not quite. The answer is "+item.a+".";
+  $("fbWhy").textContent = item.e;
+  const nb=$("nextBtn");
+  nb.textContent = idx===order.length-1 ? "See My Results" : "Next Question";
+  nb.classList.remove("hidden");
+  nb.focus({preventScroll:true});
 }
 
-function missLine(q){
-  if(q.type==='pic')return 'Picture for the word “'+q.word+'”';
-  if(q.type==='spell')return 'Spell '+q.emoji+' ('+q.caption+')';
-  if(q.type==='fill'||q.type==='heart')return q.sentence;
-  if(q.type==='sent')return 'Sentence for '+q.emoji;
-  if(q.type==='chain')return q.prompt;
-  if(q.type==='rhyme')return 'Rhymes with “'+q.word+'”';
-  return 'Write the sentence the right way';
+function next(){
+  if(idx<order.length-1){ idx++; render(); }
+  else finish();
 }
 
-function results(){
-  var total=order.length,pct=score/total;
-  var stars=pct>=.9?3:pct>=.7?2:pct>=.4?1:0;
-  if(!practice)saveBest(score);
-  var msg=pct>=.9?'SUPER WORD WIZARD!':pct>=.7?'Great job, Zion!':pct>=.4?'Good work! Let’s keep practising!':'You tried so hard! Try again!';
-  var by=SECTIONS.map(function(s){
-    var items=log.filter(function(l){return l.q.sec===s.id;});
-    if(!items.length)return '';
-    var c=items.filter(function(l){return l.ok;}).length;
-    return '<div class="brow"><span style="width:2em">'+s.icon+'</span><span style="min-width:10.5em">'+s.name+'</span><div class="bar"><div style="width:'+(c/items.length*100)+'%"></div></div><span>'+c+'/'+items.length+'</span></div>';
-  }).join('');
-  var missed=log.filter(function(l){return !l.ok;});
-  var missHTML=missed.length
-    ? '<h2 style="text-align:center;margin:16px 0 4px">Let’s look at these again 👀</h2>'+missed.map(function(l){return '<div class="miss">'+missLine(l.q)+' → <b>'+l.q.ans+'</b><br><small>'+explain(l.q)+'</small></div>';}).join('')
-    : '<div class="sub">🎉 No mistakes at all!</div>';
-  app.innerHTML=
-  '<div class="card">'+
-    '<h1>'+(practice?'Practice done!':'All done!')+'</h1>'+
-    '<div class="mascot-wrap"><div class="mascot">'+gatorSVG(pct>=.4?'open':'smile')+'</div></div>'+
-    '<div class="stars">'+(stars?new Array(stars+1).join('⭐'):'🌱')+'</div>'+
-    '<div class="big">'+score+' / '+total+'</div>'+
-    '<div class="sub">'+msg+'</div>'+
-    '<div class="break">'+by+'</div>'+missHTML+
-    '<div class="actions" style="justify-content:center;margin-top:20px">'+
-      (missed.length?'<button class="btn alt" id="pm">Practice my mistakes 💪</button>':'')+
-      '<button class="btn go" id="again" style="font-size:26px">Play again 🪄</button>'+
-    '</div>'+
-  '</div>';
-  var pm=document.getElementById('pm');if(pm)pm.onclick=function(){begin(true);};
-  document.getElementById('again').onclick=function(){begin(false);};
-  if(pct>=.4)burst(pct>=.9?220:120);
-  scrollTo({top:0});
+function finish(){
+  $("bar").style.width="100%";
+  $("scorePill").classList.add("hidden");
+  const total=order.length, pct=Math.round(score/total*100);
+  $("resName").textContent = (playerName? playerName+", ":"")+"here are your results!";
+  $("resScore").textContent=score; $("resTotal").textContent=total;
+  const st = pct>=90?5:pct>=75?4:pct>=60?3:pct>=40?2:1;
+  $("stars").textContent="⭐".repeat(st)+"☆".repeat(5-st);
+  $("resMsg").textContent = pct>=90?"Outstanding! You are a word-problem champion."
+    : pct>=75?"Great job! You really understand multiplication and division."
+    : pct>=60?"Good effort! A little more practice and you will be flying."
+    : "Keep going! Check the explanations below and try again.";
+  $("stPct").textContent=pct+"%"; $("stRight").textContent=score+"/"+total; $("stBest").textContent=bestStreak;
+  if(fullRun && score>bestGet()) bestSet(score);
+
+  // by topic
+  const agg={};
+  answers.forEach(a=>{ const k=a.item.s; agg[k]=agg[k]||{r:0,t:0}; agg[k].t++; if(a.right) agg[k].r++; });
+  const bt=$("byTopic"); bt.innerHTML="";
+  Object.keys(agg).forEach(k=>{
+    const p=Math.round(agg[k].r/agg[k].t*100);
+    const row=document.createElement("div"); row.className="bt-row";
+    row.innerHTML='<span class="nm"></span><div class="bt-bar"><div></div></div><span class="val"></span>';
+    row.children[0].textContent=k;
+    row.children[1].firstChild.style.width=p+"%";
+    row.children[1].firstChild.style.background=TAGCOLOR[k];
+    row.children[2].textContent=agg[k].r+"/"+agg[k].t;
+    bt.appendChild(row);
+  });
+
+  // review
+  const missed=answers.filter(a=>!a.right);
+  $("missedBtn").classList.toggle("hidden",missed.length===0);
+  $("review").classList.toggle("hidden",missed.length===0);
+  const rl=$("revList"); rl.innerHTML="";
+  missed.forEach(a=>{
+    const d=document.createElement("div"); d.className="rev-item";
+    const q=document.createElement("p"); q.className="q"; q.textContent=a.item.c+" "+a.item.q;
+    const y=document.createElement("div"); y.innerHTML='<span class="yours">Your answer:</span> <span></span>'; y.lastChild.textContent=a.chosen;
+    const r=document.createElement("div"); r.innerHTML='<span class="right">Correct answer:</span> <span></span>'; r.lastChild.textContent=a.item.a;
+    const e=document.createElement("p"); e.className="ex"; e.textContent=a.item.e;
+    d.append(q,y,r,e); rl.appendChild(d);
+  });
+  show("result");
 }
 
-home();
-}
+$("startBtn").addEventListener("click",()=>{ playerName=$("nameIn").value.trim(); begin(Q,true); });
+$("nameIn").addEventListener("keydown",e=>{ if(e.key==="Enter") $("startBtn").click(); });
+$("nextBtn").addEventListener("click",next);
+$("againBtn").addEventListener("click",()=>{ show("start"); const b=bestGet(); $("bestNote").textContent=b?("Your best score so far: "+b+"/"+Q.length):""; });
+$("missedBtn").addEventListener("click",()=>{ begin(answers.filter(a=>!a.right).map(a=>a.item),false); });
+document.addEventListener("keydown",e=>{
+  if($("quiz").classList.contains("hidden")) return;
+  if(!locked && ["1","2","3","4"].includes(e.key)){ const b=$("opts").children[parseInt(e.key,10)-1]; if(b) b.click(); }
+  else if(locked && (e.key==="Enter"||e.key===" ")){ e.preventDefault(); next(); }
+});
+(function(){ const b=bestGet(); if(b) $("bestNote").textContent="Your best score so far: "+b+"/"+Q.length; })();
 </script>
 </body>
 </html>
