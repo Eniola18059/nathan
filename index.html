@@ -1,215 +1,441 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Grade 2 Number Sense Quiz</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Earth's Systems Explorer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&display=swap">
 <style>
-:root{--bg:#e8f4ff;--card:#fff;--ink:#17324d;--soft:#5b738c;--line:#cfe0f0;--blue:#2f7be5;--yellow:#ffc933;--green:#27a862;--coral:#f0553f;--gbg:#dff6e8;--cbg:#ffe5e0;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1e2e;--card:#172c42;--ink:#eaf3fb;--soft:#9db4c9;--line:#2a4560;--blue:#6aa5f5;--green:#4fd18a;--coral:#ff8a78;--gbg:#17402b;--cbg:#4a2620;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0f1e2e;--card:#172c42;--ink:#eaf3fb;--soft:#9db4c9;--line:#2a4560;--blue:#6aa5f5;--green:#4fd18a;--coral:#ff8a78;--gbg:#17402b;--cbg:#4a2620;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
+/* Layout: one long field-guide page. Full-width colour bands per chapter, text column + diagram, quiz at the end. */
+:root{
+  --bg:#f2f6f7; --surface:#ffffff; --fg:#14262b; --muted:#53686d; --line:#d3e0e2;
+  --hydro:#1b7fb3; --hydro-soft:#dcf0f9;
+  --geo:#a4602a; --geo-soft:#f6e6d6;
+  --atmo:#6a78c9; --atmo-soft:#e5e8f9;
+  --bio:#2f8a4f; --bio-soft:#dff2e4;
+  --ok:#1f7a45; --ok-soft:#dcf2e4; --bad:#b3372c; --bad-soft:#f8e0dd;
+  --ink-on:#ffffff;
+  --display:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --body:'Source Sans 3',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1a1d; --surface:#172529; --fg:#e6f0f2; --muted:#97aeb3; --line:#2a3d42;
+  --hydro:#5db8e8; --hydro-soft:#12303f; --geo:#e0985c; --geo-soft:#3a2a1c;
+  --atmo:#97a4f0; --atmo-soft:#222850; --bio:#63c886; --bio-soft:#153423;
+  --ok:#63c886; --ok-soft:#153423; --bad:#f08a7e; --bad-soft:#3d1e1b; --ink-on:#0f1a1d; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1a1d; --surface:#172529; --fg:#e6f0f2; --muted:#97aeb3; --line:#2a3d42;
+  --hydro:#5db8e8; --hydro-soft:#12303f; --geo:#e0985c; --geo-soft:#3a2a1c;
+  --atmo:#97a4f0; --atmo-soft:#222850; --bio:#63c886; --bio-soft:#153423;
+  --ok:#63c886; --ok-soft:#153423; --bad:#f08a7e; --bad-soft:#3d1e1b; --ink-on:#0f1a1d; color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Fredoka","Trebuchet MS",system-ui,sans-serif;font-size:18px;line-height:1.4;min-height:100vh}
-main{max-width:640px;margin:0 auto;padding:20px 16px 40px}
-.card{background:var(--card);border:3px solid var(--ink);border-radius:24px;padding:24px;box-shadow:0 6px 0 var(--ink)}
-h1{font-size:2.2rem;line-height:1.1;margin:0 0 8px}
-h2{font-size:1.5rem;margin:0 0 12px}
-p{margin:0 0 14px;color:var(--soft)}
-.topics{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;padding:0;list-style:none}
-.topics li{background:var(--bg);border:2px solid var(--line);border-radius:999px;padding:4px 14px;font-size:.95rem;color:var(--ink)}
-button{font:inherit;cursor:pointer;color:var(--ink)}
-button:focus-visible{outline:4px solid var(--blue);outline-offset:3px}
-.big{background:var(--yellow);border:3px solid var(--ink);border-radius:16px;padding:12px 28px;font-weight:700;font-size:1.2rem;box-shadow:0 4px 0 var(--ink);color:#17324d}
-.big:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:600}
-.bar{height:16px;background:var(--card);border:3px solid var(--ink);border-radius:999px;overflow:hidden;margin-bottom:18px}
-.bar>div{height:100%;background:var(--green);width:0;transition:width .3s}
-.tag{display:inline-block;background:var(--blue);color:#fff;border-radius:999px;padding:2px 14px;font-size:.9rem;font-weight:600;margin-bottom:12px}
-.q{font-size:1.7rem;font-weight:600;line-height:1.25;margin:0 0 6px}
-.say{background:none;border:2px solid var(--line);border-radius:999px;padding:2px 12px;font-size:.9rem;margin-bottom:16px}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
-@media (max-width:460px){.opts{grid-template-columns:1fr}.q{font-size:1.5rem}}
-.opt{background:var(--card);border:3px solid var(--ink);border-radius:16px;padding:16px 10px;font-size:1.5rem;font-weight:600;box-shadow:0 4px 0 var(--ink);min-height:68px}
-.opt:hover:not(:disabled){background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:18px;line-height:1.6;margin:0}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+.wrap{max-width:980px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.hero{padding-block:48px 36px}
+.eyebrow{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.hero h1{font-size:clamp(2.4rem,7vw,4.4rem);font-weight:800;margin:8px 0 14px}
+.hero p{max-width:60ch;color:var(--muted);margin:0 0 20px}
+.hero p b{color:var(--fg)}
+.nav{display:flex;flex-wrap:wrap;gap:8px}
+.nav button{font:600 .9rem var(--body);border:1.5px solid var(--line);background:var(--surface);color:var(--fg);padding:8px 14px;border-radius:999px;cursor:pointer}
+.nav button:hover{border-color:var(--fg)}
+button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.mission{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-top:28px}
+.mission h3{font-size:1.1rem;margin-bottom:6px}
+.mission ul{margin:0;padding-left:1.2em}
+/* four spheres */
+.spheres{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;padding-bottom:40px}
+.sph{border-radius:14px;padding:18px;color:var(--ink-on)}
+.sph h3{font-size:1.35rem}
+.sph .root{font-size:.85rem;opacity:.9;margin:2px 0 8px;font-weight:600}
+.sph p{margin:0;font-size:1rem;line-height:1.45}
+.sph.h{background:var(--hydro)}.sph.g{background:var(--geo)}.sph.a{background:var(--atmo)}.sph.b{background:var(--bio)}
+@media (prefers-color-scheme: light){.sph{color:#fff}}
+/* chapter bands */
+.band{padding-block:44px;border-top:1px solid var(--line)}
+.band.h{background:var(--hydro-soft)}.band.g{background:var(--geo-soft)}.band.a{background:var(--atmo-soft)}.band.b{background:var(--bio-soft)}
+.band.n{background:var(--bg)}
+.tag{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:6px;color:var(--ink-on)}
+.h .tag{background:var(--hydro)}.g .tag{background:var(--geo)}.a .tag{background:var(--atmo)}.b .tag{background:var(--bio)}.n .tag{background:var(--fg);color:var(--bg)}
+@media (prefers-color-scheme: light){.tag{color:#fff}}
+.band h2{font-size:clamp(1.8rem,4.5vw,2.6rem);margin:10px 0 18px;font-weight:800}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+@media(max-width:760px){.cols{grid-template-columns:minmax(0,1fr)}}
+.facts{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.facts li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.facts b{font-family:var(--display)}
+.vocab{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.vocab span{background:var(--surface);border:1px dashed var(--muted);border-radius:8px;padding:3px 10px;font-size:.92rem}
+.vocab span b{font-weight:700}
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+figcaption{font-size:.88rem;color:var(--muted);padding:6px 6px 2px}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:var(--body);font-weight:600;font-size:13px;fill:var(--fg)}
+svg .w{fill:#fff}
+.stk{stroke:var(--fg);stroke-width:2;fill:none}
+/* check boxes */
+.check{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-top:28px;overflow:hidden}
+.check h3{font-size:1.15rem;padding:14px 20px;background:var(--fg);color:var(--bg)}
+.qa{padding:14px 20px;border-top:1px solid var(--line)}
+.qa:first-of-type{border-top:0}
+.qa .q{font-weight:700}
+.qa .a{margin-top:4px;color:var(--ok);font-weight:600}
+.qa .a::before{content:"Answer: ";font-weight:700;text-transform:uppercase;font-size:.78rem;letter-spacing:.08em}
+.sortgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;padding:16px 20px}
+.sortgrid div{border-radius:10px;padding:10px 14px;font-weight:600;background:var(--bg);border:1px solid var(--line)}
+.sortgrid small{display:block;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.74rem}
+.sortgrid .h small{color:var(--hydro)}.sortgrid .g small{color:var(--geo)}.sortgrid .a small{color:var(--atmo)}.sortgrid .b small{color:var(--bio)}
+.sortgrid div{display:block}
+/* quiz */
+.quiz{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;max-width:760px}
+.qtop{display:flex;justify-content:space-between;gap:12px;font-weight:700;color:var(--muted);font-size:.95rem;margin-bottom:8px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:18px}
+.bar i{display:block;height:100%;background:var(--fg);width:0;transition:width .3s}
+.quiz h3{font-size:1.4rem;margin-bottom:16px}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;font:600 1rem var(--body);color:var(--fg);background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px 16px;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--fg)}
 .opt:disabled{cursor:default}
-.opt.right{background:var(--gbg);border-color:var(--green);box-shadow:0 4px 0 var(--green)}
-.opt.wrong{background:var(--cbg);border-color:var(--coral);box-shadow:0 4px 0 var(--coral)}
-.fb{min-height:30px;font-size:1.2rem;font-weight:600;margin-bottom:12px}
-.fb.good{color:var(--green)}.fb.bad{color:var(--coral)}
-.stars{font-size:3rem;letter-spacing:6px;margin:6px 0}
-.score{font-size:2.4rem;font-weight:700;margin:0 0 12px}
-.row{margin-bottom:12px}
-.row .l{display:flex;justify-content:space-between;font-weight:600;margin-bottom:4px}
-.row .b{height:14px;border:2px solid var(--ink);border-radius:999px;overflow:hidden;background:var(--card)}
-.row .b>div{height:100%;background:var(--blue)}
-.hide{display:none}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.opt.right{background:var(--ok-soft);border-color:var(--ok)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.fb{margin-top:14px;padding:12px 16px;border-radius:10px;font-size:1rem}
+.fb.ok{background:var(--ok-soft)}.fb.no{background:var(--bad-soft)}
+.btn{margin-top:16px;font:700 1rem var(--display);background:var(--fg);color:var(--bg);border:0;border-radius:10px;padding:12px 22px;cursor:pointer}
+.score{font-family:var(--display);font-size:3.4rem;font-weight:800}
+.miss{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.miss li{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.97rem}
+footer{padding-block:32px;color:var(--muted);font-size:.9rem}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
 </style>
-</head>
-<body>
-<main>
-  <section id="start" class="card">
-    <h1>Number Sense Quiz</h1>
-    <p>Grade 2 · 50 questions. Pick the best answer for each one. You can tap “Read it to me” to hear a question.</p>
-    <ul class="topics" id="tl"></ul>
-    <button class="big" id="go">Start quiz</button>
-  </section>
 
-  <section id="quiz" class="card hide">
-    <div class="top"><span id="cnt">Question 1 of 50</span><span id="sc">Score: 0</span></div>
-    <div class="bar"><div id="pg"></div></div>
-    <span class="tag" id="tg"></span>
-    <p class="q" id="qt" style="color:var(--ink)"></p>
-    <button class="say" id="say">🔊 Read it to me</button>
-    <div class="opts" id="op"></div>
-    <div class="fb" id="fb" aria-live="polite"></div>
-    <button class="big hide" id="nx">Next question</button>
-  </section>
+<header class="wrap hero">
+  <div class="eyebrow">Grade 4 science · Chapters 1–8</div>
+  <h1>Earth's Systems Explorer</h1>
+  <p>Earth works like a team of four systems that touch and change each other all the time. <b>Read each chapter, study the diagram, check the answers,</b> then take the 30-question quiz at the end.</p>
+  <div class="nav" id="nav"></div>
+  <div class="mission">
+    <h3>Our mission</h3>
+    <ul>
+      <li>Explain the four Earth systems.</li>
+      <li>Review water, rocks, air and living things.</li>
+      <li>Say how the systems affect each other.</li>
+    </ul>
+  </div>
+</header>
 
-  <section id="end" class="card hide">
-    <h2>All done!</h2>
-    <div class="stars" id="st" aria-hidden="true"></div>
-    <div class="score" id="fs"></div>
-    <p id="msg"></p>
-    <div id="br"></div>
-    <button class="big" id="again">Play again</button>
-  </section>
-</main>
+<section class="wrap" id="spheres">
+  <h2 style="font-size:1.8rem;margin-bottom:14px">The four spheres</h2>
+  <div class="spheres">
+    <div class="sph h"><h3>Hydrosphere</h3><div class="root">hydro = water</div><p>All of Earth's water: oceans, rivers, lakes, ice, groundwater.</p></div>
+    <div class="sph g"><h3>Geosphere</h3><div class="root">geo = Earth</div><p>The rocky parts: crust, mantle, core, mountains, soil.</p></div>
+    <div class="sph a"><h3>Atmosphere</h3><div class="root">atmo = vapor, air</div><p>The gases that surround Earth, such as nitrogen and oxygen.</p></div>
+    <div class="sph b"><h3>Biosphere</h3><div class="root">bio = life</div><p>All living things: plants, animals, fungi, microbes and people.</p></div>
+  </div>
+</section>
+
+<!-- CHAPTER 1 -->
+<section class="band h" id="ch1"><div class="wrap">
+  <span class="tag">Chapter 1 · Hydrosphere</span>
+  <h2>Water, water everywhere</h2>
+  <div class="cols">
+    <div>
+      <ul class="facts">
+        <li>Water exists as a <b>solid</b> (ice), a <b>liquid</b> and a <b>gas</b> (water vapor).</li>
+        <li>Oceans hold <b>salt water</b>. Many rivers and lakes hold <b>fresh water</b>.</li>
+        <li><b>Groundwater</b> is stored below Earth's surface.</li>
+        <li>A <b>reservoir</b> is a place where water collects.</li>
+      </ul>
+    </div>
+    <figure>
+      <svg viewBox="0 0 440 250" role="img" aria-label="Three states of water: ice, liquid, vapor">
+        <rect x="10" y="30" width="120" height="120" rx="10" fill="#bfe3f5" stroke="var(--hydro)" stroke-width="3"/>
+        <path d="M30 60h40M30 90h60M50 120h50" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+        <text x="70" y="180" text-anchor="middle">Solid · ice</text>
+        <path d="M160 100c15 0 15-10 30-10s15 10 30 10 15-10 30-10 15 10 30 10v50H160z" fill="#5db8e8" stroke="var(--hydro)" stroke-width="3" stroke-linejoin="round"/>
+        <text x="220" y="180" text-anchor="middle">Liquid · water</text>
+        <g stroke="var(--hydro)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M340 140c-14-14 14-24 0-38s14-24 0-38"/><path d="M370 150c-14-14 14-24 0-38s14-24 0-38"/><path d="M400 140c-14-14 14-24 0-38s14-24 0-38"/></g>
+        <text x="370" y="180" text-anchor="middle">Gas · vapor</text>
+        <path d="M130 90h24M260 90h0" stroke="var(--fg)" stroke-width="2"/>
+        <text x="220" y="228" text-anchor="middle" style="font-size:12px;fill:var(--muted)">Heat adds energy and changes the state. Cooling takes it away.</text>
+      </svg>
+      <figcaption>Water is the only common substance on Earth found in all three states.</figcaption>
+    </figure>
+  </div>
+  <h3 style="margin:34px 0 12px;font-size:1.5rem">The water cycle</h3>
+  <div class="cols">
+    <figure>
+      <svg viewBox="0 0 440 300" role="img" aria-label="Water cycle diagram">
+        <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--fg)"/></marker></defs>
+        <circle cx="50" cy="45" r="24" fill="#f5b83a"/><g stroke="#f5b83a" stroke-width="4" stroke-linecap="round"><path d="M50 8v10M50 72v10M13 45h10M77 45h10M24 19l7 7M70 65l7 7M76 19l-7 7M24 71l7-7"/></g>
+        <text x="50" y="102" text-anchor="middle">Sun's energy</text>
+        <path d="M300 170l50-70 40 50 50-40v130H300z" fill="#a98a6d" stroke="var(--geo)" stroke-width="2"/>
+        <rect x="0" y="210" width="300" height="90" fill="#3b95c9"/>
+        <path d="M0 210c25-10 25 10 50 0s25 10 50 0 25 10 50 0 25 10 50 0 25 10 50 0 25 10 50 0" stroke="#fff" stroke-width="3" fill="none"/>
+        <g fill="#e9f1f5" stroke="#8fa9b5" stroke-width="2"><ellipse cx="260" cy="70" rx="46" ry="22"/><ellipse cx="228" cy="82" rx="30" ry="16"/><ellipse cx="294" cy="84" rx="30" ry="16"/></g>
+        <g stroke="var(--fg)" stroke-width="3" fill="none" marker-end="url(#ah)"><path d="M120 200V130" /><path d="M200 130L226 100"/></g>
+        <text x="130" y="165">Evaporation</text><text x="130" y="182" style="font-size:11px;fill:var(--muted)">liquid → gas</text>
+        <text x="140" y="100" style="font-size:12px">Condensation</text>
+        <g stroke="#1b7fb3" stroke-width="3" stroke-linecap="round"><path d="M250 110l-4 16M268 110l-4 16M286 110l-4 16"/></g>
+        <text x="236" y="150">Precipitation</text>
+        <path d="M360 118c20 30 4 60-20 80" stroke="#1b7fb3" stroke-width="3" fill="none" stroke-dasharray="6 5" marker-end="url(#ah)"/>
+        <text x="338" y="258" text-anchor="middle" class="w" style="fill:#fff">Runoff and groundwater</text>
+      </svg>
+      <figcaption>Gravity pulls rain and snow downhill, back toward the ocean, and the cycle repeats.</figcaption>
+    </figure>
+    <ul class="facts">
+      <li><b>1. Evaporation.</b> Sunlight gives energy, so liquid water becomes water vapor.</li>
+      <li><b>2. Condensation.</b> Cooling vapor turns into tiny droplets. Clouds are made of them.</li>
+      <li><b>3. Precipitation.</b> Rain, snow, sleet or hail falls back to Earth's surface.</li>
+      <li><b>4. Collection.</b> Gravity moves water downhill into rivers, lakes, oceans and underground.</li>
+    </ul>
+  </div>
+  <div class="check">
+    <h3>Check 1 · Water detective</h3>
+    <div class="qa"><div class="q">What is the difference between evaporation and condensation?</div><div class="a">Evaporation: liquid → gas. Condensation: gas → liquid.</div></div>
+    <div class="qa"><div class="q">Why is ocean water salty?</div><div class="a">Salts are carried from rocks into the oceans, and evaporation leaves the salt behind.</div></div>
+    <div class="qa"><div class="q">What do we call water stored underground?</div><div class="a">Groundwater.</div></div>
+  </div>
+</div></section>
+
+<!-- CHAPTER 2 -->
+<section class="band g" id="ch2"><div class="wrap">
+  <span class="tag">Chapter 2 · Geosphere</span>
+  <h2>A rocky, moving planet</h2>
+  <div class="cols">
+    <div>
+      <ul class="facts">
+        <li>Earth has five layers: <b>crust</b>, <b>upper mantle</b>, <b>lower mantle</b>, <b>outer core</b> and <b>inner core</b>.</li>
+        <li>Crustal <b>plates</b> move very slowly.</li>
+        <li>Plate movement can cause <b>earthquakes</b>, <b>mountains</b> and <b>volcanoes</b>.</li>
+        <li>The geosphere keeps changing over time.</li>
+      </ul>
+    </div>
+    <figure>
+      <svg viewBox="0 0 440 280" role="img" aria-label="Layers of Earth">
+        <g transform="translate(140 140)">
+          <circle r="130" fill="#7c5a3a"/><circle r="122" fill="#c46f3a"/><circle r="92" fill="#d98f3d"/><circle r="64" fill="#f0c04a"/><circle r="30" fill="#fbe9a8"/>
+        </g>
+        <g stroke="var(--fg)" stroke-width="1.5"><path d="M270 40H330M222 100H330M200 140H330M210 188H330M140 140H330" opacity="0"/></g>
+        <g stroke="var(--fg)" stroke-width="1.5" fill="none"><path d="M262 66L300 40H318"/><path d="M215 100L300 100H318"/><path d="M190 140H318" /><path d="M170 140L240 190H318"/><path d="M142 140L190 230H318"/></g>
+        <text x="322" y="44">Crust</text><text x="322" y="104">Upper mantle</text><text x="322" y="144">Lower mantle</text><text x="322" y="194">Outer core (liquid)</text><text x="322" y="234">Inner core (solid)</text>
+      </svg>
+      <figcaption>The crust is thinner than the skin of an apple compared with the whole Earth.</figcaption>
+    </figure>
+  </div>
+  <h3 style="margin:34px 0 12px;font-size:1.5rem">Three kinds of rock</h3>
+  <div class="cols">
+    <ul class="facts">
+      <li><b>Igneous:</b> cooled magma or lava.</li>
+      <li><b>Sedimentary:</b> pieces of material deposited and pressed together (it can also form in other ways).</li>
+      <li><b>Metamorphic:</b> existing rock changed by heat and pressure.</li>
+      <li>The <b>rock cycle</b> has no fixed beginning or end. Any rock can become any other.</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 440 300" role="img" aria-label="Rock cycle">
+        <defs><marker id="ah2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--fg)"/></marker></defs>
+        <g stroke="var(--fg)" stroke-width="2.5" fill="none" marker-end="url(#ah2)">
+          <path d="M170 60C230 40 290 60 330 100"/><path d="M350 150C340 190 320 215 295 235"/><path d="M150 245C110 235 85 210 75 170"/>
+          <path d="M75 120C85 100 110 75 140 60" /><path d="M295 255C220 285 150 275 120 255" />
+        </g>
+        <rect x="90" y="30" width="110" height="40" rx="8" fill="#e45c3a"/><text class="w" x="145" y="55" text-anchor="middle" style="fill:#fff">Magma</text>
+        <rect x="300" y="100" width="110" height="46" rx="8" fill="#6b6f8a"/><text x="355" y="120" text-anchor="middle" style="fill:#fff">Igneous</text><text x="355" y="136" text-anchor="middle" style="fill:#fff;font-size:11px">cooled lava</text>
+        <rect x="260" y="230" width="150" height="46" rx="8" fill="#c9a35e"/><text x="335" y="250" text-anchor="middle" style="fill:#1a1206">Sedimentary</text><text x="335" y="266" text-anchor="middle" style="fill:#1a1206;font-size:11px">pressed pieces</text>
+        <rect x="20" y="110" width="130" height="46" rx="8" fill="#4f8b7a"/><text x="85" y="130" text-anchor="middle" style="fill:#fff">Metamorphic</text><text x="85" y="146" text-anchor="middle" style="fill:#fff;font-size:11px">heat + pressure</text>
+        <text x="60" y="270" style="font-size:12px">Weathering</text><text x="60" y="284" style="font-size:12px">+ erosion</text>
+      </svg>
+      <figcaption>Follow the arrows: lava cools, pieces break off and pile up, heat and pressure change rock, melting makes magma again.</figcaption>
+    </figure>
+  </div>
+  <div class="check">
+    <h3>Check 2 · Rock challenge</h3>
+    <div class="qa"><div class="q">Which type forms from cooling lava?</div><div class="a">Igneous rock.</div></div>
+    <div class="qa"><div class="q">What causes an earthquake?</div><div class="a">Energy released when rock breaks along faults makes seismic waves.</div></div>
+    <div class="qa"><div class="q">Which rock type is changed by heat and pressure?</div><div class="a">Metamorphic rock.</div></div>
+  </div>
+</div></section>
+
+<!-- CHAPTER 3 -->
+<section class="band a" id="ch3"><div class="wrap">
+  <span class="tag">Chapter 3 · Atmosphere</span>
+  <h2>The blanket of air</h2>
+  <div class="cols">
+    <figure>
+      <svg viewBox="0 0 440 300" role="img" aria-label="Layers of the atmosphere">
+        <rect x="20" y="10" width="270" height="60" fill="#27306b"/><rect x="20" y="70" width="270" height="60" fill="#3d4ba8"/><rect x="20" y="130" width="270" height="70" fill="#6a78c9"/><rect x="20" y="200" width="270" height="70" fill="#9fc7ee"/>
+        <rect x="20" y="130" width="270" height="12" fill="#7fe0c4"/>
+        <g style="fill:#fff"><text x="34" y="46" style="fill:#fff">Thermosphere</text><text x="34" y="106" style="fill:#fff">Mesosphere</text><text x="34" y="176" style="fill:#fff">Stratosphere</text><text x="34" y="244" style="fill:#0d2438">Troposphere</text></g>
+        <path d="M300 130H330" stroke="var(--fg)" stroke-width="2"/><text x="334" y="127" style="font-size:12px">Ozone layer</text><text x="334" y="143" style="font-size:12px;fill:var(--muted)">protects living things</text>
+        <path d="M300 235H330" stroke="var(--fg)" stroke-width="2"/><text x="334" y="232" style="font-size:12px">Most weather</text><text x="334" y="248" style="font-size:12px;fill:var(--muted)">happens here</text>
+        <rect x="20" y="270" width="270" height="12" fill="#6a8f4e"/><text x="155" y="296" text-anchor="middle" style="font-size:11px;fill:var(--muted)">Earth's surface (layers not to scale)</text>
+      </svg>
+      <figcaption>Air gets thinner as you climb, so air pressure goes down with height.</figcaption>
+    </figure>
+    <ul class="facts">
+      <li>Air is mostly <b>nitrogen (about 78%)</b> and <b>oxygen (about 20%)</b>.</li>
+      <li>Most weather happens in the <b>troposphere</b>.</li>
+      <li>Air pressure <b>decreases</b> with altitude.</li>
+      <li>The <b>ozone layer</b> in the stratosphere helps protect living things.</li>
+    </ul>
+  </div>
+  <h3 style="margin:34px 0 12px;font-size:1.5rem">Air, pressure and weather</h3>
+  <div class="cols">
+    <ul class="facts">
+      <li><b>Warm air rises</b> and <b>cool air sinks</b>.</li>
+      <li>Moving air masses make <b>wind</b> and changing weather.</li>
+      <li><b>Low pressure</b> goes with clouds and precipitation.</li>
+      <li><b>High pressure</b> usually brings clearer, calmer weather.</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 440 200" role="img" aria-label="Low and high pressure">
+        <rect width="440" height="200" fill="#dbe5fb" opacity=".0"/>
+        <g><ellipse cx="110" cy="60" rx="50" ry="22" fill="#cfd6ea" stroke="#7d8fb3" stroke-width="2"/><path d="M110 170V90" stroke="var(--fg)" stroke-width="3" marker-end="url(#ah)"/><path d="M90 160V100M130 160V100" stroke="var(--fg)" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <path d="M110 160V92" stroke="var(--fg)" stroke-width="3"/><path d="M100 102l10-12 10 12" stroke="var(--fg)" stroke-width="3" fill="none"/>
+        <text x="110" y="190" text-anchor="middle">Low pressure</text><text x="110" y="22" text-anchor="middle" style="font-size:12px;fill:var(--muted)">air rises → clouds, rain</text></g>
+        <g><circle cx="340" cy="150" r="24" fill="#f5b83a"/><path d="M340 40v70" stroke="var(--fg)" stroke-width="3"/><path d="M330 100l10 12 10-12" stroke="var(--fg)" stroke-width="3" fill="none"/>
+        <text x="340" y="190" text-anchor="middle">High pressure</text><text x="340" y="22" text-anchor="middle" style="font-size:12px;fill:var(--muted)">air sinks → clear, calm</text></g>
+      </svg>
+      <figcaption>Rising air cools and makes clouds. Sinking air dries out and clears the sky.</figcaption>
+    </figure>
+  </div>
+</div></section>
+
+<!-- CHAPTER 4 -->
+<section class="band b" id="ch4"><div class="wrap">
+  <span class="tag">Chapter 4 · Biosphere</span>
+  <h2>Life on a living planet</h2>
+  <div class="cols">
+    <ul class="facts">
+      <li>The biosphere includes <b>every living organism</b>.</li>
+      <li><b>Biodiversity</b> means the variety of species.</li>
+      <li>Living things interact with each other and with <b>air, water and rocks</b>.</li>
+      <li>Organisms need <b>resources and energy</b> from their environment.</li>
+    </ul>
+    <figure>
+      <svg viewBox="0 0 440 240" role="img" aria-label="Biosphere touches the other three spheres">
+        <circle cx="220" cy="120" r="50" fill="var(--bio)"/><text x="220" y="125" text-anchor="middle" style="fill:#fff">Biosphere</text>
+        <g stroke="var(--fg)" stroke-width="2.5"><path d="M180 90L110 50"/><path d="M180 150L110 195"/><path d="M262 120H330"/></g>
+        <rect x="30" y="25" width="120" height="44" rx="8" fill="var(--hydro)"/><text x="90" y="45" text-anchor="middle" style="fill:#fff">Drinks water</text><text x="90" y="60" text-anchor="middle" style="fill:#fff;font-size:11px">hydrosphere</text>
+        <rect x="30" y="175" width="120" height="44" rx="8" fill="var(--geo)"/><text x="90" y="195" text-anchor="middle" style="fill:#fff">Grows in soil</text><text x="90" y="210" text-anchor="middle" style="fill:#fff;font-size:11px">geosphere</text>
+        <rect x="320" y="98" width="110" height="44" rx="8" fill="var(--atmo)"/><text x="375" y="118" text-anchor="middle" style="fill:#fff">Breathes air</text><text x="375" y="133" text-anchor="middle" style="fill:#fff;font-size:11px">atmosphere</text>
+      </svg>
+      <figcaption>No living thing is on its own. Each one depends on the other three spheres.</figcaption>
+    </figure>
+  </div>
+  <div class="check">
+    <h3>Quick sort · Which sphere?</h3>
+    <div class="sortgrid">
+      <div class="h"><small>Hydrosphere</small>A glacier</div>
+      <div class="g"><small>Geosphere</small>A mountain</div>
+      <div class="b"><small>Biosphere</small>An owl</div>
+      <div class="a"><small>Atmosphere</small>The nitrogen in the air</div>
+      <div class="h"><small>Hydrosphere</small>A river</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CHAPTERS 5-8 -->
+<section class="band n" id="ch5"><div class="wrap">
+  <span class="tag">Chapters 5–8 · Interactions</span>
+  <h2>When the spheres meet</h2>
+  <div class="spheres" style="padding-bottom:0">
+    <div class="sph h"><h3>5 · Water acts on…</h3><p><b>Weathering</b> breaks rock down. <b>Erosion</b> carries sediment away. Water swaps heat and vapor with the air. Plants and animals need water to live.</p></div>
+    <div class="sph g"><h3>6 · Land acts on…</h3><p>Mountains change rainfall patterns. Land shape decides where water flows. <b>Aquifers</b> store groundwater. Weathered rock plus organic material makes <b>soil</b>.</p></div>
+    <div class="sph a"><h3>7 · Air acts on…</h3><p>Wind moves sand and sediment. Air can chemically change rock, such as <b>rusting</b>. Air and water trade heat and moisture. Gases support life.</p></div>
+    <div class="sph b"><h3>8 · Life acts on…</h3><p>Plants take in <b>carbon dioxide</b> for <b>photosynthesis</b>. Roots and burrowers break up rock. <b>Decomposers</b> return nutrients to the environment.</p></div>
+  </div>
+  <div class="vocab" style="margin-top:22px">
+    <span><b>Weathering</b> = rock breaks down in place</span>
+    <span><b>Erosion</b> = pieces are carried away</span>
+    <span><b>Aquifer</b> = underground rock holding groundwater</span>
+    <span><b>Decomposer</b> = breaks down dead things</span>
+  </div>
+  <div class="check">
+    <h3>Interaction challenge · Name TWO spheres</h3>
+    <div class="qa"><div class="q">Rain washes soil into a river.</div><div class="a">Hydrosphere + geosphere.</div></div>
+    <div class="qa"><div class="q">Tree roots grow into a crack in rock.</div><div class="a">Biosphere + geosphere.</div></div>
+    <div class="qa"><div class="q">Wind reshapes a sand dune.</div><div class="a">Atmosphere + geosphere.</div></div>
+    <div class="qa"><div class="q">A plant takes in carbon dioxide from the air.</div><div class="a">Biosphere + atmosphere.</div></div>
+  </div>
+  <div class="check">
+    <h3>Exit ticket · Explain the connection (worked example)</h3>
+    <div class="qa"><div class="q">Example: tree roots and rock</div>
+      <div class="a" style="color:var(--fg);font-weight:400">A tree root grows into a crack in a rock <b>because</b> it is looking for water and space. <b>Therefore</b> the root pushes the crack wider, the rock breaks into smaller pieces, and over time those pieces help form soil. This connects the <b>biosphere</b> and the <b>geosphere</b>.</div>
+    </div>
+    <div class="qa"><div class="q">Your turn</div><div style="color:var(--muted)">Pick one example with two or more spheres. Explain it with <i>because</i> and <i>therefore</i>, then draw and label a simple model.</div></div>
+  </div>
+</div></section>
+
+<!-- QUIZ -->
+<section class="band n" id="quiz"><div class="wrap">
+  <span class="tag">Final quiz</span>
+  <h2>30 questions. Show what you know.</h2>
+  <div class="quiz" id="quizbox"></div>
+</div></section>
+
+<footer class="wrap">Source: Core Knowledge Science, Chapters 1–8 · Grade 4 review</footer>
 
 <script>
-var TOPICS=["Counting & writing","Place value","Comparing & ordering","Skip counting","Even & odd","Ordinal numbers"];
-// [topic, question, correct, wrong, wrong, wrong]
-var BANK=[
-[0,"What number comes after 49?","50","48","59","40"],
-[0,"What number comes before 80?","79","81","70","89"],
-[0,"Which is 46 written with digits? Forty-six is…","46","64","406","40"],
-[0,"Which words match the number 73?","seventy-three","thirty-seven","seventy-two","seventeen"],
-[0,"What number is between 29 and 31?","30","20","28","32"],
-[0,"Which word is the number 15?","fifteen","fifty","five","fourteen"],
-[0,"Count on: 97, 98, 99, …","100","90","101","109"],
-[0,"Which number is “sixty-one”?","61","16","601","60"],
-[0,"What number is missing? 62, 63, __, 65","64","66","61","54"],
-[1,"In the number 47, how many tens are there?","4","7","47","11"],
-[1,"In the number 47, how many ones are there?","7","4","47","11"],
-[1,"5 tens and 3 ones make which number?","53","35","8","503"],
-[1,"What is the value of the 6 in 62?","60","6","2","62"],
-[1,"What is the value of the 8 in 38?","8","80","3","38"],
-[1,"Which number is 20 + 7?","27","72","207","9"],
-[1,"In 358, how many hundreds are there?","3","5","8","358"],
-[1,"Which digit is in the tens place of 94?","9","4","94","13"],
-[1,"100 + 20 + 5 = ?","125","152","1,025","25"],
-[1,"7 tens is the same as…","70","7","17","700"],
-[1,"Which number has 2 tens and 9 ones?","29","92","11","209"],
-[1,"10 tens is the same as…","100","10","1,000","20"],
-[1,"Which digit is in the tens place of 406?","0","4","6","40"],
-[2,"Which number is greater: 56 or 65?","65","56","They are the same","Neither"],
-[2,"Which sign makes this true? 34 __ 43","<",">","=","+"],
-[2,"Which sign makes this true? 72 __ 27",">","<","=","−"],
-[2,"Which number is the smallest?","29","38","83","92"],
-[2,"Which number is the biggest?","54","45","15","51"],
-[2,"Which list goes from smallest to largest?","13, 22, 31","31, 22, 13","22, 13, 31","13, 31, 22"],
-[2,"Which number is 10 more than 35?","45","36","25","55"],
-[2,"Which number is 10 less than 60?","50","59","70","61"],
-[2,"Which number is less than 48?","39","52","84","48"],
-[2,"Which sign makes this true? 205 __ 250","<",">","=","+"],
-[3,"Count by 2s: 2, 4, 6, 8, __","10","9","12","11"],
-[3,"Count by 5s: 5, 10, 15, __","20","25","16","30"],
-[3,"Count by 10s: 10, 20, 30, __","40","31","50","35"],
-[3,"Count by 5s: 25, 30, 35, __","40","45","36","50"],
-[3,"Count by 10s: 50, 60, __, 80","70","65","75","90"],
-[3,"Count by 2s: 12, 14, __, 18","16","15","17","20"],
-[3,"Counting by 5s, what comes after 45?","50","46","55","40"],
-[3,"Count backward by 2s: 10, 8, 6, __","4","5","2","3"],
-[4,"Which number is even?","14","13","15","17"],
-[4,"Which number is odd?","27","26","28","30"],
-[4,"Is 38 even or odd?","Even","Odd","Both","Neither"],
-[4,"An odd number ends in which digit?","7","4","6","8"],
-[4,"Which group has only even numbers?","2, 4, 6","1, 3, 5","2, 3, 4","5, 6, 7"],
-[5,"Which is the short way to write “twentieth”?","20th","20nd","20rd","20st"],
-[5,"Which word comes after “ninth”?","tenth","eighth","eleventh","twelfth"],
-[5,"Which word goes with the number 3?","third","three","thirty","thirteenth"],
-[5,"Which is the short way to write “fifth”?","5th","5nd","5rd","5st"],
-[5,"🍎 🍌 🍇 🍓 🍊  Which fruit is 4th in the line?","🍓","🍇","🍊","🍌"]
+const chapters=[["Spheres","spheres"],["1 Water","ch1"],["2 Rocks","ch2"],["3 Air","ch3"],["4 Life","ch4"],["5–8 Interactions","ch5"],["Quiz","quiz"]];
+const nav=document.getElementById('nav');
+chapters.forEach(([l,id])=>{const b=document.createElement('button');b.textContent=l;b.onclick=()=>document.getElementById(id).scrollIntoView({behavior:'smooth'});nav.appendChild(b)});
+
+const Q=[
+["Which sphere includes all of Earth's water?","The hydrosphere",["The biosphere","The atmosphere","The geosphere"]],
+["Water that is stored below Earth's surface is called","groundwater",["a reservoir","runoff","precipitation"]],
+["What provides the energy for evaporation in the water cycle?","Sunlight",["Gravity","Ocean currents","Wind"]],
+["Water vapor cools and becomes tiny droplets in a cloud. This step is","condensation",["evaporation","precipitation","collection"]],
+["Why is ocean water salty?","Rivers carry salts from rocks to the sea, and evaporation leaves the salt behind",["Sea animals give off salt as they breathe","Rain washes salt out of clouds into the sea","Underwater volcanoes make all of the salt"]],
+["A reservoir is","a place where water collects",["a layer of the atmosphere","a rock formed by heat","water that has turned to gas"]],
+["Which layer is at the very center of Earth?","The inner core",["The outer core","The lower mantle","The upper mantle"]],
+["Which event can happen when crustal plates move?","A volcano forms near the edge of a plate",["Tides rise because plates pull on the ocean","A cloud forms from rock dust","A glacier melts in a day"]],
+["Igneous rock forms from","cooled magma or lava",["heat and pressure on older rock","pieces of material pressed together","water that has evaporated"]],
+["Which rock is made when existing rock is changed by heat and pressure?","Metamorphic",["Igneous","Sedimentary","Volcanic glass"]],
+["A rock made of sand and mud pressed together over time is","sedimentary",["igneous","metamorphic","magma"]],
+["What causes most earthquakes?","Energy released when rock breaks along a fault",["Wind pushing on the crust","Heavy rain soaking the ground","The Moon heating the mantle"]],
+["The rock cycle","has no fixed beginning or end",["always starts as sedimentary rock","ends when rock becomes metamorphic","happens only underwater"]],
+["The most common gas in Earth's air is","nitrogen",["oxygen","carbon dioxide","water vapor"]],
+["Most weather happens in the","troposphere",["stratosphere","mesosphere","thermosphere"]],
+["The ozone layer is found in the","stratosphere",["troposphere","mesosphere","thermosphere"]],
+["As you climb higher, air pressure generally","decreases",["increases","stays the same","changes only at night"]],
+["Which statement about air is correct?","Warm air rises and cool air sinks",["Warm air sinks and cool air rises","Warm and cool air both stay still","Only cool air can make wind"]],
+["Low pressure is usually linked with","clouds and precipitation",["clear and calm weather","the ozone layer","very high altitude only"]],
+["Biodiversity means","the variety of species in a place",["the number of rocks in a place","how much rain a place gets","how tall the trees grow"]],
+["Which of these belongs to the biosphere?","A mushroom growing on a log",["A puddle after rain","A granite boulder","A gust of wind"]],
+["A river carries sand from a hillside down to a lake. This is","erosion",["weathering","condensation","photosynthesis"]],
+["An aquifer is","underground rock or material that holds groundwater",["a cloud that holds rainwater","a river that flows through a canyon","a lake high on a mountain"]],
+["Rain washes soil into a river. Which two spheres interact?","Hydrosphere and geosphere",["Biosphere and atmosphere","Hydrosphere and biosphere","Geosphere and nothing else"]],
+["Tree roots grow into a crack and split a rock. Which two spheres interact?","Biosphere and geosphere",["Atmosphere and hydrosphere","Biosphere and atmosphere","Hydrosphere and geosphere"]],
+["Wind reshapes a sand dune. Which two spheres interact?","Atmosphere and geosphere",["Atmosphere and biosphere","Hydrosphere and geosphere","Biosphere and hydrosphere"]],
+["Which process lets plants take in carbon dioxide from the air?","Photosynthesis",["Decomposition","Weathering","Condensation"]],
+["Why are decomposers important?","They return nutrients to the environment",["They make rain fall faster","They build new mountains","They keep ocean water salty"]],
+["Which is an example of the atmosphere changing the geosphere?","Air reacting with iron in rock to make rust",["A river carving a canyon","Roots splitting a boulder","A fish eating algae"]],
+["Soil forms from","weathered rock mixed with organic material",["only volcanic ash","water vapor and ozone","salt left behind by oceans"]]
 ];
-
-var $=function(i){return document.getElementById(i)};
-var cur=0,score=0,order=[],tally=[],locked=false;
-
-function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
-function show(id){["start","quiz","end"].forEach(function(s){$(s).classList.toggle("hide",s!==id)});window.scrollTo(0,0)}
-
-TOPICS.forEach(function(t){var li=document.createElement("li");li.textContent=t;$("tl").appendChild(li)});
-
-function begin(){
-  cur=0;score=0;order=BANK.map(function(_,i){return i});
-  tally=TOPICS.map(function(){return [0,0]});
-  show("quiz");render();
+const box=document.getElementById('quizbox');
+let order,idx,score,missed;
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function start(){order=shuf(Q.map((_,i)=>i));idx=0;score=0;missed=[];show()}
+function show(){
+  if(idx>=order.length)return done();
+  const [q,c,w]=Q[order[idx]];
+  const opts=shuf([c,...w]);
+  box.innerHTML=`<div class="qtop"><span>Question ${idx+1} of ${Q.length}</span><span>Score ${score}</span></div><div class="bar"><i style="width:${idx/Q.length*100}%"></i></div><h3></h3><div class="opts"></div><div id="fb"></div>`;
+  box.querySelector('h3').textContent=q;
+  const o=box.querySelector('.opts');
+  opts.forEach(t=>{const b=document.createElement('button');b.className='opt';b.textContent=t;b.onclick=()=>pick(b,t===c,c,q);o.appendChild(b)});
 }
-
-function render(){
-  locked=false;
-  var q=BANK[order[cur]];
-  $("cnt").textContent="Question "+(cur+1)+" of "+BANK.length;
-  $("sc").textContent="Score: "+score;
-  $("pg").style.width=(cur/BANK.length*100)+"%";
-  $("tg").textContent=TOPICS[q[0]];
-  $("qt").textContent=q[1];
-  $("fb").textContent="";$("fb").className="fb";
-  $("nx").classList.add("hide");
-  $("nx").textContent=cur===BANK.length-1?"See my results":"Next question";
-  var box=$("op");box.innerHTML="";
-  shuffle(q.slice(2)).forEach(function(o){
-    var b=document.createElement("button");
-    b.className="opt";b.textContent=o;
-    b.onclick=function(){pick(b,o,q)};
-    box.appendChild(b);
-  });
+function pick(b,ok,c,q){
+  box.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(x.textContent===c)x.classList.add('right')});
+  if(ok)score++;else{b.classList.add('wrong');missed.push([q,c])}
+  const fb=document.getElementById('fb');
+  fb.innerHTML=`<div class="fb ${ok?'ok':'no'}">${ok?'Correct!':'Not quite. The answer is: <b></b>'}</div><button class="btn" id="nx">${idx+1===Q.length?'See my score':'Next question'}</button>`;
+  if(!ok)fb.querySelector('b').textContent=c;
+  document.getElementById('nx').onclick=()=>{idx++;show()};
+  document.getElementById('nx').focus();
 }
-
-function pick(btn,val,q){
-  if(locked)return;locked=true;
-  var ok=val===q[2];
-  tally[q[0]][1]++;
-  if(ok){score++;tally[q[0]][0]++;btn.classList.add("right");$("fb").textContent="Great job! That’s right.";$("fb").className="fb good"}
-  else{btn.classList.add("wrong");$("fb").textContent="Not quite. The answer is "+q[2]+".";$("fb").className="fb bad"}
-  Array.prototype.forEach.call($("op").children,function(b){b.disabled=true;if(b.textContent===q[2])b.classList.add("right")});
-  $("sc").textContent="Score: "+score;
-  $("pg").style.width=((cur+1)/BANK.length*100)+"%";
-  $("nx").classList.remove("hide");$("nx").focus();
+function done(){
+  const pct=Math.round(score/Q.length*100);
+  box.innerHTML=`<div class="eyebrow">Your result</div><div class="score">${score} / ${Q.length}</div><p>${pct>=90?'Excellent. You really know Earth\'s systems.':pct>=70?'Good work. Review the chapters below the ones you missed.':'Keep going. Read the chapters again, then try the quiz once more.'}</p>${missed.length?'<h3 style="font-size:1.1rem;margin-top:14px">Review these</h3><ul class="miss"></ul>':''}<button class="btn" id="again">Try again</button>`;
+  const ul=box.querySelector('.miss');
+  missed.forEach(([q,c])=>{const li=document.createElement('li');li.innerHTML='<b></b><br><span></span>';li.querySelector('b').textContent=q;li.querySelector('span').textContent='Answer: '+c;ul.appendChild(li)});
+  document.getElementById('again').onclick=start;
 }
-
-function finish(){
-  show("end");
-  var n=BANK.length,s=score/n;
-  var stars=s>=0.9?3:s>=0.7?2:s>=0.4?1:0;
-  $("st").textContent="⭐".repeat(stars)+"☆".repeat(3-stars);
-  $("fs").textContent=score+" out of "+n;
-  $("msg").textContent=s>=0.9?"Wow, you are a number star!":s>=0.7?"Nice work! You know your numbers well.":s>=0.4?"Good try! Practice a little more and play again.":"Keep going! Every try makes you stronger.";
-  var br=$("br");br.innerHTML="";
-  TOPICS.forEach(function(t,i){
-    var r=tally[i],pct=r[1]?r[0]/r[1]*100:0;
-    var d=document.createElement("div");d.className="row";
-    d.innerHTML='<div class="l"><span></span><span>'+r[0]+' / '+r[1]+'</span></div><div class="b"><div style="width:'+pct+'%"></div></div>';
-    d.querySelector("span").textContent=t;
-    br.appendChild(d);
-  });
-}
-
-$("go").onclick=begin;
-$("again").onclick=begin;
-$("nx").onclick=function(){cur++;if(cur>=BANK.length)finish();else render()};
-$("say").onclick=function(){
-  try{
-    if(!window.speechSynthesis)return;
-    speechSynthesis.cancel();
-    var q=BANK[order[cur]];
-    var u=new SpeechSynthesisUtterance(q[1].replace(/__/g,"blank").replace(/</g," less than ").replace(/>/g," greater than "));
-    u.rate=0.85;speechSynthesis.speak(u);
-  }catch(e){}
-};
+start();
 </script>
-</body>
-</html>
