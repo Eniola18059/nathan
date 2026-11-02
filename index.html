@@ -3,345 +3,308 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Newton's Third Law Quiz – Grade 6</title>
+<title>Number Sense Quiz – Grade 2</title>
 <style>
   :root{
-    --bg:#0f172a; --card:#ffffff; --ink:#1e293b; --muted:#64748b;
-    --brand:#4f46e5; --brand2:#7c3aed; --good:#16a34a; --goodbg:#dcfce7;
-    --bad:#dc2626; --badbg:#fee2e2; --line:#e2e8f0;
+    --ink:#2b2d42; --muted:#6b7089; --bg1:#fff4d6; --bg2:#d9f1ff;
+    --card:#ffffff; --blue:#3a86ff; --green:#2bb673; --red:#ef476f;
+    --orange:#ff9f1c; --purple:#8338ec; --line:#e4e7f2;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;color:var(--ink);
-    background:linear-gradient(160deg,#312e81,#4f46e5 45%,#0ea5e9);min-height:100vh;padding:20px 14px 40px}
-  .wrap{max-width:760px;margin:0 auto}
-  .card{background:var(--card);border-radius:20px;padding:26px;box-shadow:0 20px 50px rgba(15,23,42,.35)}
-  h1{margin:0 0 6px;font-size:28px;line-height:1.2}
-  h2{margin:0 0 14px;font-size:22px;line-height:1.35}
-  p{line-height:1.55}
-  .muted{color:var(--muted)}
-  .pill{display:inline-block;background:#eef2ff;color:var(--brand);font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px}
-  .btn{border:0;border-radius:12px;padding:13px 22px;font-size:17px;font-weight:700;cursor:pointer;
-    background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;transition:transform .08s}
-  .btn:hover{transform:translateY(-1px)}
-  .btn.ghost{background:#eef2ff;color:var(--brand)}
-  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:700;font-size:15px}
-  .bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:20px}
-  .bar>div{height:100%;width:0;background:linear-gradient(90deg,#22c55e,#0ea5e9);transition:width .3s}
-  .opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#f8fafc;border:2px solid var(--line);
-    border-radius:14px;padding:14px 16px;margin-bottom:10px;font-size:17px;line-height:1.4;cursor:pointer;color:var(--ink);font-family:inherit}
-  .opt:hover:not(:disabled){border-color:var(--brand);background:#eef2ff}
-  .opt .k{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:#e0e7ff;color:var(--brand);
-    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
-  .opt.correct{background:var(--goodbg);border-color:var(--good)}
-  .opt.correct .k{background:var(--good);color:#fff}
-  .opt.wrong{background:var(--badbg);border-color:var(--bad)}
-  .opt.wrong .k{background:var(--bad);color:#fff}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;color:var(--ink);
+    background:linear-gradient(160deg,var(--bg1),var(--bg2));min-height:100vh;
+    display:flex;justify-content:center;padding:18px 14px 40px;
+  }
+  .wrap{width:100%;max-width:720px}
+  .card{background:var(--card);border-radius:24px;padding:26px 22px;box-shadow:0 10px 30px rgba(43,45,66,.12)}
+  h1{margin:0 0 6px;font-size:2rem;line-height:1.15;color:var(--purple)}
+  h2{margin:0 0 10px;font-size:1.4rem}
+  p{line-height:1.5;font-size:1.05rem}
+  .sub{color:var(--muted);margin:0 0 18px}
+  .btn{
+    font:inherit;font-weight:700;font-size:1.15rem;border:0;border-radius:16px;
+    padding:14px 26px;cursor:pointer;color:#fff;background:var(--blue);
+    box-shadow:0 4px 0 rgba(0,0,0,.18);transition:transform .08s;
+  }
+  .btn:hover{transform:translateY(-1px)} .btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.18)}
+  .btn.green{background:var(--green)} .btn.orange{background:var(--orange)}
+  .topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:0 0 22px;padding:0;list-style:none}
+  .topics li{background:#f4f6ff;border-radius:12px;padding:9px 12px;font-size:.98rem}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;font-weight:700}
+  .pill{background:#fff;border-radius:999px;padding:6px 14px;box-shadow:0 2px 8px rgba(43,45,66,.1);font-size:.95rem}
+  .bar{height:14px;background:#fff;border-radius:999px;overflow:hidden;margin-bottom:16px;box-shadow:inset 0 0 0 2px var(--line)}
+  .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--blue));transition:width .35s}
+  .tag{display:inline-block;background:var(--purple);color:#fff;border-radius:999px;padding:4px 12px;font-size:.85rem;font-weight:700;margin-bottom:12px}
+  .q{font-size:1.4rem;font-weight:700;line-height:1.35;margin:0 0 16px}
+  .blocks{background:#f7f9ff;border:2px dashed var(--line);border-radius:16px;padding:14px;margin-bottom:16px}
+  .blocks .row{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:center}
+  .grp{display:flex;gap:5px;align-items:flex-end}
+  .hund{width:54px;height:54px;background:var(--blue);border-radius:6px;border:2px solid #1f5fd1;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+  .ten{width:16px;height:54px;background:var(--green);border-radius:4px;border:2px solid #1d8a54}
+  .one{width:16px;height:16px;background:var(--orange);border-radius:4px;border:2px solid #c97800}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:12px;font-size:.88rem;color:var(--muted)}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .opts{display:grid;gap:12px}
+  .opt{
+    font:inherit;font-size:1.25rem;font-weight:700;text-align:left;color:var(--ink);background:#fff;
+    border:3px solid var(--line);border-radius:16px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;
+    transition:border-color .15s,background .15s;
+  }
+  .opt:hover:not(:disabled){border-color:var(--blue);background:#f2f7ff}
+  .opt .k{flex:0 0 34px;height:34px;border-radius:50%;background:#eef1fb;display:flex;align-items:center;justify-content:center;font-size:1rem}
+  .opt.correct{border-color:var(--green);background:#e8f9f0}
+  .opt.correct .k{background:var(--green);color:#fff}
+  .opt.wrong{border-color:var(--red);background:#ffeef2}
+  .opt.wrong .k{background:var(--red);color:#fff}
   .opt:disabled{cursor:default}
-  .fb{margin-top:6px;padding:14px 16px;border-radius:14px;font-size:16px;line-height:1.5}
-  .fb.good{background:var(--goodbg);border-left:6px solid var(--good)}
-  .fb.bad{background:var(--badbg);border-left:6px solid var(--bad)}
-  .nav{margin-top:18px;text-align:right}
-  .score{font-size:56px;font-weight:800;margin:6px 0;color:var(--brand)}
-  .miss{border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px;background:#fff}
-  .miss b{display:block;margin-bottom:6px}
+  .fb{margin-top:16px;border-radius:16px;padding:14px 16px;font-size:1.05rem;line-height:1.45;display:none}
+  .fb.show{display:block}
+  .fb.good{background:#e8f9f0;border:2px solid var(--green)}
+  .fb.bad{background:#fff3e0;border:2px solid var(--orange)}
+  .fb b{display:block;font-size:1.15rem;margin-bottom:4px}
+  .next{margin-top:16px;display:none;text-align:right}
+  .next.show{display:block}
+  .score{font-size:3.2rem;font-weight:800;color:var(--purple);margin:4px 0}
+  .stars{font-size:2rem;letter-spacing:4px;margin-bottom:6px}
+  .break{display:grid;gap:8px;margin:14px 0 20px}
+  .brow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;font-size:.98rem}
+  .mini{height:10px;background:#eef1fb;border-radius:999px;overflow:hidden;margin-top:4px}
+  .mini>div{height:100%;background:var(--green)}
+  .miss{border-top:2px solid var(--line);padding:12px 0;font-size:1rem}
+  .miss .you{color:var(--red);font-weight:700} .miss .right{color:var(--green);font-weight:700}
   .hidden{display:none}
-  ul.facts{padding-left:20px;line-height:1.7}
-  @media(max-width:520px){.card{padding:18px}h1{font-size:24px}h2{font-size:19px}.opt{font-size:16px}}
+  @media (max-width:480px){h1{font-size:1.6rem}.q{font-size:1.2rem}.opt{font-size:1.1rem}}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- START -->
   <div id="start" class="card">
-    <span class="pill">Grade 6 · Physical Science · USA</span>
-    <h1>Newton's Third Law Quiz</h1>
-    <p class="muted">Action and reaction forces, and thrust. 50 questions.</p>
-    <ul class="facts">
-      <li>Pick one answer for each question.</li>
-      <li>You see right away whether you were correct, with a short explanation.</li>
-      <li>Answer choices are shuffled every time, so read each one carefully.</li>
-      <li>At the end you can review every question you missed.</li>
+    <h1>🔢 Number Sense Quiz</h1>
+    <p class="sub">Grade 2 · Number Sense &amp; Place Value · 50 questions</p>
+    <p>Read each question carefully, pick your answer, and see right away if you got it. Take your time and think it through!</p>
+    <ul class="topics">
+      <li>🔟 Counting &amp; number names</li>
+      <li>🧱 Tens and ones</li>
+      <li>💯 Hundreds</li>
+      <li>⚖️ Comparing &amp; ordering</li>
+      <li>🐸 Skip counting</li>
+      <li>🏁 Even, odd &amp; ordinals</li>
+      <li>🎯 Rounding &amp; word problems</li>
     </ul>
-    <button class="btn" id="startBtn">Start the quiz</button>
+    <button class="btn green" id="go">Start the quiz</button>
   </div>
 
-  <!-- QUIZ -->
-  <div id="quiz" class="card hidden">
-    <div class="topbar"><span id="qnum">Question 1 of 50</span><span id="scoreLive">Score: 0</span></div>
-    <div class="bar"><div id="prog"></div></div>
-    <h2 id="qtext"></h2>
-    <div id="opts"></div>
-    <div id="fb" class="fb hidden"></div>
-    <div class="nav"><button class="btn hidden" id="nextBtn">Next question</button></div>
-  </div>
-
-  <!-- RESULT -->
-  <div id="result" class="card hidden">
-    <span class="pill">Quiz complete</span>
-    <div class="score" id="finalScore"></div>
-    <p id="msg"></p>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 20px">
-      <button class="btn" id="againBtn">Try again</button>
-      <button class="btn ghost" id="reviewBtn">Review missed questions</button>
+  <div id="quiz" class="hidden">
+    <div class="topbar">
+      <span class="pill" id="count">Question 1 of 50</span>
+      <span class="pill" id="scoreLive">⭐ 0</span>
     </div>
-    <div id="review" class="hidden"></div>
+    <div class="bar"><div id="prog"></div></div>
+    <div class="card">
+      <span class="tag" id="tag"></span>
+      <p class="q" id="qtext"></p>
+      <div id="vis"></div>
+      <div class="opts" id="opts"></div>
+      <div class="fb" id="fb"></div>
+      <div class="next" id="nextWrap"><button class="btn" id="next">Next →</button></div>
+    </div>
+  </div>
+
+  <div id="result" class="card hidden">
+    <h1>All done! 🎉</h1>
+    <div class="stars" id="stars"></div>
+    <div class="score" id="final"></div>
+    <p id="msg"></p>
+    <h2>How you did on each topic</h2>
+    <div class="break" id="break"></div>
+    <div id="missWrap"></div>
+    <button class="btn orange" id="again">Try again</button>
   </div>
 
 </div>
 
 <script>
-// Each question: q = question, a = array of 4 options with the CORRECT answer FIRST (shuffled on screen), e = explanation.
-const BANK = [
-{q:"Which statement is Newton's third law of motion?",
- a:["For every action force, there is an equal and opposite reaction force.","An object at rest stays at rest unless an outside force acts on it.","The force on an object equals its mass times its acceleration.","Heavier objects always push back harder than lighter objects do."],
- e:"Newton's third law says forces come in pairs: equal in size and opposite in direction."},
-{q:"Action and reaction forces are always:",
- a:["equal in size and opposite in direction","equal in size and in the same direction","opposite in direction, but the reaction is smaller","different in size and opposite in direction"],
- e:"The two forces in a pair have the same strength and point in opposite directions."},
-{q:"Action and reaction forces act on:",
- a:["two different objects","the same object","only objects that are moving","only objects that are touching the ground"],
- e:"One force acts on object A and its partner force acts on object B."},
-{q:"You push on a wall with a force of 20 N. What force does the wall put on you?",
- a:["20 N pushing back toward you","0 N, because the wall does not move","10 N pushing back toward you","20 N pushing in the same direction as your push"],
- e:"The wall pushes back with 20 N even though it does not move."},
-{q:"A hammer hits a nail. What is the reaction force to the hammer pushing on the nail?",
- a:["The nail pushing back on the hammer","The hand pushing on the hammer","Gravity pulling the hammer downward","The wood pushing on the nail"],
- e:"The reaction to 'hammer pushes nail' is 'nail pushes hammer'. The names swap."},
-{q:"When a rocket launches, which action-reaction pair makes it rise?",
- a:["The rocket pushes exhaust gas down, and the gas pushes the rocket up.","The rocket pushes on the launch pad, and the pad pushes it up.","The rocket pushes on the air, and the air pushes it up.","The rocket pulls on Earth, and Earth pushes it up."],
- e:"The engine throws gas downward (action). The gas pushes the rocket upward (reaction). This push is called thrust."},
-{q:"What is thrust?",
- a:["A force that pushes a rocket or aircraft forward by sending matter backward","A force that slows a sliding object when surfaces rub together","A force that pulls objects toward the center of Earth","A force that holds a wing up by making air flow over it"],
- e:"Thrust is the pushing force produced when an engine forces gas backward."},
-{q:"Rockets can fly in space, where there is no air. Why does this work?",
- a:["The exhaust gas pushes on the rocket itself, not on the air","The rocket pushes against the nearest planets","Space has gravity that pulls the rocket forward","The rocket needs a thin layer of air to push on"],
- e:"The pair of forces is between the rocket and its own exhaust. No air is needed."},
-{q:"You let go of an inflated balloon and it zips around the room. Why?",
- a:["Air rushes out the back, and the escaping air pushes the balloon forward","The air outside pushes the balloon from behind","The stretched rubber pulls itself through the air","Gravity pulls the balloon sideways"],
- e:"The balloon pushes air out (action). The air pushes the balloon the other way (reaction)."},
-{q:"A swimmer moves forward in a pool. Which pair of forces explains this?",
- a:["The swimmer pushes water backward, and the water pushes the swimmer forward.","The swimmer pushes the air, and the air pushes the swimmer.","The swimmer pushes the water down, and the water pushes the swimmer down.","The water pulls the swimmer, and the swimmer pulls the pool."],
- e:"Pushing the water backward gets a forward push from the water in return."},
-{q:"When you walk, your foot pushes backward on the ground. What force moves you forward?",
- a:["The ground pushing forward on your foot","Your leg muscles pushing on the air","Gravity pulling you ahead","Friction between your two feet"],
- e:"The ground's forward push on your foot is the reaction force that moves you."},
-{q:"A gun pushes a bullet forward with 500 N of force. What force does the bullet put on the gun?",
- a:["500 N backward","500 N forward","50 N backward","0 N, because the bullet is moving away"],
- e:"The bullet pushes back on the gun with exactly 500 N. That push is called recoil."},
-{q:"A bullet speeds away much faster than a heavy rifle recoils. Why?",
- a:["The forces are equal, but the rifle has much more mass, so it accelerates less","The bullet gets a bigger force than the rifle does","The rifle gets a bigger force, so it is harder to move","The reaction force happens later for the rifle"],
- e:"Same force, bigger mass means smaller acceleration (F = ma)."},
-{q:"A person jumps from a small boat onto a dock. What happens to the boat?",
- a:["It moves backward, away from the dock","It moves forward toward the dock","It stays perfectly still","It moves up out of the water"],
- e:"The person pushes the boat backward, so the boat pushes the person forward."},
-{q:"Skater A pushes Skater B with a force of 30 N. What force does Skater B put on Skater A?",
- a:["30 N in the opposite direction","30 N in the same direction","15 N in the opposite direction","None, because Skater B is the one being pushed"],
- e:"Both skaters feel a 30 N force. Pushing is always two-way."},
-{q:"Action and reaction forces are equal and opposite. Why don't they cancel each other out?",
- a:["They act on different objects","They happen at different times","One is always a little weaker","They only work when objects are moving"],
- e:"Forces only cancel when they act on the same object. A pair acts on two different objects."},
-{q:"A truck hits a small bug on the windshield. Compare the force of the truck on the bug to the force of the bug on the truck.",
- a:["They are exactly equal","The truck's force is much bigger","The bug's force is much bigger","The bug exerts no force on the truck"],
- e:"The forces are equal. The bug is badly hurt because its small mass gives it a huge acceleration."},
-{q:"An apple falls because Earth pulls on it. What is the reaction force?",
- a:["The apple pulling up on Earth with an equal force","The air pushing up on the apple","The tree pushing on the apple","There is no reaction force, since Earth is too big to be affected"],
- e:"The apple pulls on Earth with the same force. Earth's huge mass means we cannot notice its tiny acceleration."},
-{q:"A book rests on a table. The book pushes down on the table. What is the reaction force?",
- a:["The table pushing up on the book","Gravity pulling down on the book","The floor pushing up on the table","The book's weight pulling on Earth's core"],
- e:"The reaction to 'book pushes table' is 'table pushes book'."},
-{q:"How do a car's tires make the car move forward?",
- a:["The tires push backward on the road, and the road pushes the car forward","The tires push the air, and the air pushes the car forward","The engine pushes on the car body from the inside","The tires pull the road toward the car"],
- e:"The road's forward push on the tires is the reaction force that moves the car."},
-{q:"An astronaut in space throws a wrench away from her. What happens to the astronaut?",
- a:["She moves in the opposite direction","She moves in the same direction as the wrench","She does not move, because there is no gravity","She spins in place but stays at the same spot"],
- e:"She pushes the wrench one way and the wrench pushes her the other way."},
-{q:"Water shoots out of a fire hose, and the firefighters must brace themselves. Why?",
- a:["The water pushes back on the hose and the people holding it","Gravity pulls the hose forward","The nozzle is heavy with water","The air pushes against the firefighters"],
- e:"Forcing water forward means the water pushes the hose backward."},
-{q:"A jet engine produces thrust. Which describes how?",
- a:["It pushes hot gases backward, and the gases push the engine forward","It pulls air through the wings to lift the plane","It spins the wheels faster against the runway","It pushes on the clouds in front of the plane"],
- e:"Hot gas out the back means a forward push on the plane."},
-{q:"A helicopter hovers in the air. Which pair of forces helps it stay up?",
- a:["The rotors push air downward, and the air pushes the helicopter upward","The rotors pull air upward, and the air pulls the helicopter down","The helicopter pushes the ground, and the ground pushes it up","The tail pushes the air sideways, and the air pushes it up"],
- e:"Pushing air down gives an upward reaction on the helicopter."},
-{q:"A bird flaps its wings and rises. Which statement is correct?",
- a:["The wings push air down, and the air pushes the bird up","The wings push air up, and the air pushes the bird down","The bird pushes the tree, and the tree pushes the bird up","The wings pull air toward the bird"],
- e:"The downward push on air gets an upward reaction."},
-{q:"A squid shoots water out behind it. What does the squid do?",
- a:["Moves forward, because the water pushes it forward","Moves backward, because the water pulls it","Stays in place, because the forces cancel","Moves up, because water is lighter than the squid"],
- e:"This is natural jet propulsion: water goes back, squid goes forward."},
-{q:"In a rowboat, the oars push water backward. What moves the boat forward?",
- a:["The water pushing the oars forward","The rowers pushing on the air","Gravity acting on the boat","The boat pushing the water down"],
- e:"The water pushes the oars (and boat) forward as the reaction."},
-{q:"A bat hits a baseball with a force of 800 N. What force does the ball put on the bat?",
- a:["800 N in the opposite direction","800 N in the same direction","Less than 800 N, because the ball is lighter","More than 800 N, because the ball is moving fast"],
- e:"The ball pushes back on the bat with exactly the same 800 N."},
-{q:"Which pair of forces is a true action-reaction pair?",
- a:["Your hand pushes a book, and the book pushes your hand.","Gravity pulls a book down, and the table pushes the book up.","You push a book right, and friction pushes the book left.","A book pushes the table, and the table's weight pushes the floor."],
- e:"A true pair has two objects pushing on each other. In the other choices, both forces act on the same object or involve a third object."},
-{q:"A large truck and a small car crash head-on. Which statement is true?",
- a:["The force on each vehicle is the same size","The truck feels a greater force","The car feels a greater force","Only the truck exerts a force"],
- e:"The forces are equal. The car's passengers feel a bigger change in motion because the car has less mass."},
-{q:"You push on a heavy box and it does not move. Does the box push back on you?",
- a:["Yes, with a force equal to your push","No, because it is not moving","Yes, but with a smaller force","Only when you push hard enough to move it"],
- e:"Reaction forces exist whenever a force exists, even if nothing moves."},
-{q:"Which statement about action and reaction forces is correct?",
- a:["They happen at the same time","The reaction starts a moment after the action","The action must happen before the reaction can begin","The reaction only starts if the object moves"],
- e:"The two forces appear and disappear together. Neither one 'goes first'."},
-{q:"You stand on roller skates and push hard on a wall. What happens?",
- a:["You roll backward, away from the wall","You roll forward into the wall","You stay still because the wall is stronger","You roll sideways"],
- e:"The wall pushes you away with an equal force."},
-{q:"A 40 kg skater and a 60 kg skater push off each other. Which statement is true?",
- a:["The forces are equal, but the 40 kg skater speeds up more","The 60 kg skater feels a larger force and speeds up more","The 40 kg skater feels a larger force and speeds up less","Only the 40 kg skater moves"],
- e:"Equal forces, but the smaller mass gets the larger acceleration."},
-{q:"A swimmer pushes on the pool wall with 150 N. What force does the wall put on the swimmer?",
- a:["150 N away from the wall","150 N toward the wall","75 N away from the wall","0 N, because the wall is fixed"],
- e:"The wall pushes back with the same 150 N, sending the swimmer away."},
-{q:"In which unit is thrust measured?",
- a:["Newtons (N)","Kilograms (kg)","Meters per second (m/s)","Joules (J)"],
- e:"Thrust is a force, and forces are measured in newtons."},
-{q:"Which change would give a rocket more thrust?",
- a:["Pushing out more exhaust gas, faster","Making the rocket's nose pointier","Painting the rocket a lighter color","Adding more parachutes"],
- e:"More gas pushed out faster means a bigger reaction force on the rocket."},
-{q:"A rocket engine pushes exhaust gas down with a force of 2,000,000 N. How much thrust acts on the rocket?",
- a:["2,000,000 N upward","2,000,000 N downward","1,000,000 N upward","0 N, because the gas is leaving"],
- e:"The thrust has the same strength as the push on the gas, but points the other way."},
-{q:"A rocket burns fuel, so its mass gets smaller. If the thrust stays the same, what happens to its acceleration?",
- a:["It gets larger","It gets smaller","It stays exactly the same","It drops to zero"],
- e:"Same force with less mass gives more acceleration (a = F ÷ m)."},
-{q:"A spacecraft fires a thruster that sends gas to the left. Which way does the spacecraft accelerate?",
- a:["To the right","To the left","Straight up","It does not accelerate"],
- e:"The gas goes left, so the reaction pushes the spacecraft right."},
-{q:"For a rocket to lift off from the ground, its thrust must be:",
- a:["greater than the rocket's weight","exactly zero","less than the rocket's weight","equal to the air's push on the rocket"],
- e:"The upward thrust must beat the downward pull of gravity for the rocket to rise."},
-{q:"Which force is the reaction to your feet pushing down on the floor?",
- a:["The floor pushing up on your feet","Gravity pulling you down","The ceiling pushing down on you","Your weight pulling on the floor"],
- e:"The floor pushes up on you with a force equal to your push down."},
-{q:"An astronaut drifts away from her spaceship with no tether. What is the best way to get back?",
- a:["Throw a tool away from the ship","Throw a tool toward the ship","Wave her arms like a swimmer","Wait for gravity to pull her back"],
- e:"Throwing the tool away from the ship pushes her toward it."},
-{q:"Which statement about Newton's third law is true?",
- a:["Forces always come in pairs","Only living things can make reaction forces","A reaction force exists only if the object moves","The larger object always pushes with the larger force"],
- e:"Every force is part of a pair. You can never have a single force alone."},
-{q:"A water jet pack shoots water downward from hoses. What happens to the rider?",
- a:["The rider is pushed upward","The rider is pushed downward","The rider spins sideways","The rider stays at the same height"],
- e:"The jet pushes water down, and the water pushes the jet pack up."},
-{q:"A cannon fires a cannonball and the cannon rolls backward. Why?",
- a:["The cannonball pushes back on the cannon as it is pushed forward","The ground pushes the cannon from behind","The cannon is lighter than the air","The cannonball pulls the cannon with a rope of air"],
- e:"The cannon pushes the ball forward, so the ball pushes the cannon backward."},
-{q:"You kick a soccer ball and your foot feels a push. Why?",
- a:["The ball pushes back on your foot with an equal force","Your foot is pushing the air","The ground is pushing your leg","Gravity pulls your foot down"],
- e:"The ball's push on your foot is the reaction to your kick."},
-{q:"Two spring scales are hooked together. You pull one with 10 N. What does the other scale read?",
- a:["10 N","0 N","5 N","20 N"],
- e:"The scales pull on each other with equal forces, so both read 10 N."},
-{q:"An ice skater pushes against a rail and glides away. Which force moves her?",
- a:["The rail pushing on her","Her own push on the rail","The ice pushing on the rail","Gravity pulling her sideways"],
- e:"Her push acts on the rail. The rail's push acts on her, and that is what moves her."},
-{q:"Which engine part produces the force that pushes a rocket forward?",
- a:["Exhaust gas being forced out of the engine","The rocket's nose cone cutting through air","The fins pushing against the launch tower","The wheels of the launch cart"],
- e:"The gas leaving the nozzle is the action. The reaction pushes the rocket the opposite way."}
+/* Each question: s = topic, q = text, a = correct answer, w = wrong options (plausible mistakes),
+   e = explanation, v = optional base-ten blocks {h,t,o}. Option order is shuffled every time. */
+const QUESTIONS = [
+  // ---------- Counting & number names ----------
+  {s:"Counting & number names", q:"What number comes right after 49?", a:"50", w:["40","59","48"], e:"49 + 1 = 50. When the 9 ones are full, we make a new ten."},
+  {s:"Counting & number names", q:"What number comes right before 100?", a:"99", w:["101","90","98"], e:"99 + 1 = 100, so 99 comes right before 100."},
+  {s:"Counting & number names", q:"Count on: 67, 68, 69, ___", a:"70", w:["60","79","71"], e:"After 69 we start a new ten, so the next number is 70."},
+  {s:"Counting & number names", q:"Which is the number name for 83?", a:"eighty-three", w:["thirty-eight","eighteen","eight hundred three"], e:"8 tens is eighty and 3 ones is three: eighty-three."},
+  {s:"Counting & number names", q:"Which number is \u201cforty-six\u201d?", a:"46", w:["64","406","40"], e:"Forty is 4 tens and six is 6 ones, so it is 46."},
+  {s:"Counting & number names", q:"Which number is \u201ctwo hundred five\u201d?", a:"205", w:["250","2,005","25"], e:"2 hundreds, 0 tens and 5 ones make 205."},
+
+  // ---------- Tens and ones ----------
+  {s:"Tens and ones", q:"In 47, which digit is in the tens place?", a:"4", w:["7","40","74"], e:"47 has 4 tens and 7 ones. The digit in the tens place is 4."},
+  {s:"Tens and ones", q:"How many ones are in 63?", a:"3", w:["6","60","30"], e:"63 is 6 tens and 3 ones."},
+  {s:"Tens and ones", q:"5 tens and 2 ones make which number?", a:"52", w:["25","502","7"], e:"5 tens = 50, and 50 + 2 = 52."},
+  {s:"Tens and ones", q:"8 tens and 0 ones make which number?", a:"80", w:["8","88","800"], e:"8 tens = 80, and there are no ones to add."},
+  {s:"Tens and ones", q:"What is the value of the 3 in 35?", a:"30", w:["3","5","35"], e:"The 3 is in the tens place, so it is worth 3 tens = 30."},
+  {s:"Tens and ones", q:"What is the value of the 6 in 96?", a:"6", w:["60","9","96"], e:"The 6 is in the ones place, so it is worth just 6."},
+  {s:"Tens and ones", q:"40 + 7 = ?", a:"47", w:["74","407","11"], e:"4 tens and 7 ones make 47."},
+  {s:"Tens and ones", q:"What number do the blocks show?", v:{h:0,t:5,o:8}, a:"58", w:["85","508","13"], e:"5 tens = 50 and 8 ones = 8. So 50 + 8 = 58."},
+  {s:"Tens and ones", q:"Which shows 36 in expanded form?", a:"30 + 6", w:["3 + 6","60 + 3","300 + 6"], e:"36 is 3 tens and 6 ones, which is 30 + 6."},
+  {s:"Tens and ones", q:"How many tens are in 90?", a:"9", w:["90","0","10"], e:"90 is 9 tens and 0 ones."},
+
+  // ---------- Hundreds ----------
+  {s:"Hundreds", q:"How many tens make 100?", a:"10", w:["100","1","20"], e:"10 tens make 100. (10, 20, 30 ... 100)"},
+  {s:"Hundreds", q:"What number do the blocks show?", v:{h:3,t:4,o:2}, a:"342", w:["243","432","324"], e:"3 hundreds, 4 tens and 2 ones make 300 + 40 + 2 = 342."},
+  {s:"Hundreds", q:"In 718, which digit is in the hundreds place?", a:"7", w:["1","8","700"], e:"718 has 7 hundreds, 1 ten and 8 ones."},
+  {s:"Hundreds", q:"What is the value of the 5 in 253?", a:"50", w:["5","500","3"], e:"The 5 is in the tens place, so its value is 5 tens = 50."},
+  {s:"Hundreds", q:"Which number is 600 + 20 + 4?", a:"624", w:["642","264","6,204"], e:"6 hundreds, 2 tens and 4 ones make 624."},
+  {s:"Hundreds", q:"Which shows 509 in expanded form?", a:"500 + 9", w:["500 + 90","50 + 9","5 + 0 + 9"], e:"509 has 5 hundreds, 0 tens and 9 ones, so it is 500 + 9."},
+  {s:"Hundreds", q:"What number do the blocks show?", v:{h:2,t:0,o:7}, a:"207", w:["270","27","217"], e:"2 hundreds, 0 tens and 7 ones make 207."},
+  {s:"Hundreds", q:"What is 10 more than 245?", a:"255", w:["246","345","235"], e:"10 more means the tens digit goes up by 1: 245 becomes 255."},
+
+  // ---------- Comparing & ordering ----------
+  {s:"Comparing & ordering", q:"Which number is the greatest?", a:"43", w:["34","29","40"], e:"Compare the tens first. 43 and 40 both have 4 tens, so look at the ones: 3 is more than 0. 43 is the greatest."},
+  {s:"Comparing & ordering", q:"Which number is the smallest?", a:"17", w:["26","62","71"], e:"17 has only 1 ten, so it is the smallest."},
+  {s:"Comparing & ordering", q:"Which sign makes this true?  54 ___ 45", a:">", w:["<","="], e:"54 has 5 tens and 45 has 4 tens. 54 is greater, so 54 > 45."},
+  {s:"Comparing & ordering", q:"Which sign makes this true?  120 ___ 210", a:"<", w:[">","="], e:"120 has 1 hundred and 210 has 2 hundreds. 120 is less, so 120 < 210."},
+  {s:"Comparing & ordering", q:"Which list goes from least to greatest?", a:"25, 52, 55", w:["52, 25, 55","55, 52, 25","25, 55, 52"], e:"25 is smallest, then 52, then 55."},
+  {s:"Comparing & ordering", q:"Which list goes from greatest to least?", a:"380, 308, 83", w:["83, 308, 380","308, 380, 83","380, 83, 308"], e:"380 and 308 have 3 hundreds, and 380 is bigger. 83 has no hundreds, so it is last."},
+  {s:"Comparing & ordering", q:"Which number is between 46 and 48?", a:"47", w:["45","49","50"], e:"47 comes after 46 and before 48."},
+  {s:"Comparing & ordering", q:"Which number comes after 199 and before 201?", a:"200", w:["190","210","2,000"], e:"199, 200, 201. The number in the middle is 200."},
+
+  // ---------- Skip counting ----------
+  {s:"Skip counting", q:"Count by 2s: 12, 14, 16, ___", a:"18", w:["17","20","19"], e:"Add 2 each time: 16 + 2 = 18."},
+  {s:"Skip counting", q:"Count by 5s: 35, 40, 45, ___", a:"50", w:["46","55","60"], e:"Add 5 each time: 45 + 5 = 50."},
+  {s:"Skip counting", q:"Count by 10s: 30, 40, 50, ___", a:"60", w:["51","70","55"], e:"Add 10 each time: 50 + 10 = 60."},
+  {s:"Skip counting", q:"Count by 10s: 14, 24, 34, ___", a:"44", w:["35","54","40"], e:"Add 10 each time. Only the tens digit changes: 34 + 10 = 44."},
+  {s:"Skip counting", q:"Count back by 5s: 30, 25, 20, ___", a:"15", w:["10","16","5"], e:"Take away 5 each time: 20 \u2212 5 = 15."},
+  {s:"Skip counting", q:"Count by 2s: 46, 48, 50, ___", a:"52", w:["51","55","60"], e:"Add 2 each time: 50 + 2 = 52."},
+  {s:"Skip counting", q:"Count by 100s: 300, 400, 500, ___", a:"600", w:["510","700","550"], e:"Add 100 each time. The hundreds digit goes up by 1: 600."},
+  {s:"Skip counting", q:"Count by 5s: 15, 20, ___, 30, 35. What number is missing?", a:"25", w:["24","27","22"], e:"20 + 5 = 25, and 25 + 5 = 30."},
+
+  // ---------- Even, odd & ordinals ----------
+  {s:"Even, odd & ordinals", q:"Which number is even?", a:"34", w:["27","51","69"], e:"34 ends in 4, so it can be shared into two equal groups. It is even."},
+  {s:"Even, odd & ordinals", q:"Which number is odd?", a:"63", w:["18","40","72"], e:"63 ends in 3, so one is left over when you make pairs. It is odd."},
+  {s:"Even, odd & ordinals", q:"Even numbers always end in which digits?", a:"0, 2, 4, 6 or 8", w:["1, 3, 5, 7 or 9","0, 1, 2, 3 or 4","5, 6, 7, 8 or 9"], e:"Even numbers end in 0, 2, 4, 6 or 8. Odd numbers end in 1, 3, 5, 7 or 9."},
+  {s:"Even, odd & ordinals", q:"Which number does \u201ctwentieth\u201d mean?", a:"20th", w:["2nd","12th","21st"], e:"Twentieth is the position number 20, written 20th."},
+  {s:"Even, odd & ordinals", q:"Ada finished just before the 6th runner. What place did Ada finish?", a:"5th", w:["7th","4th","6th"], e:"Just before 6th means one place earlier: 5th."},
+
+  // ---------- Rounding & word problems ----------
+  {s:"Rounding & word problems", q:"Round 37 to the nearest ten.", a:"40", w:["30","35","50"], e:"37 is closer to 40 than to 30, because 7 ones is more than halfway."},
+  {s:"Rounding & word problems", q:"Round 82 to the nearest ten.", a:"80", w:["90","85","100"], e:"82 is closer to 80 than to 90, because 2 ones is less than halfway."},
+  {s:"Rounding & word problems", q:"A dot on a number line is exactly halfway between 20 and 30. What number is it?", a:"25", w:["22","35","24"], e:"Halfway between 20 and 30 is 25, since 20 + 5 = 25 and 25 + 5 = 30."},
+  {s:"Rounding & word problems", q:"Mia has 4 bundles of 10 sticks and 6 loose sticks. How many sticks does she have?", a:"46", w:["64","406","10"], e:"4 tens = 40, plus 6 ones = 46 sticks."},
+  {s:"Rounding & word problems", q:"One box holds 10 pencils. How many pencils are in 7 boxes?", a:"70", w:["17","7","700"], e:"7 groups of ten make 7 tens = 70 pencils."}
 ];
 
-// ---------- app ----------
 const $ = id => document.getElementById(id);
-let order = [], idx = 0, score = 0, missed = [], locked = false;
+const letters = ["A","B","C","D"];
+let order, idx, score, answers;
 
 function shuffle(arr){
   const a = arr.slice();
   for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
   return a;
 }
+
 function show(id){["start","quiz","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id));window.scrollTo(0,0);}
 
 function begin(){
-  order = BANK.map((_,i)=>i);
-  idx = 0; score = 0; missed = [];
+  // fresh random option order every attempt, so answers can't be learned by position
+  order = QUESTIONS.map(q => ({...q, opts: shuffle([q.a, ...q.w])}));
+  idx = 0; score = 0; answers = [];
   show("quiz"); render();
 }
 
+function blocksHTML(v){
+  let h = "";
+  if(v.h) h += '<div class="grp">' + '<div class="hund">100</div>'.repeat(v.h) + '</div>';
+  if(v.t) h += '<div class="grp">' + '<div class="ten"></div>'.repeat(v.t) + '</div>';
+  if(v.o) h += '<div class="grp">' + '<div class="one"></div>'.repeat(v.o) + '</div>';
+  return '<div class="blocks"><div class="row">'+h+'</div>' +
+    '<div class="legend">' +
+    (v.h?'<span><i class="hund" style="width:18px;height:18px;font-size:0"></i> = 100</span>':'') +
+    '<span><i class="ten" style="display:inline-block;width:8px;height:18px"></i> = 10</span>' +
+    '<span><i class="one" style="display:inline-block"></i> = 1</span></div></div>';
+}
+
 function render(){
-  locked = false;
-  const item = BANK[order[idx]];
-  $("qnum").textContent = "Question "+(idx+1)+" of "+BANK.length;
-  $("scoreLive").textContent = "Score: "+score;
-  $("prog").style.width = (idx/BANK.length*100)+"%";
-  $("qtext").textContent = item.q;
-  $("fb").className = "fb hidden";
-  $("nextBtn").classList.add("hidden");
-  const opts = shuffle(item.a.map((t,i)=>({t, ok:i===0})));
+  const q = order[idx];
+  $("count").textContent = "Question " + (idx+1) + " of " + order.length;
+  $("scoreLive").textContent = "⭐ " + score;
+  $("prog").style.width = (idx/order.length*100) + "%";
+  $("tag").textContent = q.s;
+  $("qtext").textContent = q.q;
+  $("vis").innerHTML = q.v ? blocksHTML(q.v) : "";
   const box = $("opts"); box.innerHTML = "";
-  opts.forEach((o,i)=>{
+  q.opts.forEach((o,i)=>{
     const b = document.createElement("button");
     b.className = "opt";
-    b.innerHTML = '<span class="k">'+"ABCD"[i]+'</span><span></span>';
-    b.lastChild.textContent = o.t;
-    b.onclick = () => choose(b, o, opts, box, item);
-    b._ok = o.ok;
+    b.innerHTML = '<span class="k">'+letters[i]+'</span><span></span>';
+    b.lastChild.textContent = o;
+    b.onclick = () => choose(o, b);
     box.appendChild(b);
   });
+  $("fb").className = "fb"; $("fb").innerHTML = "";
+  $("nextWrap").classList.remove("show");
+  $("next").textContent = idx === order.length-1 ? "See my results 🎉" : "Next →";
 }
 
-function choose(btn, o, opts, box, item){
-  if(locked) return; locked = true;
-  [...box.children].forEach(b=>{ b.disabled = true; if(b._ok) b.classList.add("correct"); });
+function choose(pick, btn){
+  const q = order[idx];
+  const ok = pick === q.a;
+  document.querySelectorAll(".opt").forEach(b=>{
+    b.disabled = true;
+    const val = b.lastChild.textContent;
+    if(val === q.a) b.classList.add("correct");
+  });
+  if(!ok) btn.classList.add("wrong");
+  if(ok) score++;
+  answers.push({q, pick, ok});
+  $("scoreLive").textContent = "⭐ " + score;
   const fb = $("fb");
-  if(o.ok){
-    score++;
-    fb.className = "fb good";
-    fb.textContent = "Correct! " + item.e;
-  } else {
-    btn.classList.add("wrong");
-    fb.className = "fb bad";
-    fb.textContent = "Not quite. " + item.e;
-    missed.push({q:item.q, yours:o.t, right:item.a[0], e:item.e});
-  }
-  $("scoreLive").textContent = "Score: "+score;
-  const nb = $("nextBtn");
-  nb.textContent = idx === BANK.length-1 ? "See my results" : "Next question";
-  nb.classList.remove("hidden");
-}
-
-function next(){
-  if(idx < BANK.length-1){ idx++; render(); }
-  else finish();
+  fb.className = "fb show " + (ok ? "good" : "bad");
+  fb.innerHTML = "<b>" + (ok ? "✅ Correct! Well done!" : "Not quite. The answer is " + q.a + ".") + "</b>" + q.e;
+  $("nextWrap").classList.add("show");
+  $("prog").style.width = ((idx+1)/order.length*100) + "%";
 }
 
 function finish(){
-  $("prog").style.width = "100%";
   show("result");
-  const pct = Math.round(score/BANK.length*100);
-  $("finalScore").textContent = score + " / " + BANK.length + "  (" + pct + "%)";
-  let m;
-  if(pct>=90) m = "Outstanding! You really understand action and reaction forces.";
-  else if(pct>=75) m = "Great work! Review the questions you missed to lock in the rest.";
-  else if(pct>=60) m = "Good effort. Look at the missed questions and try again to improve.";
-  else m = "Keep practicing. Remember: forces come in pairs, acting on two different objects.";
-  $("msg").textContent = m;
-  $("review").classList.add("hidden");
-  $("reviewBtn").classList.toggle("hidden", missed.length===0);
+  const n = order.length, pct = score/n;
+  $("final").textContent = score + " / " + n;
+  const st = pct>=.9?5:pct>=.75?4:pct>=.6?3:pct>=.4?2:1;
+  $("stars").textContent = "⭐".repeat(st) + "☆".repeat(5-st);
+  $("msg").textContent =
+    pct>=.9 ? "Amazing! You really know your numbers!" :
+    pct>=.75 ? "Great job! You are almost a number superstar." :
+    pct>=.6 ? "Good work! Look at the ones you missed and try again." :
+    "Nice try! Practise the topics below and have another go.";
+  // topic breakdown
+  const by = {};
+  answers.forEach(a=>{const s=a.q.s;by[s]=by[s]||{r:0,t:0};by[s].t++;if(a.ok)by[s].r++;});
+  $("break").innerHTML = Object.keys(by).map(s=>{
+    const p = Math.round(by[s].r/by[s].t*100);
+    return '<div><div class="brow"><span>'+s+'</span><b>'+by[s].r+' / '+by[s].t+'</b></div><div class="mini"><div style="width:'+p+'%"></div></div></div>';
+  }).join("");
+  // missed questions
+  const missed = answers.filter(a=>!a.ok);
+  const mw = $("missWrap");
+  if(!missed.length){ mw.innerHTML = "<p><b>You got every question right! 🏆</b></p>"; }
+  else{
+    mw.innerHTML = "<h2>Questions to look at again</h2>" + missed.map(a=>{
+      const d = document.createElement("div"); d.className="miss";
+      d.innerHTML = "<div></div><div>You chose: <span class='you'></span> · Correct: <span class='right'></span></div><div style='color:#6b7089;margin-top:4px'></div>";
+      d.children[0].textContent = a.q.q;
+      d.querySelector(".you").textContent = a.pick;
+      d.querySelector(".right").textContent = a.q.a;
+      d.children[2].textContent = a.q.e;
+      return d.outerHTML;
+    }).join("") + "<br>";
+  }
 }
 
-function showReview(){
-  const r = $("review"); r.innerHTML = "<h2>Questions to review</h2>";
-  missed.forEach(x=>{
-    const d = document.createElement("div"); d.className = "miss";
-    const q = document.createElement("b"); q.textContent = x.q;
-    const y = document.createElement("div"); y.textContent = "Your answer: " + x.yours;
-    const c = document.createElement("div"); c.textContent = "Correct answer: " + x.right; c.style.color = "var(--good)"; c.style.fontWeight = "700";
-    const e = document.createElement("div"); e.className = "muted"; e.textContent = x.e;
-    d.append(q,y,c,e); r.appendChild(d);
-  });
-  r.classList.remove("hidden");
-  r.scrollIntoView({behavior:"smooth"});
-}
-
-$("startBtn").onclick = begin;
-$("nextBtn").onclick = next;
-$("againBtn").onclick = begin;
-$("reviewBtn").onclick = showReview;
+$("go").onclick = begin;
+$("again").onclick = begin;
+$("next").onclick = () => { if(idx === order.length-1) finish(); else { idx++; render(); } };
 </script>
 </body>
 </html>
