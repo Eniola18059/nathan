@@ -1,310 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Number Sense Quiz – Grade 2</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grade 2 Number Sense Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#2b2d42; --muted:#6b7089; --bg1:#fff4d6; --bg2:#d9f1ff;
-    --card:#ffffff; --blue:#3a86ff; --green:#2bb673; --red:#ef476f;
-    --orange:#ff9f1c; --purple:#8338ec; --line:#e4e7f2;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{
-    font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif;color:var(--ink);
-    background:linear-gradient(160deg,var(--bg1),var(--bg2));min-height:100vh;
-    display:flex;justify-content:center;padding:18px 14px 40px;
-  }
-  .wrap{width:100%;max-width:720px}
-  .card{background:var(--card);border-radius:24px;padding:26px 22px;box-shadow:0 10px 30px rgba(43,45,66,.12)}
-  h1{margin:0 0 6px;font-size:2rem;line-height:1.15;color:var(--purple)}
-  h2{margin:0 0 10px;font-size:1.4rem}
-  p{line-height:1.5;font-size:1.05rem}
-  .sub{color:var(--muted);margin:0 0 18px}
-  .btn{
-    font:inherit;font-weight:700;font-size:1.15rem;border:0;border-radius:16px;
-    padding:14px 26px;cursor:pointer;color:#fff;background:var(--blue);
-    box-shadow:0 4px 0 rgba(0,0,0,.18);transition:transform .08s;
-  }
-  .btn:hover{transform:translateY(-1px)} .btn:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.18)}
-  .btn.green{background:var(--green)} .btn.orange{background:var(--orange)}
-  .topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:0 0 22px;padding:0;list-style:none}
-  .topics li{background:#f4f6ff;border-radius:12px;padding:9px 12px;font-size:.98rem}
-  .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px;font-weight:700}
-  .pill{background:#fff;border-radius:999px;padding:6px 14px;box-shadow:0 2px 8px rgba(43,45,66,.1);font-size:.95rem}
-  .bar{height:14px;background:#fff;border-radius:999px;overflow:hidden;margin-bottom:16px;box-shadow:inset 0 0 0 2px var(--line)}
-  .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--blue));transition:width .35s}
-  .tag{display:inline-block;background:var(--purple);color:#fff;border-radius:999px;padding:4px 12px;font-size:.85rem;font-weight:700;margin-bottom:12px}
-  .q{font-size:1.4rem;font-weight:700;line-height:1.35;margin:0 0 16px}
-  .blocks{background:#f7f9ff;border:2px dashed var(--line);border-radius:16px;padding:14px;margin-bottom:16px}
-  .blocks .row{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:center}
-  .grp{display:flex;gap:5px;align-items:flex-end}
-  .hund{width:54px;height:54px;background:var(--blue);border-radius:6px;border:2px solid #1f5fd1;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:.8rem}
-  .ten{width:16px;height:54px;background:var(--green);border-radius:4px;border:2px solid #1d8a54}
-  .one{width:16px;height:16px;background:var(--orange);border-radius:4px;border:2px solid #c97800}
-  .legend{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:12px;font-size:.88rem;color:var(--muted)}
-  .legend span{display:inline-flex;align-items:center;gap:6px}
-  .opts{display:grid;gap:12px}
-  .opt{
-    font:inherit;font-size:1.25rem;font-weight:700;text-align:left;color:var(--ink);background:#fff;
-    border:3px solid var(--line);border-radius:16px;padding:14px 16px;cursor:pointer;display:flex;align-items:center;gap:12px;
-    transition:border-color .15s,background .15s;
-  }
-  .opt:hover:not(:disabled){border-color:var(--blue);background:#f2f7ff}
-  .opt .k{flex:0 0 34px;height:34px;border-radius:50%;background:#eef1fb;display:flex;align-items:center;justify-content:center;font-size:1rem}
-  .opt.correct{border-color:var(--green);background:#e8f9f0}
-  .opt.correct .k{background:var(--green);color:#fff}
-  .opt.wrong{border-color:var(--red);background:#ffeef2}
-  .opt.wrong .k{background:var(--red);color:#fff}
-  .opt:disabled{cursor:default}
-  .fb{margin-top:16px;border-radius:16px;padding:14px 16px;font-size:1.05rem;line-height:1.45;display:none}
-  .fb.show{display:block}
-  .fb.good{background:#e8f9f0;border:2px solid var(--green)}
-  .fb.bad{background:#fff3e0;border:2px solid var(--orange)}
-  .fb b{display:block;font-size:1.15rem;margin-bottom:4px}
-  .next{margin-top:16px;display:none;text-align:right}
-  .next.show{display:block}
-  .score{font-size:3.2rem;font-weight:800;color:var(--purple);margin:4px 0}
-  .stars{font-size:2rem;letter-spacing:4px;margin-bottom:6px}
-  .break{display:grid;gap:8px;margin:14px 0 20px}
-  .brow{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center;font-size:.98rem}
-  .mini{height:10px;background:#eef1fb;border-radius:999px;overflow:hidden;margin-top:4px}
-  .mini>div{height:100%;background:var(--green)}
-  .miss{border-top:2px solid var(--line);padding:12px 0;font-size:1rem}
-  .miss .you{color:var(--red);font-weight:700} .miss .right{color:var(--green);font-weight:700}
-  .hidden{display:none}
-  @media (max-width:480px){h1{font-size:1.6rem}.q{font-size:1.2rem}.opt{font-size:1.1rem}}
+:root{--bg:#e8f4ff;--card:#fff;--ink:#17324d;--soft:#5b738c;--line:#cfe0f0;--blue:#2f7be5;--yellow:#ffc933;--green:#27a862;--coral:#f0553f;--gbg:#dff6e8;--cbg:#ffe5e0;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1e2e;--card:#172c42;--ink:#eaf3fb;--soft:#9db4c9;--line:#2a4560;--blue:#6aa5f5;--green:#4fd18a;--coral:#ff8a78;--gbg:#17402b;--cbg:#4a2620;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1e2e;--card:#172c42;--ink:#eaf3fb;--soft:#9db4c9;--line:#2a4560;--blue:#6aa5f5;--green:#4fd18a;--coral:#ff8a78;--gbg:#17402b;--cbg:#4a2620;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Fredoka","Trebuchet MS",system-ui,sans-serif;font-size:18px;line-height:1.4;min-height:100vh}
+main{max-width:640px;margin:0 auto;padding:20px 16px 40px}
+.card{background:var(--card);border:3px solid var(--ink);border-radius:24px;padding:24px;box-shadow:0 6px 0 var(--ink)}
+h1{font-size:2.2rem;line-height:1.1;margin:0 0 8px}
+h2{font-size:1.5rem;margin:0 0 12px}
+p{margin:0 0 14px;color:var(--soft)}
+.topics{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;padding:0;list-style:none}
+.topics li{background:var(--bg);border:2px solid var(--line);border-radius:999px;padding:4px 14px;font-size:.95rem;color:var(--ink)}
+button{font:inherit;cursor:pointer;color:var(--ink)}
+button:focus-visible{outline:4px solid var(--blue);outline-offset:3px}
+.big{background:var(--yellow);border:3px solid var(--ink);border-radius:16px;padding:12px 28px;font-weight:700;font-size:1.2rem;box-shadow:0 4px 0 var(--ink);color:#17324d}
+.big:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:600}
+.bar{height:16px;background:var(--card);border:3px solid var(--ink);border-radius:999px;overflow:hidden;margin-bottom:18px}
+.bar>div{height:100%;background:var(--green);width:0;transition:width .3s}
+.tag{display:inline-block;background:var(--blue);color:#fff;border-radius:999px;padding:2px 14px;font-size:.9rem;font-weight:600;margin-bottom:12px}
+.q{font-size:1.7rem;font-weight:600;line-height:1.25;margin:0 0 6px}
+.say{background:none;border:2px solid var(--line);border-radius:999px;padding:2px 12px;font-size:.9rem;margin-bottom:16px}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+@media (max-width:460px){.opts{grid-template-columns:1fr}.q{font-size:1.5rem}}
+.opt{background:var(--card);border:3px solid var(--ink);border-radius:16px;padding:16px 10px;font-size:1.5rem;font-weight:600;box-shadow:0 4px 0 var(--ink);min-height:68px}
+.opt:hover:not(:disabled){background:var(--bg)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--gbg);border-color:var(--green);box-shadow:0 4px 0 var(--green)}
+.opt.wrong{background:var(--cbg);border-color:var(--coral);box-shadow:0 4px 0 var(--coral)}
+.fb{min-height:30px;font-size:1.2rem;font-weight:600;margin-bottom:12px}
+.fb.good{color:var(--green)}.fb.bad{color:var(--coral)}
+.stars{font-size:3rem;letter-spacing:6px;margin:6px 0}
+.score{font-size:2.4rem;font-weight:700;margin:0 0 12px}
+.row{margin-bottom:12px}
+.row .l{display:flex;justify-content:space-between;font-weight:600;margin-bottom:4px}
+.row .b{height:14px;border:2px solid var(--ink);border-radius:999px;overflow:hidden;background:var(--card)}
+.row .b>div{height:100%;background:var(--blue)}
+.hide{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
-<div class="wrap">
+<main>
+  <section id="start" class="card">
+    <h1>Number Sense Quiz</h1>
+    <p>Grade 2 · 50 questions. Pick the best answer for each one. You can tap “Read it to me” to hear a question.</p>
+    <ul class="topics" id="tl"></ul>
+    <button class="big" id="go">Start quiz</button>
+  </section>
 
-  <div id="start" class="card">
-    <h1>🔢 Number Sense Quiz</h1>
-    <p class="sub">Grade 2 · Number Sense &amp; Place Value · 50 questions</p>
-    <p>Read each question carefully, pick your answer, and see right away if you got it. Take your time and think it through!</p>
-    <ul class="topics">
-      <li>🔟 Counting &amp; number names</li>
-      <li>🧱 Tens and ones</li>
-      <li>💯 Hundreds</li>
-      <li>⚖️ Comparing &amp; ordering</li>
-      <li>🐸 Skip counting</li>
-      <li>🏁 Even, odd &amp; ordinals</li>
-      <li>🎯 Rounding &amp; word problems</li>
-    </ul>
-    <button class="btn green" id="go">Start the quiz</button>
-  </div>
+  <section id="quiz" class="card hide">
+    <div class="top"><span id="cnt">Question 1 of 50</span><span id="sc">Score: 0</span></div>
+    <div class="bar"><div id="pg"></div></div>
+    <span class="tag" id="tg"></span>
+    <p class="q" id="qt" style="color:var(--ink)"></p>
+    <button class="say" id="say">🔊 Read it to me</button>
+    <div class="opts" id="op"></div>
+    <div class="fb" id="fb" aria-live="polite"></div>
+    <button class="big hide" id="nx">Next question</button>
+  </section>
 
-  <div id="quiz" class="hidden">
-    <div class="topbar">
-      <span class="pill" id="count">Question 1 of 50</span>
-      <span class="pill" id="scoreLive">⭐ 0</span>
-    </div>
-    <div class="bar"><div id="prog"></div></div>
-    <div class="card">
-      <span class="tag" id="tag"></span>
-      <p class="q" id="qtext"></p>
-      <div id="vis"></div>
-      <div class="opts" id="opts"></div>
-      <div class="fb" id="fb"></div>
-      <div class="next" id="nextWrap"><button class="btn" id="next">Next →</button></div>
-    </div>
-  </div>
-
-  <div id="result" class="card hidden">
-    <h1>All done! 🎉</h1>
-    <div class="stars" id="stars"></div>
-    <div class="score" id="final"></div>
+  <section id="end" class="card hide">
+    <h2>All done!</h2>
+    <div class="stars" id="st" aria-hidden="true"></div>
+    <div class="score" id="fs"></div>
     <p id="msg"></p>
-    <h2>How you did on each topic</h2>
-    <div class="break" id="break"></div>
-    <div id="missWrap"></div>
-    <button class="btn orange" id="again">Try again</button>
-  </div>
-
-</div>
+    <div id="br"></div>
+    <button class="big" id="again">Play again</button>
+  </section>
+</main>
 
 <script>
-/* Each question: s = topic, q = text, a = correct answer, w = wrong options (plausible mistakes),
-   e = explanation, v = optional base-ten blocks {h,t,o}. Option order is shuffled every time. */
-const QUESTIONS = [
-  // ---------- Counting & number names ----------
-  {s:"Counting & number names", q:"What number comes right after 49?", a:"50", w:["40","59","48"], e:"49 + 1 = 50. When the 9 ones are full, we make a new ten."},
-  {s:"Counting & number names", q:"What number comes right before 100?", a:"99", w:["101","90","98"], e:"99 + 1 = 100, so 99 comes right before 100."},
-  {s:"Counting & number names", q:"Count on: 67, 68, 69, ___", a:"70", w:["60","79","71"], e:"After 69 we start a new ten, so the next number is 70."},
-  {s:"Counting & number names", q:"Which is the number name for 83?", a:"eighty-three", w:["thirty-eight","eighteen","eight hundred three"], e:"8 tens is eighty and 3 ones is three: eighty-three."},
-  {s:"Counting & number names", q:"Which number is \u201cforty-six\u201d?", a:"46", w:["64","406","40"], e:"Forty is 4 tens and six is 6 ones, so it is 46."},
-  {s:"Counting & number names", q:"Which number is \u201ctwo hundred five\u201d?", a:"205", w:["250","2,005","25"], e:"2 hundreds, 0 tens and 5 ones make 205."},
-
-  // ---------- Tens and ones ----------
-  {s:"Tens and ones", q:"In 47, which digit is in the tens place?", a:"4", w:["7","40","74"], e:"47 has 4 tens and 7 ones. The digit in the tens place is 4."},
-  {s:"Tens and ones", q:"How many ones are in 63?", a:"3", w:["6","60","30"], e:"63 is 6 tens and 3 ones."},
-  {s:"Tens and ones", q:"5 tens and 2 ones make which number?", a:"52", w:["25","502","7"], e:"5 tens = 50, and 50 + 2 = 52."},
-  {s:"Tens and ones", q:"8 tens and 0 ones make which number?", a:"80", w:["8","88","800"], e:"8 tens = 80, and there are no ones to add."},
-  {s:"Tens and ones", q:"What is the value of the 3 in 35?", a:"30", w:["3","5","35"], e:"The 3 is in the tens place, so it is worth 3 tens = 30."},
-  {s:"Tens and ones", q:"What is the value of the 6 in 96?", a:"6", w:["60","9","96"], e:"The 6 is in the ones place, so it is worth just 6."},
-  {s:"Tens and ones", q:"40 + 7 = ?", a:"47", w:["74","407","11"], e:"4 tens and 7 ones make 47."},
-  {s:"Tens and ones", q:"What number do the blocks show?", v:{h:0,t:5,o:8}, a:"58", w:["85","508","13"], e:"5 tens = 50 and 8 ones = 8. So 50 + 8 = 58."},
-  {s:"Tens and ones", q:"Which shows 36 in expanded form?", a:"30 + 6", w:["3 + 6","60 + 3","300 + 6"], e:"36 is 3 tens and 6 ones, which is 30 + 6."},
-  {s:"Tens and ones", q:"How many tens are in 90?", a:"9", w:["90","0","10"], e:"90 is 9 tens and 0 ones."},
-
-  // ---------- Hundreds ----------
-  {s:"Hundreds", q:"How many tens make 100?", a:"10", w:["100","1","20"], e:"10 tens make 100. (10, 20, 30 ... 100)"},
-  {s:"Hundreds", q:"What number do the blocks show?", v:{h:3,t:4,o:2}, a:"342", w:["243","432","324"], e:"3 hundreds, 4 tens and 2 ones make 300 + 40 + 2 = 342."},
-  {s:"Hundreds", q:"In 718, which digit is in the hundreds place?", a:"7", w:["1","8","700"], e:"718 has 7 hundreds, 1 ten and 8 ones."},
-  {s:"Hundreds", q:"What is the value of the 5 in 253?", a:"50", w:["5","500","3"], e:"The 5 is in the tens place, so its value is 5 tens = 50."},
-  {s:"Hundreds", q:"Which number is 600 + 20 + 4?", a:"624", w:["642","264","6,204"], e:"6 hundreds, 2 tens and 4 ones make 624."},
-  {s:"Hundreds", q:"Which shows 509 in expanded form?", a:"500 + 9", w:["500 + 90","50 + 9","5 + 0 + 9"], e:"509 has 5 hundreds, 0 tens and 9 ones, so it is 500 + 9."},
-  {s:"Hundreds", q:"What number do the blocks show?", v:{h:2,t:0,o:7}, a:"207", w:["270","27","217"], e:"2 hundreds, 0 tens and 7 ones make 207."},
-  {s:"Hundreds", q:"What is 10 more than 245?", a:"255", w:["246","345","235"], e:"10 more means the tens digit goes up by 1: 245 becomes 255."},
-
-  // ---------- Comparing & ordering ----------
-  {s:"Comparing & ordering", q:"Which number is the greatest?", a:"43", w:["34","29","40"], e:"Compare the tens first. 43 and 40 both have 4 tens, so look at the ones: 3 is more than 0. 43 is the greatest."},
-  {s:"Comparing & ordering", q:"Which number is the smallest?", a:"17", w:["26","62","71"], e:"17 has only 1 ten, so it is the smallest."},
-  {s:"Comparing & ordering", q:"Which sign makes this true?  54 ___ 45", a:">", w:["<","="], e:"54 has 5 tens and 45 has 4 tens. 54 is greater, so 54 > 45."},
-  {s:"Comparing & ordering", q:"Which sign makes this true?  120 ___ 210", a:"<", w:[">","="], e:"120 has 1 hundred and 210 has 2 hundreds. 120 is less, so 120 < 210."},
-  {s:"Comparing & ordering", q:"Which list goes from least to greatest?", a:"25, 52, 55", w:["52, 25, 55","55, 52, 25","25, 55, 52"], e:"25 is smallest, then 52, then 55."},
-  {s:"Comparing & ordering", q:"Which list goes from greatest to least?", a:"380, 308, 83", w:["83, 308, 380","308, 380, 83","380, 83, 308"], e:"380 and 308 have 3 hundreds, and 380 is bigger. 83 has no hundreds, so it is last."},
-  {s:"Comparing & ordering", q:"Which number is between 46 and 48?", a:"47", w:["45","49","50"], e:"47 comes after 46 and before 48."},
-  {s:"Comparing & ordering", q:"Which number comes after 199 and before 201?", a:"200", w:["190","210","2,000"], e:"199, 200, 201. The number in the middle is 200."},
-
-  // ---------- Skip counting ----------
-  {s:"Skip counting", q:"Count by 2s: 12, 14, 16, ___", a:"18", w:["17","20","19"], e:"Add 2 each time: 16 + 2 = 18."},
-  {s:"Skip counting", q:"Count by 5s: 35, 40, 45, ___", a:"50", w:["46","55","60"], e:"Add 5 each time: 45 + 5 = 50."},
-  {s:"Skip counting", q:"Count by 10s: 30, 40, 50, ___", a:"60", w:["51","70","55"], e:"Add 10 each time: 50 + 10 = 60."},
-  {s:"Skip counting", q:"Count by 10s: 14, 24, 34, ___", a:"44", w:["35","54","40"], e:"Add 10 each time. Only the tens digit changes: 34 + 10 = 44."},
-  {s:"Skip counting", q:"Count back by 5s: 30, 25, 20, ___", a:"15", w:["10","16","5"], e:"Take away 5 each time: 20 \u2212 5 = 15."},
-  {s:"Skip counting", q:"Count by 2s: 46, 48, 50, ___", a:"52", w:["51","55","60"], e:"Add 2 each time: 50 + 2 = 52."},
-  {s:"Skip counting", q:"Count by 100s: 300, 400, 500, ___", a:"600", w:["510","700","550"], e:"Add 100 each time. The hundreds digit goes up by 1: 600."},
-  {s:"Skip counting", q:"Count by 5s: 15, 20, ___, 30, 35. What number is missing?", a:"25", w:["24","27","22"], e:"20 + 5 = 25, and 25 + 5 = 30."},
-
-  // ---------- Even, odd & ordinals ----------
-  {s:"Even, odd & ordinals", q:"Which number is even?", a:"34", w:["27","51","69"], e:"34 ends in 4, so it can be shared into two equal groups. It is even."},
-  {s:"Even, odd & ordinals", q:"Which number is odd?", a:"63", w:["18","40","72"], e:"63 ends in 3, so one is left over when you make pairs. It is odd."},
-  {s:"Even, odd & ordinals", q:"Even numbers always end in which digits?", a:"0, 2, 4, 6 or 8", w:["1, 3, 5, 7 or 9","0, 1, 2, 3 or 4","5, 6, 7, 8 or 9"], e:"Even numbers end in 0, 2, 4, 6 or 8. Odd numbers end in 1, 3, 5, 7 or 9."},
-  {s:"Even, odd & ordinals", q:"Which number does \u201ctwentieth\u201d mean?", a:"20th", w:["2nd","12th","21st"], e:"Twentieth is the position number 20, written 20th."},
-  {s:"Even, odd & ordinals", q:"Ada finished just before the 6th runner. What place did Ada finish?", a:"5th", w:["7th","4th","6th"], e:"Just before 6th means one place earlier: 5th."},
-
-  // ---------- Rounding & word problems ----------
-  {s:"Rounding & word problems", q:"Round 37 to the nearest ten.", a:"40", w:["30","35","50"], e:"37 is closer to 40 than to 30, because 7 ones is more than halfway."},
-  {s:"Rounding & word problems", q:"Round 82 to the nearest ten.", a:"80", w:["90","85","100"], e:"82 is closer to 80 than to 90, because 2 ones is less than halfway."},
-  {s:"Rounding & word problems", q:"A dot on a number line is exactly halfway between 20 and 30. What number is it?", a:"25", w:["22","35","24"], e:"Halfway between 20 and 30 is 25, since 20 + 5 = 25 and 25 + 5 = 30."},
-  {s:"Rounding & word problems", q:"Mia has 4 bundles of 10 sticks and 6 loose sticks. How many sticks does she have?", a:"46", w:["64","406","10"], e:"4 tens = 40, plus 6 ones = 46 sticks."},
-  {s:"Rounding & word problems", q:"One box holds 10 pencils. How many pencils are in 7 boxes?", a:"70", w:["17","7","700"], e:"7 groups of ten make 7 tens = 70 pencils."}
+var TOPICS=["Counting & writing","Place value","Comparing & ordering","Skip counting","Even & odd","Ordinal numbers"];
+// [topic, question, correct, wrong, wrong, wrong]
+var BANK=[
+[0,"What number comes after 49?","50","48","59","40"],
+[0,"What number comes before 80?","79","81","70","89"],
+[0,"Which is 46 written with digits? Forty-six is…","46","64","406","40"],
+[0,"Which words match the number 73?","seventy-three","thirty-seven","seventy-two","seventeen"],
+[0,"What number is between 29 and 31?","30","20","28","32"],
+[0,"Which word is the number 15?","fifteen","fifty","five","fourteen"],
+[0,"Count on: 97, 98, 99, …","100","90","101","109"],
+[0,"Which number is “sixty-one”?","61","16","601","60"],
+[0,"What number is missing? 62, 63, __, 65","64","66","61","54"],
+[1,"In the number 47, how many tens are there?","4","7","47","11"],
+[1,"In the number 47, how many ones are there?","7","4","47","11"],
+[1,"5 tens and 3 ones make which number?","53","35","8","503"],
+[1,"What is the value of the 6 in 62?","60","6","2","62"],
+[1,"What is the value of the 8 in 38?","8","80","3","38"],
+[1,"Which number is 20 + 7?","27","72","207","9"],
+[1,"In 358, how many hundreds are there?","3","5","8","358"],
+[1,"Which digit is in the tens place of 94?","9","4","94","13"],
+[1,"100 + 20 + 5 = ?","125","152","1,025","25"],
+[1,"7 tens is the same as…","70","7","17","700"],
+[1,"Which number has 2 tens and 9 ones?","29","92","11","209"],
+[1,"10 tens is the same as…","100","10","1,000","20"],
+[1,"Which digit is in the tens place of 406?","0","4","6","40"],
+[2,"Which number is greater: 56 or 65?","65","56","They are the same","Neither"],
+[2,"Which sign makes this true? 34 __ 43","<",">","=","+"],
+[2,"Which sign makes this true? 72 __ 27",">","<","=","−"],
+[2,"Which number is the smallest?","29","38","83","92"],
+[2,"Which number is the biggest?","54","45","15","51"],
+[2,"Which list goes from smallest to largest?","13, 22, 31","31, 22, 13","22, 13, 31","13, 31, 22"],
+[2,"Which number is 10 more than 35?","45","36","25","55"],
+[2,"Which number is 10 less than 60?","50","59","70","61"],
+[2,"Which number is less than 48?","39","52","84","48"],
+[2,"Which sign makes this true? 205 __ 250","<",">","=","+"],
+[3,"Count by 2s: 2, 4, 6, 8, __","10","9","12","11"],
+[3,"Count by 5s: 5, 10, 15, __","20","25","16","30"],
+[3,"Count by 10s: 10, 20, 30, __","40","31","50","35"],
+[3,"Count by 5s: 25, 30, 35, __","40","45","36","50"],
+[3,"Count by 10s: 50, 60, __, 80","70","65","75","90"],
+[3,"Count by 2s: 12, 14, __, 18","16","15","17","20"],
+[3,"Counting by 5s, what comes after 45?","50","46","55","40"],
+[3,"Count backward by 2s: 10, 8, 6, __","4","5","2","3"],
+[4,"Which number is even?","14","13","15","17"],
+[4,"Which number is odd?","27","26","28","30"],
+[4,"Is 38 even or odd?","Even","Odd","Both","Neither"],
+[4,"An odd number ends in which digit?","7","4","6","8"],
+[4,"Which group has only even numbers?","2, 4, 6","1, 3, 5","2, 3, 4","5, 6, 7"],
+[5,"Which is the short way to write “twentieth”?","20th","20nd","20rd","20st"],
+[5,"Which word comes after “ninth”?","tenth","eighth","eleventh","twelfth"],
+[5,"Which word goes with the number 3?","third","three","thirty","thirteenth"],
+[5,"Which is the short way to write “fifth”?","5th","5nd","5rd","5st"],
+[5,"🍎 🍌 🍇 🍓 🍊  Which fruit is 4th in the line?","🍓","🍇","🍊","🍌"]
 ];
 
-const $ = id => document.getElementById(id);
-const letters = ["A","B","C","D"];
-let order, idx, score, answers;
+var $=function(i){return document.getElementById(i)};
+var cur=0,score=0,order=[],tally=[],locked=false;
 
-function shuffle(arr){
-  const a = arr.slice();
-  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
-  return a;
-}
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+function show(id){["start","quiz","end"].forEach(function(s){$(s).classList.toggle("hide",s!==id)});window.scrollTo(0,0)}
 
-function show(id){["start","quiz","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id));window.scrollTo(0,0);}
+TOPICS.forEach(function(t){var li=document.createElement("li");li.textContent=t;$("tl").appendChild(li)});
 
 function begin(){
-  // fresh random option order every attempt, so answers can't be learned by position
-  order = QUESTIONS.map(q => ({...q, opts: shuffle([q.a, ...q.w])}));
-  idx = 0; score = 0; answers = [];
-  show("quiz"); render();
-}
-
-function blocksHTML(v){
-  let h = "";
-  if(v.h) h += '<div class="grp">' + '<div class="hund">100</div>'.repeat(v.h) + '</div>';
-  if(v.t) h += '<div class="grp">' + '<div class="ten"></div>'.repeat(v.t) + '</div>';
-  if(v.o) h += '<div class="grp">' + '<div class="one"></div>'.repeat(v.o) + '</div>';
-  return '<div class="blocks"><div class="row">'+h+'</div>' +
-    '<div class="legend">' +
-    (v.h?'<span><i class="hund" style="width:18px;height:18px;font-size:0"></i> = 100</span>':'') +
-    '<span><i class="ten" style="display:inline-block;width:8px;height:18px"></i> = 10</span>' +
-    '<span><i class="one" style="display:inline-block"></i> = 1</span></div></div>';
+  cur=0;score=0;order=BANK.map(function(_,i){return i});
+  tally=TOPICS.map(function(){return [0,0]});
+  show("quiz");render();
 }
 
 function render(){
-  const q = order[idx];
-  $("count").textContent = "Question " + (idx+1) + " of " + order.length;
-  $("scoreLive").textContent = "⭐ " + score;
-  $("prog").style.width = (idx/order.length*100) + "%";
-  $("tag").textContent = q.s;
-  $("qtext").textContent = q.q;
-  $("vis").innerHTML = q.v ? blocksHTML(q.v) : "";
-  const box = $("opts"); box.innerHTML = "";
-  q.opts.forEach((o,i)=>{
-    const b = document.createElement("button");
-    b.className = "opt";
-    b.innerHTML = '<span class="k">'+letters[i]+'</span><span></span>';
-    b.lastChild.textContent = o;
-    b.onclick = () => choose(o, b);
+  locked=false;
+  var q=BANK[order[cur]];
+  $("cnt").textContent="Question "+(cur+1)+" of "+BANK.length;
+  $("sc").textContent="Score: "+score;
+  $("pg").style.width=(cur/BANK.length*100)+"%";
+  $("tg").textContent=TOPICS[q[0]];
+  $("qt").textContent=q[1];
+  $("fb").textContent="";$("fb").className="fb";
+  $("nx").classList.add("hide");
+  $("nx").textContent=cur===BANK.length-1?"See my results":"Next question";
+  var box=$("op");box.innerHTML="";
+  shuffle(q.slice(2)).forEach(function(o){
+    var b=document.createElement("button");
+    b.className="opt";b.textContent=o;
+    b.onclick=function(){pick(b,o,q)};
     box.appendChild(b);
   });
-  $("fb").className = "fb"; $("fb").innerHTML = "";
-  $("nextWrap").classList.remove("show");
-  $("next").textContent = idx === order.length-1 ? "See my results 🎉" : "Next →";
 }
 
-function choose(pick, btn){
-  const q = order[idx];
-  const ok = pick === q.a;
-  document.querySelectorAll(".opt").forEach(b=>{
-    b.disabled = true;
-    const val = b.lastChild.textContent;
-    if(val === q.a) b.classList.add("correct");
-  });
-  if(!ok) btn.classList.add("wrong");
-  if(ok) score++;
-  answers.push({q, pick, ok});
-  $("scoreLive").textContent = "⭐ " + score;
-  const fb = $("fb");
-  fb.className = "fb show " + (ok ? "good" : "bad");
-  fb.innerHTML = "<b>" + (ok ? "✅ Correct! Well done!" : "Not quite. The answer is " + q.a + ".") + "</b>" + q.e;
-  $("nextWrap").classList.add("show");
-  $("prog").style.width = ((idx+1)/order.length*100) + "%";
+function pick(btn,val,q){
+  if(locked)return;locked=true;
+  var ok=val===q[2];
+  tally[q[0]][1]++;
+  if(ok){score++;tally[q[0]][0]++;btn.classList.add("right");$("fb").textContent="Great job! That’s right.";$("fb").className="fb good"}
+  else{btn.classList.add("wrong");$("fb").textContent="Not quite. The answer is "+q[2]+".";$("fb").className="fb bad"}
+  Array.prototype.forEach.call($("op").children,function(b){b.disabled=true;if(b.textContent===q[2])b.classList.add("right")});
+  $("sc").textContent="Score: "+score;
+  $("pg").style.width=((cur+1)/BANK.length*100)+"%";
+  $("nx").classList.remove("hide");$("nx").focus();
 }
 
 function finish(){
-  show("result");
-  const n = order.length, pct = score/n;
-  $("final").textContent = score + " / " + n;
-  const st = pct>=.9?5:pct>=.75?4:pct>=.6?3:pct>=.4?2:1;
-  $("stars").textContent = "⭐".repeat(st) + "☆".repeat(5-st);
-  $("msg").textContent =
-    pct>=.9 ? "Amazing! You really know your numbers!" :
-    pct>=.75 ? "Great job! You are almost a number superstar." :
-    pct>=.6 ? "Good work! Look at the ones you missed and try again." :
-    "Nice try! Practise the topics below and have another go.";
-  // topic breakdown
-  const by = {};
-  answers.forEach(a=>{const s=a.q.s;by[s]=by[s]||{r:0,t:0};by[s].t++;if(a.ok)by[s].r++;});
-  $("break").innerHTML = Object.keys(by).map(s=>{
-    const p = Math.round(by[s].r/by[s].t*100);
-    return '<div><div class="brow"><span>'+s+'</span><b>'+by[s].r+' / '+by[s].t+'</b></div><div class="mini"><div style="width:'+p+'%"></div></div></div>';
-  }).join("");
-  // missed questions
-  const missed = answers.filter(a=>!a.ok);
-  const mw = $("missWrap");
-  if(!missed.length){ mw.innerHTML = "<p><b>You got every question right! 🏆</b></p>"; }
-  else{
-    mw.innerHTML = "<h2>Questions to look at again</h2>" + missed.map(a=>{
-      const d = document.createElement("div"); d.className="miss";
-      d.innerHTML = "<div></div><div>You chose: <span class='you'></span> · Correct: <span class='right'></span></div><div style='color:#6b7089;margin-top:4px'></div>";
-      d.children[0].textContent = a.q.q;
-      d.querySelector(".you").textContent = a.pick;
-      d.querySelector(".right").textContent = a.q.a;
-      d.children[2].textContent = a.q.e;
-      return d.outerHTML;
-    }).join("") + "<br>";
-  }
+  show("end");
+  var n=BANK.length,s=score/n;
+  var stars=s>=0.9?3:s>=0.7?2:s>=0.4?1:0;
+  $("st").textContent="⭐".repeat(stars)+"☆".repeat(3-stars);
+  $("fs").textContent=score+" out of "+n;
+  $("msg").textContent=s>=0.9?"Wow, you are a number star!":s>=0.7?"Nice work! You know your numbers well.":s>=0.4?"Good try! Practice a little more and play again.":"Keep going! Every try makes you stronger.";
+  var br=$("br");br.innerHTML="";
+  TOPICS.forEach(function(t,i){
+    var r=tally[i],pct=r[1]?r[0]/r[1]*100:0;
+    var d=document.createElement("div");d.className="row";
+    d.innerHTML='<div class="l"><span></span><span>'+r[0]+' / '+r[1]+'</span></div><div class="b"><div style="width:'+pct+'%"></div></div>';
+    d.querySelector("span").textContent=t;
+    br.appendChild(d);
+  });
 }
 
-$("go").onclick = begin;
-$("again").onclick = begin;
-$("next").onclick = () => { if(idx === order.length-1) finish(); else { idx++; render(); } };
+$("go").onclick=begin;
+$("again").onclick=begin;
+$("nx").onclick=function(){cur++;if(cur>=BANK.length)finish();else render()};
+$("say").onclick=function(){
+  try{
+    if(!window.speechSynthesis)return;
+    speechSynthesis.cancel();
+    var q=BANK[order[cur]];
+    var u=new SpeechSynthesisUtterance(q[1].replace(/__/g,"blank").replace(/</g," less than ").replace(/>/g," greater than "));
+    u.rate=0.85;speechSynthesis.speak(u);
+  }catch(e){}
+};
 </script>
 </body>
 </html>
