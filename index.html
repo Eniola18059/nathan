@@ -5,72 +5,59 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Word Problem Whiz – Grade 4</title>
 <style>
-:root{--bg:#eef3ff;--card:#fff;--ink:#1f2a44;--muted:#6b7694;--brand:#4f6df5;--brand2:#7c4dff;--ok:#1f9d63;--okbg:#e5f7ee;--bad:#d64545;--badbg:#fdeaea;--line:#dfe5f5}
+:root{--bg:#eef3ff;--card:#fff;--ink:#1f2a44;--muted:#5a6684;--brand:#4f6df5;--brand2:#7c4dff;--ok:#1f9d63;--okbg:#e5f7ee;--bad:#d64545;--badbg:#fdeaea;--line:#dfe5f5}
 *{box-sizing:border-box}
 body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
-.wrap{max-width:720px;margin:0 auto;padding:20px 16px 48px}
-header{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-radius:20px;padding:22px 22px 18px;margin-bottom:18px;box-shadow:0 8px 24px rgba(79,109,245,.25)}
-header h1{margin:0 0 4px;font-size:1.6rem}
+.wrap{max-width:680px;margin:0 auto;padding:20px 16px 48px}
+header{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-radius:20px;padding:20px 22px;margin-bottom:18px}
+header h1{margin:0 0 4px;font-size:1.5rem}
 header p{margin:0;opacity:.9;font-size:.95rem}
 .card{background:var(--card);border-radius:20px;padding:22px;box-shadow:0 4px 16px rgba(31,42,68,.08)}
 .hidden{display:none}
 .start h2{margin-top:0}
-.start ul{color:var(--muted);line-height:1.7;padding-left:20px}
-.btn{background:var(--brand);color:#fff;border:0;border-radius:14px;padding:14px 26px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:transform .1s,background .2s}
+.start p{color:var(--muted);font-size:1.05rem;line-height:1.7}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:14px;padding:14px 26px;font-size:1.05rem;font-weight:600;cursor:pointer}
 .btn:hover{background:#3d5be0}.btn:active{transform:scale(.97)}
-.btn.ghost{background:#fff;color:var(--brand);border:2px solid var(--brand)}
-.top{display:flex;justify-content:space-between;align-items:center;font-size:.9rem;color:var(--muted);margin-bottom:8px;font-weight:600}
+.top{display:flex;justify-content:space-between;font-size:.9rem;color:var(--muted);margin-bottom:8px;font-weight:600}
 .bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:18px}
 .bar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0;transition:width .3s}
-.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.tag{font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:99px;background:#eceffd;color:var(--brand);text-transform:uppercase;letter-spacing:.04em}
-.tag.practice{background:#fff1d9;color:#b26a00}
-.story{background:#f6f8ff;border-left:4px solid var(--brand);border-radius:8px;padding:10px 14px;margin-bottom:14px;color:var(--muted);font-size:.95rem}
-.q{font-size:1.2rem;font-weight:600;line-height:1.5;margin:0 0 18px}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;padding:4px 12px;border-radius:99px;background:#eceffd;color:var(--brand);margin-bottom:12px}
+.q{font-size:1.35rem;font-weight:600;line-height:1.55;margin:0 0 20px}
 .opts{display:grid;gap:10px}
-.opt{text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 16px;font-size:1.05rem;color:var(--ink);cursor:pointer;display:flex;gap:12px;align-items:center;transition:border-color .15s,background .15s}
+.opt{text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 16px;font-size:1.15rem;color:var(--ink);cursor:pointer;display:flex;gap:12px;align-items:center}
 .opt:hover:not(:disabled){border-color:var(--brand);background:#f6f8ff}
 .opt .l{flex:0 0 30px;height:30px;border-radius:50%;background:#eceffd;color:var(--brand);font-weight:700;display:grid;place-items:center;font-size:.9rem}
 .opt.right{border-color:var(--ok);background:var(--okbg)}.opt.right .l{background:var(--ok);color:#fff}
 .opt.wrong{border-color:var(--bad);background:var(--badbg)}.opt.wrong .l{background:var(--bad);color:#fff}
 .opt:disabled{cursor:default}
-.fb{margin-top:16px;padding:14px 16px;border-radius:14px;font-size:.98rem;line-height:1.55}
+.fb{margin-top:16px;padding:14px 16px;border-radius:14px;font-size:1.05rem;line-height:1.6}
 .fb.ok{background:var(--okbg);color:#0f5a38}.fb.no{background:var(--badbg);color:#8a2424}
-.fb b{display:block;margin-bottom:2px}
 .next{margin-top:16px;text-align:right}
 .result{text-align:center}
 .score{font-size:3rem;font-weight:800;color:var(--brand);margin:6px 0}
 .stars{font-size:2rem;letter-spacing:6px}
 .review{text-align:left;margin-top:22px}
-.review h3{margin:0 0 10px}
 .ri{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;font-size:.95rem}
 .ri .a{color:var(--ok);font-weight:700}.ri .y{color:var(--bad);font-weight:700}
-.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
     <h1>🧮 Word Problem Whiz</h1>
-    <p>Grade 4 · Multiplication &amp; Division Word Problems · 50 Questions</p>
+    <p>Grade 4 · Multiply and Divide · 50 Questions</p>
   </header>
 
   <div class="card start" id="start">
-    <h2>Ready to solve?</h2>
-    <ul>
-      <li>50 word problems: hotel, printing company, car factory, school and more</li>
-      <li>Read each problem carefully, then pick the best answer</li>
-      <li>Some questions ask you to pick the right equation using “x”</li>
-      <li>After every answer you will see how it is solved</li>
-    </ul>
-    <button class="btn" id="startBtn">Start Quiz</button>
+    <h2>Ready?</h2>
+    <p>Read each problem. Pick the right answer.<br><b>Multiply</b> when you have equal groups.<br><b>Divide</b> when you share equally.</p>
+    <button class="btn" id="startBtn">Start</button>
   </div>
 
   <div class="card hidden" id="quiz">
     <div class="top"><span id="count"></span><span id="scoreLive"></span></div>
     <div class="bar"><div id="prog"></div></div>
-    <div class="tags"><span class="tag" id="sec"></span><span class="tag" id="kind"></span></div>
-    <div class="story hidden" id="story"></div>
+    <span class="tag" id="sec"></span>
     <p class="q" id="q"></p>
     <div class="opts" id="opts"></div>
     <div id="fb"></div>
@@ -81,97 +68,80 @@ header p{margin:0;opacity:.9;font-size:.95rem}
     <div class="stars" id="stars"></div>
     <div class="score" id="finalScore"></div>
     <p id="msg"></p>
-    <div class="actions">
-      <button class="btn" id="again">Try Again</button>
-    </div>
+    <button class="btn" id="again">Try Again</button>
     <div class="review hidden" id="review"></div>
   </div>
 </div>
 
 <script>
-var HOTEL="A hotel has 7 floors. The lobby, restaurant and gym are on the ground floor. The guestrooms are on the 1st to 6th floors.";
-var PRINT="A printing company has 6 printing machines.";
-var CAR="In a car factory, there are 8 assembly lines. Each assembly line makes cars at the same speed.";
-var SCH="In a school, there are 12 classes and 30 teachers.";
-
-// a = correct answer, w = wrong answers (plausible mistakes), e = explanation, o = from the worksheet
+// a = correct answer, w = wrong answers (common mistakes), e = short explanation
 var Q=[
 // ---------- HOTEL ----------
-{s:"Hotel",o:1,st:HOTEL,q:"If there are 35 standard rooms on each floor, how many standard rooms are there?",a:"210",w:["245","41","2,100"],e:"Guestrooms are only on floors 1 to 6, so there are 6 floors of rooms. 35 × 6 = 210."},
-{s:"Hotel",o:1,st:HOTEL+" Each guest floor has 35 standard rooms.",q:"There are 4 housekeepers on each floor. One room needs only one housekeeper. If they share the work as equally as possible, how many housekeepers must clean more rooms than the others?",a:"3",w:["8","4","1"],e:"35 ÷ 4 = 8 remainder 3. Every housekeeper cleans 8 rooms, and the 3 extra rooms go to 3 housekeepers, so 3 of them clean 9 rooms."},
-{s:"Hotel",o:1,st:HOTEL+" There are 210 standard rooms in total.",q:"If each standard room can fit 2 guests, what is the maximum number of guests all the standard rooms can hold?",a:"420",w:["490","212","4,200"],e:"210 × 2 = 420 guests."},
-{s:"Hotel",o:1,st:HOTEL,q:"There are 18 suites altogether in the hotel. How many suites are on each floor if each floor has the same floor plan?",a:"3",w:["2","12","108"],e:"Suites are on the 6 guest floors. 18 ÷ 6 = 3 suites per floor."},
-{s:"Hotel",o:1,st:HOTEL,q:"Each suite has 3 beds, and there is a bedside table beside each side of each bed. How many bedside tables are there in all 18 suites?",a:"108",w:["54","36","21"],e:"Each bed has 2 sides, so 2 tables per bed. 3 beds × 2 = 6 tables in a suite. 6 × 18 = 108."},
-{s:"Hotel",o:1,st:HOTEL,q:"Write an equation using “x” and solve it. A standard room costs $250 per night. A couple stayed x nights and their total room charge was $750.",a:"250 × x = 750, so x = 3",w:["250 + x = 750, so x = 500","x ÷ 250 = 750, so x = 187,500","250 × x = 750, so x = 8"],e:"Cost per night × nights = total, so 250 × x = 750. Divide: x = 750 ÷ 250 = 3 nights."},
+{s:"🏨 Hotel",q:"A hotel has 6 floors. Each floor has 10 rooms. How many rooms are there?",a:"60",w:["16","66","600"],e:"6 × 10 = 60"},
+{s:"🏨 Hotel",q:"Each room has 2 beds. There are 20 rooms. How many beds are there?",a:"40",w:["22","10","400"],e:"20 × 2 = 40"},
+{s:"🏨 Hotel",q:"24 guests share 6 rooms equally. How many guests are in each room?",a:"4",w:["18","30","144"],e:"24 ÷ 6 = 4"},
+{s:"🏨 Hotel",q:"A room costs $100 for 1 night. How much does it cost for 3 nights?",a:"$300",w:["$103","$33","$3,000"],e:"100 × 3 = 300"},
+{s:"🏨 Hotel",q:"A hotel has 18 suites on 6 floors. Each floor has the same number of suites. How many suites are on each floor?",a:"3",w:["12","24","108"],e:"18 ÷ 6 = 3"},
+{s:"🏨 Hotel",q:"Each suite has 3 beds. How many beds are in 5 suites?",a:"15",w:["8","18","150"],e:"3 × 5 = 15"},
+{s:"🏨 Hotel",q:"30 towels are shared equally by 5 rooms. How many towels does each room get?",a:"6",w:["25","35","150"],e:"30 ÷ 5 = 6"},
+{s:"🏨 Hotel",q:"4 housekeepers each clean 8 rooms. How many rooms are cleaned in all?",a:"32",w:["12","4","48"],e:"4 × 8 = 32"},
+{s:"🏨 Hotel",q:"7 guests each pay $20. How much money is that in all?",a:"$140",w:["$27","$13","$1,400"],e:"7 × 20 = 140"},
+{s:"🏨 Hotel",q:"The hotel has 36 chairs. 4 chairs go at each table. How many tables are there?",a:"9",w:["32","40","144"],e:"36 ÷ 4 = 9"},
 
 // ---------- PRINTING ----------
-{s:"Printing Company",o:1,st:PRINT,q:"Each printing machine costs $4,500. How much did the company pay for the machines?",a:"$27,000",w:["$24,000","$2,700","$4,506"],e:"6 × $4,500 = $27,000."},
-{s:"Printing Company",o:1,st:PRINT,q:"All 6 printing machines together can print 222 pages in a minute. How many pages can each machine print per hour?",a:"2,220",w:["37","13,320","1,332"],e:"One machine prints 222 ÷ 6 = 37 pages a minute. An hour has 60 minutes: 37 × 60 = 2,220 pages."},
-{s:"Printing Company",o:1,st:PRINT,q:"A new order needs 3,800 pages, but one machine is out of order. If each working machine prints the same number of pages, how many pages does each one print?",a:"760",w:["633","7,600","3,805"],e:"Only 5 machines work (6 − 1). 3,800 ÷ 5 = 760."},
-{s:"Printing Company",o:1,st:PRINT+" There are 3 teams of maintenance staff.",q:"Each team works 8-hour shifts and has 4 members. How many maintenance staff are there?",a:"12",w:["96","7","1"],e:"The shift length does not change the number of people. 3 teams × 4 members = 12."},
-{s:"Printing Company",o:1,st:PRINT+" There are 5 salespersons and 22 clients. Each client deals with only one salesperson, and clients are shared as equally as possible.",q:"How many salespersons are responsible for 5 clients?",a:"2",w:["3","4","5"],e:"22 ÷ 5 = 4 remainder 2. Every salesperson gets 4 clients, and the 2 extra clients go to 2 salespersons, who then have 5."},
-{s:"Printing Company",o:1,st:PRINT,q:"Write an equation using “x” and solve it. Three orders are to be done today. Each order needs x pages. There are 9,900 pages to print in total.",a:"3 × x = 9,900, so x = 3,300",w:["3 + x = 9,900, so x = 9,897","3 × x = 9,900, so x = 29,700","x ÷ 3 = 9,900, so x = 29,700"],e:"3 orders × x pages = 9,900. x = 9,900 ÷ 3 = 3,300 pages."},
+{s:"🖨️ Printing",q:"A company has 5 printing machines. Each machine costs $200. How much do all the machines cost?",a:"$1,000",w:["$205","$100","$10,000"],e:"5 × 200 = 1,000"},
+{s:"🖨️ Printing",q:"A machine prints 10 pages in 1 minute. How many pages does it print in 5 minutes?",a:"50",w:["15","2","500"],e:"10 × 5 = 50"},
+{s:"🖨️ Printing",q:"6 machines print 60 pages together. Each machine prints the same number. How many pages does each machine print?",a:"10",w:["54","66","360"],e:"60 ÷ 6 = 10"},
+{s:"🖨️ Printing",q:"Each pack has 100 sheets of paper. How many sheets are in 4 packs?",a:"400",w:["104","25","40"],e:"100 × 4 = 400"},
+{s:"🖨️ Printing",q:"There are 3 repair teams. Each team has 4 workers. How many workers are there?",a:"12",w:["7","34","1"],e:"3 × 4 = 12"},
+{s:"🖨️ Printing",q:"20 customers are shared equally among 5 sales people. How many customers does each sales person get?",a:"4",w:["15","25","100"],e:"20 ÷ 5 = 4"},
+{s:"🖨️ Printing",q:"A printer uses 2 ink cartridges every week. How many cartridges does it use in 6 weeks?",a:"12",w:["8","3","26"],e:"2 × 6 = 12"},
+{s:"🖨️ Printing",q:"48 pages are put in piles of 6. How many piles are there?",a:"8",w:["42","54","288"],e:"48 ÷ 6 = 8"},
+{s:"🖨️ Printing",q:"Each book has 9 pages. How many pages are in 7 books?",a:"63",w:["16","56","72"],e:"9 × 7 = 63"},
+{s:"🖨️ Printing",q:"There are 3 orders. Each order has x pages. There are 30 pages in all, so 3 × x = 30. What is x?",a:"10",w:["27","33","90"],e:"30 ÷ 3 = 10"},
 
 // ---------- CAR FACTORY ----------
-{s:"Car Factory",o:1,st:CAR,q:"There are 2 supervisors and 12 workers on each assembly line. Counting supervisors and workers together, how many people work in the factory in total?",a:"112",w:["96","14","80"],e:"Each line has 2 + 12 = 14 people. 14 × 8 = 112."},
-{s:"Car Factory",o:1,st:CAR,q:"If the factory makes 48 cars in a day, how many cars does each assembly line make each day?",a:"6",w:["56","384","8"],e:"48 ÷ 8 = 6 cars per line."},
-{s:"Car Factory",o:1,st:CAR+" Each line makes 6 cars a day.",q:"If all the assembly lines run 12 hours a day, how long does it take one assembly line to make one car?",a:"2 hours",w:["6 hours","72 hours","4 hours"],e:"12 hours ÷ 6 cars = 2 hours per car."},
-{s:"Car Factory",o:1,st:CAR+" Assembly lines run 12 hours a day.",q:"The factory pays each supervisor $30 per hour. How much does each supervisor get paid each day?",a:"$360",w:["$42","$80","$3,600"],e:"$30 × 12 hours = $360."},
-{s:"Car Factory",o:1,st:CAR+" There are 12 workers on each line, and each worker is paid $80 per day.",q:"What is the total daily salary of all the workers? (Do not count supervisors.)",a:"$7,680",w:["$960","$1,120","$768"],e:"12 workers × 8 lines = 96 workers. 96 × $80 = $7,680."},
-{s:"Car Factory",o:1,st:CAR+" The whole factory makes 48 cars a day.",q:"Write an equation using “x” and solve it. The factory gets an order for x cars, and the order is done in 18 days.",a:"x ÷ 48 = 18, so x = 864",w:["x ÷ 6 = 18, so x = 108","x ÷ 48 = 18, so x = 30","x − 48 = 18, so x = 66"],e:"Cars per day × days = order. x ÷ 48 = 18 means x = 48 × 18 = 864 cars."},
+{s:"🚗 Car Factory",q:"A factory has 8 assembly lines. Each line has 5 workers. How many workers are there?",a:"40",w:["13","45","400"],e:"8 × 5 = 40"},
+{s:"🚗 Car Factory",q:"The factory makes 40 cars. 8 lines make the same number of cars. How many cars does each line make?",a:"5",w:["32","48","320"],e:"40 ÷ 8 = 5"},
+{s:"🚗 Car Factory",q:"One line makes 6 cars in a day. How many cars does it make in 2 days?",a:"12",w:["8","3","24"],e:"6 × 2 = 12"},
+{s:"🚗 Car Factory",q:"A worker earns $80 each day. How much does the worker earn in 5 days?",a:"$400",w:["$85","$16","$4,000"],e:"80 × 5 = 400"},
+{s:"🚗 Car Factory",q:"A supervisor earns $30 each hour. How much does the supervisor earn in 4 hours?",a:"$120",w:["$34","$7","$1,200"],e:"30 × 4 = 120"},
+{s:"🚗 Car Factory",q:"A line makes 12 cars in 6 hours at the same speed. How many cars does it make in 1 hour?",a:"2",w:["6","18","72"],e:"12 ÷ 6 = 2"},
+{s:"🚗 Car Factory",q:"Each of the 8 lines has 2 supervisors. How many supervisors are there?",a:"16",w:["10","4","6"],e:"8 × 2 = 16"},
+{s:"🚗 Car Factory",q:"36 workers are put into 4 equal groups. How many workers are in each group?",a:"9",w:["32","40","144"],e:"36 ÷ 4 = 9"},
+{s:"🚗 Car Factory",q:"A truck carries 4 cars. How many cars can 7 trucks carry?",a:"28",w:["11","24","32"],e:"4 × 7 = 28"},
+{s:"🚗 Car Factory",q:"8 lines make 48 cars. Each line makes x cars, so 8 × x = 48. What is x?",a:"6",w:["40","56","384"],e:"48 ÷ 8 = 6"},
 
 // ---------- SCHOOL ----------
-{s:"School",o:1,st:SCH,q:"In each class there are 35 students. How many students are there in total?",a:"420",w:["47","4,200","350"],e:"35 × 12 = 420."},
-{s:"School",o:1,st:SCH+" There are 420 students.",q:"If the students are divided equally among the teachers, how many students is each teacher responsible for?",a:"14",w:["12","450","140"],e:"420 ÷ 30 = 14."},
-{s:"School",o:1,st:SCH+" Most teachers are assigned to a homeroom. Teachers are divided among the classes so every class has an equal number of homeroom teachers.",q:"How many homeroom teachers are assigned to each class?",a:"2",w:["3","6","18"],e:"30 ÷ 12 = 2 remainder 6. Each class gets 2 teachers (that uses 24 teachers)."},
-{s:"School",o:1,st:SCH+" Every class has 2 homeroom teachers.",q:"How many teachers are not assigned a homeroom?",a:"6",w:["2","24","12"],e:"12 classes × 2 = 24 homeroom teachers. 30 − 24 = 6 teachers have no homeroom."},
-{s:"School",o:1,st:SCH+" Each class has 35 students.",q:"On Friday, 5 classes went on a field trip. How many students are left at the school?",a:"245",w:["175","420","7"],e:"12 − 5 = 7 classes stay. 7 × 35 = 245 students."},
-{s:"School",o:1,st:SCH+" Each class has 35 students.",q:"Write an equation using “x” and solve it. One teacher is needed for every 25 students on a field trip. So x teachers went with the 5 classes.",a:"25 × x = 175, so x = 7",w:["25 + x = 175, so x = 150","x ÷ 25 = 175, so x = 4,375","25 × x = 175, so x = 150"],e:"5 classes × 35 = 175 students. Each teacher covers 25 students, so 25 × x = 175 and x = 175 ÷ 25 = 7 teachers."},
+{s:"🏫 School",q:"A school has 12 classes. Each class has 10 students. How many students are there?",a:"120",w:["22","102","1,200"],e:"12 × 10 = 120"},
+{s:"🏫 School",q:"30 students are shared equally into 5 groups. How many students are in each group?",a:"6",w:["25","35","150"],e:"30 ÷ 5 = 6"},
+{s:"🏫 School",q:"Each class has 2 teachers. There are 12 classes. How many teachers are there?",a:"24",w:["14","6","36"],e:"12 × 2 = 24"},
+{s:"🏫 School",q:"25 students go on a trip. There is 1 teacher for every 5 students. How many teachers go?",a:"5",w:["20","30","125"],e:"25 ÷ 5 = 5"},
+{s:"🏫 School",q:"5 classes go on a trip. Each class has 20 students. How many students go?",a:"100",w:["25","15","1,000"],e:"5 × 20 = 100"},
+{s:"🏫 School",q:"35 students sit in 7 equal rows. How many students are in each row?",a:"5",w:["28","42","245"],e:"35 ÷ 7 = 5"},
+{s:"🏫 School",q:"Each student has 4 pencils. There are 9 students. How many pencils are there?",a:"36",w:["13","5","32"],e:"4 × 9 = 36"},
+{s:"🏫 School",q:"18 books are shared equally on 3 shelves. How many books are on each shelf?",a:"6",w:["15","21","54"],e:"18 ÷ 3 = 6"},
+{s:"🏫 School",q:"A school has 12 classes. 4 classes are outside. How many classes are inside?",a:"8",w:["16","48","3"],e:"12 − 4 = 8"},
+{s:"🏫 School",q:"3 classes have 60 students in all. Each class has x students, so 3 × x = 60. What is x?",a:"20",w:["57","63","180"],e:"60 ÷ 3 = 20"},
 
-// ---------- SIMILAR: BAKERY ----------
-{s:"Bakery",st:"A bakery bakes 8 trays of muffins. Each tray holds 12 muffins.",q:"How many muffins does the bakery bake?",a:"96",w:["20","86","960"],e:"8 × 12 = 96."},
-{s:"Bakery",st:"The bakery has 96 muffins.",q:"The muffins are packed into boxes of 6. How many boxes are needed?",a:"16",w:["90","102","14"],e:"96 ÷ 6 = 16 boxes."},
-{s:"Bakery",st:"The bakery also made 100 cupcakes.",q:"Cupcakes are packed in boxes of 8. How many full boxes can be made?",a:"12",w:["13","4","92"],e:"100 ÷ 8 = 12 remainder 4. There are 12 full boxes and 4 cupcakes left over."},
-{s:"Bakery",st:"Each box holds 6 muffins.",q:"Write an equation using “x” and solve it. A baker fills x boxes and uses 54 muffins.",a:"6 × x = 54, so x = 9",w:["6 + x = 54, so x = 48","x ÷ 6 = 54, so x = 324","6 × x = 54, so x = 8"],e:"Muffins per box × boxes = total, so 6 × x = 54. x = 54 ÷ 6 = 9 boxes."},
-
-// ---------- SIMILAR: LIBRARY ----------
-{s:"Library",st:"A library has 9 shelves. Each shelf holds 45 books.",q:"How many books can the shelves hold in all?",a:"405",w:["54","360","4,050"],e:"9 × 45 = 405 books."},
-{s:"Library",st:"The library has 405 books.",q:"The books are shared equally among 5 reading sections. How many books are in each section?",a:"81",w:["85","400","18"],e:"405 ÷ 5 = 81."},
-{s:"Library",st:"New books arrive at the library.",q:"156 new books are placed on shelves, 12 books on each shelf. How many shelves are used?",a:"13",w:["12","144","168"],e:"156 ÷ 12 = 13 shelves."},
-{s:"Library",st:"A librarian puts the same number of books on each of 7 shelves.",q:"Write an equation using “x” and solve it. Each shelf holds x books, and 224 books are shelved in all.",a:"7 × x = 224, so x = 32",w:["7 + x = 224, so x = 217","x ÷ 7 = 224, so x = 1,568","7 × x = 224, so x = 23"],e:"7 shelves × x books = 224. x = 224 ÷ 7 = 32 books."},
-
-// ---------- SIMILAR: FARM ----------
-{s:"Farm",st:"A farmer plants 14 rows of corn. Each row has 26 plants.",q:"How many corn plants are there?",a:"364",w:["40","324","3,640"],e:"14 × 26 = 364."},
-{s:"Farm",st:"The farmer collects 150 eggs and puts them in cartons that hold 12 eggs each.",q:"How many eggs are left over after filling as many cartons as possible?",a:"6",w:["12","13","18"],e:"150 ÷ 12 = 12 remainder 6. There are 12 full cartons and 6 eggs left over."},
-{s:"Farm",st:"Each cow gives 9 litres of milk every day. The farm has 6 cows.",q:"How many litres of milk do the cows give in 7 days?",a:"378",w:["54","63","3,780"],e:"9 × 6 = 54 litres a day. 54 × 7 = 378 litres."},
-{s:"Farm",st:"5 farm workers share 47 apples as equally as possible.",q:"How many apples does each worker get, and how many are left over?",a:"9 each with 2 left over",w:["9 each with 3 left over","10 each with 2 left over","8 each with 7 left over"],e:"47 ÷ 5 = 9 remainder 2. Each worker gets 9 apples, and 2 are left over."},
-
-// ---------- SIMILAR: ZOO & TRIPS ----------
-{s:"Zoo",st:"A zoo ticket costs $12 for a child.",q:"15 children visit the zoo. How much do their tickets cost altogether?",a:"$180",w:["$27","$160","$1,800"],e:"15 × $12 = $180."},
-{s:"Zoo",st:"A zookeeper has 96 fish to feed to 8 seals. Each seal gets the same number.",q:"How many fish does each seal get?",a:"12",w:["88","768","11"],e:"96 ÷ 8 = 12 fish."},
-{s:"Zoo",st:"Each school bus holds 30 students.",q:"100 students are going to the zoo. How many buses are needed so everyone has a seat?",a:"4",w:["3","5","33"],e:"100 ÷ 30 = 3 remainder 10. 3 buses are not enough, so one more bus is needed: 4 buses."},
-{s:"Zoo",st:"The zoo feeds its elephants 15 kg of food every day.",q:"Write an equation using “x” and solve it. After x days, the elephants have eaten 135 kg.",a:"15 × x = 135, so x = 9",w:["15 + x = 135, so x = 120","x ÷ 15 = 135, so x = 2,025","15 × x = 135, so x = 90"],e:"15 kg a day × x days = 135. x = 135 ÷ 15 = 9 days."},
-
-// ---------- SIMILAR: SHOP, SPORTS, MIXED ----------
-{s:"Shop",st:"A shop sells pencils in packs of 12. Mia buys 7 packs.",q:"How many pencils does Mia buy?",a:"84",w:["19","74","840"],e:"12 × 7 = 84."},
-{s:"Shop",st:"Mia shares her 84 pencils equally among 4 friends.",q:"How many pencils does each friend get?",a:"21",w:["20","88","336"],e:"84 ÷ 4 = 21."},
-{s:"Stadium",st:"A stadium section has 8 rows. Each row has 125 seats.",q:"How many seats are in the section?",a:"1,000",w:["133","10,000","960"],e:"125 × 8 = 1,000."},
-{s:"Sports",st:"A soccer team has 11 players.",q:"Write an equation using “x” and solve it. x teams are at a tournament and there are 88 players in all.",a:"11 × x = 88, so x = 8",w:["11 + x = 88, so x = 77","x ÷ 11 = 88, so x = 968","11 × x = 88, so x = 9"],e:"11 players × x teams = 88. x = 88 ÷ 11 = 8 teams."},
-{s:"Shop",st:"Tom buys 3 notebooks that cost $4 each and 2 pens that cost $3 each.",q:"How much does Tom spend in total?",a:"$18",w:["$35","$13","$24"],e:"Notebooks: 3 × $4 = $12. Pens: 2 × $3 = $6. Total: $12 + $6 = $18."},
-{s:"Garden",st:"A gardener plants 144 flowers in rows of 9.",q:"How many rows does the gardener plant?",a:"16",w:["15","135","153"],e:"144 ÷ 9 = 16 rows."},
-{s:"Games",st:"Sam has 6 bags with 25 marbles in each bag.",q:"Sam gives away 38 marbles. How many marbles does he have left?",a:"112",w:["188","122","31"],e:"6 × 25 = 150 marbles. 150 − 38 = 112."},
-{s:"Sports",st:"38 students want to play a game in teams of 5.",q:"How many full teams can be made?",a:"7",w:["8","3","190"],e:"38 ÷ 5 = 7 remainder 3. There are 7 full teams, and 3 students are left over."},
-{s:"Class",st:"A teacher splits 28 students into groups with 4 students in each group.",q:"Write an equation using “x” and solve it. There are x groups.",a:"28 ÷ x = 4, so x = 7",w:["28 × x = 4, so x = 7","28 ÷ x = 4, so x = 112","28 − x = 4, so x = 24"],e:"28 students split into x groups gives 4 in each group: 28 ÷ x = 4. So x = 28 ÷ 4 = 7 groups."},
-{s:"Toy Factory",st:"A machine makes toys at a steady speed. It makes 36 toys in 4 hours.",q:"How many toys does the machine make in 10 hours?",a:"90",w:["40","144","9"],e:"36 ÷ 4 = 9 toys an hour. 9 × 10 = 90 toys."}
+// ---------- MIXED ----------
+{s:"🧁 Bakery",q:"A baker makes 4 trays of muffins. Each tray has 6 muffins. How many muffins is that?",a:"24",w:["10","2","64"],e:"4 × 6 = 24"},
+{s:"🧁 Bakery",q:"24 muffins are put in boxes of 6. How many boxes are needed?",a:"4",w:["18","30","144"],e:"24 ÷ 6 = 4"},
+{s:"🌽 Farm",q:"A farmer plants 5 rows of corn. Each row has 8 plants. How many plants are there?",a:"40",w:["13","35","400"],e:"5 × 8 = 40"},
+{s:"🌽 Farm",q:"A farmer has 20 eggs. He puts 4 eggs in each carton. How many cartons does he fill?",a:"5",w:["16","24","80"],e:"20 ÷ 4 = 5"},
+{s:"🦁 Zoo",q:"A zoo ticket costs $5. 8 children go to the zoo. How much do the tickets cost?",a:"$40",w:["$13","$3","$45"],e:"5 × 8 = 40"},
+{s:"🦁 Zoo",q:"27 monkeys sit in 3 trees. Each tree has the same number of monkeys. How many monkeys are in each tree?",a:"9",w:["24","30","81"],e:"27 ÷ 3 = 9"},
+{s:"📚 Library",q:"A library has 4 shelves. Each shelf has 15 books. How many books are there?",a:"60",w:["19","11","600"],e:"4 × 15 = 60"},
+{s:"🍎 Sharing",q:"17 apples are shared equally among 5 children. How many apples does each child get, and how many are left over?",a:"3 each, 2 left over",w:["3 each, 3 left over","4 each, 2 left over","2 each, 7 left over"],e:"17 ÷ 5 = 3 with 2 left over"},
+{s:"🔮 Marbles",q:"Sam has 3 bags. Each bag has 10 marbles. How many marbles does Sam have?",a:"30",w:["13","7","300"],e:"3 × 10 = 30"},
+{s:"✏️ Shop",q:"Mia buys 4 packs of pencils and gets 48 pencils. Each pack has x pencils, so 4 × x = 48. What is x?",a:"12",w:["44","52","192"],e:"48 ÷ 4 = 12"}
 ];
 
 var $=function(id){return document.getElementById(id)};
 var idx=0,score=0,missed=[],locked=false;
 
 function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
-
 function show(id){["start","quiz","result"].forEach(function(x){$(x).classList.toggle("hidden",x!==id)})}
-
 function start(){idx=0;score=0;missed=[];show("quiz");render()}
 
 function render(){
@@ -180,8 +150,6 @@ function render(){
   $("scoreLive").textContent="⭐ "+score;
   $("prog").style.width=(idx/Q.length*100)+"%";
   $("sec").textContent=q.s;
-  var k=$("kind");k.textContent=q.o?"From the worksheet":"Practice";k.className="tag"+(q.o?"":" practice");
-  var st=$("story");if(q.st){st.textContent=q.st;st.classList.remove("hidden")}else st.classList.add("hidden");
   $("q").textContent=q.q;
   $("fb").innerHTML="";$("nextWrap").classList.add("hidden");
   $("nextBtn").textContent=idx===Q.length-1?"See Results →":"Next →";
@@ -205,7 +173,7 @@ function pick(btn,text){
   });
   if(ok){score++;$("scoreLive").textContent="⭐ "+score}
   else{btn.classList.add("wrong");missed.push({q:q,you:text})}
-  $("fb").innerHTML='<div class="fb '+(ok?"ok":"no")+'"><b>'+(ok?"Correct! 🎉":"Not quite.")+'</b>'+q.e+'</div>';
+  $("fb").innerHTML='<div class="fb '+(ok?"ok":"no")+'"><b>'+(ok?"Correct! 🎉":"Not quite.")+'</b> '+q.e+'</div>';
   $("nextWrap").classList.remove("hidden");
 }
 
@@ -216,12 +184,12 @@ function finish(){
   var pct=score/Q.length;
   $("stars").textContent=pct>=.9?"⭐⭐⭐":pct>=.7?"⭐⭐":pct>=.5?"⭐":"💪";
   $("finalScore").textContent=score+" / "+Q.length;
-  $("msg").textContent=pct>=.9?"Outstanding! You are a word problem whiz.":pct>=.7?"Great work! Check the ones you missed below.":pct>=.5?"Good effort. Review the mistakes and try again.":"Keep practising. Read each problem slowly and try again.";
+  $("msg").textContent=pct>=.9?"Outstanding!":pct>=.7?"Great work! Look at the ones you missed.":pct>=.5?"Good try. Practise the ones you missed.":"Keep practising. You can do it!";
   var r=$("review");
   if(missed.length){
     r.classList.remove("hidden");
-    r.innerHTML="<h3>Questions to review ("+missed.length+")</h3>"+missed.map(function(m){
-      return '<div class="ri"><div>'+esc(m.q.q)+'</div><div class="y">Your answer: '+esc(m.you)+'</div><div class="a">Correct answer: '+esc(m.q.a)+'</div><div style="color:#6b7694;margin-top:4px">'+esc(m.q.e)+'</div></div>';
+    r.innerHTML="<h3>Review ("+missed.length+")</h3>"+missed.map(function(m){
+      return '<div class="ri"><div>'+esc(m.q.q)+'</div><div class="y">Your answer: '+esc(m.you)+'</div><div class="a">Correct answer: '+esc(m.q.a)+' ('+esc(m.q.e)+')</div></div>';
     }).join("");
   }else r.classList.add("hidden");
 }
