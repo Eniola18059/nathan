@@ -1,241 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rhyme Time Quiz: Poem Power</title>
+<title>Word Problem Whiz – Grade 4</title>
 <style>
+:root{--bg:#eef3ff;--card:#fff;--ink:#1f2a44;--muted:#6b7694;--brand:#4f6df5;--brand2:#7c4dff;--ok:#1f9d63;--okbg:#e5f7ee;--bad:#d64545;--badbg:#fdeaea;--line:#dfe5f5}
 *{box-sizing:border-box}
-body{margin:0;font-family:"Trebuchet MS",system-ui,sans-serif;background:linear-gradient(160deg,#e9f7ef,#e3ecff);min-height:100vh;color:#2b2b44;display:flex;justify-content:center;padding:16px}
-.app{width:100%;max-width:740px}
-.card{background:#fff;border-radius:22px;box-shadow:0 8px 24px rgba(60,60,120,.15);padding:24px;margin-top:12px}
-h1{margin:0;text-align:center;font-size:2.1rem;color:#5b5bd6}
-.sub{text-align:center;margin:6px 0 0;color:#5a5a7a}
-.top{display:flex;justify-content:space-between;align-items:center;font-weight:bold;gap:10px}
-.bar{height:14px;background:#e8eaf6;border-radius:10px;overflow:hidden;margin:10px 0 0}
-.bar div{height:100%;width:0;background:linear-gradient(90deg,#34c38f,#5b8def);transition:width .3s}
-.prompt{font-size:1.35rem;text-align:center;margin:18px 0 6px}
-.big{font-size:2.8rem;font-weight:bold;text-align:center;color:#5b5bd6;margin:4px 0 14px}
-.line{font-size:1.5rem;text-align:center;font-weight:bold;color:#5b5bd6;margin:4px 0 14px;line-height:1.4}
-.poem{background:#f4f1ff;border-left:6px solid #8b7cf6;border-radius:12px;padding:12px 18px;margin:10px 0 14px;font-size:1.2rem;line-height:1.6;font-style:italic}
-.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.opt{font:inherit;font-size:1.4rem;font-weight:bold;padding:16px 8px;border:3px solid #d6dcff;background:#f6f8ff;border-radius:16px;cursor:pointer;transition:transform .1s}
-.opt:hover:enabled{transform:scale(1.03);border-color:#5b5bd6}
-.opt.right{background:#c9f7e0;border-color:#2fb87a}
-.opt.wrong{background:#ffd9d9;border-color:#ee5a5a}
+body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 48px}
+header{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-radius:20px;padding:22px 22px 18px;margin-bottom:18px;box-shadow:0 8px 24px rgba(79,109,245,.25)}
+header h1{margin:0 0 4px;font-size:1.6rem}
+header p{margin:0;opacity:.9;font-size:.95rem}
+.card{background:var(--card);border-radius:20px;padding:22px;box-shadow:0 4px 16px rgba(31,42,68,.08)}
+.hidden{display:none}
+.start h2{margin-top:0}
+.start ul{color:var(--muted);line-height:1.7;padding-left:20px}
+.btn{background:var(--brand);color:#fff;border:0;border-radius:14px;padding:14px 26px;font-size:1.05rem;font-weight:600;cursor:pointer;transition:transform .1s,background .2s}
+.btn:hover{background:#3d5be0}.btn:active{transform:scale(.97)}
+.btn.ghost{background:#fff;color:var(--brand);border:2px solid var(--brand)}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:.9rem;color:var(--muted);margin-bottom:8px;font-weight:600}
+.bar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:18px}
+.bar>div{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));width:0;transition:width .3s}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tag{font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:99px;background:#eceffd;color:var(--brand);text-transform:uppercase;letter-spacing:.04em}
+.tag.practice{background:#fff1d9;color:#b26a00}
+.story{background:#f6f8ff;border-left:4px solid var(--brand);border-radius:8px;padding:10px 14px;margin-bottom:14px;color:var(--muted);font-size:.95rem}
+.q{font-size:1.2rem;font-weight:600;line-height:1.5;margin:0 0 18px}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;background:#fff;border:2px solid var(--line);border-radius:14px;padding:14px 16px;font-size:1.05rem;color:var(--ink);cursor:pointer;display:flex;gap:12px;align-items:center;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--brand);background:#f6f8ff}
+.opt .l{flex:0 0 30px;height:30px;border-radius:50%;background:#eceffd;color:var(--brand);font-weight:700;display:grid;place-items:center;font-size:.9rem}
+.opt.right{border-color:var(--ok);background:var(--okbg)}.opt.right .l{background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}.opt.wrong .l{background:var(--bad);color:#fff}
 .opt:disabled{cursor:default}
-.btn{font:inherit;font-size:1.15rem;font-weight:bold;border:none;border-radius:14px;padding:12px 22px;cursor:pointer;background:#5b5bd6;color:#fff}
-.btn.alt{background:#2fb87a}
-.btn.ghost{background:#e8eaf6;color:#3a3a6a}
-.row{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
-.fb{text-align:center;font-size:1.15rem;min-height:2.2em;margin-top:14px;font-weight:bold}
-.fb.ok{color:#1f9d64}.fb.no{color:#d64545}
-.score{font-size:3.8rem;text-align:center;font-weight:bold;color:#5b5bd6}
-.stars{font-size:2.2rem;text-align:center}
-.miss{background:#fff7e6;border-radius:12px;padding:10px 14px;margin:8px 0;font-size:1.02rem}
-.hide{display:none}
-@media(max-width:480px){.opt{font-size:1.15rem}.big{font-size:2.2rem}}
+.fb{margin-top:16px;padding:14px 16px;border-radius:14px;font-size:.98rem;line-height:1.55}
+.fb.ok{background:var(--okbg);color:#0f5a38}.fb.no{background:var(--badbg);color:#8a2424}
+.fb b{display:block;margin-bottom:2px}
+.next{margin-top:16px;text-align:right}
+.result{text-align:center}
+.score{font-size:3rem;font-weight:800;color:var(--brand);margin:6px 0}
+.stars{font-size:2rem;letter-spacing:6px}
+.review{text-align:left;margin-top:22px}
+.review h3{margin:0 0 10px}
+.ri{border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:10px;font-size:.95rem}
+.ri .a{color:var(--ok);font-weight:700}.ri .y{color:var(--bad);font-weight:700}
+.actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
 </style>
 </head>
 <body>
-<div class="app">
-  <h1>📖 Rhyme Time: Poem Power 📖</h1>
-  <p class="sub">Rhyming words have the same ending sound, even when they are spelled differently!</p>
+<div class="wrap">
+  <header>
+    <h1>🧮 Word Problem Whiz</h1>
+    <p>Grade 4 · Multiplication &amp; Division Word Problems · 50 Questions</p>
+  </header>
 
-  <div id="start" class="card">
-    <p style="font-size:1.25rem;text-align:center">50 questions about rhyming words, odd words out, and poems.<br>Tap 🔊 if you want a question read aloud.</p>
-    <p id="best" class="sub"></p>
-    <div class="row"><button class="btn" id="go">Start the Quiz 🚀</button></div>
+  <div class="card start" id="start">
+    <h2>Ready to solve?</h2>
+    <ul>
+      <li>50 word problems: hotel, printing company, car factory, school and more</li>
+      <li>Read each problem carefully, then pick the best answer</li>
+      <li>Some questions ask you to pick the right equation using “x”</li>
+      <li>After every answer you will see how it is solved</li>
+    </ul>
+    <button class="btn" id="startBtn">Start Quiz</button>
   </div>
 
-  <div id="quiz" class="card hide">
-    <div class="top"><span id="qn"></span><span id="sc"></span></div>
-    <div class="bar"><div id="pb"></div></div>
-    <div class="prompt" id="prompt"></div>
-    <div id="visual"></div>
+  <div class="card hidden" id="quiz">
+    <div class="top"><span id="count"></span><span id="scoreLive"></span></div>
+    <div class="bar"><div id="prog"></div></div>
+    <div class="tags"><span class="tag" id="sec"></span><span class="tag" id="kind"></span></div>
+    <div class="story hidden" id="story"></div>
+    <p class="q" id="q"></p>
     <div class="opts" id="opts"></div>
-    <div class="fb" id="fb"></div>
-    <div class="row">
-      <button class="btn ghost" id="say">🔊 Read to me</button>
-      <button class="btn alt hide" id="next">Next ➜</button>
-    </div>
+    <div id="fb"></div>
+    <div class="next hidden" id="nextWrap"><button class="btn" id="nextBtn">Next →</button></div>
   </div>
 
-  <div id="end" class="card hide">
+  <div class="card result hidden" id="result">
     <div class="stars" id="stars"></div>
-    <div class="score" id="final"></div>
-    <p class="prompt" id="msg"></p>
-    <div id="missed"></div>
-    <div class="row"><button class="btn" id="again">Play Again 🔁</button></div>
+    <div class="score" id="finalScore"></div>
+    <p id="msg"></p>
+    <div class="actions">
+      <button class="btn" id="again">Try Again</button>
+    </div>
+    <div class="review hidden" id="review"></div>
   </div>
 </div>
 
 <script>
-/* A = rhymes with [word]; B = odd one out; C = which pair rhymes;
-   D = finish the poem (two lines); E = questions about a poem */
-var P1='The bees buzz loud in the warm spring air,\nthey fly from flower to flower with care.\nThe sun shines bright and the sky is blue,\nwhat a lovely day for me and you!';
-var P2='My brother has a big red kite,\nit flies up high on a windy day.\nIt dances in the light,\nand soars so far away.';
-var DIFF=' They are spelled differently but sound the same at the end!';
-var Q = [
- // A
- {t:'A',w:'night',a:'kite',o:['knit','nine','neat']},
- {t:'A',w:'through',a:'blue',o:['though','tough','thought'],n:DIFF},
- {t:'A',w:'rough',a:'stuff',o:['cough','though','bough']},
- {t:'A',w:'know',a:'snow',o:['now','knot','knew']},
- {t:'A',w:'chair',a:'share',o:['cheer','chin','charm']},
- {t:'A',w:'pear',a:'square',o:['peer','peak','pearl']},
- {t:'A',w:'word',a:'bird',o:['cord','lord','wood']},
- {t:'A',w:'laugh',a:'giraffe',o:['tough','cough','lunch']},
- {t:'A',w:'eight',a:'gate',o:['height','eat','edge'],n:DIFF},
- {t:'A',w:'flower',a:'tower',o:['floor','flavor','fewer']},
- {t:'A',w:'sleigh',a:'play',o:['sly','sleep','slip'],n:DIFF},
- {t:'A',w:'beach',a:'reach',o:['bench','beak','bath']},
- {t:'A',w:'bright',a:'write',o:['bridge','broke','brought'],n:DIFF},
- {t:'A',w:'stone',a:'bone',o:['stand','store','stun']},
- {t:'A',w:'moose',a:'juice',o:['mouse','mouth','mood']},
- {t:'A',w:'clown',a:'crown',o:['clue','cloud','clap']},
- {t:'A',w:'swim',a:'trim',o:['swam','swing','sweep']},
- {t:'A',w:'gold',a:'cold',o:['golf','good','goat']},
- {t:'A',w:'tooth',a:'truth',o:['toad','toast','tool']},
- {t:'A',w:'coin',a:'join',o:['corn','cone','count']},
- // B
- {t:'B',a:'though',o:['blue','shoe','through']},
- {t:'B',a:'kit',o:['right','write','kite']},
- {t:'B',a:'gone',o:['bone','phone','grown']},
- {t:'B',a:'rail',o:['rain','plane','vein']},
- {t:'B',a:'hear',o:['bear','chair','hair']},
- {t:'B',a:'light',o:['weight','late','gate']},
- {t:'B',a:'boot',o:['boat','coat','note']},
- {t:'B',a:'say',o:['sea','bee','key']},
- // C
- {t:'C',a:'blue – shoe',o:['blue – blow','blue – black','blue – blur']},
- {t:'C',a:'flight – bite',o:['flight – fleet','flight – flat','flight – float']},
- {t:'C',a:'deer – cheer',o:['deer – door','deer – dare','deer – dread']},
- {t:'C',a:'caught – taught',o:['caught – cat','caught – coat','caught – cut']},
- {t:'C',a:'worm – term',o:['worm – warm','worm – wore','worm – worn']},
- {t:'C',a:'knight – kite',o:['knight – knit','knight – knee','knight – kind']},
- // D
- {t:'D',poem:'The sun came up and the day began,\nI packed my lunch and off I ___',rw:'began',a:'ran',o:['went','walked','left']},
- {t:'D',poem:'A little frog sat on a log,\nand looked out across the ___',rw:'log',a:'fog',o:['pond','lake','marsh']},
- {t:'D',poem:'I planted a seed in the warm spring ground,\nand soon green sprouts popped up all ___',rw:'ground',a:'around',o:['over','near','outside']},
- {t:'D',poem:'The wind blew hard and the trees did sway,\nso I stayed in on a rainy ___',rw:'sway',a:'day',o:['night','morning','week']},
- {t:'D',poem:'My little sister loves to sing,\nshe sings the whole day long in the ___',rw:'sing',a:'spring',o:['house','garden','morning']},
- {t:'D',poem:'The bright full moon shone in the sky,\nand an owl flew by with a loud ___',rw:'sky',a:'cry',o:['hoot','screech','call']},
- {t:'D',poem:'We built a sandcastle by the sea,\nand shared a snack beneath a ___',rw:'sea',a:'tree',o:['umbrella','shade','rock']},
- {t:'D',poem:'The class sat quietly in a row,\nand listened to the story, soft and ___',rw:'row',a:'slow',o:['calm','sweet','still']},
- // E
- {t:'E',poem:P1,q:'Which two words end lines 1 and 2?',a:'air and care',o:['flower and air','air and spring','buzz and loud'],why:'air and care rhyme!'},
- {t:'E',poem:P1,q:'Which two words end lines 3 and 4?',a:'blue and you',o:['bright and blue','sun and sky','day and you'],why:'blue and you rhyme!'},
- {t:'E',poem:P1,q:'What is the rhyme scheme of this poem?',a:'AABB',o:['ABAB','ABBA','AAAA'],why:'Lines 1 and 2 rhyme, and lines 3 and 4 rhyme. That is AABB.'},
- {t:'E',poem:P1,q:'Which word in the poem rhymes with night?',a:'bright',o:['blue','shines','buzz'],why:'night and bright rhyme!'},
- {t:'E',poem:P2,q:'Which two words end lines 1 and 3?',a:'kite and light',o:['kite and day','light and away','high and day'],why:'kite and light rhyme!'},
- {t:'E',poem:P2,q:'What is the rhyme scheme of this poem?',a:'ABAB',o:['AABB','ABBA','ABCD'],why:'Lines 1 and 3 rhyme, and lines 2 and 4 rhyme. That is ABAB.'},
- {t:'E',poem:P2,q:'Which word inside the poem rhymes with sky?',a:'high',o:['kite','windy','soars'],why:'sky and high rhyme!'},
- {t:'E',poem:P2,q:'Which two words end lines 2 and 4?',a:'day and away',o:['day and kite','high and far','windy and away'],why:'day and away rhyme!'}
+var HOTEL="A hotel has 7 floors. The lobby, restaurant and gym are on the ground floor. The guestrooms are on the 1st to 6th floors.";
+var PRINT="A printing company has 6 printing machines.";
+var CAR="In a car factory, there are 8 assembly lines. Each assembly line makes cars at the same speed.";
+var SCH="In a school, there are 12 classes and 30 teachers.";
+
+// a = correct answer, w = wrong answers (plausible mistakes), e = explanation, o = from the worksheet
+var Q=[
+// ---------- HOTEL ----------
+{s:"Hotel",o:1,st:HOTEL,q:"If there are 35 standard rooms on each floor, how many standard rooms are there?",a:"210",w:["245","41","2,100"],e:"Guestrooms are only on floors 1 to 6, so there are 6 floors of rooms. 35 × 6 = 210."},
+{s:"Hotel",o:1,st:HOTEL+" Each guest floor has 35 standard rooms.",q:"There are 4 housekeepers on each floor. One room needs only one housekeeper. If they share the work as equally as possible, how many housekeepers must clean more rooms than the others?",a:"3",w:["8","4","1"],e:"35 ÷ 4 = 8 remainder 3. Every housekeeper cleans 8 rooms, and the 3 extra rooms go to 3 housekeepers, so 3 of them clean 9 rooms."},
+{s:"Hotel",o:1,st:HOTEL+" There are 210 standard rooms in total.",q:"If each standard room can fit 2 guests, what is the maximum number of guests all the standard rooms can hold?",a:"420",w:["490","212","4,200"],e:"210 × 2 = 420 guests."},
+{s:"Hotel",o:1,st:HOTEL,q:"There are 18 suites altogether in the hotel. How many suites are on each floor if each floor has the same floor plan?",a:"3",w:["2","12","108"],e:"Suites are on the 6 guest floors. 18 ÷ 6 = 3 suites per floor."},
+{s:"Hotel",o:1,st:HOTEL,q:"Each suite has 3 beds, and there is a bedside table beside each side of each bed. How many bedside tables are there in all 18 suites?",a:"108",w:["54","36","21"],e:"Each bed has 2 sides, so 2 tables per bed. 3 beds × 2 = 6 tables in a suite. 6 × 18 = 108."},
+{s:"Hotel",o:1,st:HOTEL,q:"Write an equation using “x” and solve it. A standard room costs $250 per night. A couple stayed x nights and their total room charge was $750.",a:"250 × x = 750, so x = 3",w:["250 + x = 750, so x = 500","x ÷ 250 = 750, so x = 187,500","250 × x = 750, so x = 8"],e:"Cost per night × nights = total, so 250 × x = 750. Divide: x = 750 ÷ 250 = 3 nights."},
+
+// ---------- PRINTING ----------
+{s:"Printing Company",o:1,st:PRINT,q:"Each printing machine costs $4,500. How much did the company pay for the machines?",a:"$27,000",w:["$24,000","$2,700","$4,506"],e:"6 × $4,500 = $27,000."},
+{s:"Printing Company",o:1,st:PRINT,q:"All 6 printing machines together can print 222 pages in a minute. How many pages can each machine print per hour?",a:"2,220",w:["37","13,320","1,332"],e:"One machine prints 222 ÷ 6 = 37 pages a minute. An hour has 60 minutes: 37 × 60 = 2,220 pages."},
+{s:"Printing Company",o:1,st:PRINT,q:"A new order needs 3,800 pages, but one machine is out of order. If each working machine prints the same number of pages, how many pages does each one print?",a:"760",w:["633","7,600","3,805"],e:"Only 5 machines work (6 − 1). 3,800 ÷ 5 = 760."},
+{s:"Printing Company",o:1,st:PRINT+" There are 3 teams of maintenance staff.",q:"Each team works 8-hour shifts and has 4 members. How many maintenance staff are there?",a:"12",w:["96","7","1"],e:"The shift length does not change the number of people. 3 teams × 4 members = 12."},
+{s:"Printing Company",o:1,st:PRINT+" There are 5 salespersons and 22 clients. Each client deals with only one salesperson, and clients are shared as equally as possible.",q:"How many salespersons are responsible for 5 clients?",a:"2",w:["3","4","5"],e:"22 ÷ 5 = 4 remainder 2. Every salesperson gets 4 clients, and the 2 extra clients go to 2 salespersons, who then have 5."},
+{s:"Printing Company",o:1,st:PRINT,q:"Write an equation using “x” and solve it. Three orders are to be done today. Each order needs x pages. There are 9,900 pages to print in total.",a:"3 × x = 9,900, so x = 3,300",w:["3 + x = 9,900, so x = 9,897","3 × x = 9,900, so x = 29,700","x ÷ 3 = 9,900, so x = 29,700"],e:"3 orders × x pages = 9,900. x = 9,900 ÷ 3 = 3,300 pages."},
+
+// ---------- CAR FACTORY ----------
+{s:"Car Factory",o:1,st:CAR,q:"There are 2 supervisors and 12 workers on each assembly line. Counting supervisors and workers together, how many people work in the factory in total?",a:"112",w:["96","14","80"],e:"Each line has 2 + 12 = 14 people. 14 × 8 = 112."},
+{s:"Car Factory",o:1,st:CAR,q:"If the factory makes 48 cars in a day, how many cars does each assembly line make each day?",a:"6",w:["56","384","8"],e:"48 ÷ 8 = 6 cars per line."},
+{s:"Car Factory",o:1,st:CAR+" Each line makes 6 cars a day.",q:"If all the assembly lines run 12 hours a day, how long does it take one assembly line to make one car?",a:"2 hours",w:["6 hours","72 hours","4 hours"],e:"12 hours ÷ 6 cars = 2 hours per car."},
+{s:"Car Factory",o:1,st:CAR+" Assembly lines run 12 hours a day.",q:"The factory pays each supervisor $30 per hour. How much does each supervisor get paid each day?",a:"$360",w:["$42","$80","$3,600"],e:"$30 × 12 hours = $360."},
+{s:"Car Factory",o:1,st:CAR+" There are 12 workers on each line, and each worker is paid $80 per day.",q:"What is the total daily salary of all the workers? (Do not count supervisors.)",a:"$7,680",w:["$960","$1,120","$768"],e:"12 workers × 8 lines = 96 workers. 96 × $80 = $7,680."},
+{s:"Car Factory",o:1,st:CAR+" The whole factory makes 48 cars a day.",q:"Write an equation using “x” and solve it. The factory gets an order for x cars, and the order is done in 18 days.",a:"x ÷ 48 = 18, so x = 864",w:["x ÷ 6 = 18, so x = 108","x ÷ 48 = 18, so x = 30","x − 48 = 18, so x = 66"],e:"Cars per day × days = order. x ÷ 48 = 18 means x = 48 × 18 = 864 cars."},
+
+// ---------- SCHOOL ----------
+{s:"School",o:1,st:SCH,q:"In each class there are 35 students. How many students are there in total?",a:"420",w:["47","4,200","350"],e:"35 × 12 = 420."},
+{s:"School",o:1,st:SCH+" There are 420 students.",q:"If the students are divided equally among the teachers, how many students is each teacher responsible for?",a:"14",w:["12","450","140"],e:"420 ÷ 30 = 14."},
+{s:"School",o:1,st:SCH+" Most teachers are assigned to a homeroom. Teachers are divided among the classes so every class has an equal number of homeroom teachers.",q:"How many homeroom teachers are assigned to each class?",a:"2",w:["3","6","18"],e:"30 ÷ 12 = 2 remainder 6. Each class gets 2 teachers (that uses 24 teachers)."},
+{s:"School",o:1,st:SCH+" Every class has 2 homeroom teachers.",q:"How many teachers are not assigned a homeroom?",a:"6",w:["2","24","12"],e:"12 classes × 2 = 24 homeroom teachers. 30 − 24 = 6 teachers have no homeroom."},
+{s:"School",o:1,st:SCH+" Each class has 35 students.",q:"On Friday, 5 classes went on a field trip. How many students are left at the school?",a:"245",w:["175","420","7"],e:"12 − 5 = 7 classes stay. 7 × 35 = 245 students."},
+{s:"School",o:1,st:SCH+" Each class has 35 students.",q:"Write an equation using “x” and solve it. One teacher is needed for every 25 students on a field trip. So x teachers went with the 5 classes.",a:"25 × x = 175, so x = 7",w:["25 + x = 175, so x = 150","x ÷ 25 = 175, so x = 4,375","25 × x = 175, so x = 150"],e:"5 classes × 35 = 175 students. Each teacher covers 25 students, so 25 × x = 175 and x = 175 ÷ 25 = 7 teachers."},
+
+// ---------- SIMILAR: BAKERY ----------
+{s:"Bakery",st:"A bakery bakes 8 trays of muffins. Each tray holds 12 muffins.",q:"How many muffins does the bakery bake?",a:"96",w:["20","86","960"],e:"8 × 12 = 96."},
+{s:"Bakery",st:"The bakery has 96 muffins.",q:"The muffins are packed into boxes of 6. How many boxes are needed?",a:"16",w:["90","102","14"],e:"96 ÷ 6 = 16 boxes."},
+{s:"Bakery",st:"The bakery also made 100 cupcakes.",q:"Cupcakes are packed in boxes of 8. How many full boxes can be made?",a:"12",w:["13","4","92"],e:"100 ÷ 8 = 12 remainder 4. There are 12 full boxes and 4 cupcakes left over."},
+{s:"Bakery",st:"Each box holds 6 muffins.",q:"Write an equation using “x” and solve it. A baker fills x boxes and uses 54 muffins.",a:"6 × x = 54, so x = 9",w:["6 + x = 54, so x = 48","x ÷ 6 = 54, so x = 324","6 × x = 54, so x = 8"],e:"Muffins per box × boxes = total, so 6 × x = 54. x = 54 ÷ 6 = 9 boxes."},
+
+// ---------- SIMILAR: LIBRARY ----------
+{s:"Library",st:"A library has 9 shelves. Each shelf holds 45 books.",q:"How many books can the shelves hold in all?",a:"405",w:["54","360","4,050"],e:"9 × 45 = 405 books."},
+{s:"Library",st:"The library has 405 books.",q:"The books are shared equally among 5 reading sections. How many books are in each section?",a:"81",w:["85","400","18"],e:"405 ÷ 5 = 81."},
+{s:"Library",st:"New books arrive at the library.",q:"156 new books are placed on shelves, 12 books on each shelf. How many shelves are used?",a:"13",w:["12","144","168"],e:"156 ÷ 12 = 13 shelves."},
+{s:"Library",st:"A librarian puts the same number of books on each of 7 shelves.",q:"Write an equation using “x” and solve it. Each shelf holds x books, and 224 books are shelved in all.",a:"7 × x = 224, so x = 32",w:["7 + x = 224, so x = 217","x ÷ 7 = 224, so x = 1,568","7 × x = 224, so x = 23"],e:"7 shelves × x books = 224. x = 224 ÷ 7 = 32 books."},
+
+// ---------- SIMILAR: FARM ----------
+{s:"Farm",st:"A farmer plants 14 rows of corn. Each row has 26 plants.",q:"How many corn plants are there?",a:"364",w:["40","324","3,640"],e:"14 × 26 = 364."},
+{s:"Farm",st:"The farmer collects 150 eggs and puts them in cartons that hold 12 eggs each.",q:"How many eggs are left over after filling as many cartons as possible?",a:"6",w:["12","13","18"],e:"150 ÷ 12 = 12 remainder 6. There are 12 full cartons and 6 eggs left over."},
+{s:"Farm",st:"Each cow gives 9 litres of milk every day. The farm has 6 cows.",q:"How many litres of milk do the cows give in 7 days?",a:"378",w:["54","63","3,780"],e:"9 × 6 = 54 litres a day. 54 × 7 = 378 litres."},
+{s:"Farm",st:"5 farm workers share 47 apples as equally as possible.",q:"How many apples does each worker get, and how many are left over?",a:"9 each with 2 left over",w:["9 each with 3 left over","10 each with 2 left over","8 each with 7 left over"],e:"47 ÷ 5 = 9 remainder 2. Each worker gets 9 apples, and 2 are left over."},
+
+// ---------- SIMILAR: ZOO & TRIPS ----------
+{s:"Zoo",st:"A zoo ticket costs $12 for a child.",q:"15 children visit the zoo. How much do their tickets cost altogether?",a:"$180",w:["$27","$160","$1,800"],e:"15 × $12 = $180."},
+{s:"Zoo",st:"A zookeeper has 96 fish to feed to 8 seals. Each seal gets the same number.",q:"How many fish does each seal get?",a:"12",w:["88","768","11"],e:"96 ÷ 8 = 12 fish."},
+{s:"Zoo",st:"Each school bus holds 30 students.",q:"100 students are going to the zoo. How many buses are needed so everyone has a seat?",a:"4",w:["3","5","33"],e:"100 ÷ 30 = 3 remainder 10. 3 buses are not enough, so one more bus is needed: 4 buses."},
+{s:"Zoo",st:"The zoo feeds its elephants 15 kg of food every day.",q:"Write an equation using “x” and solve it. After x days, the elephants have eaten 135 kg.",a:"15 × x = 135, so x = 9",w:["15 + x = 135, so x = 120","x ÷ 15 = 135, so x = 2,025","15 × x = 135, so x = 90"],e:"15 kg a day × x days = 135. x = 135 ÷ 15 = 9 days."},
+
+// ---------- SIMILAR: SHOP, SPORTS, MIXED ----------
+{s:"Shop",st:"A shop sells pencils in packs of 12. Mia buys 7 packs.",q:"How many pencils does Mia buy?",a:"84",w:["19","74","840"],e:"12 × 7 = 84."},
+{s:"Shop",st:"Mia shares her 84 pencils equally among 4 friends.",q:"How many pencils does each friend get?",a:"21",w:["20","88","336"],e:"84 ÷ 4 = 21."},
+{s:"Stadium",st:"A stadium section has 8 rows. Each row has 125 seats.",q:"How many seats are in the section?",a:"1,000",w:["133","10,000","960"],e:"125 × 8 = 1,000."},
+{s:"Sports",st:"A soccer team has 11 players.",q:"Write an equation using “x” and solve it. x teams are at a tournament and there are 88 players in all.",a:"11 × x = 88, so x = 8",w:["11 + x = 88, so x = 77","x ÷ 11 = 88, so x = 968","11 × x = 88, so x = 9"],e:"11 players × x teams = 88. x = 88 ÷ 11 = 8 teams."},
+{s:"Shop",st:"Tom buys 3 notebooks that cost $4 each and 2 pens that cost $3 each.",q:"How much does Tom spend in total?",a:"$18",w:["$35","$13","$24"],e:"Notebooks: 3 × $4 = $12. Pens: 2 × $3 = $6. Total: $12 + $6 = $18."},
+{s:"Garden",st:"A gardener plants 144 flowers in rows of 9.",q:"How many rows does the gardener plant?",a:"16",w:["15","135","153"],e:"144 ÷ 9 = 16 rows."},
+{s:"Games",st:"Sam has 6 bags with 25 marbles in each bag.",q:"Sam gives away 38 marbles. How many marbles does he have left?",a:"112",w:["188","122","31"],e:"6 × 25 = 150 marbles. 150 − 38 = 112."},
+{s:"Sports",st:"38 students want to play a game in teams of 5.",q:"How many full teams can be made?",a:"7",w:["8","3","190"],e:"38 ÷ 5 = 7 remainder 3. There are 7 full teams, and 3 students are left over."},
+{s:"Class",st:"A teacher splits 28 students into groups with 4 students in each group.",q:"Write an equation using “x” and solve it. There are x groups.",a:"28 ÷ x = 4, so x = 7",w:["28 × x = 4, so x = 7","28 ÷ x = 4, so x = 112","28 − x = 4, so x = 24"],e:"28 students split into x groups gives 4 in each group: 28 ÷ x = 4. So x = 28 ÷ 4 = 7 groups."},
+{s:"Toy Factory",st:"A machine makes toys at a steady speed. It makes 36 toys in 4 hours.",q:"How many toys does the machine make in 10 hours?",a:"90",w:["40","144","9"],e:"36 ÷ 4 = 9 toys an hour. 9 × 10 = 90 toys."}
 ];
 
-function shuffle(arr){var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
-function $(id){return document.getElementById(id)}
-function poemHtml(p){return '<div class="poem">'+p.replace(/___/g,'<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>').split('\n').join('<br>')+'</div>'}
+var $=function(id){return document.getElementById(id)};
+var idx=0,score=0,missed=[],locked=false;
 
-var order,idx,score,missed,locked,cur;
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 
-function getBest(){try{return localStorage.getItem('rhymeBest3')}catch(e){return null}}
-function setBest(v){try{localStorage.setItem('rhymeBest3',v)}catch(e){}}
-function showBest(){var b=getBest();$('best').textContent=b?('Your best score: '+b+' / 50 ⭐'):''}
+function show(id){["start","quiz","result"].forEach(function(x){$(x).classList.toggle("hidden",x!==id)})}
 
-function start(){
-  order=shuffle(Q);idx=0;score=0;missed=[];
-  $('start').classList.add('hide');$('end').classList.add('hide');$('quiz').classList.remove('hide');
-  show();
-}
+function start(){idx=0;score=0;missed=[];show("quiz");render()}
 
-function promptFor(q){
-  if(q.t==='A')return 'Which word rhymes with…';
-  if(q.t==='B')return 'Which word does NOT rhyme with the others?';
-  if(q.t==='C')return 'Which two words rhyme?';
-  if(q.t==='D')return 'Which word finishes the poem and rhymes with the line above?';
-  return q.q;
-}
-
-function show(){
-  cur=order[idx];locked=false;
-  $('qn').textContent='Question '+(idx+1)+' of 50';
-  $('sc').textContent='⭐ '+score;
-  $('pb').style.width=(idx/50*100)+'%';
-  $('prompt').textContent=promptFor(cur);
-  var v=$('visual');
-  if(cur.t==='A')v.innerHTML='<div class="big">'+cur.w+'</div>';
-  else if(cur.t==='D'||cur.t==='E')v.innerHTML=poemHtml(cur.poem);
-  else v.innerHTML='<div style="height:10px"></div>';
-  $('fb').textContent='';$('fb').className='fb';
-  $('next').classList.add('hide');
-  var box=$('opts');box.innerHTML='';
-  shuffle([cur.a].concat(cur.o)).forEach(function(txt){
-    var b=document.createElement('button');
-    b.className='opt';b.textContent=txt;
-    b.onclick=function(){pick(b,txt)};
+function render(){
+  var q=Q[idx];locked=false;
+  $("count").textContent="Question "+(idx+1)+" of "+Q.length;
+  $("scoreLive").textContent="⭐ "+score;
+  $("prog").style.width=(idx/Q.length*100)+"%";
+  $("sec").textContent=q.s;
+  var k=$("kind");k.textContent=q.o?"From the worksheet":"Practice";k.className="tag"+(q.o?"":" practice");
+  var st=$("story");if(q.st){st.textContent=q.st;st.classList.remove("hidden")}else st.classList.add("hidden");
+  $("q").textContent=q.q;
+  $("fb").innerHTML="";$("nextWrap").classList.add("hidden");
+  $("nextBtn").textContent=idx===Q.length-1?"See Results →":"Next →";
+  var box=$("opts");box.innerHTML="";
+  shuffle([q.a].concat(q.w)).forEach(function(text,i){
+    var b=document.createElement("button");b.className="opt";
+    b.innerHTML='<span class="l">'+"ABCD"[i]+'</span><span></span>';
+    b.lastChild.textContent=text;
+    b.onclick=function(){pick(b,text)};
     box.appendChild(b);
   });
+  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function why(q){
-  if(q.t==='A')return q.w+' and '+q.a+' rhyme!'+(q.n||'');
-  if(q.t==='B')return q.o.join(', ')+' rhyme. '+q.a+' does not.';
-  if(q.t==='C')return q.a.replace(' – ',' and ')+' rhyme!';
-  if(q.t==='D')return q.a+' rhymes with '+q.rw+'!';
-  return q.why;
-}
-
-function pick(btn,txt){
+function pick(btn,text){
   if(locked)return;locked=true;
-  var ok=txt===cur.a;
-  var all=$('opts').children;
-  for(var i=0;i<all.length;i++){
-    all[i].disabled=true;
-    if(all[i].textContent===cur.a)all[i].classList.add('right');
-  }
-  if(ok){score++;$('fb').textContent='🎉 Correct! '+why(cur);$('fb').className='fb ok'}
-  else{btn.classList.add('wrong');missed.push(cur);$('fb').textContent='Not quite. '+why(cur);$('fb').className='fb no'}
-  $('sc').textContent='⭐ '+score;
-  $('next').textContent=idx===49?'See my score 🏆':'Next ➜';
-  $('next').classList.remove('hide');
+  var q=Q[idx],ok=text===q.a;
+  Array.prototype.forEach.call($("opts").children,function(b){
+    b.disabled=true;
+    if(b.lastChild.textContent===q.a)b.classList.add("right");
+  });
+  if(ok){score++;$("scoreLive").textContent="⭐ "+score}
+  else{btn.classList.add("wrong");missed.push({q:q,you:text})}
+  $("fb").innerHTML='<div class="fb '+(ok?"ok":"no")+'"><b>'+(ok?"Correct! 🎉":"Not quite.")+'</b>'+q.e+'</div>';
+  $("nextWrap").classList.remove("hidden");
 }
 
-function next(){idx++;if(idx>=50)finish();else show()}
+function next(){idx++;if(idx>=Q.length)finish();else render()}
 
 function finish(){
-  $('quiz').classList.add('hide');$('end').classList.remove('hide');
-  $('final').textContent=score+' / 50';
-  var s=score>=45?5:score>=38?4:score>=30?3:score>=20?2:1;
-  $('stars').textContent=new Array(s+1).join('⭐');
-  $('msg').textContent=score>=45?'Amazing! You are a rhyming expert!':score>=38?'Great job! You really know your rhymes!':score>=30?'Good work! A little more practice and you will have it.':'Nice try! Let\'s practice again.';
-  var b=getBest();if(!b||score>parseInt(b,10))setBest(score);
-  var m=$('missed');m.innerHTML='';
+  show("result");
+  var pct=score/Q.length;
+  $("stars").textContent=pct>=.9?"⭐⭐⭐":pct>=.7?"⭐⭐":pct>=.5?"⭐":"💪";
+  $("finalScore").textContent=score+" / "+Q.length;
+  $("msg").textContent=pct>=.9?"Outstanding! You are a word problem whiz.":pct>=.7?"Great work! Check the ones you missed below.":pct>=.5?"Good effort. Review the mistakes and try again.":"Keep practising. Read each problem slowly and try again.";
+  var r=$("review");
   if(missed.length){
-    var h=document.createElement('div');h.style.fontWeight='bold';h.style.margin='10px 0 4px';h.textContent='Let\'s look at the ones to practice:';m.appendChild(h);
-    missed.forEach(function(q){var d=document.createElement('div');d.className='miss';d.textContent=why(q);m.appendChild(d)});
-  }
+    r.classList.remove("hidden");
+    r.innerHTML="<h3>Questions to review ("+missed.length+")</h3>"+missed.map(function(m){
+      return '<div class="ri"><div>'+esc(m.q.q)+'</div><div class="y">Your answer: '+esc(m.you)+'</div><div class="a">Correct answer: '+esc(m.q.a)+'</div><div style="color:#6b7694;margin-top:4px">'+esc(m.q.e)+'</div></div>';
+    }).join("");
+  }else r.classList.add("hidden");
 }
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 
-function speak(){
-  if(!window.speechSynthesis)return;
-  window.speechSynthesis.cancel();
-  var parts=[promptFor(cur)];
-  if(cur.t==='A')parts.push(cur.w);
-  if(cur.poem)parts.push(cur.poem.replace(/___/g,'blank').replace(/\n/g,'. '));
-  var opts=$('opts').children;
-  for(var i=0;i<opts.length;i++)parts.push(opts[i].textContent.replace(' – ',' and '));
-  var u=new SpeechSynthesisUtterance(parts.join('. '));
-  u.lang='en-US';u.rate=0.9;
-  window.speechSynthesis.speak(u);
-}
-
-$('go').onclick=start;
-$('again').onclick=function(){showBest();start()};
-$('next').onclick=next;
-$('say').onclick=speak;
-showBest();
+$("startBtn").onclick=start;$("nextBtn").onclick=next;$("again").onclick=start;
 </script>
 </body>
 </html>
