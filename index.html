@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Opposite Owl Quiz</title>
+<title>Synonyms Quiz</title>
 <style>
   :root{
-    --bg1:#fff3d6; --bg2:#ffd9e8; --ink:#33265c; --purple:#7c5cff; --purple-d:#5a3fd6;
+    --bg1:#e3f6ff; --bg2:#e9e2ff; --ink:#33265c; --purple:#7c5cff; --purple-d:#5a3fd6;
     --good:#2ecc71; --good-d:#1e9a52; --bad:#ff6b6b; --bad-d:#c94444; --sun:#ffb703; --sun-d:#c98a00;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -17,9 +17,9 @@
     display:flex;align-items:center;justify-content:center;padding:14px;min-height:100vh;
   }
   .blob{position:fixed;border-radius:50%;opacity:.35;z-index:0;pointer-events:none}
-  .b1{width:220px;height:220px;background:#a5d8ff;left:-60px;top:-50px}
+  .b1{width:220px;height:220px;background:#ffd8a8;left:-60px;top:-50px}
   .b2{width:180px;height:180px;background:#b2f2bb;right:-40px;bottom:60px}
-  .b3{width:120px;height:120px;background:#ffec99;left:10%;bottom:-40px}
+  .b3{width:120px;height:120px;background:#ffc9de;left:10%;bottom:-40px}
   .wrap{position:relative;z-index:1;width:100%;max-width:560px}
   .card{background:#fff;border-radius:28px;padding:22px 20px;text-align:center;
     box-shadow:0 12px 0 rgba(90,63,214,.15),0 22px 46px rgba(0,0,0,.14)}
@@ -40,11 +40,10 @@
   .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#74c0fc,#7c5cff);border-radius:50px;transition:width .4s}
 
   .ask{font-size:1.15rem;font-weight:700;opacity:.8;margin:0}
-  .wordbox{display:flex;align-items:center;justify-content:center;gap:12px;margin:6px 0 4px}
+  .wordbox{display:flex;align-items:center;justify-content:center;gap:12px;margin:6px 0 10px}
   .word{font-size:3.4rem;font-weight:900;letter-spacing:1px;color:var(--purple-d)}
   .say{background:#f1ecff;width:46px;height:46px;border-radius:50%;font-size:1.4rem}
   .say:active{transform:scale(.92)}
-  .hint{font-size:1.05rem;min-height:26px;opacity:.75;margin:0 0 4px}
 
   .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
   .opt{background:var(--purple);color:#fff;font-size:1.9rem;font-weight:800;padding:18px 6px;border-radius:22px;
@@ -76,9 +75,9 @@
 
   <div class="card" id="start">
     <div class="owl">🦉</div>
-    <h1>Opposite Owl Quiz</h1>
-    <p class="sub">Opposites are words that mean the very different thing.</p>
-    <div class="example">Hot ↔ Cold &nbsp;•&nbsp; Up ↔ Down</div>
+    <h1>Synonyms Quiz</h1>
+    <p class="sub">Synonyms are words that mean the same, or almost the same, thing.</p>
+    <div class="example">Big = Large &nbsp;•&nbsp; Happy = Glad</div>
     <button class="big" id="startBtn">▶ Start</button>
     <p class="small" id="best"></p>
   </div>
@@ -89,12 +88,11 @@
       <span class="pill" id="scoreNow">⭐ 0</span>
     </div>
     <div class="bar"><i id="bar"></i></div>
-    <p class="ask">What is the opposite of…</p>
+    <p class="ask">Which word means the same as…</p>
     <div class="wordbox">
       <span class="word" id="word"></span>
       <button class="say" id="say" title="Hear the word">🔊</button>
     </div>
-    <p class="hint" id="hint"></p>
     <div class="opts" id="opts"></div>
     <div class="fb" id="fb"></div>
     <button class="big next hidden" id="next">Next ➜</button>
@@ -113,61 +111,60 @@
 
 <script>
 (function(){
-  // Each item: word, correct opposite, and three plausible wrong choices
-  // (synonyms of the word, or related words that are NOT opposites).
+  // Each item: word, correct synonym, and three plausible wrong choices
+  // (opposites of the word, or related words that do NOT mean the same).
   var BANK = [
-    {w:'hot',    a:'cold',     x:['warm','sunny','spicy']},
-    {w:'big',    a:'small',    x:['huge','tall','wide']},
-    {w:'up',     a:'down',     x:['over','high','top']},
-    {w:'happy',  a:'sad',      x:['glad','angry','sleepy']},
-    {w:'day',    a:'night',    x:['morning','sun','noon']},
-    {w:'fast',   a:'slow',     x:['quick','late','run']},
-    {w:'open',   a:'shut',     x:['wide','start','free']},
-    {w:'in',     a:'out',      x:['inside','on','at']},
-    {w:'lost',   a:'found',    x:['gone','hidden','missing']},
-    {w:'hard',   a:'soft',     x:['rough','heavy','solid']},
-    {w:'wet',    a:'dry',      x:['cold','damp','rainy']},
-    {w:'full',   a:'empty',    x:['heavy','half','big']},
-    {w:'tall',   a:'short',    x:['long','big','high']},
-    {w:'on',     a:'off',      x:['in','up','over']},
-    {w:'yes',    a:'no',       x:['maybe','okay','yeah']},
-    {w:'stop',   a:'start',    x:['wait','end','pause']},
-    {w:'good',   a:'bad',      x:['great','nice','fine']},
-    {w:'boy',    a:'girl',     x:['man','child','kid']},
-    {w:'hello',  a:'goodbye',  x:['hi','please','sorry']},
-    {w:'left',   a:'right',    x:['back','front','down']},
-    {w:'front',  a:'back',     x:['side','top','middle']},
-    {w:'top',    a:'bottom',   x:['side','middle','up']},
-    {w:'dark',   a:'bright',   x:['dim','black','night']},
-    {w:'heavy',  a:'light',    x:['big','strong','thick']},
-    {w:'clean',  a:'dirty',    x:['neat','wet','shiny']},
-    {w:'hungry', a:'full',     x:['thirsty','sleepy','angry']},
-    {w:'awake',  a:'asleep',   x:['tired','alert','up']},
-    {w:'laugh',  a:'cry',      x:['smile','giggle','shout']},
-    {w:'love',   a:'hate',     x:['like','hug','kiss']},
-    {w:'come',   a:'go',       x:['arrive','bring','run']},
-    {w:'push',   a:'pull',     x:['shove','hit','move']},
-    {w:'buy',    a:'sell',     x:['shop','pay','spend']},
-    {w:'early',  a:'late',     x:['soon','quick','fast']},
-    {w:'near',   a:'far',      x:['close','next','by']},
-    {w:'sweet',  a:'sour',     x:['sugary','nice','soft']},
-    {w:'thick',  a:'thin',     x:['fat','wide','heavy']},
-    {w:'wide',   a:'narrow',   x:['big','long','open']},
-    {w:'rich',   a:'poor',     x:['happy','fancy','lucky']},
-    {w:'strong', a:'weak',     x:['big','tough','fast']},
-    {w:'brave',  a:'scared',   x:['strong','bold','kind']},
-    {w:'smooth', a:'rough',    x:['shiny','flat','slippery']},
-    {w:'loud',   a:'quiet',    x:['noisy','big','fast']},
-    {w:'deep',   a:'shallow',  x:['low','wet','dark']},
-    {w:'same',   a:'different',x:['alike','equal','twin']},
-    {w:'true',   a:'false',    x:['real','right','correct']},
-    {w:'above',  a:'below',    x:['over','high','up']},
-    {w:'first',  a:'last',     x:['early','one','top']},
-    {w:'give',   a:'take',     x:['share','send','hand']},
-    {w:'win',    a:'lose',     x:['play','score','race']},
-    {w:'young',  a:'old',      x:['little','small','baby']}
+    {w:'big',     a:'large',     x:['small','tall','round']},
+    {w:'little',  a:'small',     x:['big','short','thin']},
+    {w:'happy',   a:'glad',      x:['sad','mad','sleepy']},
+    {w:'sad',     a:'upset',     x:['angry','glad','tired']},
+    {w:'fast',    a:'quick',     x:['slow','late','loud']},
+    {w:'start',   a:'begin',     x:['stop','end','wait']},
+    {w:'end',     a:'finish',    x:['start','begin','open']},
+    {w:'pretty',  a:'beautiful', x:['ugly','plain','little']},
+    {w:'mad',     a:'angry',     x:['glad','sad','silly']},
+    {w:'smart',   a:'clever',    x:['dull','funny','quiet']},
+    {w:'shut',    a:'close',     x:['open','lock','hide']},
+    {w:'jump',    a:'hop',       x:['run','sit','fall']},
+    {w:'look',    a:'see',       x:['hear','hide','find']},
+    {w:'talk',    a:'speak',     x:['listen','sleep','think']},
+    {w:'yell',    a:'shout',     x:['whisper','laugh','sing']},
+    {w:'funny',   a:'silly',     x:['sad','scary','tired']},
+    {w:'mom',     a:'mother',    x:['father','sister','aunt']},
+    {w:'dad',     a:'father',    x:['mother','brother','uncle']},
+    {w:'sofa',    a:'couch',     x:['chair','bed','table']},
+    {w:'rock',    a:'stone',     x:['sand','mud','hill']},
+    {w:'sleepy',  a:'tired',     x:['awake','lazy','hungry']},
+    {w:'sick',    a:'ill',       x:['well','tired','hurt']},
+    {w:'choose',  a:'pick',      x:['drop','keep','throw']},
+    {w:'kid',     a:'child',     x:['adult','parent','teacher']},
+    {w:'huge',    a:'giant',     x:['tiny','heavy','tall']},
+    {w:'cold',    a:'chilly',    x:['hot','wet','windy']},
+    {w:'fix',     a:'repair',    x:['break','build','clean']},
+    {w:'street',  a:'road',      x:['house','hill','bridge']},
+    {w:'garbage', a:'trash',     x:['food','bag','paper']},
+    {w:'bunny',   a:'rabbit',    x:['mouse','kitten','puppy']},
+    {w:'pal',     a:'friend',    x:['enemy','sister','teacher']},
+    {w:'enjoy',   a:'like',      x:['hate','want','need']},
+    {w:'hurry',   a:'rush',      x:['wait','walk','stop']},
+    {w:'gift',    a:'present',   x:['card','box','toy']},
+    {w:'grin',    a:'smile',     x:['frown','laugh','cry']},
+    {w:'simple',  a:'easy',      x:['hard','short','small']},
+    {w:'hard',    a:'difficult', x:['easy','soft','heavy']},
+    {w:'tasty',   a:'yummy',     x:['yucky','sweet','hot']},
+    {w:'clean',   a:'neat',      x:['dirty','shiny','wet']},
+    {w:'quiet',   a:'silent',    x:['loud','busy','small']},
+    {w:'giggle',  a:'laugh',     x:['cry','shout','sneeze']},
+    {w:'afraid',  a:'scared',    x:['brave','shy','sad']},
+    {w:'below',   a:'under',     x:['above','beside','behind']},
+    {w:'boat',    a:'ship',      x:['car','plane','train']},
+    {w:'shop',    a:'store',     x:['home','school','park']},
+    {w:'forest',  a:'woods',     x:['field','farm','lake']},
+    {w:'leap',    a:'jump',      x:['fall','sit','climb']},
+    {w:'grab',    a:'take',      x:['give','drop','push']},
+    {w:'toss',    a:'throw',     x:['catch','kick','drop']},
+    {w:'tiny',    a:'little',    x:['huge','long','thin']}
   ];
-  var HINTS = {left:'Think of directions ➡️', true:'Think: is it real or not?', first:'Think of a line or a race'};
 
   var $ = function(id){return document.getElementById(id)};
   function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
@@ -205,7 +202,7 @@
   }
 
   function showBest(){
-    var b=store('opp50Best');
+    var b=store('syn50Best');
     $('best').textContent = b ? 'Best score: '+b+' / '+BANK.length+' ⭐' : '';
   }
 
@@ -223,7 +220,6 @@
     $('scoreNow').textContent='⭐ '+score;
     $('bar').style.width=(idx/BANK.length*100)+'%';
     $('word').textContent=q.w;
-    $('hint').textContent=HINTS[q.w]||'';
     $('fb').textContent='';
     $('next').classList.add('hidden');
     var box=$('opts'); box.innerHTML='';
@@ -238,8 +234,7 @@
   function pick(btn,val,q){
     if(answered) return;
     answered=true;
-    var all=$('opts').children;
-    Array.prototype.forEach.call(all,function(b){
+    Array.prototype.forEach.call($('opts').children,function(b){
       b.disabled=true;
       if(b.textContent===q.a) b.classList.add('right');
     });
@@ -249,7 +244,7 @@
     } else {
       btn.classList.add('wrong'); oops();
       missed.push(q);
-      $('fb').textContent='The opposite of "'+q.w+'" is "'+q.a+'".';
+      $('fb').textContent='A synonym for "'+q.w+'" is "'+q.a+'".';
     }
     $('scoreNow').textContent='⭐ '+score;
     $('bar').style.width=((idx+1)/BANK.length*100)+'%';
@@ -269,15 +264,15 @@
     var r = pct>=.9?3 : pct>=.6?2 : 1;
     var s=''; for(var i=0;i<3;i++) s+= i<r?'⭐':'☆';
     $('endStars').textContent=s;
-    $('endTitle').textContent = pct>=.9?'Wow! Opposite Champion!' : pct>=.6?'Great work!' : 'Good try! Keep going!';
+    $('endTitle').textContent = pct>=.9?'Wow! Synonym Champion!' : pct>=.6?'Great work!' : 'Good try! Keep going!';
     $('endScore').textContent='You got '+score+' out of '+n+' right.';
     var m=$('missed');
     if(missed.length){
       m.classList.remove('hidden');
-      m.innerHTML='<h3>Words to practise:</h3>'+missed.map(function(q){return '<div><b>'+q.w+'</b> ↔ '+q.a+'</div>'}).join('');
+      m.innerHTML='<h3>Words to practise:</h3>'+missed.map(function(q){return '<div><b>'+q.w+'</b> = '+q.a+'</div>'}).join('');
     } else m.classList.add('hidden');
-    var prev=parseInt(store('opp50Best')||'0',10);
-    if(score>prev) store('opp50Best',String(score));
+    var prev=parseInt(store('syn50Best')||'0',10);
+    if(score>prev) store('syn50Best',String(score));
     showBest();
     if(pct>=.6){burst();yay();}
   }
