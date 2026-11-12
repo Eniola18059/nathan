@@ -1,308 +1,115 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Synonyms Quiz</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fractions Quiz – Chapter 6</title>
 <style>
-  :root{
-    --bg1:#e3f6ff; --bg2:#e9e2ff; --ink:#33265c; --purple:#7c5cff; --purple-d:#5a3fd6;
-    --good:#2ecc71; --good-d:#1e9a52; --bad:#ff6b6b; --bad-d:#c94444; --sun:#ffb703; --sun-d:#c98a00;
-  }
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{margin:0;min-height:100%}
-  body{
-    font-family:"Trebuchet MS","Comic Sans MS",system-ui,sans-serif;color:var(--ink);
-    background:linear-gradient(160deg,var(--bg1),var(--bg2));
-    display:flex;align-items:center;justify-content:center;padding:14px;min-height:100vh;
-  }
-  .blob{position:fixed;border-radius:50%;opacity:.35;z-index:0;pointer-events:none}
-  .b1{width:220px;height:220px;background:#ffd8a8;left:-60px;top:-50px}
-  .b2{width:180px;height:180px;background:#b2f2bb;right:-40px;bottom:60px}
-  .b3{width:120px;height:120px;background:#ffc9de;left:10%;bottom:-40px}
-  .wrap{position:relative;z-index:1;width:100%;max-width:560px}
-  .card{background:#fff;border-radius:28px;padding:22px 20px;text-align:center;
-    box-shadow:0 12px 0 rgba(90,63,214,.15),0 22px 46px rgba(0,0,0,.14)}
-  h1{margin:0 0 6px;font-size:2.1rem;line-height:1.1}
-  .sub{margin:0 0 16px;font-size:1.1rem;opacity:.8}
-  .owl{font-size:5rem;line-height:1;margin:4px 0 8px;animation:bob 2.2s infinite ease-in-out}
-  @keyframes bob{50%{transform:translateY(-8px) rotate(-3deg)}}
-  button{font-family:inherit;border:0;cursor:pointer}
-  .big{background:var(--sun);color:#3a2a00;font-size:1.7rem;font-weight:800;padding:14px 40px;border-radius:50px;
-    box-shadow:0 7px 0 var(--sun-d);transition:transform .08s,box-shadow .08s}
-  .big:active{transform:translateY(5px);box-shadow:0 2px 0 var(--sun-d)}
-  .small{margin-top:14px;font-size:.95rem;opacity:.7}
-  .example{background:#f4f0ff;border-radius:18px;padding:10px 14px;margin:0 0 16px;font-size:1.15rem;font-weight:700}
-
-  .hud{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;font-weight:800}
-  .pill{background:#f1ecff;border-radius:50px;padding:6px 14px;white-space:nowrap}
-  .bar{height:16px;background:#f1ecff;border-radius:50px;overflow:hidden;margin-bottom:14px}
-  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#74c0fc,#7c5cff);border-radius:50px;transition:width .4s}
-
-  .ask{font-size:1.15rem;font-weight:700;opacity:.8;margin:0}
-  .wordbox{display:flex;align-items:center;justify-content:center;gap:12px;margin:6px 0 10px}
-  .word{font-size:3.4rem;font-weight:900;letter-spacing:1px;color:var(--purple-d)}
-  .say{background:#f1ecff;width:46px;height:46px;border-radius:50%;font-size:1.4rem}
-  .say:active{transform:scale(.92)}
-
-  .opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
-  .opt{background:var(--purple);color:#fff;font-size:1.9rem;font-weight:800;padding:18px 6px;border-radius:22px;
-    box-shadow:0 7px 0 var(--purple-d);transition:transform .08s,box-shadow .08s,background .2s;word-break:break-word}
-  .opt:active:not(:disabled){transform:translateY(5px);box-shadow:0 2px 0 var(--purple-d)}
-  .opt.right{background:var(--good);box-shadow:0 7px 0 var(--good-d)}
-  .opt.wrong{background:var(--bad);box-shadow:0 7px 0 var(--bad-d);animation:shake .4s}
-  .opt:disabled{cursor:default}
-  @keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-
-  .fb{min-height:40px;margin-top:12px;font-size:1.35rem;font-weight:800}
-  .next{margin-top:6px;font-size:1.4rem;padding:10px 34px}
-
-  .stars{font-size:2.8rem;margin:6px 0}
-  .score{font-size:1.3rem;font-weight:800;margin:4px 0 12px}
-  .missed{text-align:left;background:#fff6f6;border-radius:18px;padding:10px 16px;margin:0 0 16px;font-size:1.1rem}
-  .missed h3{margin:0 0 6px;font-size:1.1rem}
-  .missed div{padding:2px 0}
-  .hidden{display:none!important}
-  canvas{position:fixed;inset:0;pointer-events:none;z-index:5}
-  @media (max-width:380px){.word{font-size:2.7rem}.opt{font-size:1.6rem}}
-</style>
-</head>
-<body>
-<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
-<canvas id="confetti"></canvas>
-
-<div class="wrap">
-
-  <div class="card" id="start">
-    <div class="owl">🦉</div>
-    <h1>Synonyms Quiz</h1>
-    <p class="sub">Synonyms are words that mean the same, or almost the same, thing.</p>
-    <div class="example">Big = Large &nbsp;•&nbsp; Happy = Glad</div>
-    <button class="big" id="startBtn">▶ Start</button>
-    <p class="small" id="best"></p>
-  </div>
-
-  <div class="card hidden" id="play">
-    <div class="hud">
-      <span class="pill" id="qNum">1 / 50</span>
-      <span class="pill" id="scoreNow">⭐ 0</span>
-    </div>
-    <div class="bar"><i id="bar"></i></div>
-    <p class="ask">Which word means the same as…</p>
-    <div class="wordbox">
-      <span class="word" id="word"></span>
-      <button class="say" id="say" title="Hear the word">🔊</button>
-    </div>
-    <div class="opts" id="opts"></div>
-    <div class="fb" id="fb"></div>
-    <button class="big next hidden" id="next">Next ➜</button>
-  </div>
-
-  <div class="card hidden" id="end">
-    <div class="owl">🎉</div>
-    <h1 id="endTitle">Great work!</h1>
-    <div class="stars" id="endStars"></div>
-    <div class="score" id="endScore"></div>
-    <div class="missed hidden" id="missed"></div>
-    <button class="big" id="again">↻ Play Again</button>
-  </div>
-
-</div>
-
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mut:#667085;--pri:#4f46e5;--ok:#16a34a;--bad:#dc2626;--br:#e3e6ef}
+@media(prefers-color-scheme:dark){:root{--bg:#12141c;--card:#1c2030;--tx:#eef0f6;--mut:#9aa3b8;--pri:#818cf8;--ok:#4ade80;--bad:#f87171;--br:#2c3248}}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
+.w{max-width:860px;margin:0 auto;padding:24px 16px 60px}
+h1{font-size:2rem;margin:.2em 0}p.s{color:var(--mut);margin:0 0 22px}
+.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.c{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:18px;cursor:pointer;text-align:left;font:inherit;color:inherit;border-top:5px solid var(--k);transition:.15s}
+.c:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.12)}
+.c b{display:block;font-size:1.05rem;margin:6px 0}.c span{color:var(--mut);font-size:.88rem}.c em{display:block;margin-top:10px;font-style:normal;font-size:.85rem;font-weight:600}
+.n{font-size:1.8rem}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px}
+.bt{background:var(--card);border:1px solid var(--br);color:var(--tx);border-radius:10px;padding:9px 16px;font:inherit;cursor:pointer}
+.bt.p{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:600}.bt:disabled{opacity:.4;cursor:default}
+.bar{height:8px;background:var(--br);border-radius:9px;overflow:hidden;margin-bottom:18px}.bar i{display:block;height:100%;background:var(--pri);transition:.3s}
+.q{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:22px}
+.qt{font-size:1.25rem;line-height:1.7;margin-bottom:18px}
+.o{display:block;width:100%;text-align:left;background:var(--bg);border:2px solid var(--br);border-radius:10px;padding:12px 14px;margin:9px 0;font:inherit;font-size:1.1rem;color:inherit;cursor:pointer}
+.o:hover:not(:disabled){border-color:var(--pri)}.o.ok{border-color:var(--ok);background:rgba(22,163,74,.15)}.o.no{border-color:var(--bad);background:rgba(220,38,38,.13)}
+.ex{margin-top:14px;padding:12px;border-radius:10px;background:var(--bg);color:var(--mut);font-size:.95rem}
+.f{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.15;margin:0 3px;font-size:.92em}
+.f i{font-style:normal;padding:0 4px}.f i:first-child{border-bottom:2px solid currentColor}
+.big{font-size:3rem;font-weight:800;color:var(--pri);margin:8px 0}.r{padding:10px 0;border-bottom:1px solid var(--br)}.r small{color:var(--mut);display:block}
+</style></head><body><div class="w" id="app"></div>
 <script>
-(function(){
-  // Each item: word, correct synonym, and three plausible wrong choices
-  // (opposites of the word, or related words that do NOT mean the same).
-  var BANK = [
-    {w:'big',     a:'large',     x:['small','tall','round']},
-    {w:'little',  a:'small',     x:['big','short','thin']},
-    {w:'happy',   a:'glad',      x:['sad','mad','sleepy']},
-    {w:'sad',     a:'upset',     x:['angry','glad','tired']},
-    {w:'fast',    a:'quick',     x:['slow','late','loud']},
-    {w:'start',   a:'begin',     x:['stop','end','wait']},
-    {w:'end',     a:'finish',    x:['start','begin','open']},
-    {w:'pretty',  a:'beautiful', x:['ugly','plain','little']},
-    {w:'mad',     a:'angry',     x:['glad','sad','silly']},
-    {w:'smart',   a:'clever',    x:['dull','funny','quiet']},
-    {w:'shut',    a:'close',     x:['open','lock','hide']},
-    {w:'jump',    a:'hop',       x:['run','sit','fall']},
-    {w:'look',    a:'see',       x:['hear','hide','find']},
-    {w:'talk',    a:'speak',     x:['listen','sleep','think']},
-    {w:'yell',    a:'shout',     x:['whisper','laugh','sing']},
-    {w:'funny',   a:'silly',     x:['sad','scary','tired']},
-    {w:'mom',     a:'mother',    x:['father','sister','aunt']},
-    {w:'dad',     a:'father',    x:['mother','brother','uncle']},
-    {w:'sofa',    a:'couch',     x:['chair','bed','table']},
-    {w:'rock',    a:'stone',     x:['sand','mud','hill']},
-    {w:'sleepy',  a:'tired',     x:['awake','lazy','hungry']},
-    {w:'sick',    a:'ill',       x:['well','tired','hurt']},
-    {w:'choose',  a:'pick',      x:['drop','keep','throw']},
-    {w:'kid',     a:'child',     x:['adult','parent','teacher']},
-    {w:'huge',    a:'giant',     x:['tiny','heavy','tall']},
-    {w:'cold',    a:'chilly',    x:['hot','wet','windy']},
-    {w:'fix',     a:'repair',    x:['break','build','clean']},
-    {w:'street',  a:'road',      x:['house','hill','bridge']},
-    {w:'garbage', a:'trash',     x:['food','bag','paper']},
-    {w:'bunny',   a:'rabbit',    x:['mouse','kitten','puppy']},
-    {w:'pal',     a:'friend',    x:['enemy','sister','teacher']},
-    {w:'enjoy',   a:'like',      x:['hate','want','need']},
-    {w:'hurry',   a:'rush',      x:['wait','walk','stop']},
-    {w:'gift',    a:'present',   x:['card','box','toy']},
-    {w:'grin',    a:'smile',     x:['frown','laugh','cry']},
-    {w:'simple',  a:'easy',      x:['hard','short','small']},
-    {w:'hard',    a:'difficult', x:['easy','soft','heavy']},
-    {w:'tasty',   a:'yummy',     x:['yucky','sweet','hot']},
-    {w:'clean',   a:'neat',      x:['dirty','shiny','wet']},
-    {w:'quiet',   a:'silent',    x:['loud','busy','small']},
-    {w:'giggle',  a:'laugh',     x:['cry','shout','sneeze']},
-    {w:'afraid',  a:'scared',    x:['brave','shy','sad']},
-    {w:'below',   a:'under',     x:['above','beside','behind']},
-    {w:'boat',    a:'ship',      x:['car','plane','train']},
-    {w:'shop',    a:'store',     x:['home','school','park']},
-    {w:'forest',  a:'woods',     x:['field','farm','lake']},
-    {w:'leap',    a:'jump',      x:['fall','sit','climb']},
-    {w:'grab',    a:'take',      x:['give','drop','push']},
-    {w:'toss',    a:'throw',     x:['catch','kick','drop']},
-    {w:'tiny',    a:'little',    x:['huge','long','thin']}
-  ];
-
-  var $ = function(id){return document.getElementById(id)};
-  function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
-  function shuffle(arr){
-    var a=arr.slice();
-    for (var i=a.length-1;i>0;i--){var j=rand(0,i),t=a[i];a[i]=a[j];a[j]=t}
-    return a;
-  }
-  function store(k,v){try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v);}catch(e){return null}}
-  function show(id){['start','play','end'].forEach(function(x){$(x).classList.toggle('hidden',x!==id)})}
-
-  var order=[], idx=0, score=0, missed=[], answered=false;
-
-  // ---- sounds ----
-  var ac=null;
-  function tone(f,d,t,delay){
-    try{
-      ac=ac||new (window.AudioContext||window.webkitAudioContext)();
-      var o=ac.createOscillator(),g=ac.createGain(),s=ac.currentTime+(delay||0);
-      o.type=t||'sine';o.frequency.value=f;
-      g.gain.setValueAtTime(.001,s);g.gain.exponentialRampToValueAtTime(.22,s+.02);g.gain.exponentialRampToValueAtTime(.001,s+d);
-      o.connect(g);g.connect(ac.destination);o.start(s);o.stop(s+d+.05);
-    }catch(e){}
-  }
-  function yay(){tone(523,.14,'triangle',0);tone(659,.14,'triangle',.12);tone(784,.22,'triangle',.24)}
-  function oops(){tone(210,.28,'square',0)}
-
-  function speak(text){
-    try{
-      if(!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      var u=new SpeechSynthesisUtterance(text); u.rate=.8; u.pitch=1.1;
-      window.speechSynthesis.speak(u);
-    }catch(e){}
-  }
-
-  function showBest(){
-    var b=store('syn50Best');
-    $('best').textContent = b ? 'Best score: '+b+' / '+BANK.length+' ⭐' : '';
-  }
-
-  function begin(){
-    order=shuffle(BANK.map(function(_,i){return i}));
-    idx=0;score=0;missed=[];
-    show('play');
-    render();
-  }
-
-  function render(){
-    answered=false;
-    var q=BANK[order[idx]];
-    $('qNum').textContent=(idx+1)+' / '+BANK.length;
-    $('scoreNow').textContent='⭐ '+score;
-    $('bar').style.width=(idx/BANK.length*100)+'%';
-    $('word').textContent=q.w;
-    $('fb').textContent='';
-    $('next').classList.add('hidden');
-    var box=$('opts'); box.innerHTML='';
-    shuffle([q.a].concat(q.x)).forEach(function(opt){
-      var b=document.createElement('button');
-      b.className='opt'; b.textContent=opt;
-      b.addEventListener('click',function(){pick(b,opt,q)});
-      box.appendChild(b);
-    });
-  }
-
-  function pick(btn,val,q){
-    if(answered) return;
-    answered=true;
-    Array.prototype.forEach.call($('opts').children,function(b){
-      b.disabled=true;
-      if(b.textContent===q.a) b.classList.add('right');
-    });
-    if(val===q.a){
-      score++; yay();
-      $('fb').textContent=['Great job! 🎉','You got it! 🌟','Super! 👏','Yes! 🦉'][rand(0,3)];
-    } else {
-      btn.classList.add('wrong'); oops();
-      missed.push(q);
-      $('fb').textContent='A synonym for "'+q.w+'" is "'+q.a+'".';
-    }
-    $('scoreNow').textContent='⭐ '+score;
-    $('bar').style.width=((idx+1)/BANK.length*100)+'%';
-    $('next').textContent = idx===BANK.length-1 ? 'See my score ➜' : 'Next ➜';
-    $('next').classList.remove('hidden');
-  }
-
-  function next(){
-    idx++;
-    if(idx>=BANK.length) return finish();
-    render();
-  }
-
-  function finish(){
-    show('end');
-    var n=BANK.length, pct=score/n;
-    var r = pct>=.9?3 : pct>=.6?2 : 1;
-    var s=''; for(var i=0;i<3;i++) s+= i<r?'⭐':'☆';
-    $('endStars').textContent=s;
-    $('endTitle').textContent = pct>=.9?'Wow! Synonym Champion!' : pct>=.6?'Great work!' : 'Good try! Keep going!';
-    $('endScore').textContent='You got '+score+' out of '+n+' right.';
-    var m=$('missed');
-    if(missed.length){
-      m.classList.remove('hidden');
-      m.innerHTML='<h3>Words to practise:</h3>'+missed.map(function(q){return '<div><b>'+q.w+'</b> = '+q.a+'</div>'}).join('');
-    } else m.classList.add('hidden');
-    var prev=parseInt(store('syn50Best')||'0',10);
-    if(score>prev) store('syn50Best',String(score));
-    showBest();
-    if(pct>=.6){burst();yay();}
-  }
-
-  // ---- confetti ----
-  var cv=$('confetti'),cx=cv.getContext('2d'),bits=[],anim=null;
-  function size(){cv.width=innerWidth;cv.height=innerHeight}
-  addEventListener('resize',size);size();
-  function burst(){
-    var cols=['#ffb703','#ff6b6b','#2ecc71','#7c5cff','#4dd0e1','#f783ac'];
-    for(var i=0;i<140;i++) bits.push({x:cv.width/2,y:cv.height/3,vx:(Math.random()-.5)*14,vy:Math.random()*-12-2,
-      s:rand(6,11),c:cols[rand(0,cols.length-1)],r:Math.random()*6,l:160});
-    if(!anim) loop();
-  }
-  function loop(){
-    cx.clearRect(0,0,cv.width,cv.height);
-    bits=bits.filter(function(p){return p.l>0});
-    bits.forEach(function(p){
-      p.vy+=.28;p.x+=p.vx;p.y+=p.vy;p.r+=.2;p.l--;
-      cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore();
-    });
-    if(bits.length) anim=requestAnimationFrame(loop); else {anim=null;cx.clearRect(0,0,cv.width,cv.height)}
-  }
-
-  $('startBtn').addEventListener('click',begin);
-  $('again').addEventListener('click',begin);
-  $('next').addEventListener('click',next);
-  $('say').addEventListener('click',function(){speak($('word').textContent)});
-  showBest();
-})();
-</script>
-</body>
-</html>
+const gcd=(a,b)=>b?gcd(b,a%b):a,sm=(n,d)=>{const g=gcd(n,d);return[n/g,d/g]};
+const F=(n,d)=>`<span class=f><i>${n}</i><i>${d}</i></span>`,M=(w,n,d)=>`${w}${F(n,d)}`;
+const mx=(n,d)=>{const w=Math.floor(n/d),r=n%d;if(!r)return''+w;const[a,b]=sm(r,d);return w?M(w,a,b):F(a,b)};
+let sd=7;const rnd=()=>{sd=(sd*1664525+1013904223)%4294967296;return sd/4294967296},R=(a,b)=>a+Math.floor(rnd()*(b-a+1));
+const Q=(q,ans,c,e)=>({q,ans:String(ans),c:[...new Set(c.map(String))].filter(x=>x!==String(ans)).slice(0,3),e});
+const FI=(n,d)=>({h:F(n,d),n,d}),MI=(w,n,d)=>({h:M(w,n,d),n:w*d+n,d});
+const dist=(n,d)=>{const w=Math.floor(n/d),r=n%d;if(!r)return[w+1,w+2,w-1,w+3].filter(x=>x>0);
+const[a,b]=sm(r,d),c=[];
+if(w){c.push(F(n,d),M(w+1,a,b),M(w,a,b+1),M(w+2,a,b),M(w,b-a,b));if(b<d)c.push(M(w,r,d));if(w>1)c.push(M(w-1,a,b))}
+else c.push(F(b,a),F(a+1,b),F(a,b+1),F(b-a,b),F(a+1,b+1),F(a*2,b*2));return c};
+const note=(n,d)=>{const w=Math.floor(n/d),r=n%d;if(!r)return`${n} ÷ ${d} = ${w} exactly.`;const[a,b]=sm(r,d);return`${n} ÷ ${d} = ${w} remainder ${r}, so ${w?w+' and ':''}${r}/${d}${b<d?' = '+a+'/'+b+' in simplest form':''}.`};
+const mixQ=(n,d)=>Q(`Express ${F(n,d)} as a whole or mixed number in simplest form.`,mx(n,d),dist(n,d),note(n,d));
+const divQ=(a,b)=>Q(`${a} ÷ ${b} = ? <small>(whole/mixed number or fraction, simplest form)</small>`,mx(a,b),dist(a,b),note(a,b));
+const impQ=(w,n,d)=>{const x=w*d+n;return Q(`Express ${M(w,n,d)} as an improper fraction.`,F(x,d),[F(w+n,d),F(w*n+d,d),F(x+d,d),F(x-1,d),F(x,w*d)],`${w} × ${d} + ${n} = ${x}, so ${x}/${d}.`)};
+const wQ=(w,d)=>Q(`${w} = ${F('?',d)} <small>(find the numerator)</small>`,w*d,[w*d+d,w+d,w*d+1,w*d-d,w*d+w],`${w} × ${d} = ${w*d}.`);
+const sQ=(n,d)=>{const[p,q]=sm(n,d);return Q(`Write ${F(n,d)} in simplest form.`,F(p,q),[F(p*2,q*2),F(p+1,q),F(p,q+1),F(q,p),F(p+1,q+1)],`Divide top and bottom by ${gcd(n,d)}.`)};
+const eQ=(a,b,k,top)=>top?Q(`${F(a,b)} = ${F('?',b*k)} <small>(missing numerator)</small>`,a*k,[a*k+1,a*k-1,a+k,a*k+k,a*k+2],`${b} × ${k} = ${b*k}, so ${a} × ${k} = ${a*k}.`):Q(`${F(a,b)} = ${F(a*k,'?')} <small>(missing denominator)</small>`,b*k,[b*k+1,b*k-1,b+k,b*k+k,b*k+2],`${a} × ${k} = ${a*k}, so ${b} × ${k} = ${b*k}.`);
+const cmp=(A,B,t)=>{const x=A.n*B.d,y=B.n*A.d,a=x>y?A.h:x<y?B.h:'They are equal';return Q(`Which is greater? ${A.h} or ${B.h}`,a,[A.h,B.h,'They are equal'],`Cross-multiply: ${A.n}×${B.d} = ${x} and ${B.n}×${A.d} = ${y}.`)};
+const pk=(lbl,it,k)=>{const v=x=>x.n/x.d,sc=k=='min'?v:k=='max'?x=>-v(x):x=>Math.abs(v(x)-k);let b=it[0];it.forEach(x=>{if(sc(x)<sc(b))b=x});return Q(lbl,b.h,it.map(x=>x.h),'As decimals: '+it.map(x=>v(x).toFixed(2)).join(', ')+'.')};
+const aQ=(w,n,d,rev)=>{const x=w*d+n;return Q(`${rev?F(n,d)+' + '+w:w+' + '+F(n,d)} = ? <small>(mixed number, simplest form)</small>`,mx(x,d),dist(x,d),'Add the whole number and the fraction, then simplify.')};
+const tQ=(w,n,d)=>{const x=w*d-n;return Q(`${w} − ${F(n,d)} = ? <small>(mixed number, simplest form)</small>`,mx(x,d),dist(x,d),`${w} − ${n}/${d} = ${w-1} + ${d-n}/${d}, then simplify.`)};
+const fill=(a,g)=>{while(a.length<25)a.push(g(a.length));return a.slice(0,25)};
+const rmix=()=>{const d=R(3,9);return mixQ(R(2,9)*d+R(1,d-1),d)};
+const rimp=()=>{const d=R(3,9);return impQ(R(2,9),R(1,d-1),d)};
+const rcmp=()=>{const d=R(2,9),e=R(3,9);return cmp(MI(R(1,3),R(1,d-1),d),FI(R(2*e,5*e),e))};
+const T=[];
+// 1 Equivalent
+T.push(fill([[6,9],[6,8],[6,15],[10,12],[21,42],[24,32],[42,56],[18,72]].map(x=>sQ(...x)).concat([[1,3,2,1],[1,3,3,0],[1,3,4,1],[1,2,8,1],[2,3,4,1],[3,4,3,0],[3,4,5,1],[4,5,2,0],[5,6,2,1],[2,5,3,0],[5,10,2,1],[3,8,2,1],[5,8,3,0],[7,10,2,1],[2,9,3,0],[6,7,2,1],[3,5,4,0]].map(x=>eQ(...x))),()=>sQ(12,18)));
+// 2 Comparing
+{const p=[[5,12,7,12],[5,12,5,9],[2,3,7,12],[3,5,9,16],[2,5,3,7],[7,8,3,4],[3,5,7,15],[4,7,8,9],[3,4,9,11],[2,3,3,8],[5,12,7,16],[10,11,8,9],[15,16,10,11],[4,8,1,2],[6,13,1,2],[6,11,1,2],[6,12,1,2]].map(([a,b,c,d])=>cmp(FI(a,b),FI(c,d)));
+const o=[[[5,6],[6,7],[3,5]],[[8,9],[23,50],[12,13]],[[13,16],[2,5],[5,8],[7,7]],[[7,12],[3,7],[5,14],[31,48]]].map(l=>pk('Which fraction is the least?',l.map(x=>FI(...x)),'min'));
+const x=[Q(`How many of these are less than ${F(1,2)}? ${[[3,8],[8,11],[3,5],[5,16],[8,15],[5,12]].map(y=>F(...y)).join(' ')}`,3,[2,4,5,1],'3/8, 5/16 and 5/12 are less than 1/2.'),
+pk('Which fraction is closest to 1?',[[3,4],[1,2],[4,5],[5,6],[2,3]].map(y=>FI(...y)),1),pk('Which is closer to 1?',[FI(4,5),FI(6,7)],1)];
+T.push(fill(p.concat(o,x),()=>cmp(FI(R(1,8),9),FI(R(1,9),11))))}
+// 3 Improper & mixed
+T.push(fill([aQ(3,2,3),tQ(4,4,9),aQ(5,6,8),tQ(8,6,12),aQ(8,8,14,1),tQ(3,7,15),tQ(3,1,5),tQ(4,2,9),aQ(2,5,9),
+Q('Write 8 fifths as an improper fraction.',F(8,5),[F(5,8),F(8,8),F(13,5),F(3,5)],'8 fifths = 8/5.'),
+Q('Write 9 thirds as a whole number.',3,[9,27,6,1],'9 ÷ 3 = 3.'),
+Q(`1 + ${F('?',12)} = 1${F(1,3)}. What is the missing numerator?`,4,[3,6,8,2],'1/3 = 4/12.')],i=>{const d=R(3,12),n=R(1,d-1),w=R(2,9);return i%2?tQ(w,n,d):aQ(w,n,d)}));
+// 4 Practice A
+{const a=[Q(`How many of these fractions are greater than 1? ${[[8,5],[7,16],[11,9],[15,13],[6,15]].map(x=>F(...x)).join(' ')}`,3,[1,2,4,5],'8/5, 11/9 and 15/13 have numerators bigger than denominators.'),
+pk('Which fraction is closest to 1?',[[3,4],[1,2],[4,5],[5,6],[2,3]].map(x=>FI(...x)),1),
+cmp(FI(5,8),FI(8,5)),cmp(MI(2,3,5),MI(2,7,15)),cmp(FI(11,8),FI(5,4)),
+Q(`In a relay, Aisha ran 1${F(3,4)} miles and Paula ran 1${F(5,12)} miles. Who ran farther?`,'Aisha',['Paula','They ran the same'],'3/4 = 9/12, which is more than 5/12.'),
+Q(`${F(2,9)} &lt; ${F(1,'?')} &lt; ${F(2,7)}. Find ?`,4,[3,5,6,2],'1/4 = 0.25 lies between 0.22 and 0.29.'),
+Q(`${F(1,2)} &lt; ${F(3,'?')} &lt; ${F(3,4)}. Find ?`,5,[4,6,7,3],'3/5 = 0.6 lies between 0.5 and 0.75.'),
+Q(`${F(3,4)} &lt; ${F('?',5)} &lt; 1. Find ?`,4,[3,5,2,1],'4/5 = 0.8.'),
+Q(`2${F(2,3)} &lt; 2${F(8,'?')} &lt; 2${F(4,5)}. Find ?`,11,[10,12,9,13],'8/11 ≈ 0.73 is between 0.67 and 0.8.'),
+Q('How many different fractions between 0 and 1, in simplest form, have denominators of 10 or less?',31,[29,30,32,36],'1+2+2+4+2+6+4+6+4 = 31.'),
+Q('A 3×6 grid has 5 squares shaded. How many more must be shaded so that 4/9 is unshaded?',5,[4,6,8,10],'4/9 of 18 = 8 unshaded, so 10 shaded; 10 − 5 = 5.'),
+Q('A 4×6 grid has 6 squares shaded. How many more must be shaded so that 1/4 is unshaded?',12,[6,18,10,14],'1/4 of 24 = 6 unshaded, so 18 shaded; 18 − 6 = 12.'),
+Q(`Three grids of 9 squares each have 6 squares shaded in total. How many more must be shaded to leave 1${F(2,3)} unshaded?`,6,[3,5,9,12],'1 2/3 wholes = 15 squares unshaded; 27 − 6 = 21 unshaded now; 21 − 15 = 6.'),
+Q(`Missing fraction: ${F(5,12)}, ${F(1,2)}, ?, ${F(2,3)}, ${F(3,4)}`,F(7,12),[F(5,8),F(3,5),F(7,10)],'Twelfths: 5, 6, 7, 8, 9 over 12.')];
+T.push(fill(a,rcmp))}
+// 5 Improper -> mixed
+T.push(fill([[15,4],[23,9],[15,5],[90,9],[24,2],[40,8],[54,6],[56,7],[18,4],[27,5],[16,7],[9,4],[20,6],[11,2],[20,8],[30,9]].map(x=>mixQ(...x)).concat([pk('Which is the least?',[FI(18,5),FI(23,7),FI(14,3)],'min')]),rmix));
+// 6 Mixed -> improper
+T.push(fill([[3,2,3],[2,5,8],[3,2,5],[5,2,9],[4,5,6],[7,1,7],[5,7,10],[6,5,8],[2,5,12],[11,2,3],[9,1,2],[6,2,3],[10,5,6],[8,4,9],[1,1,4],[3,1,4],[2,3,4]].map(x=>impQ(...x)).concat([[2,9],[3,8],[4,5],[5,3],[4,12],[8,16]].map(x=>wQ(...x)),[pk('Which is the least?',[FI(14,3),MI(3,3,7),FI(21,4)],'min')]),rimp));
+// 7 Division
+T.push(fill([[2,5],[7,5],[2,4],[10,4],[50,7],[56,6],[3,7],[8,10],[45,3],[31,9],[32,6],[49,5],[45,4],[79,5],[46,8],[85,9]].map(x=>divQ(...x)).concat([
+Q('A 38 oz box of cereal has 8 servings. How many ounces are in each serving?',mx(38,8),dist(38,8),note(38,8)),
+Q('45 pounds of rice is divided equally into 6 bags. How many pounds are in each bag?',mx(45,6),dist(45,6),note(45,6))]),i=>{const b=R(3,11);return divQ(i%2?R(1,b-1):R(11,95)+(0),b)}));
+// 8 Practice B
+{const a=[Q(`Count on by ${F(3,4)} from ${F(1,4)}: ${F(1,4)}, 1, ${M(1,3,4)}, … What comes next?`,M(2,1,2),[M(2,1,4),M(2,3,4),3,M(3,1,2)],'1 3/4 + 3/4 = 2 1/2.'),
+Q(`Count on by ${F(3,8)} from ${F(1,8)}: ${F(1,8)}, ${F(1,2)}, ${F(7,8)}, … What is the next term?`,M(1,1,4),[M(1,3,8),M(1,1,2),F(9,8),M(1,1,8)],'7/8 + 3/8 = 10/8 = 1 1/4.'),
+Q(`Count on by ${F(2,9)} from ${F(2,9)}. What is the 5th term?`,M(1,1,9),[F(8,9),M(1,2,9),M(1,1,3),F(2,3)],'2/9, 4/9, 6/9, 8/9, 10/9 = 1 1/9.'),
+pk('Which is the least?',[FI(16,3),MI(4,7,8),FI(26,6)],'min'),
+pk('Which is the greatest?',[FI(42,10),FI(60,9),FI(52,7),FI(28,5)],'max'),
+pk('Which fraction is closest to 5?',[FI(14,3),FI(19,4),FI(11,5),FI(43,8)],5),
+pk('Which fraction is closest to 10?',[FI(59,6),FI(50,4),FI(68,7),FI(78,8)],10),
+Q(`How many whole numbers are between ${F(19,3)} and ${F(47,4)}?`,5,[4,6,3,7],'19/3 ≈ 6.3 and 47/4 = 11.75, so 7, 8, 9, 10, 11.'),
+Q(`One half is one third of what mixed number?`,M(1,1,2),[M(1,1,6),3,M(2,1,2),F(1,6)],'1/2 × 3 = 3/2 = 1 1/2.'),
+Q(`Two clay lumps weigh the same. One lump balances ${F(3,5)} of the other plus a ${F(1,2)} kg weight. How much does a lump weigh?`,M(1,1,4)+' kg',[M(1,1,2)+' kg',M(2,1,2)+' kg',F(4,5)+' kg'],'2/5 of a lump = 1/2 kg, so a lump = 1/2 × 5/2 = 5/4 = 1 1/4 kg.')];
+T.push(fill(a,i=>[rimp,rmix,rcmp][i%3]()))}
+const meta=[['Equivalent Fractions','Find and simplify equivalent fractions','🟰','#4f46e5'],['Comparing & Ordering','Greater, less than, ordering fractions','⚖️','#0891b2'],['Improper Fractions & Mixed Numbers','Adding, subtracting and naming mixed numbers','🔢','#16a34a'],['Practice A','Mixed review of Exercise 4','📝','#d97706'],['Improper → Mixed Numbers','Express improper fractions as mixed numbers','⬆️','#db2777'],['Mixed Numbers → Improper','Express mixed numbers as improper fractions','⬇️','#7c3aed'],['Fractions & Division','Divide whole numbers, answer as fractions','➗','#dc2626'],['Practice B','Mixed review of Exercise 8 with challenges','🏆','#0d9488']];
+const $=document.getElementById('app');let tp,qs,i,sc,wr;
+const best=k=>{try{return localStorage.getItem('fq'+k)}catch(e){return null}};
+function home(){$.innerHTML=`<h1>Fractions Quiz</h1><p class=s>Chapter 6 · 8 topics · 25 questions each (200 total). Pick a topic to start.</p><div class=g>${meta.map((m,k)=>`<button class=c style="--k:${m[3]}" onclick="start(${k})"><div class=n>${m[2]}</div><b>${k+1}. ${m[0]}</b><span>${m[1]}</span><em>25 questions${best(k)!=null?' · Best: '+best(k)+'/25':''}</em></button>`).join('')}</div>`}
+function start(k){tp=k;qs=T[k].map(q=>{const o=[...q.c],p=Math.floor(Math.random()*(o.length+1));o.splice(p,0,q.ans);return{...q,o,p}}).sort(()=>Math.random()-.5);i=0;sc=0;wr=[];show()}
+function show(){const q=qs[i];$.innerHTML=`<div class=top><button class=bt onclick=home()>← Topics</button><b>${meta[tp][0]}</b><span>${i+1}/25 · ✔ ${sc}</span></div><div class=bar><i style="width:${i/25*100}%"></i></div><div class=q><div class=qt>${q.q}</div>${q.o.map((o,j)=>`<button class=o onclick=ans(${j})>${o}</button>`).join('')}<div id=ex></div><div style="text-align:right;margin-top:14px"><button class="bt p" id=nx disabled onclick=nxt()>${i==24?'See results':'Next →'}</button></div></div>`}
+function ans(j){const q=qs[i],b=document.querySelectorAll('.o');b.forEach((x,n)=>{x.disabled=true;if(n==q.p)x.classList.add('ok')});if(j==q.p)sc++;else{b[j].classList.add('no');wr.push({q:q.q,y:q.o[j],a:q.ans})}
+document.getElementById('ex').innerHTML=`<div class=ex>${j==q.p?'✅ Correct! ':'❌ Not quite. '}${q.e}</div>`;document.getElementById('nx').disabled=false}
+function nxt(){if(++i<25)show();else done()}
+function done(){let b=+best(tp);if(best(tp)==null||sc>b){try{localStorage.setItem('fq'+tp,sc)}catch(e){}}
+$.innerHTML=`<div class=top><button class=bt onclick=home()>← Topics</button><b>${meta[tp][0]}</b><span></span></div><div class=q style="text-align:center"><div class=big>${sc}/25</div><p>${sc>=22?'Excellent work! 🎉':sc>=15?'Good job, keep practising! 👍':'Keep going, you will get there! 💪'}</p><button class="bt p" onclick=start(${tp})>Try again</button> <button class=bt onclick=home()>Choose another topic</button></div>${wr.length?`<h3>Review your mistakes (${wr.length})</h3><div class=q>${wr.map(w=>`<div class=r>${w.q}<small>Your answer: ${w.y} &nbsp;·&nbsp; Correct: <b>${w.a}</b></small></div>`).join('')}</div>`:''}`}
+home();
+</script></body></html>
