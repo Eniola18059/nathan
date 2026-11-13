@@ -1,115 +1,230 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Fractions Quiz – Chapter 6</title>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mental Math for Multiplication Quiz</title>
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mut:#667085;--pri:#4f46e5;--ok:#16a34a;--bad:#dc2626;--br:#e3e6ef}
-@media(prefers-color-scheme:dark){:root{--bg:#12141c;--card:#1c2030;--tx:#eef0f6;--mut:#9aa3b8;--pri:#818cf8;--ok:#4ade80;--bad:#f87171;--br:#2c3248}}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
-.w{max-width:860px;margin:0 auto;padding:24px 16px 60px}
-h1{font-size:2rem;margin:.2em 0}p.s{color:var(--mut);margin:0 0 22px}
-.g{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.c{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:18px;cursor:pointer;text-align:left;font:inherit;color:inherit;border-top:5px solid var(--k);transition:.15s}
-.c:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.12)}
-.c b{display:block;font-size:1.05rem;margin:6px 0}.c span{color:var(--mut);font-size:.88rem}.c em{display:block;margin-top:10px;font-style:normal;font-size:.85rem;font-weight:600}
-.n{font-size:1.8rem}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px}
-.bt{background:var(--card);border:1px solid var(--br);color:var(--tx);border-radius:10px;padding:9px 16px;font:inherit;cursor:pointer}
-.bt.p{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:600}.bt:disabled{opacity:.4;cursor:default}
-.bar{height:8px;background:var(--br);border-radius:9px;overflow:hidden;margin-bottom:18px}.bar i{display:block;height:100%;background:var(--pri);transition:.3s}
-.q{background:var(--card);border:1px solid var(--br);border-radius:14px;padding:22px}
-.qt{font-size:1.25rem;line-height:1.7;margin-bottom:18px}
-.o{display:block;width:100%;text-align:left;background:var(--bg);border:2px solid var(--br);border-radius:10px;padding:12px 14px;margin:9px 0;font:inherit;font-size:1.1rem;color:inherit;cursor:pointer}
-.o:hover:not(:disabled){border-color:var(--pri)}.o.ok{border-color:var(--ok);background:rgba(22,163,74,.15)}.o.no{border-color:var(--bad);background:rgba(220,38,38,.13)}
-.ex{margin-top:14px;padding:12px;border-radius:10px;background:var(--bg);color:var(--mut);font-size:.95rem}
-.f{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.15;margin:0 3px;font-size:.92em}
-.f i{font-style:normal;padding:0 4px}.f i:first-child{border-bottom:2px solid currentColor}
-.big{font-size:3rem;font-weight:800;color:var(--pri);margin:8px 0}.r{padding:10px 0;border-bottom:1px solid var(--br)}.r small{color:var(--mut);display:block}
-</style></head><body><div class="w" id="app"></div>
+  :root{
+    --bg:#f4f7fb; --card:#ffffff; --ink:#1f2a44; --muted:#6b7694;
+    --brand:#3b6ef5; --brand-dark:#2a54c9; --good:#1f9d62; --good-bg:#e5f6ee;
+    --bad:#d6403f; --bad-bg:#fdeaea; --line:#dde3f0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;justify-content:center;padding:20px 14px}
+  .app{width:100%;max-width:680px}
+  .card{background:var(--card);border-radius:18px;padding:26px 24px;box-shadow:0 6px 24px rgba(31,42,68,.08)}
+  h1{margin:0 0 6px;font-size:1.7rem}
+  .sub{color:var(--muted);margin:0 0 18px}
+  .tag{display:inline-block;background:#e8eefe;color:var(--brand-dark);font-weight:600;font-size:.8rem;padding:4px 10px;border-radius:999px;margin-bottom:12px}
+  ul.info{padding-left:20px;margin:0 0 22px;line-height:1.7}
+  button{font:inherit;cursor:pointer;border:none}
+  .btn{background:var(--brand);color:#fff;padding:13px 26px;border-radius:12px;font-weight:600;font-size:1rem}
+  .btn:hover{background:var(--brand-dark)}
+  .btn.ghost{background:#e8eefe;color:var(--brand-dark)}
+  .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;color:var(--muted);font-size:.92rem}
+  .bar{height:10px;background:#e6ebf5;border-radius:999px;overflow:hidden;margin-bottom:22px}
+  .bar>div{height:100%;background:var(--brand);width:0;transition:width .3s}
+  .q{font-size:1.45rem;font-weight:600;line-height:1.45;margin:0 0 22px}
+  .q.word{font-size:1.15rem;font-weight:500}
+  .opts{display:grid;gap:12px}
+  .opt{background:#fff;border:2px solid var(--line);border-radius:12px;padding:14px 16px;text-align:left;font-size:1.1rem;color:var(--ink);display:flex;gap:12px;align-items:center}
+  .opt:hover:not(:disabled){border-color:var(--brand)}
+  .opt .l{width:30px;height:30px;border-radius:50%;background:#eef2fb;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;flex:none}
+  .opt.correct{border-color:var(--good);background:var(--good-bg)}
+  .opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+  .opt:disabled{cursor:default}
+  .fb{margin-top:18px;padding:14px 16px;border-radius:12px;line-height:1.55;display:none}
+  .fb.show{display:block}
+  .fb.good{background:var(--good-bg);color:#126b42}
+  .fb.bad{background:var(--bad-bg);color:#8f2423}
+  .next{margin-top:18px;display:none;text-align:right}
+  .next.show{display:block}
+  .score{font-size:3rem;font-weight:700;color:var(--brand);margin:8px 0}
+  .review{margin-top:20px;border-top:1px solid var(--line);padding-top:16px}
+  .rv{padding:12px 14px;border-radius:10px;background:var(--bad-bg);margin-bottom:10px;line-height:1.5}
+  .rv b{display:block}
+  .hidden{display:none}
+  @media(max-width:480px){.card{padding:20px 16px}.q{font-size:1.25rem}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="card" id="start">
+    <span class="tag">Grade 4 · Chapter 4 Multiplication</span>
+    <h1>Mental Math for Multiplication</h1>
+    <p class="sub">Exercise 1 quiz</p>
+    <ul class="info">
+      <li>50 questions: the first 34 come from the workbook, the last 16 are extra practice</li>
+      <li>Pick one answer for each question</li>
+      <li>You will see the explanation after every answer</li>
+      <li>Think carefully: the wrong choices are mistakes people really make!</li>
+    </ul>
+    <button class="btn" onclick="startQuiz()">Start quiz</button>
+  </div>
+
+  <div class="card hidden" id="quiz">
+    <div class="top"><span id="count"></span><span id="scoreLive"></span></div>
+    <div class="bar"><div id="prog"></div></div>
+    <p class="q" id="qText"></p>
+    <div class="opts" id="opts"></div>
+    <div class="fb" id="fb"></div>
+    <div class="next" id="nextWrap"><button class="btn" id="nextBtn" onclick="next()">Next</button></div>
+  </div>
+
+  <div class="card hidden" id="result">
+    <span class="tag">Quiz complete</span>
+    <h1 id="rTitle"></h1>
+    <div class="score" id="rScore"></div>
+    <p class="sub" id="rMsg"></p>
+    <button class="btn" onclick="startQuiz()">Try again</button>
+    <div class="review hidden" id="review">
+      <h3>Questions to look at again</h3>
+      <div id="rvList"></div>
+    </div>
+  </div>
+
+</div>
+
 <script>
-const gcd=(a,b)=>b?gcd(b,a%b):a,sm=(n,d)=>{const g=gcd(n,d);return[n/g,d/g]};
-const F=(n,d)=>`<span class=f><i>${n}</i><i>${d}</i></span>`,M=(w,n,d)=>`${w}${F(n,d)}`;
-const mx=(n,d)=>{const w=Math.floor(n/d),r=n%d;if(!r)return''+w;const[a,b]=sm(r,d);return w?M(w,a,b):F(a,b)};
-let sd=7;const rnd=()=>{sd=(sd*1664525+1013904223)%4294967296;return sd/4294967296},R=(a,b)=>a+Math.floor(rnd()*(b-a+1));
-const Q=(q,ans,c,e)=>({q,ans:String(ans),c:[...new Set(c.map(String))].filter(x=>x!==String(ans)).slice(0,3),e});
-const FI=(n,d)=>({h:F(n,d),n,d}),MI=(w,n,d)=>({h:M(w,n,d),n:w*d+n,d});
-const dist=(n,d)=>{const w=Math.floor(n/d),r=n%d;if(!r)return[w+1,w+2,w-1,w+3].filter(x=>x>0);
-const[a,b]=sm(r,d),c=[];
-if(w){c.push(F(n,d),M(w+1,a,b),M(w,a,b+1),M(w+2,a,b),M(w,b-a,b));if(b<d)c.push(M(w,r,d));if(w>1)c.push(M(w-1,a,b))}
-else c.push(F(b,a),F(a+1,b),F(a,b+1),F(b-a,b),F(a+1,b+1),F(a*2,b*2));return c};
-const note=(n,d)=>{const w=Math.floor(n/d),r=n%d;if(!r)return`${n} ÷ ${d} = ${w} exactly.`;const[a,b]=sm(r,d);return`${n} ÷ ${d} = ${w} remainder ${r}, so ${w?w+' and ':''}${r}/${d}${b<d?' = '+a+'/'+b+' in simplest form':''}.`};
-const mixQ=(n,d)=>Q(`Express ${F(n,d)} as a whole or mixed number in simplest form.`,mx(n,d),dist(n,d),note(n,d));
-const divQ=(a,b)=>Q(`${a} ÷ ${b} = ? <small>(whole/mixed number or fraction, simplest form)</small>`,mx(a,b),dist(a,b),note(a,b));
-const impQ=(w,n,d)=>{const x=w*d+n;return Q(`Express ${M(w,n,d)} as an improper fraction.`,F(x,d),[F(w+n,d),F(w*n+d,d),F(x+d,d),F(x-1,d),F(x,w*d)],`${w} × ${d} + ${n} = ${x}, so ${x}/${d}.`)};
-const wQ=(w,d)=>Q(`${w} = ${F('?',d)} <small>(find the numerator)</small>`,w*d,[w*d+d,w+d,w*d+1,w*d-d,w*d+w],`${w} × ${d} = ${w*d}.`);
-const sQ=(n,d)=>{const[p,q]=sm(n,d);return Q(`Write ${F(n,d)} in simplest form.`,F(p,q),[F(p*2,q*2),F(p+1,q),F(p,q+1),F(q,p),F(p+1,q+1)],`Divide top and bottom by ${gcd(n,d)}.`)};
-const eQ=(a,b,k,top)=>top?Q(`${F(a,b)} = ${F('?',b*k)} <small>(missing numerator)</small>`,a*k,[a*k+1,a*k-1,a+k,a*k+k,a*k+2],`${b} × ${k} = ${b*k}, so ${a} × ${k} = ${a*k}.`):Q(`${F(a,b)} = ${F(a*k,'?')} <small>(missing denominator)</small>`,b*k,[b*k+1,b*k-1,b+k,b*k+k,b*k+2],`${a} × ${k} = ${a*k}, so ${b} × ${k} = ${b*k}.`);
-const cmp=(A,B,t)=>{const x=A.n*B.d,y=B.n*A.d,a=x>y?A.h:x<y?B.h:'They are equal';return Q(`Which is greater? ${A.h} or ${B.h}`,a,[A.h,B.h,'They are equal'],`Cross-multiply: ${A.n}×${B.d} = ${x} and ${B.n}×${A.d} = ${y}.`)};
-const pk=(lbl,it,k)=>{const v=x=>x.n/x.d,sc=k=='min'?v:k=='max'?x=>-v(x):x=>Math.abs(v(x)-k);let b=it[0];it.forEach(x=>{if(sc(x)<sc(b))b=x});return Q(lbl,b.h,it.map(x=>x.h),'As decimals: '+it.map(x=>v(x).toFixed(2)).join(', ')+'.')};
-const aQ=(w,n,d,rev)=>{const x=w*d+n;return Q(`${rev?F(n,d)+' + '+w:w+' + '+F(n,d)} = ? <small>(mixed number, simplest form)</small>`,mx(x,d),dist(x,d),'Add the whole number and the fraction, then simplify.')};
-const tQ=(w,n,d)=>{const x=w*d-n;return Q(`${w} − ${F(n,d)} = ? <small>(mixed number, simplest form)</small>`,mx(x,d),dist(x,d),`${w} − ${n}/${d} = ${w-1} + ${d-n}/${d}, then simplify.`)};
-const fill=(a,g)=>{while(a.length<25)a.push(g(a.length));return a.slice(0,25)};
-const rmix=()=>{const d=R(3,9);return mixQ(R(2,9)*d+R(1,d-1),d)};
-const rimp=()=>{const d=R(3,9);return impQ(R(2,9),R(1,d-1),d)};
-const rcmp=()=>{const d=R(2,9),e=R(3,9);return cmp(MI(R(1,3),R(1,d-1),d),FI(R(2*e,5*e),e))};
-const T=[];
-// 1 Equivalent
-T.push(fill([[6,9],[6,8],[6,15],[10,12],[21,42],[24,32],[42,56],[18,72]].map(x=>sQ(...x)).concat([[1,3,2,1],[1,3,3,0],[1,3,4,1],[1,2,8,1],[2,3,4,1],[3,4,3,0],[3,4,5,1],[4,5,2,0],[5,6,2,1],[2,5,3,0],[5,10,2,1],[3,8,2,1],[5,8,3,0],[7,10,2,1],[2,9,3,0],[6,7,2,1],[3,5,4,0]].map(x=>eQ(...x))),()=>sQ(12,18)));
-// 2 Comparing
-{const p=[[5,12,7,12],[5,12,5,9],[2,3,7,12],[3,5,9,16],[2,5,3,7],[7,8,3,4],[3,5,7,15],[4,7,8,9],[3,4,9,11],[2,3,3,8],[5,12,7,16],[10,11,8,9],[15,16,10,11],[4,8,1,2],[6,13,1,2],[6,11,1,2],[6,12,1,2]].map(([a,b,c,d])=>cmp(FI(a,b),FI(c,d)));
-const o=[[[5,6],[6,7],[3,5]],[[8,9],[23,50],[12,13]],[[13,16],[2,5],[5,8],[7,7]],[[7,12],[3,7],[5,14],[31,48]]].map(l=>pk('Which fraction is the least?',l.map(x=>FI(...x)),'min'));
-const x=[Q(`How many of these are less than ${F(1,2)}? ${[[3,8],[8,11],[3,5],[5,16],[8,15],[5,12]].map(y=>F(...y)).join(' ')}`,3,[2,4,5,1],'3/8, 5/16 and 5/12 are less than 1/2.'),
-pk('Which fraction is closest to 1?',[[3,4],[1,2],[4,5],[5,6],[2,3]].map(y=>FI(...y)),1),pk('Which is closer to 1?',[FI(4,5),FI(6,7)],1)];
-T.push(fill(p.concat(o,x),()=>cmp(FI(R(1,8),9),FI(R(1,9),11))))}
-// 3 Improper & mixed
-T.push(fill([aQ(3,2,3),tQ(4,4,9),aQ(5,6,8),tQ(8,6,12),aQ(8,8,14,1),tQ(3,7,15),tQ(3,1,5),tQ(4,2,9),aQ(2,5,9),
-Q('Write 8 fifths as an improper fraction.',F(8,5),[F(5,8),F(8,8),F(13,5),F(3,5)],'8 fifths = 8/5.'),
-Q('Write 9 thirds as a whole number.',3,[9,27,6,1],'9 ÷ 3 = 3.'),
-Q(`1 + ${F('?',12)} = 1${F(1,3)}. What is the missing numerator?`,4,[3,6,8,2],'1/3 = 4/12.')],i=>{const d=R(3,12),n=R(1,d-1),w=R(2,9);return i%2?tQ(w,n,d):aQ(w,n,d)}));
-// 4 Practice A
-{const a=[Q(`How many of these fractions are greater than 1? ${[[8,5],[7,16],[11,9],[15,13],[6,15]].map(x=>F(...x)).join(' ')}`,3,[1,2,4,5],'8/5, 11/9 and 15/13 have numerators bigger than denominators.'),
-pk('Which fraction is closest to 1?',[[3,4],[1,2],[4,5],[5,6],[2,3]].map(x=>FI(...x)),1),
-cmp(FI(5,8),FI(8,5)),cmp(MI(2,3,5),MI(2,7,15)),cmp(FI(11,8),FI(5,4)),
-Q(`In a relay, Aisha ran 1${F(3,4)} miles and Paula ran 1${F(5,12)} miles. Who ran farther?`,'Aisha',['Paula','They ran the same'],'3/4 = 9/12, which is more than 5/12.'),
-Q(`${F(2,9)} &lt; ${F(1,'?')} &lt; ${F(2,7)}. Find ?`,4,[3,5,6,2],'1/4 = 0.25 lies between 0.22 and 0.29.'),
-Q(`${F(1,2)} &lt; ${F(3,'?')} &lt; ${F(3,4)}. Find ?`,5,[4,6,7,3],'3/5 = 0.6 lies between 0.5 and 0.75.'),
-Q(`${F(3,4)} &lt; ${F('?',5)} &lt; 1. Find ?`,4,[3,5,2,1],'4/5 = 0.8.'),
-Q(`2${F(2,3)} &lt; 2${F(8,'?')} &lt; 2${F(4,5)}. Find ?`,11,[10,12,9,13],'8/11 ≈ 0.73 is between 0.67 and 0.8.'),
-Q('How many different fractions between 0 and 1, in simplest form, have denominators of 10 or less?',31,[29,30,32,36],'1+2+2+4+2+6+4+6+4 = 31.'),
-Q('A 3×6 grid has 5 squares shaded. How many more must be shaded so that 4/9 is unshaded?',5,[4,6,8,10],'4/9 of 18 = 8 unshaded, so 10 shaded; 10 − 5 = 5.'),
-Q('A 4×6 grid has 6 squares shaded. How many more must be shaded so that 1/4 is unshaded?',12,[6,18,10,14],'1/4 of 24 = 6 unshaded, so 18 shaded; 18 − 6 = 12.'),
-Q(`Three grids of 9 squares each have 6 squares shaded in total. How many more must be shaded to leave 1${F(2,3)} unshaded?`,6,[3,5,9,12],'1 2/3 wholes = 15 squares unshaded; 27 − 6 = 21 unshaded now; 21 − 15 = 6.'),
-Q(`Missing fraction: ${F(5,12)}, ${F(1,2)}, ?, ${F(2,3)}, ${F(3,4)}`,F(7,12),[F(5,8),F(3,5),F(7,10)],'Twelfths: 5, 6, 7, 8, 9 over 12.')];
-T.push(fill(a,rcmp))}
-// 5 Improper -> mixed
-T.push(fill([[15,4],[23,9],[15,5],[90,9],[24,2],[40,8],[54,6],[56,7],[18,4],[27,5],[16,7],[9,4],[20,6],[11,2],[20,8],[30,9]].map(x=>mixQ(...x)).concat([pk('Which is the least?',[FI(18,5),FI(23,7),FI(14,3)],'min')]),rmix));
-// 6 Mixed -> improper
-T.push(fill([[3,2,3],[2,5,8],[3,2,5],[5,2,9],[4,5,6],[7,1,7],[5,7,10],[6,5,8],[2,5,12],[11,2,3],[9,1,2],[6,2,3],[10,5,6],[8,4,9],[1,1,4],[3,1,4],[2,3,4]].map(x=>impQ(...x)).concat([[2,9],[3,8],[4,5],[5,3],[4,12],[8,16]].map(x=>wQ(...x)),[pk('Which is the least?',[FI(14,3),MI(3,3,7),FI(21,4)],'min')]),rimp));
-// 7 Division
-T.push(fill([[2,5],[7,5],[2,4],[10,4],[50,7],[56,6],[3,7],[8,10],[45,3],[31,9],[32,6],[49,5],[45,4],[79,5],[46,8],[85,9]].map(x=>divQ(...x)).concat([
-Q('A 38 oz box of cereal has 8 servings. How many ounces are in each serving?',mx(38,8),dist(38,8),note(38,8)),
-Q('45 pounds of rice is divided equally into 6 bags. How many pounds are in each bag?',mx(45,6),dist(45,6),note(45,6))]),i=>{const b=R(3,11);return divQ(i%2?R(1,b-1):R(11,95)+(0),b)}));
-// 8 Practice B
-{const a=[Q(`Count on by ${F(3,4)} from ${F(1,4)}: ${F(1,4)}, 1, ${M(1,3,4)}, … What comes next?`,M(2,1,2),[M(2,1,4),M(2,3,4),3,M(3,1,2)],'1 3/4 + 3/4 = 2 1/2.'),
-Q(`Count on by ${F(3,8)} from ${F(1,8)}: ${F(1,8)}, ${F(1,2)}, ${F(7,8)}, … What is the next term?`,M(1,1,4),[M(1,3,8),M(1,1,2),F(9,8),M(1,1,8)],'7/8 + 3/8 = 10/8 = 1 1/4.'),
-Q(`Count on by ${F(2,9)} from ${F(2,9)}. What is the 5th term?`,M(1,1,9),[F(8,9),M(1,2,9),M(1,1,3),F(2,3)],'2/9, 4/9, 6/9, 8/9, 10/9 = 1 1/9.'),
-pk('Which is the least?',[FI(16,3),MI(4,7,8),FI(26,6)],'min'),
-pk('Which is the greatest?',[FI(42,10),FI(60,9),FI(52,7),FI(28,5)],'max'),
-pk('Which fraction is closest to 5?',[FI(14,3),FI(19,4),FI(11,5),FI(43,8)],5),
-pk('Which fraction is closest to 10?',[FI(59,6),FI(50,4),FI(68,7),FI(78,8)],10),
-Q(`How many whole numbers are between ${F(19,3)} and ${F(47,4)}?`,5,[4,6,3,7],'19/3 ≈ 6.3 and 47/4 = 11.75, so 7, 8, 9, 10, 11.'),
-Q(`One half is one third of what mixed number?`,M(1,1,2),[M(1,1,6),3,M(2,1,2),F(1,6)],'1/2 × 3 = 3/2 = 1 1/2.'),
-Q(`Two clay lumps weigh the same. One lump balances ${F(3,5)} of the other plus a ${F(1,2)} kg weight. How much does a lump weigh?`,M(1,1,4)+' kg',[M(1,1,2)+' kg',M(2,1,2)+' kg',F(4,5)+' kg'],'2/5 of a lump = 1/2 kg, so a lump = 1/2 × 5/2 = 5/4 = 1 1/4 kg.')];
-T.push(fill(a,i=>[rimp,rmix,rcmp][i%3]()))}
-const meta=[['Equivalent Fractions','Find and simplify equivalent fractions','🟰','#4f46e5'],['Comparing & Ordering','Greater, less than, ordering fractions','⚖️','#0891b2'],['Improper Fractions & Mixed Numbers','Adding, subtracting and naming mixed numbers','🔢','#16a34a'],['Practice A','Mixed review of Exercise 4','📝','#d97706'],['Improper → Mixed Numbers','Express improper fractions as mixed numbers','⬆️','#db2777'],['Mixed Numbers → Improper','Express mixed numbers as improper fractions','⬇️','#7c3aed'],['Fractions & Division','Divide whole numbers, answer as fractions','➗','#dc2626'],['Practice B','Mixed review of Exercise 8 with challenges','🏆','#0d9488']];
-const $=document.getElementById('app');let tp,qs,i,sc,wr;
-const best=k=>{try{return localStorage.getItem('fq'+k)}catch(e){return null}};
-function home(){$.innerHTML=`<h1>Fractions Quiz</h1><p class=s>Chapter 6 · 8 topics · 25 questions each (200 total). Pick a topic to start.</p><div class=g>${meta.map((m,k)=>`<button class=c style="--k:${m[3]}" onclick="start(${k})"><div class=n>${m[2]}</div><b>${k+1}. ${m[0]}</b><span>${m[1]}</span><em>25 questions${best(k)!=null?' · Best: '+best(k)+'/25':''}</em></button>`).join('')}</div>`}
-function start(k){tp=k;qs=T[k].map(q=>{const o=[...q.c],p=Math.floor(Math.random()*(o.length+1));o.splice(p,0,q.ans);return{...q,o,p}}).sort(()=>Math.random()-.5);i=0;sc=0;wr=[];show()}
-function show(){const q=qs[i];$.innerHTML=`<div class=top><button class=bt onclick=home()>← Topics</button><b>${meta[tp][0]}</b><span>${i+1}/25 · ✔ ${sc}</span></div><div class=bar><i style="width:${i/25*100}%"></i></div><div class=q><div class=qt>${q.q}</div>${q.o.map((o,j)=>`<button class=o onclick=ans(${j})>${o}</button>`).join('')}<div id=ex></div><div style="text-align:right;margin-top:14px"><button class="bt p" id=nx disabled onclick=nxt()>${i==24?'See results':'Next →'}</button></div></div>`}
-function ans(j){const q=qs[i],b=document.querySelectorAll('.o');b.forEach((x,n)=>{x.disabled=true;if(n==q.p)x.classList.add('ok')});if(j==q.p)sc++;else{b[j].classList.add('no');wr.push({q:q.q,y:q.o[j],a:q.ans})}
-document.getElementById('ex').innerHTML=`<div class=ex>${j==q.p?'✅ Correct! ':'❌ Not quite. '}${q.e}</div>`;document.getElementById('nx').disabled=false}
-function nxt(){if(++i<25)show();else done()}
-function done(){let b=+best(tp);if(best(tp)==null||sc>b){try{localStorage.setItem('fq'+tp,sc)}catch(e){}}
-$.innerHTML=`<div class=top><button class=bt onclick=home()>← Topics</button><b>${meta[tp][0]}</b><span></span></div><div class=q style="text-align:center"><div class=big>${sc}/25</div><p>${sc>=22?'Excellent work! 🎉':sc>=15?'Good job, keep practising! 👍':'Keep going, you will get there! 💪'}</p><button class="bt p" onclick=start(${tp})>Try again</button> <button class=bt onclick=home()>Choose another topic</button></div>${wr.length?`<h3>Review your mistakes (${wr.length})</h3><div class=q>${wr.map(w=>`<div class=r>${w.q}<small>Your answer: ${w.y} &nbsp;·&nbsp; Correct: <b>${w.a}</b></small></div>`).join('')}</div>`:''}`}
-home();
-</script></body></html>
+// q = question, a = correct answer, w = wrong choices, e = explanation, chk = check expression (not shown)
+var Q = [
+ // ---- Workbook questions (Exercise 1) ----
+ {q:"12 × 3 = 30 + 6 = ?", a:"36", w:["306","33","63"], e:"12 = 10 + 2, so 12 × 3 = 10 × 3 + 2 × 3 = 30 + 6 = 36.", chk:"12*3"},
+ {q:"12 hundreds × 3 = ___ hundreds", a:"36", w:["306","15","360"], e:"12 × 3 = 36, so 12 hundreds × 3 = 36 hundreds.", chk:"12*3"},
+ {q:"12 hundreds × 3 = ?", a:"3,600", w:["360","36,000","3,060"], e:"36 hundreds is 36 × 100 = 3,600.", chk:"1200*3"},
+ {q:"12 thousands × 3 = ___ thousands", a:"36", w:["15","306","3,600"], e:"12 × 3 = 36, so 12 thousands × 3 = 36 thousands.", chk:"12*3"},
+ {q:"12 thousands × 3 = ?", a:"36,000", w:["3,600","360,000","3,060"], e:"36 thousands is 36 × 1,000 = 36,000.", chk:"12000*3"},
+ {q:"35 × 4 = 30 × 4 + 5 × 4. What is 30 × 4?", a:"120", w:["12","150","140"], e:"3 × 4 = 12, so 30 × 4 = 120. Then add 5 × 4 = 20.", chk:"30*4"},
+ {q:"35 × 4 = 120 + 20 = ?", a:"140", w:["120","1,400","160"], e:"120 + 20 = 140.", chk:"35*4"},
+ {q:"350 × 4 = ?", a:"1,400", w:["140","14,000","1,200"], e:"35 × 4 = 140, so 350 × 4 = 140 tens = 1,400.", chk:"350*4"},
+ {q:"3,500 × 4 = ?", a:"14,000", w:["1,400","140,000","12,000"], e:"35 × 4 = 140, so 35 hundreds × 4 = 140 hundreds = 14,000.", chk:"3500*4"},
+ {q:"35,000 × 4 = ?", a:"140,000", w:["14,000","1,400,000","120,000"], e:"35 × 4 = 140, so 35 thousands × 4 = 140 thousands = 140,000.", chk:"35000*4"},
+ {q:"100 × 7 = ?", a:"700", w:["70","7,000","107"], e:"1 hundred × 7 = 7 hundreds = 700.", chk:"100*7"},
+ {q:"99 × 7 = ?", a:"693", w:["707","697","633"], e:"99 is 1 less than 100. 100 × 7 = 700, then take away 1 × 7 = 7: 700 − 7 = 693.", chk:"99*7"},
+ {q:"200 × 7 = ?", a:"1,400", w:["140","14,000","207"], e:"2 × 7 = 14, so 200 × 7 = 1,400.", chk:"200*7"},
+ {q:"199 × 7 = ?", a:"1,393", w:["1,407","1,397","1,293"], e:"200 × 7 = 1,400, then take away 1 × 7 = 7: 1,400 − 7 = 1,393.", chk:"199*7"},
+ {q:"300 × 7 = ?", a:"2,100", w:["210","21,000","307"], e:"3 × 7 = 21, so 300 × 7 = 2,100.", chk:"300*7"},
+ {q:"299 × 7 = ?", a:"2,093", w:["2,107","2,097","2,193"], e:"300 × 7 = 2,100, then take away 7: 2,100 − 7 = 2,093.", chk:"299*7"},
+ {q:"3,000 × 7 = ?", a:"21,000", w:["2,100","210,000","3,007"], e:"3 × 7 = 21, so 3 thousands × 7 = 21 thousands = 21,000.", chk:"3000*7"},
+ {q:"2,999 × 7 = ?", a:"20,993", w:["21,007","20,997","20,893"], e:"3,000 × 7 = 21,000, then take away 7: 21,000 − 7 = 20,993.", chk:"2999*7"},
+ {q:"Use mental calculation: 100 × 6 = ?", a:"600", w:["60","6,000","106"], e:"1 hundred × 6 = 6 hundreds = 600.", chk:"100*6"},
+ {q:"Use mental calculation: 150 × 9 = ?", a:"1,350", w:["1,050","1,305","13,500"], e:"100 × 9 = 900 and 50 × 9 = 450. Then 900 + 450 = 1,350.", chk:"150*9"},
+ {q:"Use mental calculation: 40,000 × 8 = ?", a:"320,000", w:["32,000","3,200,000","302,000"], e:"4 × 8 = 32, so 4 ten-thousands × 8 = 32 ten-thousands = 320,000.", chk:"40000*8"},
+ {q:"Use mental calculation: 1,300 × 5 = ?", a:"6,500", w:["650","5,500","65,000"], e:"13 × 5 = 65, so 13 hundreds × 5 = 65 hundreds = 6,500.", chk:"1300*5"},
+ {q:"Use mental calculation: 2,500 × 4 = ?", a:"10,000", w:["1,000","8,000","100,000"], e:"25 × 4 = 100, so 25 hundreds × 4 = 100 hundreds = 10,000.", chk:"2500*4"},
+ {q:"Use mental calculation: 910 × 2 = ?", a:"1,820", w:["182","1,220","1,810"], e:"900 × 2 = 1,800 and 10 × 2 = 20. Then 1,800 + 20 = 1,820.", chk:"910*2"},
+ {q:"Use mental calculation: 15,000 × 3 = ?", a:"45,000", w:["4,500","35,000","450,000"], e:"15 × 3 = 45, so 15 thousands × 3 = 45 thousands = 45,000.", chk:"15000*3"},
+ {q:"Use mental calculation: 7,200 × 8 = ?", a:"57,600", w:["5,760","56,000","576,000"], e:"7,000 × 8 = 56,000 and 200 × 8 = 1,600. Then 56,000 + 1,600 = 57,600.", chk:"7200*8"},
+ {q:"Use mental calculation: 5 × 42,000 = ?", a:"210,000", w:["21,000","200,000","2,100,000"], e:"5 × 42 = 210, so 5 × 42 thousands = 210 thousands = 210,000.", chk:"5*42000"},
+ {q:"Use mental calculation: 7 × 3,300 = ?", a:"23,100", w:["2,310","21,000","231,000"], e:"7 × 33 = 231, so 7 × 33 hundreds = 231 hundreds = 23,100.", chk:"7*3300"},
+ {q:"Use mental calculation: 98 × 6 = ?", a:"588", w:["612","594","578"], e:"98 is 2 less than 100. 100 × 6 = 600, then take away 2 × 6 = 12: 600 − 12 = 588.", chk:"98*6"},
+ {q:"Use mental calculation: 5 × 399 = ?", a:"1,995", w:["2,005","1,990","1,895"], e:"399 is 1 less than 400. 5 × 400 = 2,000, then take away 5: 2,000 − 5 = 1,995.", chk:"5*399"},
+ {q:"Use mental calculation: 3 × 599 = ?", a:"1,797", w:["1,803","1,794","1,697"], e:"599 is 1 less than 600. 3 × 600 = 1,800, then take away 3: 1,800 − 3 = 1,797.", chk:"3*599"},
+ {q:"Use mental calculation: 6,999 × 4 = ?", a:"27,996", w:["28,004","27,994","27,896"], e:"6,999 is 1 less than 7,000. 7,000 × 4 = 28,000, then take away 4: 28,000 − 4 = 27,996.", chk:"6999*4"},
+ {q:"A 24-foot-wide frame for a greenhouse costs $4,999. A farm wants to buy 5 of them. What will be the total cost?", a:"$24,995", w:["$25,005","$24,945","$20,995"], e:"$4,999 is $1 less than $5,000. 5 × $5,000 = $25,000, then take away 5 × $1 = $5: $25,000 − $5 = $24,995.", chk:"4999*5", word:true},
+ {q:"The pediatric clinic needs 250 bandages a week. The central clinic needs 600 bandages a week. How many bandages should the two clinics order to have enough for 8 weeks?", a:"6,800", w:["4,800","6,400","7,800"], e:"Together they need 250 + 600 = 850 a week. Then 850 × 8 = 6,800. (Or 250 × 8 = 2,000 and 600 × 8 = 4,800, and 2,000 + 4,800 = 6,800.)", chk:"(250+600)*8", word:true},
+
+ // ---- Extra practice ----
+ {q:"14 × 3 = 10 × 3 + 4 × 3 = ?", a:"42", w:["34","43","72"], e:"10 × 3 = 30 and 4 × 3 = 12. Then 30 + 12 = 42.", chk:"14*3"},
+ {q:"14 hundreds × 3 = ?", a:"4,200", w:["420","42,000","4,020"], e:"14 × 3 = 42, so 14 hundreds × 3 = 42 hundreds = 4,200.", chk:"1400*3"},
+ {q:"25 × 4 = 20 × 4 + 5 × 4 = ?", a:"100", w:["80","90","1,000"], e:"20 × 4 = 80 and 5 × 4 = 20. Then 80 + 20 = 100.", chk:"25*4"},
+ {q:"250 × 4 = ?", a:"1,000", w:["100","10,000","800"], e:"25 × 4 = 100, so 25 tens × 4 = 100 tens = 1,000.", chk:"250*4"},
+ {q:"Use mental calculation: 2,500 × 8 = ?", a:"20,000", w:["2,000","200,000","16,000"], e:"25 × 8 = 200, so 25 hundreds × 8 = 200 hundreds = 20,000.", chk:"2500*8"},
+ {q:"Use mental calculation: 49 × 6 = ?", a:"294", w:["306","296","244"], e:"49 is 1 less than 50. 50 × 6 = 300, then take away 6: 300 − 6 = 294.", chk:"49*6"},
+ {q:"Use mental calculation: 199 × 5 = ?", a:"995", w:["1,005","985","895"], e:"199 is 1 less than 200. 200 × 5 = 1,000, then take away 5: 1,000 − 5 = 995.", chk:"199*5"},
+ {q:"Use mental calculation: 1,999 × 6 = ?", a:"11,994", w:["12,006","11,996","11,894"], e:"1,999 is 1 less than 2,000. 2,000 × 6 = 12,000, then take away 6: 12,000 − 6 = 11,994.", chk:"1999*6"},
+ {q:"Use mental calculation: 8,000 × 7 = ?", a:"56,000", w:["5,600","560,000","54,000"], e:"8 × 7 = 56, so 8 thousands × 7 = 56 thousands = 56,000.", chk:"8000*7"},
+ {q:"Use mental calculation: 600 × 9 = ?", a:"5,400", w:["540","54,000","4,500"], e:"6 × 9 = 54, so 6 hundreds × 9 = 54 hundreds = 5,400.", chk:"600*9"},
+ {q:"Use mental calculation: 3,200 × 3 = ?", a:"9,600", w:["960","9,000","96,000"], e:"3,000 × 3 = 9,000 and 200 × 3 = 600. Then 9,000 + 600 = 9,600.", chk:"3200*3"},
+ {q:"Use mental calculation: 1,200 × 6 = ?", a:"7,200", w:["720","6,200","72,000"], e:"12 × 6 = 72, so 12 hundreds × 6 = 72 hundreds = 7,200.", chk:"1200*6"},
+ {q:"Use mental calculation: 4,500 × 2 = ?", a:"9,000", w:["900","8,000","90,000"], e:"4,000 × 2 = 8,000 and 500 × 2 = 1,000. Then 8,000 + 1,000 = 9,000.", chk:"4500*2"},
+ {q:"A bakery packs 250 rolls in each box. How many rolls are in 6 boxes?", a:"1,500", w:["1,200","150","15,000"], e:"200 × 6 = 1,200 and 50 × 6 = 300. Then 1,200 + 300 = 1,500.", chk:"250*6", word:true},
+ {q:"A school buys 8 tablets that cost $399 each. What is the total cost?", a:"$3,192", w:["$3,208","$3,184","$3,092"], e:"$399 is $1 less than $400. 8 × $400 = $3,200, then take away 8 × $1 = $8: $3,200 − $8 = $3,192.", chk:"8*399", word:true},
+ {q:"A library has 4 shelves. Each shelf holds 1,250 books. How many books can the shelves hold in all?", a:"5,000", w:["4,500","4,800","50,000"], e:"1,000 × 4 = 4,000 and 250 × 4 = 1,000. Then 4,000 + 1,000 = 5,000.", chk:"1250*4", word:true}
+];
+
+var order, idx, score, missed, locked;
+
+function shuffle(a){
+  a = a.slice();
+  for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}
+  return a;
+}
+function show(id){
+  ['start','quiz','result'].forEach(function(x){document.getElementById(x).classList.toggle('hidden',x!==id);});
+  window.scrollTo(0,0);
+}
+function startQuiz(){
+  order = Q.slice(); // keep workbook questions first, then extras
+  idx = 0; score = 0; missed = [];
+  show('quiz'); render();
+}
+function render(){
+  locked = false;
+  var item = order[idx];
+  document.getElementById('count').textContent = 'Question ' + (idx+1) + ' of ' + order.length;
+  document.getElementById('scoreLive').textContent = 'Score: ' + score;
+  document.getElementById('prog').style.width = (idx/order.length*100) + '%';
+  var qt = document.getElementById('qText');
+  qt.textContent = item.q;
+  qt.className = 'q' + (item.word ? ' word' : '');
+  var box = document.getElementById('opts');
+  box.innerHTML = '';
+  var choices = shuffle([item.a].concat(item.w));
+  var letters = ['A','B','C','D'];
+  choices.forEach(function(c,i){
+    var b = document.createElement('button');
+    b.className = 'opt';
+    b.innerHTML = '<span class="l">'+letters[i]+'</span><span></span>';
+    b.lastChild.textContent = c;
+    b.onclick = function(){pick(b,c);};
+    box.appendChild(b);
+  });
+  var fb = document.getElementById('fb'); fb.className='fb'; fb.textContent='';
+  document.getElementById('nextWrap').className='next';
+  document.getElementById('nextBtn').textContent = (idx===order.length-1) ? 'See results' : 'Next';
+}
+function pick(btn,choice){
+  if(locked) return; locked = true;
+  var item = order[idx];
+  var ok = (choice === item.a);
+  var btns = document.querySelectorAll('#opts .opt');
+  btns.forEach(function(b){
+    b.disabled = true;
+    if(b.lastChild.textContent === item.a) b.classList.add('correct');
+  });
+  if(!ok) btn.classList.add('wrong');
+  if(ok) score++; else missed.push({q:item.q,a:item.a,e:item.e});
+  var fb = document.getElementById('fb');
+  fb.className = 'fb show ' + (ok ? 'good' : 'bad');
+  fb.textContent = (ok ? 'Correct! ' : 'Not quite. The answer is ' + item.a + '. ') + item.e;
+  document.getElementById('scoreLive').textContent = 'Score: ' + score;
+  document.getElementById('nextWrap').className = 'next show';
+}
+function next(){
+  idx++;
+  if(idx >= order.length) finish(); else render();
+}
+function finish(){
+  show('result');
+  var pct = Math.round(score/order.length*100);
+  document.getElementById('rTitle').textContent = pct>=90 ? 'Excellent work!' : pct>=70 ? 'Well done!' : pct>=50 ? 'Good effort!' : 'Keep practising!';
+  document.getElementById('rScore').textContent = score + ' / ' + order.length;
+  document.getElementById('rMsg').textContent = 'You scored ' + pct + '%.';
+  var rv = document.getElementById('review'), list = document.getElementById('rvList');
+  list.innerHTML = '';
+  if(missed.length){
+    rv.classList.remove('hidden');
+    missed.forEach(function(m){
+      var d = document.createElement('div'); d.className='rv';
+      var b = document.createElement('b'); b.textContent = m.q;
+      var p = document.createElement('span'); p.textContent = 'Answer: ' + m.a + '. ' + m.e;
+      d.appendChild(b); d.appendChild(p); list.appendChild(d);
+    });
+  } else rv.classList.add('hidden');
+}
+</script>
+</body>
+</html>
