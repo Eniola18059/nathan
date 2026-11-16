@@ -22,7 +22,6 @@
   .card{background:var(--card); border-radius:26px; padding:22px 18px; box-shadow:0 8px 0 rgba(35,48,90,.12)}
   .hidden{display:none !important}
 
-  /* start screen */
   .hero{text-align:center}
   .hero .big{font-size:4.2rem; line-height:1}
   .hero h1{margin:8px 0 6px; font-size:2rem}
@@ -36,7 +35,6 @@
   .go:active{transform:translateY(4px); box-shadow:0 2px 0 #15803d}
   .alt{background:var(--blue); box-shadow:0 6px 0 #1d4ed8}
 
-  /* quiz */
   .bar{height:16px; background:#e6edf7; border-radius:999px; overflow:hidden; margin:6px 0 12px}
   .bar > i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--green),var(--yellow)); transition:width .35s}
   .meta{display:flex; justify-content:space-between; align-items:center; font-weight:800; font-size:.95rem}
@@ -59,7 +57,6 @@
   .feedback.good{background:#d9f9e3} .feedback.bad{background:#ffe9d6}
   .next{margin-top:14px; width:100%; background:var(--blue); color:#fff; font-size:1.4rem; font-weight:800; padding:14px; border-radius:18px; box-shadow:0 5px 0 #1d4ed8}
 
-  /* results */
   .results{text-align:center}
   .results .big{font-size:4rem}
   .score-big{font-size:3rem; font-weight:900; color:var(--purple)}
@@ -85,13 +82,12 @@
     <div class="score-pill" id="scorePill">⭐ 0</div>
   </header>
 
-  <!-- START -->
   <section class="card hero" id="start">
     <div class="big">🦁🔢🌈</div>
-    <h1>Hi Zion! Ready to play?</h1>
-    <p>70 fun number questions. Take your time and tap the best answer!</p>
+    <h1>Hi Zion! Ready for a bigger challenge?</h1>
+    <p>70 number questions. Take your time and tap the best answer!</p>
     <div class="chapters">
-      <div class="chap c1">Part 1<small>Numbers to 10</small></div>
+      <div class="chap c1">Part 1<small>Numbers to 20</small></div>
       <div class="chap c2">Part 2<small>Number Bonds</small></div>
       <div class="chap c3">Part 3<small>Addition</small></div>
       <div class="chap c4">Part 4<small>Subtraction</small></div>
@@ -99,7 +95,6 @@
     <button class="go" id="startBtn">Let's go! ▶</button>
   </section>
 
-  <!-- QUIZ -->
   <section class="card hidden" id="quiz">
     <div class="meta"><span id="qcount">Question 1 of 70</span><span class="tag" id="chTag">Part 1</span></div>
     <div class="bar"><i id="barFill"></i></div>
@@ -111,14 +106,13 @@
     <button class="next hidden" id="nextBtn">Next ▶</button>
   </section>
 
-  <!-- RESULTS -->
   <section class="card results hidden" id="results"></section>
 </div>
 
 <script>
 // QUESTIONS-START
 const CH = [
-  {name:"Numbers to 10", color:"#3b82f6"},
+  {name:"Numbers to 20", color:"#3b82f6"},
   {name:"Number Bonds",  color:"#8b5cf6"},
   {name:"Addition",      color:"#ff9f43"},
   {name:"Subtraction",   color:"#ff6fa5"}
@@ -133,83 +127,83 @@ function bond(ch,whole,p1,p2,d){
   push(ch,{q:txt, bond:[whole,p1,p2], a:String(ans), d:d.map(String), e: whole===null ? `${p1} and ${p2} make ${ans}.` : `${whole} is ${ (p1===null?p2:p1) } and ${ans}.`});
 }
 
-// ---------- Part 1: Numbers to 10 (18) ----------
-push(0,{q:"How many apples are there?", v:{e:"🍎",n:5}, a:"5", d:["4","6","3"], e:"Count each apple once: 5."});
-push(0,{q:"How many fish do you see?", v:{e:"🐟",n:8}, a:"8", d:["7","9","6"], e:"Touch and count each fish: 8."});
-push(0,{q:"Count the ladybugs. How many?", v:{e:"🐞",n:7}, a:"7", d:["6","8","5"], e:"There are 7 ladybugs."});
-push(0,{q:"A plate has no cookies on it. How many cookies are on the plate?", a:"0", d:["1","10","2"], e:"No cookies means zero: 0."});
-push(0,{q:"Which number comes just before 1?", a:"0", d:["2","3","10"], e:"0, 1, 2, 3 … so 0 comes before 1."});
-push(0,{q:"Which number comes after 6?", a:"7", d:["5","8","9"], e:"6, 7 … 7 comes right after 6."});
-push(0,{q:"Which number comes before 9?", a:"8", d:["7","9","10"], e:"8, 9 … 8 comes right before 9."});
-push(0,{q:"Find the missing number:  2, 3, __ , 5, 6", a:"4", d:["1","3","7"], e:"2, 3, 4, 5, 6."});
-push(0,{q:"Find the missing number:  5, 6, 7, __ , 9", a:"8", d:["6","10","4"], e:"5, 6, 7, 8, 9."});
-push(0,{q:"Count backwards:  10, 9, 8, __ , 6", a:"7", d:["5","9","8"], e:"10, 9, 8, 7, 6."});
-push(0,{q:"Which is the greatest number?  3,  8,  5,  7", a:"8", d:["3","5","7"], e:"8 is bigger than 3, 5 and 7."});
-push(0,{q:"Which is the smallest number?  6,  2,  9,  4", a:"2", d:["6","9","4"], e:"2 is smaller than 6, 9 and 4."});
-push(0,{q:"Which number is greater than 6?", a:"8", d:["6","5","2"], e:"8 is more than 6."});
-push(0,{q:"Which number is less than 4?", a:"2", d:["4","5","7"], e:"2 is fewer than 4."});
-push(0,{q:"Which one is true?", a:"5 is less than 8", d:["5 is greater than 8","5 is the same as 8","8 is less than 5"], e:"5 is less than 8.", long:true});
-push(0,{q:"Put the numbers in order from smallest to biggest:  4,  1,  3", a:"1, 3, 4", d:["4, 3, 1","1, 4, 3","3, 1, 4"], e:"Smallest first: 1, 3, 4.", long:true});
-push(0,{q:"Which number is the word “six”?", a:"6", d:["9","5","10"], e:"Six is written 6."});
-push(0,{q:"How many stars are there?", v:{e:"⭐",n:9}, a:"9", d:["8","10","7"], e:"Count carefully: 9 stars."});
+// ---------- Part 1: Numbers to 20 (18) ----------
+push(0,{q:"How many stars are there?", v:{e:"⭐",n:12}, a:"12", d:["11","13","10"], e:"Count each star once: 12."});
+push(0,{q:"How many fish do you see?", v:{e:"🐟",n:15}, a:"15", d:["14","16","13"], e:"Touch and count each fish: 15."});
+push(0,{q:"Count the ladybugs. How many?", v:{e:"🐞",n:14}, a:"14", d:["13","15","12"], e:"There are 14 ladybugs."});
+push(0,{q:"Which number comes right after 14?", a:"15", d:["13","16","17"], e:"14, 15 … 15 comes right after 14."});
+push(0,{q:"Which number comes right before 20?", a:"19", d:["18","21","10"], e:"19, 20 … 19 comes right before 20."});
+push(0,{q:"Find the missing number:  11, 12, __ , 14, 15", a:"13", d:["10","15","16"], e:"11, 12, 13, 14, 15."});
+push(0,{q:"Find the missing number:  16, 17, __ , 19, 20", a:"18", d:["15","21","14"], e:"16, 17, 18, 19, 20."});
+push(0,{q:"Count backwards:  20, 19, 18, __ , 16", a:"17", d:["15","19","18"], e:"20, 19, 18, 17, 16."});
+push(0,{q:"Which is the greatest number?  13,  18,  15,  17", a:"18", d:["13","15","17"], e:"18 is bigger than 13, 15 and 17."});
+push(0,{q:"Which is the smallest number?  16,  12,  19,  14", a:"12", d:["16","19","14"], e:"12 is smaller than 16, 19 and 14."});
+push(0,{q:"Which number is between 14 and 16?", a:"15", d:["13","17","14"], e:"14, 15, 16 … 15 is in the middle."});
+push(0,{q:"What number is 10 and 3 more?", a:"13", d:["12","31","14"], e:"10 and 3 more is 13."});
+push(0,{q:"Which one is true?", a:"12 is greater than 9", d:["12 is less than 9","9 is the same as 12","15 is less than 11"], e:"12 is greater than 9.", long:true});
+push(0,{q:"Put the numbers in order from smallest to biggest:  15,  9,  12", a:"9, 12, 15", d:["15, 12, 9","9, 15, 12","12, 9, 15"], e:"Smallest first: 9, 12, 15.", long:true});
+push(0,{q:"Count by 2s:  2, 4, 6, __ , 10", a:"8", d:["7","9","12"], e:"2, 4, 6, 8, 10."});
+push(0,{q:"Count by 5s:  5, 10, __ , 20", a:"15", d:["12","14","25"], e:"5, 10, 15, 20."});
+push(0,{q:"Which one is an even number?", a:"14", d:["13","15","17"], e:"14 can be shared into two equal groups of 7, so it is even."});
+push(0,{q:"Which number is the word “seventeen”?", a:"17", d:["71","7","19"], e:"Seventeen is written 17."});
 
 // ---------- Part 2: Number Bonds (17) ----------
-bond(1,6,2,null,[3,5,8]);
-bond(1,6,1,null,[4,6,7]);
-bond(1,7,3,null,[3,5,10]);
-bond(1,7,5,null,[1,3,4]);
-bond(1,8,3,null,[4,6,3]);
-bond(1,6,6,null,[1,6,2]);
-bond(1,9,4,null,[4,6,3]);
-bond(1,9,7,null,[1,3,4]);
-bond(1,10,6,null,[3,5,6]);
-bond(1,10,1,null,[8,10,7]);
-bond(1,null,3,2,[4,6,1]);
-bond(1,null,4,4,[6,7,9]);
-bond(1,null,6,3,[8,10,3]);
-push(1,{q:"Which pair of numbers makes 7?", a:"3 and 4", d:["3 and 5","2 and 6","4 and 4"], e:"3 + 4 = 7.", long:true});
-push(1,{q:"Which pair of numbers makes 10?", a:"6 and 4", d:["6 and 5","7 and 4","5 and 4"], e:"6 + 4 = 10.", long:true});
-push(1,{q:"Which pair of numbers makes 8?", a:"5 and 3", d:["5 and 4","6 and 3","7 and 2"], e:"5 + 3 = 8.", long:true});
-push(1,{q:"Zion has 9 stickers. 5 are red. The rest are blue. How many are blue?", a:"4", d:["3","5","6"], e:"9 is 5 and 4, so 4 are blue."});
+bond(1,12,5,null,[6,8,17]);
+bond(1,14,6,null,[7,9,20]);
+bond(1,15,9,null,[5,7,24]);
+bond(1,13,4,null,[8,10,17]);
+bond(1,16,7,null,[8,10,23]);
+bond(1,18,9,null,[8,10,27]);
+bond(1,20,12,null,[7,9,32]);
+bond(1,17,8,null,[8,10,25]);
+bond(1,11,6,null,[4,6,17]);
+bond(1,20,15,null,[4,10,35]);
+bond(1,null,8,7,[14,16,1]);
+bond(1,null,9,6,[14,16,3]);
+bond(1,null,11,5,[15,17,6]);
+push(1,{q:"Which pair of numbers makes 15?", a:"9 and 6", d:["9 and 7","8 and 8","10 and 4"], e:"9 + 6 = 15.", long:true});
+push(1,{q:"Which pair of numbers makes 12?", a:"7 and 5", d:["7 and 6","8 and 5","6 and 5"], e:"7 + 5 = 12.", long:true});
+push(1,{q:"Which pair of numbers makes 20?", a:"13 and 7", d:["13 and 8","12 and 9","14 and 5"], e:"13 + 7 = 20.", long:true});
+push(1,{q:"Zion has 14 stickers. 8 are red. The rest are blue. How many are blue?", a:"6", d:["5","7","22"], e:"14 is 8 and 6, so 6 are blue."});
 
 // ---------- Part 3: Addition (18) ----------
-add(2,3,2,[4,6,1]);
-add(2,4,4,[6,7,9]);
-add(2,6,1,[5,6,8]);
-add(2,5,3,[2,7,9]);
-add(2,7,2,[8,10,5]);
-add(2,2,6,[4,7,9]);
-add(2,9,0,[0,8,10]);
-add(2,0,5,[0,4,6]);
-add(2,6,4,[9,8,4]);
-add(2,1,8,[7,8,10]);
-push(2,{q:"3 chicks are here. 2 more chicks come. How many chicks now?", v2:[{e:"🐥",n:3},{e:"🐥",n:2}], a:"5", d:["1","4","6"], e:"3 + 2 = 5 chicks."});
-push(2,{q:"Zion has 4 toy cars. He gets 3 more. How many cars does he have now?", a:"7", d:["1","6","8"], e:"4 + 3 = 7 cars."});
-push(2,{q:"There are 5 birds in a tree. 5 more birds fly in. How many birds are there?", a:"10", d:["5","9","8"], e:"5 + 5 = 10 birds."});
-push(2,{q:"3 + __ = 8", a:"5", d:["4","6","3"], e:"3 + 5 = 8."});
-push(2,{q:"__ + 3 = 9", a:"6", d:["5","7","3"], e:"6 + 3 = 9."});
-push(2,{q:"2 + __ = 9", a:"7", d:["6","8","5"], e:"2 + 7 = 9."});
-push(2,{q:"Which number sentence matches “3 and 4 make 7”?", a:"3 + 4 = 7", d:["3 + 4 = 6","4 + 4 = 7","7 + 3 = 4"], e:"3 + 4 = 7.", long:true});
-push(2,{q:"Which one is the same as 5 + 2?", a:"2 + 5", d:["5 + 3","2 + 4","5 − 2"], e:"2 + 5 and 5 + 2 both make 7.", long:true});
+add(2,8,7,[14,16,17]);
+add(2,9,6,[14,16,13]);
+add(2,12,5,[16,18,7]);
+add(2,13,4,[16,18,9]);
+add(2,6,8,[13,15,2]);
+add(2,9,9,[17,19,81]);
+add(2,15,3,[17,19,12]);
+add(2,7,9,[15,17,2]);
+add(2,11,8,[18,20,3]);
+add(2,10,10,[10,19,100]);
+push(2,{q:"Zion has 8 toy cars. He gets 6 more. How many cars does he have now?", a:"14", d:["13","15","2"], e:"8 + 6 = 14 cars."});
+push(2,{q:"There are 9 birds in a tree. 7 more birds fly in. How many birds are there?", a:"16", d:["15","17","2"], e:"9 + 7 = 16 birds."});
+push(2,{q:"There are 12 children on the bus. 5 more get on. How many children are on the bus?", a:"17", d:["16","18","7"], e:"12 + 5 = 17 children."});
+push(2,{q:"7 + __ = 15", a:"8", d:["7","9","22"], e:"7 + 8 = 15."});
+push(2,{q:"__ + 6 = 14", a:"8", d:["7","9","20"], e:"8 + 6 = 14."});
+push(2,{q:"9 + __ = 18", a:"9", d:["8","10","27"], e:"9 + 9 = 18."});
+push(2,{q:"3 + 4 + 5 = ?", a:"12", d:["11","13","10"], e:"3 + 4 = 7, then 7 + 5 = 12."});
+push(2,{q:"Which one is the same as 8 + 6?", a:"6 + 8", d:["8 + 7","6 + 7","8 − 6"], e:"6 + 8 and 8 + 6 both make 14.", long:true});
 
 // ---------- Part 4: Subtraction (17) ----------
-sub(3,5,2,[2,4,7]);
-sub(3,8,3,[4,6,3]);
-sub(3,7,5,[1,3,4]);
-sub(3,10,6,[3,5,6]);
-sub(3,6,6,[1,6,2]);
-sub(3,9,0,[0,8,10]);
-sub(3,10,1,[8,10,1]);
-sub(3,8,5,[2,4,5]);
-push(3,{q:"There are 7 cookies. Zion eats 3. How many cookies are left?", v:{e:"🍪",n:7,x:3}, a:"4", d:["3","5","10"], e:"7 − 3 = 4 cookies left."});
-push(3,{q:"6 birds sit on a branch. 2 fly away. How many birds are left?", a:"4", d:["2","3","8"], e:"6 − 2 = 4 birds."});
-push(3,{q:"Zion had 9 balloons. 4 popped. How many balloons does he have now?", a:"5", d:["4","6","3"], e:"9 − 4 = 5 balloons."});
-push(3,{q:"There are 10 children. 7 go home. How many children stay?", a:"3", d:["2","4","7"], e:"10 − 7 = 3 children."});
-push(3,{q:"9 − __ = 6", a:"3", d:["2","4","5"], e:"9 − 3 = 6."});
-push(3,{q:"8 − __ = 2", a:"6", d:["5","7","10"], e:"8 − 6 = 2."});
-push(3,{q:"Which number sentence matches “7 take away 2 leaves 5”?", a:"7 − 2 = 5", d:["7 + 2 = 5","7 − 2 = 9","5 − 2 = 7"], e:"7 − 2 = 5.", long:true});
-push(3,{q:"4 + 3 = 7, so 7 − 3 = ?", a:"4", d:["3","7","10"], e:"If 4 + 3 = 7, then 7 − 3 = 4."});
-push(3,{q:"Which one is equal to 6?", a:"9 − 3", d:["9 − 4","5 + 2","10 − 3"], e:"9 − 3 = 6.", long:true});
+sub(3,15,7,[7,9,22]);
+sub(3,13,6,[6,8,19]);
+sub(3,18,9,[8,10,27]);
+sub(3,16,8,[7,9,24]);
+sub(3,20,12,[7,9,32]);
+sub(3,14,5,[8,10,19]);
+sub(3,17,9,[7,9,26]);
+sub(3,19,11,[7,9,30]);
+push(3,{q:"There are 14 cookies. Zion eats 6. How many cookies are left?", v:{e:"🍪",n:14,x:6}, a:"8", d:["7","9","20"], e:"14 − 6 = 8 cookies left."});
+push(3,{q:"16 birds sit on a fence. 9 fly away. How many birds are left?", a:"7", d:["6","8","25"], e:"16 − 9 = 7 birds."});
+push(3,{q:"Zion had 15 balloons. 8 popped. How many balloons does he have now?", a:"7", d:["6","8","23"], e:"15 − 8 = 7 balloons."});
+push(3,{q:"There are 20 children. 13 go home. How many children stay?", a:"7", d:["6","8","33"], e:"20 − 13 = 7 children."});
+push(3,{q:"15 − __ = 9", a:"6", d:["5","7","24"], e:"15 − 6 = 9."});
+push(3,{q:"17 − __ = 8", a:"9", d:["8","10","25"], e:"17 − 9 = 8."});
+push(3,{q:"8 + 7 = 15, so 15 − 7 = ?", a:"8", d:["7","15","22"], e:"If 8 + 7 = 15, then 15 − 7 = 8."});
+push(3,{q:"Which one is equal to 9?", a:"17 − 8", d:["17 − 9","6 + 4","20 − 10"], e:"17 − 8 = 9.", long:true});
+push(3,{q:"10 + 5 − 3 = ?", a:"12", d:["11","13","18"], e:"10 + 5 = 15, then 15 − 3 = 12."});
 // QUESTIONS-END
 
 // ---------- App ----------
