@@ -3,339 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zion's Number Adventure</title>
+<title>Mental Math for Multiplication Quiz</title>
 <style>
-  :root{
-    --sky:#dff3ff; --ink:#23305a; --blue:#3b82f6; --green:#22c55e; --red:#ef4444;
-    --yellow:#ffd23f; --orange:#ff9f43; --purple:#8b5cf6; --pink:#ff6fa5; --card:#ffffff;
-  }
+  :root{--bg:#f4f6fb;--card:#fff;--ink:#1d2433;--muted:#667085;--brand:#4f46e5;--brand-d:#3730a3;--ok:#16a34a;--okbg:#e8f8ee;--bad:#dc2626;--badbg:#fdecec;--line:#e3e7f0}
   *{box-sizing:border-box}
-  body{
-    margin:0; min-height:100vh; color:var(--ink);
-    font-family:"Trebuchet MS","Comic Sans MS","Segoe UI",system-ui,sans-serif;
-    background:linear-gradient(180deg,#bfe9ff 0%,#e9f8ff 55%,#fff7d6 100%);
-  }
-  .wrap{max-width:760px; margin:0 auto; padding:16px 14px 40px}
-  header{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px}
-  .logo{font-size:1.25rem; font-weight:800}
-  .score-pill{background:var(--yellow); border-radius:999px; padding:6px 14px; font-weight:800; box-shadow:0 3px 0 #e0b100}
-  .card{background:var(--card); border-radius:26px; padding:22px 18px; box-shadow:0 8px 0 rgba(35,48,90,.12)}
-  .hidden{display:none !important}
-
-  .hero{text-align:center}
-  .hero .big{font-size:4.2rem; line-height:1}
-  .hero h1{margin:8px 0 6px; font-size:2rem}
-  .hero p{margin:6px 0 14px; font-size:1.1rem}
-  .chapters{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0 20px; text-align:left}
-  .chap{border-radius:16px; padding:10px 12px; font-weight:700; font-size:.95rem; color:#fff}
-  .chap small{display:block; font-weight:600; opacity:.95}
-  .c1{background:var(--blue)} .c2{background:var(--purple)} .c3{background:var(--orange)} .c4{background:var(--pink)}
-  button{font-family:inherit; cursor:pointer; border:none}
-  .go{background:var(--green); color:#fff; font-size:1.5rem; font-weight:800; padding:14px 38px; border-radius:999px; box-shadow:0 6px 0 #15803d}
-  .go:active{transform:translateY(4px); box-shadow:0 2px 0 #15803d}
-  .alt{background:var(--blue); box-shadow:0 6px 0 #1d4ed8}
-
-  .bar{height:16px; background:#e6edf7; border-radius:999px; overflow:hidden; margin:6px 0 12px}
-  .bar > i{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--green),var(--yellow)); transition:width .35s}
-  .meta{display:flex; justify-content:space-between; align-items:center; font-weight:800; font-size:.95rem}
-  .tag{color:#fff; border-radius:999px; padding:4px 12px}
-  .qtext{font-size:1.65rem; font-weight:800; margin:16px 0 8px; line-height:1.3}
-  .say{background:#eef4ff; color:var(--ink); border-radius:999px; padding:6px 14px; font-weight:700; margin-bottom:6px}
-  .visual{background:#f6fbff; border:3px dashed #bcd9f3; border-radius:18px; padding:10px; margin:10px 0; text-align:center; font-size:2.1rem; line-height:1.35; letter-spacing:2px}
-  .visual .plus{font-weight:800; margin:0 10px; color:var(--orange)}
-  .visual .x{opacity:.28; text-decoration:line-through}
-  .bondbox{display:flex; justify-content:center; margin:8px 0}
-  .opts{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:14px}
-  .opt{background:#fff; border:4px solid #cfe0f5; border-radius:20px; font-size:1.7rem; font-weight:800; color:var(--ink); padding:16px 8px; min-height:74px; box-shadow:0 5px 0 #cfe0f5; transition:transform .08s}
-  .opt:hover{border-color:var(--blue)}
-  .opt:active{transform:translateY(3px)}
-  .opt.long{font-size:1.25rem}
-  .opt.right{background:#d9f9e3; border-color:var(--green); box-shadow:0 5px 0 #15a34a}
-  .opt.wrong{background:#ffe0e0; border-color:var(--red); box-shadow:0 5px 0 #c53030}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;justify-content:center;padding:20px 14px}
+  .app{width:100%;max-width:640px}
+  header{text-align:center;margin-bottom:16px}
+  header h1{margin:0;font-size:1.45rem}
+  header p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
+  .card{background:var(--card);border-radius:16px;padding:22px;box-shadow:0 4px 18px rgba(30,40,80,.08)}
+  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:8px}
+  .bar>div{height:100%;width:0;background:var(--brand);transition:width .3s}
+  .meta{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:16px}
+  .tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#eef0ff;color:var(--brand-d);padding:3px 9px;border-radius:99px;margin-bottom:10px}
+  .q{font-size:1.4rem;font-weight:700;line-height:1.4;margin:0 0 18px}
+  .opts{display:grid;gap:10px}
+  .opt{font:inherit;font-size:1.1rem;text-align:left;padding:14px 16px;border:2px solid var(--line);background:#fff;border-radius:12px;cursor:pointer;display:flex;gap:12px;align-items:center;color:var(--ink)}
+  .opt:hover:not(:disabled){border-color:var(--brand);background:#f7f7ff}
+  .opt .l{flex:none;width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:.85rem;font-weight:700}
+  .opt.ok{border-color:var(--ok);background:var(--okbg)}
+  .opt.ok .l{background:var(--ok);color:#fff}
+  .opt.bad{border-color:var(--bad);background:var(--badbg)}
+  .opt.bad .l{background:var(--bad);color:#fff}
   .opt:disabled{cursor:default}
-  .feedback{margin-top:16px; border-radius:18px; padding:12px 14px; font-size:1.2rem; font-weight:700}
-  .feedback.good{background:#d9f9e3} .feedback.bad{background:#ffe9d6}
-  .next{margin-top:14px; width:100%; background:var(--blue); color:#fff; font-size:1.4rem; font-weight:800; padding:14px; border-radius:18px; box-shadow:0 5px 0 #1d4ed8}
-
-  .results{text-align:center}
-  .results .big{font-size:4rem}
-  .score-big{font-size:3rem; font-weight:900; color:var(--purple)}
-  .stars{font-size:2.2rem; margin:4px 0 10px}
-  .breakdown{text-align:left; margin:16px 0}
-  .row{display:flex; align-items:center; gap:10px; margin:8px 0; font-weight:700; font-size:.95rem}
-  .row .lbl{flex:0 0 150px}
-  .row .meter{flex:1; height:16px; background:#e6edf7; border-radius:999px; overflow:hidden}
-  .row .meter i{display:block; height:100%}
-  .missed{text-align:left; margin-top:12px}
-  .missed li{margin:8px 0; font-size:1rem; background:#fff7f0; border-radius:12px; padding:8px 10px}
-  .btns{display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:16px}
-  @media (max-width:480px){
-    .qtext{font-size:1.4rem} .opt{font-size:1.5rem; min-height:66px} .row .lbl{flex-basis:110px}
-    .hero h1{font-size:1.65rem}
-  }
+  .fb{margin-top:16px;padding:12px 14px;border-radius:12px;font-size:.98rem;line-height:1.5;display:none}
+  .fb.show{display:block}
+  .fb.ok{background:var(--okbg);color:#14532d}
+  .fb.bad{background:var(--badbg);color:#7f1d1d}
+  .btn{font:inherit;font-weight:700;border:0;background:var(--brand);color:#fff;padding:13px 22px;border-radius:12px;cursor:pointer;font-size:1rem}
+  .btn:hover{background:var(--brand-d)}
+  .btn.alt{background:#eef0ff;color:var(--brand-d)}
+  .nav{margin-top:16px;display:none;text-align:right}
+  .nav.show{display:block}
+  .center{text-align:center}
+  .big{font-size:3rem;font-weight:800;color:var(--brand);margin:6px 0}
+  .review{text-align:left;margin-top:18px}
+  .review h3{margin:0 0 8px;font-size:1rem}
+  .item{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:.95rem}
+  .item b{color:var(--ok)}
+  .item span{color:var(--bad)}
+  .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="app">
   <header>
-    <div class="logo">🚀 Zion's Number Adventure</div>
-    <div class="score-pill" id="scorePill">⭐ 0</div>
+    <h1>Mental Math for Multiplication</h1>
+    <p>Chapter 4 &middot; Exercise 1 &middot; 50 questions</p>
   </header>
-
-  <section class="card hero" id="start">
-    <div class="big">🦁🔢🌈</div>
-    <h1>Hi Zion! Ready for a bigger challenge?</h1>
-    <p>70 number questions. Take your time and tap the best answer!</p>
-    <div class="chapters">
-      <div class="chap c1">Part 1<small>Numbers to 20</small></div>
-      <div class="chap c2">Part 2<small>Number Bonds</small></div>
-      <div class="chap c3">Part 3<small>Addition</small></div>
-      <div class="chap c4">Part 4<small>Subtraction</small></div>
-    </div>
-    <button class="go" id="startBtn">Let's go! ▶</button>
-  </section>
-
-  <section class="card hidden" id="quiz">
-    <div class="meta"><span id="qcount">Question 1 of 70</span><span class="tag" id="chTag">Part 1</span></div>
-    <div class="bar"><i id="barFill"></i></div>
-    <button class="say" id="sayBtn" aria-label="Read the question out loud">🔊 Read to me</button>
-    <div class="qtext" id="qtext"></div>
-    <div id="visualBox"></div>
-    <div class="opts" id="opts"></div>
-    <div id="feedback" class="feedback hidden"></div>
-    <button class="next hidden" id="nextBtn">Next ▶</button>
-  </section>
-
-  <section class="card results hidden" id="results"></section>
+  <div class="card" id="card"></div>
 </div>
 
 <script>
-// QUESTIONS-START
-const CH = [
-  {name:"Numbers to 20", color:"#3b82f6"},
-  {name:"Number Bonds",  color:"#8b5cf6"},
-  {name:"Addition",      color:"#ff9f43"},
-  {name:"Subtraction",   color:"#ff6fa5"}
+const fmt = n => n.toLocaleString('en-US');
+
+/* Q(tag, question, numeric answer, wrong options, explanation)
+   The correct answer is computed from the expression, so it cannot be mistyped. */
+function Q(tag, q, c, d, x){ return {tag, q, c, a: fmt(c), d, x}; }
+
+const BANK = [
+  /* ---------- Textbook Exercise 1 ---------- */
+  Q('Book 1(a)', '12 × 3 = 30 + 6 = ?', 12*3, ['306','63','33'], '12 = 10 + 2. So 10 × 3 = 30 and 2 × 3 = 6. Add them: 30 + 6 = 36.'),
+  Q('Book 1(b)', '12 hundreds × 3 = ? hundreds', 12*3, ['15','306','3,600'], '12 × 3 = 36, so 12 hundreds × 3 = 36 hundreds.'),
+  Q('Book 1(b)', '12 hundreds × 3 = 36 hundreds = ?', 1200*3, ['360','36,000','3,060'], '36 hundreds means 36 × 100 = 3,600.'),
+  Q('Book 1(c)', '12 thousands × 3 = ? thousands', 12*3, ['15','306','360'], '12 × 3 = 36, so 12 thousands × 3 = 36 thousands.'),
+  Q('Book 1(c)', '12 thousands × 3 = 36 thousands = ?', 12000*3, ['3,600','360,000','30,600'], '36 thousands means 36 × 1,000 = 36,000.'),
+
+  Q('Book 2(a)', '35 × 4 = ? + 20.  What number goes in the first box? (35 = 30 + 5)', 30*4, ['12','1,200','140'], '30 × 4 = 120, and 5 × 4 = 20. So 35 × 4 = 120 + 20.'),
+  Q('Book 2(a)', '35 × 4 = 120 + 20 = ?', 35*4, ['32','120','1,400'], '120 + 20 = 140.'),
+  Q('Book 2(b)', '350 × 4 = ?', 350*4, ['140','14,000','1,200'], '35 × 4 = 140. 350 is 10 times bigger than 35, so the answer is 1,400.'),
+  Q('Book 2(c)', '3,500 × 4 = ?', 3500*4, ['1,400','140,000','12,000'], '35 × 4 = 140. 3,500 is 100 times bigger than 35, so the answer is 14,000.'),
+  Q('Book 2(d)', '35,000 × 4 = ?', 35000*4, ['14,000','1,400,000','120,000'], '35 × 4 = 140. 35,000 is 1,000 times bigger than 35, so the answer is 140,000.'),
+
+  Q('Book 3(a)', '100 × 7 = ?', 100*7, ['70','7,000','707'], '1 hundred × 7 = 7 hundreds = 700.'),
+  Q('Book 3(a)', '99 × 7 = ?  (Hint: use 100 × 7)', 99*7, ['703','699','6,930'], '99 is 1 less than 100. 700 − 7 = 693 (take away one 7, not one 1).'),
+  Q('Book 3(b)', '200 × 7 = ?', 200*7, ['140','14,000','1,207'], '2 hundreds × 7 = 14 hundreds = 1,400.'),
+  Q('Book 3(b)', '199 × 7 = ?  (Hint: use 200 × 7)', 199*7, ['1,407','1,399','13,930'], '199 is 1 less than 200. 1,400 − 7 = 1,393.'),
+  Q('Book 3(c)', '300 × 7 = ?', 300*7, ['210','21,000','2,107'], '3 hundreds × 7 = 21 hundreds = 2,100.'),
+  Q('Book 3(c)', '299 × 7 = ?  (Hint: use 300 × 7)', 299*7, ['2,107','2,099','20,930'], '299 is 1 less than 300. 2,100 − 7 = 2,093.'),
+  Q('Book 3(d)', '3,000 × 7 = ?', 3000*7, ['2,100','210,000','3,007'], '3 thousands × 7 = 21 thousands = 21,000.'),
+  Q('Book 3(d)', '2,999 × 7 = ?  (Hint: use 3,000 × 7)', 2999*7, ['21,007','20,999','209,930'], '2,999 is 1 less than 3,000. 21,000 − 7 = 20,993.'),
+
+  Q('Book 4(a)', '100 × 6 = ?', 100*6, ['60','6,000','106'], '1 hundred × 6 = 6 hundreds = 600.'),
+  Q('Book 4(b)', '150 × 9 = ?', 150*9, ['135','13,500','1,450'], '15 × 9 = 135, then multiply by 10: 1,350.'),
+  Q('Book 4(c)', '40,000 × 8 = ?', 40000*8, ['32,000','3,200,000','3,200'], '4 × 8 = 32. 4 ten-thousands × 8 = 32 ten-thousands = 320,000.'),
+  Q('Book 4(d)', '1,300 × 5 = ?', 1300*5, ['650','65,000','5,300'], '1,000 × 5 = 5,000 and 300 × 5 = 1,500. 5,000 + 1,500 = 6,500.'),
+  Q('Book 4(e)', '2,500 × 4 = ?', 2500*4, ['1,000','100,000','8,200'], '2,000 × 4 = 8,000 and 500 × 4 = 2,000. 8,000 + 2,000 = 10,000.'),
+  Q('Book 4(f)', '910 × 2 = ?', 910*2, ['182','18,200','1,802'], '900 × 2 = 1,800 and 10 × 2 = 20. 1,800 + 20 = 1,820.'),
+  Q('Book 4(g)', '15,000 × 3 = ?', 15000*3, ['4,500','450,000','30,500'], '10,000 × 3 = 30,000 and 5,000 × 3 = 15,000. 30,000 + 15,000 = 45,000.'),
+  Q('Book 4(h)', '7,200 × 8 = ?', 7200*8, ['5,760','576,000','56,160'], '7,000 × 8 = 56,000 and 200 × 8 = 1,600. 56,000 + 1,600 = 57,600.'),
+  Q('Book 4(i)', '5 × 42,000 = ?', 5*42000, ['21,000','2,100,000','201,000'], '5 × 40,000 = 200,000 and 5 × 2,000 = 10,000. 200,000 + 10,000 = 210,000.'),
+  Q('Book 4(j)', '7 × 3,300 = ?', 7*3300, ['2,310','231,000','21,210'], '7 × 3,000 = 21,000 and 7 × 300 = 2,100. 21,000 + 2,100 = 23,100.'),
+  Q('Book 4(k)', '98 × 6 = ?  (Hint: think 100 × 6)', 98*6, ['598','578','5,880'], '100 × 6 = 600. 98 is 2 less than 100, so take away 2 × 6 = 12. 600 − 12 = 588.'),
+  Q('Book 4(l)', '5 × 399 = ?  (Hint: think 5 × 400)', 5*399, ['2,005','1,895','19,950'], '5 × 400 = 2,000. 399 is 1 less than 400, so take away 5. 2,000 − 5 = 1,995.'),
+  Q('Book 4(m)', '3 × 599 = ?  (Hint: think 3 × 600)', 3*599, ['1,803','1,497','17,970'], '3 × 600 = 1,800. 599 is 1 less than 600, so take away 3. 1,800 − 3 = 1,797.'),
+  Q('Book 4(n)', '6,999 × 4 = ?  (Hint: think 7,000 × 4)', 6999*4, ['28,004','27,096','279,960'], '7,000 × 4 = 28,000. 6,999 is 1 less than 7,000, so take away 4. 28,000 − 4 = 27,996.'),
+
+  Q('Book 5', 'A 24-foot-wide greenhouse frame costs $4,999. A farm wants to buy 5 of them. What is the total cost in dollars?', 4999*5, ['25,005','24,005','249,950'], '5 × $5,000 = $25,000. Each frame is $1 less, so take away 5 × $1 = $5. $25,000 − $5 = $24,995.'),
+  Q('Book 6', 'The pediatric clinic needs 250 bandages a week and the central clinic needs 600 bandages a week. How many bandages should the two clinics order for 8 weeks?', (250+600)*8, ['2,000','4,800','850'], 'Together they need 250 + 600 = 850 a week. 850 × 8 = 6,800.'),
+
+  /* ---------- Extra practice (same skills) ---------- */
+  Q('Extra', '14 × 3 = ?', 14*3, ['12','32','420'], '10 × 3 = 30 and 4 × 3 = 12. 30 + 12 = 42.'),
+  Q('Extra', '120 × 4 = ?', 120*4, ['48','4,800','440'], '12 × 4 = 48. 120 is 10 times bigger than 12, so the answer is 480.'),
+  Q('Extra', '13 thousands × 5 = ?', 13000*5, ['6,500','650,000','18,000'], '13 × 5 = 65, so 13 thousands × 5 = 65 thousands = 65,000.'),
+  Q('Extra', '45 × 6 = ?', 45*6, ['240','2,700','260'], '40 × 6 = 240 and 5 × 6 = 30. 240 + 30 = 270.'),
+  Q('Extra', '4,500 × 6 = ?', 4500*6, ['2,700','270,000','24,000'], '45 × 6 = 270. 4,500 is 100 times bigger than 45, so the answer is 27,000.'),
+  Q('Extra', '98 × 5 = ?  (Hint: think 100 × 5)', 98*5, ['495','510','4,900'], '100 × 5 = 500. 98 is 2 less than 100, so take away 2 × 5 = 10. 500 − 10 = 490.'),
+  Q('Extra', '199 × 4 = ?  (Hint: think 200 × 4)', 199*4, ['804','7,960','896'], '200 × 4 = 800. Take away one 4. 800 − 4 = 796.'),
+  Q('Extra', '4,999 × 3 = ?', 4999*3, ['15,003','12,997','149,970'], '5,000 × 3 = 15,000. Take away 3 × 1 = 3. 15,000 − 3 = 14,997.'),
+  Q('Extra', '600 × 8 = ?', 600*8, ['480','48,000','4,080'], '6 hundreds × 8 = 48 hundreds = 4,800.'),
+  Q('Extra', '8 × 2,500 = ?', 8*2500, ['2,000','200,000','16,400'], '8 × 2,000 = 16,000 and 8 × 500 = 4,000. 16,000 + 4,000 = 20,000.'),
+  Q('Extra', '6,000 × 7 = ?', 6000*7, ['4,200','420,000','36,000'], '6 × 7 = 42. 6 thousands × 7 = 42 thousands = 42,000.'),
+  Q('Extra', '17 × 4 = ?', 17*4, ['58','48','680'], '10 × 4 = 40 and 7 × 4 = 28. 40 + 28 = 68.'),
+  Q('Extra', 'A bakery bakes 300 loaves of bread every day. How many loaves does it bake in 7 days?', 300*7, ['210','21,000','2,400'], '3 hundreds × 7 = 21 hundreds = 2,100.'),
+  Q('Extra', 'A cinema ticket costs $99. How much do 6 tickets cost in dollars?', 99*6, ['606','5,940','584'], '100 × 6 = 600. Each ticket is $1 less, so take away 6 × 1 = 6. 600 − 6 = 594.'),
+  Q('Extra', 'A truck carries 3,500 kg of sand on each trip. How many kg does it carry in 4 trips?', 3500*4, ['1,400','140,000','12,000'], '35 × 4 = 140. 3,500 is 100 times bigger than 35, so the answer is 14,000.'),
+  Q('Extra', '2,998 × 5 = ?  (Hint: think 3,000 × 5)', 2998*5, ['15,010','14,900','149,900'], '3,000 × 5 = 15,000. 2,998 is 2 less than 3,000, so take away 2 × 5 = 10. 15,000 − 10 = 14,990.')
 ];
-const Q = [];
-function push(ch, o){ o.ch = ch; Q.push(o); }
-function add(ch,a,b,d){ push(ch,{q:`${a} + ${b} = ?`, a:String(a+b), d:d.map(String), e:`${a} + ${b} = ${a+b}`, math:`${a}+${b}`}); }
-function sub(ch,a,b,d){ push(ch,{q:`${a} − ${b} = ?`, a:String(a-b), d:d.map(String), e:`${a} − ${b} = ${a-b}`, math:`${a}-${b}`}); }
-function bond(ch,whole,p1,p2,d){
-  const ans = whole===null ? p1+p2 : (p1===null ? whole-p2 : whole-p1);
-  const txt = whole===null ? "The two parts are in the small circles. What is the whole?" : "Find the missing part.";
-  push(ch,{q:txt, bond:[whole,p1,p2], a:String(ans), d:d.map(String), e: whole===null ? `${p1} and ${p2} make ${ans}.` : `${whole} is ${ (p1===null?p2:p1) } and ${ans}.`});
+
+/* ---------- Quiz engine ---------- */
+const card = document.getElementById('card');
+let order, idx, score, missed;
+const L = ['A','B','C','D'];
+
+function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+function start(){
+  order = BANK.slice();            // textbook questions first, then extras (as in the workbook order)
+  idx = 0; score = 0; missed = [];
+  show();
 }
 
-// ---------- Part 1: Numbers to 20 (18) ----------
-push(0,{q:"How many stars are there?", v:{e:"⭐",n:12}, a:"12", d:["11","13","10"], e:"Count each star once: 12."});
-push(0,{q:"How many fish do you see?", v:{e:"🐟",n:15}, a:"15", d:["14","16","13"], e:"Touch and count each fish: 15."});
-push(0,{q:"Count the ladybugs. How many?", v:{e:"🐞",n:14}, a:"14", d:["13","15","12"], e:"There are 14 ladybugs."});
-push(0,{q:"Which number comes right after 14?", a:"15", d:["13","16","17"], e:"14, 15 … 15 comes right after 14."});
-push(0,{q:"Which number comes right before 20?", a:"19", d:["18","21","10"], e:"19, 20 … 19 comes right before 20."});
-push(0,{q:"Find the missing number:  11, 12, __ , 14, 15", a:"13", d:["10","15","16"], e:"11, 12, 13, 14, 15."});
-push(0,{q:"Find the missing number:  16, 17, __ , 19, 20", a:"18", d:["15","21","14"], e:"16, 17, 18, 19, 20."});
-push(0,{q:"Count backwards:  20, 19, 18, __ , 16", a:"17", d:["15","19","18"], e:"20, 19, 18, 17, 16."});
-push(0,{q:"Which is the greatest number?  13,  18,  15,  17", a:"18", d:["13","15","17"], e:"18 is bigger than 13, 15 and 17."});
-push(0,{q:"Which is the smallest number?  16,  12,  19,  14", a:"12", d:["16","19","14"], e:"12 is smaller than 16, 19 and 14."});
-push(0,{q:"Which number is between 14 and 16?", a:"15", d:["13","17","14"], e:"14, 15, 16 … 15 is in the middle."});
-push(0,{q:"What number is 10 and 3 more?", a:"13", d:["12","31","14"], e:"10 and 3 more is 13."});
-push(0,{q:"Which one is true?", a:"12 is greater than 9", d:["12 is less than 9","9 is the same as 12","15 is less than 11"], e:"12 is greater than 9.", long:true});
-push(0,{q:"Put the numbers in order from smallest to biggest:  15,  9,  12", a:"9, 12, 15", d:["15, 12, 9","9, 15, 12","12, 9, 15"], e:"Smallest first: 9, 12, 15.", long:true});
-push(0,{q:"Count by 2s:  2, 4, 6, __ , 10", a:"8", d:["7","9","12"], e:"2, 4, 6, 8, 10."});
-push(0,{q:"Count by 5s:  5, 10, __ , 20", a:"15", d:["12","14","25"], e:"5, 10, 15, 20."});
-push(0,{q:"Which one is an even number?", a:"14", d:["13","15","17"], e:"14 can be shared into two equal groups of 7, so it is even."});
-push(0,{q:"Which number is the word “seventeen”?", a:"17", d:["71","7","19"], e:"Seventeen is written 17."});
-
-// ---------- Part 2: Number Bonds (17) ----------
-bond(1,12,5,null,[6,8,17]);
-bond(1,14,6,null,[7,9,20]);
-bond(1,15,9,null,[5,7,24]);
-bond(1,13,4,null,[8,10,17]);
-bond(1,16,7,null,[8,10,23]);
-bond(1,18,9,null,[8,10,27]);
-bond(1,20,12,null,[7,9,32]);
-bond(1,17,8,null,[8,10,25]);
-bond(1,11,6,null,[4,6,17]);
-bond(1,20,15,null,[4,10,35]);
-bond(1,null,8,7,[14,16,1]);
-bond(1,null,9,6,[14,16,3]);
-bond(1,null,11,5,[15,17,6]);
-push(1,{q:"Which pair of numbers makes 15?", a:"9 and 6", d:["9 and 7","8 and 8","10 and 4"], e:"9 + 6 = 15.", long:true});
-push(1,{q:"Which pair of numbers makes 12?", a:"7 and 5", d:["7 and 6","8 and 5","6 and 5"], e:"7 + 5 = 12.", long:true});
-push(1,{q:"Which pair of numbers makes 20?", a:"13 and 7", d:["13 and 8","12 and 9","14 and 5"], e:"13 + 7 = 20.", long:true});
-push(1,{q:"Zion has 14 stickers. 8 are red. The rest are blue. How many are blue?", a:"6", d:["5","7","22"], e:"14 is 8 and 6, so 6 are blue."});
-
-// ---------- Part 3: Addition (18) ----------
-add(2,8,7,[14,16,17]);
-add(2,9,6,[14,16,13]);
-add(2,12,5,[16,18,7]);
-add(2,13,4,[16,18,9]);
-add(2,6,8,[13,15,2]);
-add(2,9,9,[17,19,81]);
-add(2,15,3,[17,19,12]);
-add(2,7,9,[15,17,2]);
-add(2,11,8,[18,20,3]);
-add(2,10,10,[10,19,100]);
-push(2,{q:"Zion has 8 toy cars. He gets 6 more. How many cars does he have now?", a:"14", d:["13","15","2"], e:"8 + 6 = 14 cars."});
-push(2,{q:"There are 9 birds in a tree. 7 more birds fly in. How many birds are there?", a:"16", d:["15","17","2"], e:"9 + 7 = 16 birds."});
-push(2,{q:"There are 12 children on the bus. 5 more get on. How many children are on the bus?", a:"17", d:["16","18","7"], e:"12 + 5 = 17 children."});
-push(2,{q:"7 + __ = 15", a:"8", d:["7","9","22"], e:"7 + 8 = 15."});
-push(2,{q:"__ + 6 = 14", a:"8", d:["7","9","20"], e:"8 + 6 = 14."});
-push(2,{q:"9 + __ = 18", a:"9", d:["8","10","27"], e:"9 + 9 = 18."});
-push(2,{q:"3 + 4 + 5 = ?", a:"12", d:["11","13","10"], e:"3 + 4 = 7, then 7 + 5 = 12."});
-push(2,{q:"Which one is the same as 8 + 6?", a:"6 + 8", d:["8 + 7","6 + 7","8 − 6"], e:"6 + 8 and 8 + 6 both make 14.", long:true});
-
-// ---------- Part 4: Subtraction (17) ----------
-sub(3,15,7,[7,9,22]);
-sub(3,13,6,[6,8,19]);
-sub(3,18,9,[8,10,27]);
-sub(3,16,8,[7,9,24]);
-sub(3,20,12,[7,9,32]);
-sub(3,14,5,[8,10,19]);
-sub(3,17,9,[7,9,26]);
-sub(3,19,11,[7,9,30]);
-push(3,{q:"There are 14 cookies. Zion eats 6. How many cookies are left?", v:{e:"🍪",n:14,x:6}, a:"8", d:["7","9","20"], e:"14 − 6 = 8 cookies left."});
-push(3,{q:"16 birds sit on a fence. 9 fly away. How many birds are left?", a:"7", d:["6","8","25"], e:"16 − 9 = 7 birds."});
-push(3,{q:"Zion had 15 balloons. 8 popped. How many balloons does he have now?", a:"7", d:["6","8","23"], e:"15 − 8 = 7 balloons."});
-push(3,{q:"There are 20 children. 13 go home. How many children stay?", a:"7", d:["6","8","33"], e:"20 − 13 = 7 children."});
-push(3,{q:"15 − __ = 9", a:"6", d:["5","7","24"], e:"15 − 6 = 9."});
-push(3,{q:"17 − __ = 8", a:"9", d:["8","10","25"], e:"17 − 9 = 8."});
-push(3,{q:"8 + 7 = 15, so 15 − 7 = ?", a:"8", d:["7","15","22"], e:"If 8 + 7 = 15, then 15 − 7 = 8."});
-push(3,{q:"Which one is equal to 9?", a:"17 − 8", d:["17 − 9","6 + 4","20 − 10"], e:"17 − 8 = 9.", long:true});
-push(3,{q:"10 + 5 − 3 = ?", a:"12", d:["11","13","18"], e:"10 + 5 = 15, then 15 − 3 = 12."});
-// QUESTIONS-END
-
-// ---------- App ----------
-const $ = id => document.getElementById(id);
-let order, idx, score, wrongList, answered, chScore, chTotal, current;
-
-function shuffle(a){
-  a = a.slice();
-  for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
-  return a;
-}
-function repeat(e,n,x){
-  let s=""; for(let i=0;i<n;i++){ s += (x && i>=n-x) ? `<span class="x">${e}</span>` : e; if(i===4 && n>6) s+="<br>"; } return s;
-}
-function bondSVG(b){
-  const [w,p1,p2]=b;
-  const c=v=> v===null ? "?" : v;
-  const fill=v=> v===null ? "#fff3c4" : "#e3f1ff";
-  return `<svg width="230" height="170" viewBox="0 0 230 170" role="img" aria-label="number bond">
-    <line x1="115" y1="48" x2="60" y2="112" stroke="#23305a" stroke-width="4"/>
-    <line x1="115" y1="48" x2="170" y2="112" stroke="#23305a" stroke-width="4"/>
-    <circle cx="115" cy="38" r="34" fill="${fill(w)}" stroke="#3b82f6" stroke-width="5"/>
-    <circle cx="55" cy="122" r="34" fill="${fill(p1)}" stroke="#8b5cf6" stroke-width="5"/>
-    <circle cx="175" cy="122" r="34" fill="${fill(p2)}" stroke="#8b5cf6" stroke-width="5"/>
-    <g font-family="Trebuchet MS, sans-serif" font-weight="800" font-size="34" text-anchor="middle" fill="#23305a">
-      <text x="115" y="50">${c(w)}</text><text x="55" y="134">${c(p1)}</text><text x="175" y="134">${c(p2)}</text>
-    </g></svg>`;
-}
-function speakText(q){
-  let t = q.q.replace(/−/g," minus ").replace(/\+/g," plus ").replace(/=/g," equals ").replace(/__/g," what number ").replace(/\?/g," what number? ");
-  if(q.bond) t = q.q + " The whole is " + (q.bond[0]===null?"missing":q.bond[0]) + ". The parts are " + (q.bond[1]===null?"missing":q.bond[1]) + " and " + (q.bond[2]===null?"missing":q.bond[2]) + ".";
-  return t;
+function show(){
+  const q = order[idx];
+  const opts = shuffle([q.a, ...q.d]);
+  card.innerHTML = `
+    <div class="bar"><div style="width:${(idx/order.length)*100}%"></div></div>
+    <div class="meta"><span>Question ${idx+1} of ${order.length}</span><span>Score: ${score}</span></div>
+    <span class="tag">${q.tag}</span>
+    <p class="q">${q.q}</p>
+    <div class="opts">
+      ${opts.map((o,i)=>`<button class="opt" data-v="${o}"><span class="l">${L[i]}</span><span>${o}</span></button>`).join('')}
+    </div>
+    <div class="fb" id="fb"></div>
+    <div class="nav" id="nav"><button class="btn" id="next">${idx===order.length-1?'See results':'Next question'}</button></div>`;
+  card.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b,q));
+  document.getElementById('next').onclick=()=>{ idx++; idx<order.length?show():finish(); };
 }
 
-function start(subset){
-  const base = subset || Q.map((_,i)=>i);
-  order = base.slice();
-  idx = 0; score = 0; wrongList = []; chScore=[0,0,0,0]; chTotal=[0,0,0,0];
-  $("start").classList.add("hidden"); $("results").classList.add("hidden"); $("quiz").classList.remove("hidden");
-  $("scorePill").textContent = "⭐ 0";
-  showQ();
-}
-function showQ(){
-  answered = false;
-  current = Q[order[idx]];
-  const q = current;
-  $("qcount").textContent = `Question ${idx+1} of ${order.length}`;
-  const tag = $("chTag"); tag.textContent = `Part ${q.ch+1}: ${CH[q.ch].name}`; tag.style.background = CH[q.ch].color;
-  $("barFill").style.width = (idx/order.length*100)+"%";
-  $("qtext").textContent = q.q;
-  let vis = "";
-  if(q.v) vis = `<div class="visual">${repeat(q.v.e,q.v.n,q.v.x)}</div>`;
-  if(q.v2) vis = `<div class="visual">${repeat(q.v2[0].e,q.v2[0].n)}<span class="plus">+</span>${repeat(q.v2[1].e,q.v2[1].n)}</div>`;
-  if(q.bond) vis = `<div class="bondbox">${bondSVG(q.bond)}</div>`;
-  $("visualBox").innerHTML = vis;
-  const opts = $("opts"); opts.innerHTML = "";
-  shuffle([q.a, ...q.d]).forEach(text=>{
-    const b = document.createElement("button");
-    b.className = "opt" + (q.long ? " long" : "");
-    b.textContent = text;
-    b.onclick = () => choose(b, text);
-    opts.appendChild(b);
-  });
-  $("feedback").classList.add("hidden"); $("nextBtn").classList.add("hidden");
-  $("nextBtn").textContent = idx===order.length-1 ? "See my score 🎉" : "Next ▶";
-  if(window.speechSynthesis) speechSynthesis.cancel();
-}
-function choose(btn, text){
-  if(answered) return;
-  answered = true;
-  const q = current, ok = text === q.a;
-  chTotal[q.ch]++;
-  [...$("opts").children].forEach(b=>{
+function pick(btn,q){
+  const chosen = btn.dataset.v, right = chosen===q.a;
+  card.querySelectorAll('.opt').forEach(b=>{
     b.disabled = true;
-    if(b.textContent === q.a) b.classList.add("right");
+    if(b.dataset.v===q.a) b.classList.add('ok');
   });
-  const fb = $("feedback");
-  if(ok){
-    score++; chScore[q.ch]++;
-    $("scorePill").textContent = "⭐ " + score;
-    const cheers = ["Great job, Zion! 🎉","Super! ⭐","You got it! 🌟","Awesome! 👏","Brilliant! 🦁","Yes! Well done! 🚀"];
-    fb.className = "feedback good"; fb.textContent = cheers[Math.floor(Math.random()*cheers.length)];
-  }else{
-    btn.classList.add("wrong");
-    wrongList.push(order[idx]);
-    fb.className = "feedback bad"; fb.textContent = "Nice try! " + q.e;
-  }
-  fb.classList.remove("hidden"); $("nextBtn").classList.remove("hidden");
-}
-function next(){
-  idx++;
-  if(idx >= order.length) return finish();
-  showQ(); window.scrollTo({top:0,behavior:"smooth"});
-}
-function finish(){
-  $("quiz").classList.add("hidden");
-  const res = $("results"); res.classList.remove("hidden");
-  const total = order.length, pct = Math.round(score/total*100);
-  const stars = pct>=90 ? "⭐⭐⭐" : pct>=70 ? "⭐⭐" : pct>=40 ? "⭐" : "🌱";
-  const msg = pct>=90 ? "Amazing work, Zion! You are a number superstar!" : pct>=70 ? "Great job! You know lots of number facts!" : pct>=40 ? "Good try! Let's practise a little more." : "Keep practising. You will get better and better!";
-  let rows = "";
-  CH.forEach((c,i)=>{
-    if(!chTotal[i]) return;
-    const p = Math.round(chScore[i]/chTotal[i]*100);
-    rows += `<div class="row"><span class="lbl">${c.name}</span><span class="meter"><i style="width:${p}%;background:${c.color}"></i></span><span>${chScore[i]}/${chTotal[i]}</span></div>`;
-  });
-  let missed = "";
-  if(wrongList.length){
-    missed = `<div class="missed"><h3>Let's look again 👀</h3><ul>` +
-      wrongList.map(i=>`<li><b>${Q[i].q.replace(/</g,"&lt;")}</b><br>Answer: <b>${Q[i].a}</b></li>`).join("") + `</ul></div>`;
-  }
-  res.innerHTML = `<div class="big">🏆</div>
-    <div class="score-big">${score} / ${total}</div>
-    <div class="stars">${stars}</div>
-    <p style="font-size:1.2rem;font-weight:700">${msg}</p>
-    <div class="breakdown">${rows}</div>
-    <div class="btns">
-      <button class="go" id="again">Play again 🔁</button>
-      ${wrongList.length ? '<button class="go alt" id="retry">Practise missed ones 💪</button>' : ''}
-    </div>${missed}`;
-  $("again").onclick = () => start();
-  if($("retry")) $("retry").onclick = () => start(shuffle(wrongList));
-  window.scrollTo({top:0,behavior:"smooth"});
+  if(!right) btn.classList.add('bad');
+  if(right) score++; else missed.push({q:q.q, yours:chosen, a:q.a, x:q.x});
+  const fb = document.getElementById('fb');
+  fb.className = 'fb show ' + (right?'ok':'bad');
+  fb.innerHTML = (right?'<b>Correct!</b> ':'<b>Not quite.</b> The answer is '+q.a+'. ') + q.x;
+  document.getElementById('nav').classList.add('show');
 }
 
-$("startBtn").onclick = () => start();
-$("nextBtn").onclick = next;
-$("sayBtn").onclick = () => {
-  if(!window.speechSynthesis) return;
-  speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(speakText(current)); u.rate = 0.85; speechSynthesis.speak(u);
-};
+function finish(){
+  const pct = Math.round(score/order.length*100);
+  const msg = pct>=90?'Outstanding mental maths!':pct>=70?'Great work!':pct>=50?'Good effort. Keep practising!':'Keep going. Review the tricks below and try again.';
+  card.innerHTML = `
+    <div class="center">
+      <div class="bar"><div style="width:100%"></div></div>
+      <h2 style="margin:8px 0 0">Quiz complete</h2>
+      <div class="big">${score} / ${order.length}</div>
+      <p style="margin:0;color:var(--muted)">${pct}% &middot; ${msg}</p>
+      <div class="row">
+        <button class="btn" id="again">Try again</button>
+        ${missed.length?'<button class="btn alt" id="retryMissed">Retry missed only</button>':''}
+      </div>
+    </div>
+    ${missed.length?`<div class="review"><h3>Questions to review (${missed.length})</h3>
+      ${missed.map(m=>`<div class="item"><div>${m.q}</div><div>You chose <span>${m.yours}</span> &middot; Correct: <b>${m.a}</b></div><div style="color:var(--muted);margin-top:4px">${m.x}</div></div>`).join('')}</div>`:''}`;
+  document.getElementById('again').onclick = start;
+  const r = document.getElementById('retryMissed');
+  if(r) r.onclick = () => {
+    const keep = new Set(missed.map(m=>m.q));
+    order = BANK.filter(b=>keep.has(b.q)); idx=0; score=0; missed=[]; show();
+  };
+}
+
+start();
 </script>
 </body>
 </html>
