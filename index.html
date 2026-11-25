@@ -1,199 +1,362 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Estimating and Multiplying Quiz</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Story Quest Reading Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap">
 <style>
-  :root{--bg:#f4f6fb;--card:#fff;--ink:#1d2433;--muted:#667085;--brand:#4f46e5;--brand-d:#3730a3;--ok:#16a34a;--okbg:#e8f8ee;--bad:#dc2626;--badbg:#fdecec;--line:#e3e7f0}
-  *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;display:flex;justify-content:center;padding:20px 14px}
-  .app{width:100%;max-width:640px}
-  header{text-align:center;margin-bottom:16px}
-  header h1{margin:0;font-size:1.45rem}
-  header p{margin:4px 0 0;color:var(--muted);font-size:.92rem}
-  .card{background:var(--card);border-radius:16px;padding:22px;box-shadow:0 4px 18px rgba(30,40,80,.08)}
-  .bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:8px}
-  .bar>div{height:100%;width:0;background:var(--brand);transition:width .3s}
-  .meta{display:flex;justify-content:space-between;font-size:.85rem;color:var(--muted);margin-bottom:16px}
-  .tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#eef0ff;color:var(--brand-d);padding:3px 9px;border-radius:99px;margin-bottom:10px}
-  .q{font-size:1.4rem;font-weight:700;line-height:1.4;margin:0 0 18px}
-  .opts{display:grid;gap:10px}
-  .opt{font:inherit;font-size:1.1rem;text-align:left;padding:14px 16px;border:2px solid var(--line);background:#fff;border-radius:12px;cursor:pointer;display:flex;gap:12px;align-items:center;color:var(--ink)}
-  .opt:hover:not(:disabled){border-color:var(--brand);background:#f7f7ff}
-  .opt .l{flex:none;width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-size:.85rem;font-weight:700}
-  .opt.ok{border-color:var(--ok);background:var(--okbg)}
-  .opt.ok .l{background:var(--ok);color:#fff}
-  .opt.bad{border-color:var(--bad);background:var(--badbg)}
-  .opt.bad .l{background:var(--bad);color:#fff}
-  .opt:disabled{cursor:default}
-  .fb{margin-top:16px;padding:12px 14px;border-radius:12px;font-size:.98rem;line-height:1.5;display:none}
-  .fb.show{display:block}
-  .fb.ok{background:var(--okbg);color:#14532d}
-  .fb.bad{background:var(--badbg);color:#7f1d1d}
-  .btn{font:inherit;font-weight:700;border:0;background:var(--brand);color:#fff;padding:13px 22px;border-radius:12px;cursor:pointer;font-size:1rem}
-  .btn:hover{background:var(--brand-d)}
-  .btn.alt{background:#eef0ff;color:var(--brand-d)}
-  .nav{margin-top:16px;display:none;text-align:right}
-  .nav.show{display:block}
-  .center{text-align:center}
-  .big{font-size:3rem;font-weight:800;color:var(--brand);margin:6px 0}
-  .review{text-align:left;margin-top:18px}
-  .review h3{margin:0 0 8px;font-size:1rem}
-  .item{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:.95rem}
-  .item b{color:var(--ok)}
-  .item span{color:var(--bad)}
-  .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+/* Layout: sticky header with progress; story card beside the question card on wide screens, stacked on phones. */
+:root{
+  --bg:#F3F6FA; --card:#FFFFFF; --ink:#1B2A41; --muted:#5B6B82; --line:#D9E1EC;
+  --accent:#0F7F86; --accent-ink:#FFFFFF; --sun:#F2B134; --sun-soft:#FFF4D6;
+  --good:#1E8E4E; --good-soft:#E1F5E9; --bad:#C23B3B; --bad-soft:#FBE4E4; --story:#FFFDF5;
+  --f-display:'Fredoka','Trebuchet MS',system-ui,sans-serif;
+  --f-body:'Nunito','Segoe UI',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#101826; --card:#192335; --ink:#E8EEF7; --muted:#9BABC2; --line:#2B3A52;
+    --accent:#3CC1C8; --accent-ink:#06262A; --sun:#F2B134; --sun-soft:#3A3014;
+    --good:#4CCB84; --good-soft:#15342A; --bad:#F27C7C; --bad-soft:#3B1D22; --story:#1D2840; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101826; --card:#192335; --ink:#E8EEF7; --muted:#9BABC2; --line:#2B3A52;
+  --accent:#3CC1C8; --accent-ink:#06262A; --sun:#F2B134; --sun-soft:#3A3014;
+  --good:#4CCB84; --good-soft:#15342A; --bad:#F27C7C; --bad-soft:#3B1D22; --story:#1D2840; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+h1,h2,h3{font-family:var(--f-display);font-weight:600;line-height:1.2;text-wrap:balance;margin:0}
+button{font-family:inherit;font-size:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto}
+
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:12px 0 10px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:600;font-size:1.15rem;color:var(--accent)}
+.stats{display:flex;gap:16px;font-weight:700;font-size:.95rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.stats b{color:var(--ink)}
+.bar{height:10px;border-radius:99px;background:var(--line);margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .35s}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+.hero{padding:36px 0 8px;display:grid;gap:20px;max-width:720px}
+.hero h1{font-size:clamp(2rem,6vw,3.2rem)}
+.hero p{margin:0;color:var(--muted);font-size:1.1rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--sun-soft);border:1px solid var(--sun);border-radius:99px;padding:4px 14px;font-weight:700;font-size:.9rem}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:12px;padding:12px 26px;font-weight:800;font-size:1.05rem;justify-self:start}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:24px;padding:0;list-style:none}
+.shelf li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-weight:700}
+.shelf span{display:block;font-weight:600;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+
+.quiz{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:20px;align-items:start;margin-top:8px}
+@media (max-width:820px){.quiz{grid-template-columns:minmax(0,1fr)}}
+.story{background:var(--story);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+@media (min-width:821px){.story{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);max-height:calc(100vh - 110px);overflow:auto}}
+.tag{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.story h2{font-size:1.6rem;margin:4px 0 12px}
+.story p{margin:0 0 .9em;font-size:1.06rem;line-height:1.75;max-width:62ch}
+.qcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 24px;display:grid;gap:16px}
+.qcard h3{font-size:1.3rem;line-height:1.35}
+.opts{display:grid;gap:10px;padding:0;margin:0;list-style:none}
+.opt{width:100%;display:flex;gap:12px;align-items:flex-start;text-align:left;background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px 14px;font-weight:600}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt .k{flex:none;width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;font-weight:800;font-size:.9rem}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--good-soft);border-color:var(--good)}
+.opt.right .k{background:var(--good);color:var(--card)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.opt.wrong .k{background:var(--bad);color:var(--card)}
+.fb{border-radius:12px;padding:12px 14px;font-size:.98rem}
+.fb.right{background:var(--good-soft)} .fb.wrong{background:var(--bad-soft)}
+.fb strong{display:block;font-family:var(--f-display);font-size:1.1rem;margin-bottom:2px}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.hint{color:var(--muted);font-size:.9rem}
+
+.result{display:grid;gap:22px;margin-top:20px;max-width:820px}
+.big{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;display:grid;gap:8px}
+.big .n{font-family:var(--f-display);font-size:3.4rem;line-height:1;font-variant-numeric:tabular-nums}
+.break{display:grid;gap:8px;padding:0;margin:0;list-style:none}
+.break li{display:grid;grid-template-columns:minmax(0,1fr) 120px 48px;gap:10px;align-items:center;font-weight:700;font-size:.95rem}
+.break .m{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.break .m i{display:block;height:100%;background:var(--accent)}
+.break .s{text-align:right;font-variant-numeric:tabular-nums}
+@media (max-width:480px){.break li{grid-template-columns:minmax(0,1fr) 72px 44px}}
+.miss{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--bad);border-radius:10px;padding:12px 16px;display:grid;gap:4px;font-size:.96rem}
+.miss em{font-style:normal;color:var(--bad);font-weight:700}.miss u{text-decoration:none;color:var(--good);font-weight:800}
 </style>
-</head>
-<body>
-<div class="app">
-  <header>
-    <h1>Multiplying by a 1-Digit Number</h1>
-    <p>Chapter 4 &middot; Exercise 2 &middot; 50 questions</p>
+
+<div class="wrap">
+  <header class="top">
+    <div class="top-row">
+      <div class="brand">Story Quest</div>
+      <div class="stats" id="stats"></div>
+    </div>
+    <div class="bar" aria-hidden="true"><i id="fill"></i></div>
   </header>
-  <div class="card" id="card"></div>
+  <main id="app"></main>
 </div>
 
 <script>
-const fmt = n => n.toLocaleString('en-US');
-
-/* Q(tag, question, numeric answer, wrong options, explanation)
-   The correct answer is computed from the expression, so it cannot be mistyped. */
-function Q(tag, q, c, d, x){ return {tag, q, c, a: typeof c==="number" ? fmt(c) : c, d, x}; }
-
-const BANK = [
-  /* ---------- Textbook Exercise 2 ---------- */
-  Q('Book 1(a)', 'Estimate the product of 5,172 and 4 by replacing 5,172 with 5,000. 5,000 × 4 = ?', 5000*4, ['2,000','200,000','16,000'], '5 thousands × 4 = 20 thousands = 20,000.'),
-  Q('Book 1(a)', 'Estimate the product of 5,172 and 4 by replacing 5,172 with 5,200. 5,200 × 4 = ?', 5200*4, ['2,080','20,200','208,000'], '52 hundreds × 4 = 208 hundreds = 20,800.'),
-  Q('Book 1(b)', '5,172 × 4: what is 7 tens × 4?', '28 tens', ['11 tens','21 tens','74 tens'], '7 × 4 = 28, so 7 tens × 4 = 28 tens (which is 2 hundreds and 8 tens).'),
-  Q('Book 1(b)', 'In 5,172 × 4, 7 tens × 4 = 28 tens. How many hundreds are regrouped and added to the hundreds column?', '2 hundreds', ['8 hundreds','4 hundreds','1 hundred'], '28 tens = 2 hundreds + 8 tens. Write 8 in the tens place and carry the 2 hundreds.'),
-  Q('Book 1(b)', 'Use the vertical method to find 5,172 × 4.', 5172*4, ['20,488','20,628','21,688'], '2 × 4 = 8. 7 × 4 = 28, write 8, carry 2. 1 × 4 = 4, plus 2 = 6. 5 × 4 = 20. So the product is 20,688.'),
-  Q('Book 1(c)', 'The actual product of 5,172 × 4 is 20,688. Which estimate was lower than the actual product?', '5,000 × 4 = 20,000', ['5,200 × 4 = 20,800','Both estimates are lower','Neither, both are equal'], '20,000 is less than 20,688, so the estimate using 5,000 was lower. 20,800 is higher.'),
-  Q('Book 1(c)', 'The actual product of 5,172 × 4 is 20,688. Which estimate was higher than the actual product?', '5,200 × 4 = 20,800', ['5,000 × 4 = 20,000','Both estimates are higher','Neither, both are equal'], '20,800 is greater than 20,688, so the estimate using 5,200 was higher.'),
-  Q('Book 1(c)', 'The actual product of 5,172 × 4 is 20,688. Which estimate was closer to the actual product?', '5,200 × 4 = 20,800', ['5,000 × 4 = 20,000','They are equally close','You cannot tell'], '20,800 − 20,688 = 112, but 20,688 − 20,000 = 688. 112 is smaller, so 20,800 is closer.'),
-
-  Q('Book 2(a)', 'Dion estimated the product of 3,521 and 3 to be 12,000. With what number did he replace 3,521?', 4000, ['3,500','3,000','4,500'], '12,000 ÷ 3 = 4,000. He rounded 3,521 up to 4,000.'),
-  Q('Book 2(b)', 'Mei estimated the product of 3,521 and 3 to be 9,900. With what number did she replace 3,521?', 3300, ['3,000','3,500','3,100'], '9,900 ÷ 3 = 3,300. She replaced 3,521 with 3,300.'),
-  Q('Book 2(c)', 'The actual product of 3,521 and 3 is 10,563. Dion estimated 12,000 and Mei estimated 9,900. Whose estimate is closer?', "Mei's estimate", ["Dion's estimate",'They are equally close','Neither is close'], 'Dion is off by 12,000 − 10,563 = 1,437. Mei is off by 10,563 − 9,900 = 663. 663 is smaller, so Mei is closer.'),
-  Q('Book 2(d)', 'Find the product of 3,521 and 3.', 3521*3, ['9,563','10,163','10,553'], '1 × 3 = 3. 2 × 3 = 6. 5 × 3 = 15, write 5, carry 1. 3 × 3 = 9, plus 1 = 10. The product is 10,563.'),
-
-  Q('Book 3', 'Is 9,183 × 3 greater than or less than 25,000?', 'Greater than 25,000', ['Less than 25,000','Exactly 25,000','You must multiply exactly to tell'], '9,183 is close to 9,000, and 9,000 × 3 = 27,000, which is more than 25,000. The exact product is 27,549.'),
-  Q('Book 4', 'The product of 4,962 and 8 is closest to which multiple of 10,000?', 40000, ['30,000','50,000','400,000'], '4,962 is about 5,000 and 5,000 × 8 = 40,000. The exact product is 39,696, which is closest to 40,000.'),
-
-  Q('Book 5(a)', 'Is 7 × 986 = 6,902 reasonable? Why or why not?', 'Reasonable: 7 × 1,000 = 7,000, which is close to 6,902', ['Not reasonable: it should be about 700','Not reasonable: it should be about 70,000','Not reasonable: 986 is not a round number'], '986 is close to 1,000 and 7 × 1,000 = 7,000. 6,902 is close to 7,000, so it is reasonable.'),
-  Q('Book 5(b)', 'Is 71,081 × 8 = 57,448 reasonable? Why or why not?', 'Not reasonable: 70,000 × 8 = 560,000, so it should be about 560,000', ['Reasonable: 70,000 × 8 = 56,000, which is close to 57,448','Not reasonable: it should be about 5,600','Reasonable: 1 × 8 = 8, and 57,448 ends in 8'], '71,081 is about 70,000 and 7 ten-thousands × 8 = 56 ten-thousands = 560,000. 57,448 is far too small. The exact product is 568,648.'),
-
-  Q('Book 6(a)', 'Estimate 8,292 × 3 by rounding 8,292 to the nearest thousand.', 8000*3, ['27,000','24,900','21,000'], '8,292 rounds to 8,000. 8,000 × 3 = 24,000.'),
-  Q('Book 6(a)', 'Find the exact product: 8,292 × 3 = ?', 8292*3, ['24,676','24,886','25,876'], '2 × 3 = 6. 9 × 3 = 27, write 7, carry 2. 2 × 3 = 6, plus 2 = 8. 8 × 3 = 24. The product is 24,876.'),
-  Q('Book 6(b)', 'Estimate 6,710 × 8 by rounding 6,710 to the nearest thousand.', 7000*8, ['48,000','53,600','63,000'], '6,710 rounds to 7,000. 7,000 × 8 = 56,000.'),
-  Q('Book 6(b)', 'Find the exact product: 6,710 × 8 = ?', 6710*8, ['48,680','53,080','54,680'], '0 × 8 = 0. 1 × 8 = 8. 7 × 8 = 56, write 6, carry 5. 6 × 8 = 48, plus 5 = 53. The product is 53,680.'),
-  Q('Book 6(c)', 'Estimate 6,114 × 7 by rounding 6,114 to the nearest thousand.', 6000*7, ['49,000','42,700','36,000'], '6,114 rounds to 6,000. 6,000 × 7 = 42,000.'),
-  Q('Book 6(c)', 'Find the exact product: 6,114 × 7 = ?', 6114*7, ['42,778','42,198','43,798'], '4 × 7 = 28, write 8, carry 2. 1 × 7 = 7, plus 2 = 9. 1 × 7 = 7. 6 × 7 = 42. The product is 42,798.'),
-  Q('Book 6(d)', 'Estimate 11,771 × 6 by rounding 11,771 to the nearest thousand.', 12000*6, ['66,000','70,000','720,000'], '11,771 rounds to 12,000. 12,000 × 6 = 72,000.'),
-  Q('Book 6(d)', 'Find the exact product: 11,771 × 6 = ?', 11771*6, ['70,026','70,636','71,626'], '1 × 6 = 6. 7 × 6 = 42, write 2, carry 4. 7 × 6 = 42, plus 4 = 46, write 6, carry 4. 1 × 6 = 6, plus 4 = 10, write 0, carry 1. 1 × 6 = 6, plus 1 = 7. The product is 70,626.'),
-
-  Q('Book 7', 'A backhoe costs $12,199 and an excavator costs $165,599. A company wants to buy 4 backhoes and 1 excavator. What is the total cost in dollars?', 4*12199+165599, ['177,798','214,495','213,395'], '4 backhoes: 4 × 12,199 = 48,796. Add 1 excavator: 48,796 + 165,599 = 214,395.'),
-
-  Q('Book 8', '1,089 × 1 = ?', 1089*1, ['1,098','1,189','1,980'], 'Any number × 1 is itself: 1,089.'),
-  Q('Book 8', '1,089 × 2 = ?', 1089*2, ['2,168','2,278','2,187'], '9 × 2 = 18, write 8, carry 1. 8 × 2 = 16, plus 1 = 17, write 7, carry 1. 0 + 1 = 1. 1 × 2 = 2. The product is 2,178.'),
-  Q('Book 8', '1,089 × 3 = ?', 1089*3, ['3,167','3,257','3,367'], '9 × 3 = 27. 8 × 3 = 24, plus 2 = 26. 0 + 2 = 2. 1 × 3 = 3. The product is 3,267.'),
-  Q('Book 8', '1,089 × 4 = ?', 1089*4, ['4,346','4,256','4,366'], '9 × 4 = 36. 8 × 4 = 32, plus 3 = 35. 0 + 3 = 3. 1 × 4 = 4. The product is 4,356.'),
-  Q('Book 8', '1,089 × 5 = ?', 1089*5, ['5,545','5,435','5,345'], '9 × 5 = 45. 8 × 5 = 40, plus 4 = 44. 0 + 4 = 4. 1 × 5 = 5. The product is 5,445.'),
-  Q('Book 8', '1,089 × 6 = ?', 1089*6, ['6,524','6,634','6,434'], '9 × 6 = 54. 8 × 6 = 48, plus 5 = 53. 0 + 5 = 5. 1 × 6 = 6. The product is 6,534.'),
-  Q('Book 8', '1,089 × 7 = ?', 1089*7, ['7,613','7,723','7,523'], '9 × 7 = 63. 8 × 7 = 56, plus 6 = 62. 0 + 6 = 6. 1 × 7 = 7. The product is 7,623.'),
-  Q('Book 8', '1,089 × 8 = ?', 1089*8, ['8,702','8,812','8,612'], '9 × 8 = 72. 8 × 8 = 64, plus 7 = 71. 0 + 7 = 7. 1 × 8 = 8. The product is 8,712.'),
-  Q('Book 8', '1,089 × 9 = ?', 1089*9, ['9,701','9,811','9,891'], '9 × 9 = 81. 8 × 9 = 72, plus 8 = 80. 0 + 8 = 8. 1 × 9 = 9. The product is 9,801.'),
-  Q('Book 8', 'Look at 1,089 × 9 = 9,801. What pattern do you notice?', '9,801 is 1,089 with its digits in reverse order', ['9,801 has the same digits as 1,089 in the same order','Every product in the list ends in the digit 9','Every product in the list has four odd digits'], '9,801 is 1,089 written backwards. Also 2,178 × 4 = 8,712, which is 2,178 backwards.'),
-
-  Q('Book 9', 'In STOP × 4 = POTS, each letter is a different digit. What is the number POTS?', 8712, ['2,178','8,721','8,172'], 'STOP = 2,178 and 2,178 × 4 = 8,712. So S = 2, T = 1, O = 7, P = 8 and POTS = 8,712.'),
-  Q('Book 9', 'In STOP × 4 = POTS, what digit does T stand for?', '1', ['7','2','8'], 'STOP = 2,178 (S = 2, T = 1, O = 7, P = 8). 2,178 × 4 = 8,712, which reads P O T S. So T = 1.'),
-
-  /* ---------- Extra practice (same skills) ---------- */
-  Q('Extra', '4,236 × 5 = ?', 4236*5, ['20,180','21,080','22,180'], '6 × 5 = 30, write 0, carry 3. 3 × 5 = 15, plus 3 = 18, write 8, carry 1. 2 × 5 = 10, plus 1 = 11, write 1, carry 1. 4 × 5 = 20, plus 1 = 21. The product is 21,180.'),
-  Q('Extra', 'Estimate 6,842 × 4 by rounding 6,842 to the nearest thousand.', 7000*4, ['24,000','27,200','32,000'], '6,842 rounds to 7,000. 7,000 × 4 = 28,000.'),
-  Q('Extra', '3,418 × 6 = ?', 3418*6, ['19,508','20,408','20,588'], '8 × 6 = 48, write 8, carry 4. 1 × 6 = 6, plus 4 = 10, write 0, carry 1. 4 × 6 = 24, plus 1 = 25, write 5, carry 2. 3 × 6 = 18, plus 2 = 20. The product is 20,508.'),
-  Q('Extra', '23,145 × 3 = ?', 23145*3, ['69,335','69,425','68,435'], '5 × 3 = 15, write 5, carry 1. 4 × 3 = 12, plus 1 = 13, write 3, carry 1. 1 × 3 = 3, plus 1 = 4. 3 × 3 = 9. 2 × 3 = 6. The product is 69,435.'),
-  Q('Extra', 'The product of 7,205 and 4 is closest to which multiple of 10,000?', 30000, ['20,000','40,000','280,000'], '7,205 is about 7,000 and 7,000 × 4 = 28,000. The exact product is 28,820, which is closest to 30,000.'),
-  Q('Extra', 'Which is the only reasonable answer for 4 × 6,018?', 24072, ['2,407','240,720','18,054'], '6,018 is about 6,000 and 4 × 6,000 = 24,000. So the answer must be close to 24,000, and 24,072 is the only one that is.'),
-  Q('Extra', 'Without finding the exact products, which gives the greatest product?', '3,950 × 9', ['4,812 × 7','5,206 × 6','6,430 × 5'], 'Estimate: 4,800 × 7 ≈ 33,600. 5,200 × 6 ≈ 31,200. 6,400 × 5 ≈ 32,000. 3,950 × 9 ≈ 4,000 × 9 = 36,000, which is the greatest.'),
-  Q('Extra', '9,008 × 7 = ?', 9008*7, ['63,506','62,056','63,156'], '8 × 7 = 56, write 6, carry 5. 0 × 7 = 0, plus 5 = 5. 0 × 7 = 0. 9 × 7 = 63. The product is 63,056.'),
-  Q('Extra', 'A factory makes 2,486 toys every day. How many toys does it make in 5 days?', 2486*5, ['12,030','11,430','12,440'], '6 × 5 = 30, write 0, carry 3. 8 × 5 = 40, plus 3 = 43, write 3, carry 4. 4 × 5 = 20, plus 4 = 24, write 4, carry 2. 2 × 5 = 10, plus 2 = 12. The product is 12,430.'),
-  Q('Extra', 'A library buys 7 boxes of books. Each box has 1,845 books. How many books is that altogether?', 1845*7, ['12,815','12,905','11,915'], '5 × 7 = 35, write 5, carry 3. 4 × 7 = 28, plus 3 = 31, write 1, carry 3. 8 × 7 = 56, plus 3 = 59, write 9, carry 5. 1 × 7 = 7, plus 5 = 12. The product is 12,915.'),
-  Q('Extra', 'A farm has 4 barns with 1,350 chickens in each barn, and 1 coop with 875 chickens. How many chickens are there in total?', 4*1350+875, ['5,400','6,375','8,900'], '4 barns: 4 × 1,350 = 5,400. Add the coop: 5,400 + 875 = 6,275.'),
-  Q('Extra', 'Estimate 7,846 × 5 by rounding 7,846 to the nearest thousand.', 8000*5, ['35,000','39,000','45,000'], '7,846 rounds to 8,000. 8,000 × 5 = 40,000.'),
-  Q('Extra', '6,725 × 8 = ?', 6725*8, ['48,800','53,200','54,800'], '5 × 8 = 40, write 0, carry 4. 2 × 8 = 16, plus 4 = 20, write 0, carry 2. 7 × 8 = 56, plus 2 = 58, write 8, carry 5. 6 × 8 = 48, plus 5 = 53. The product is 53,800.')
+const STORIES = [
+{
+ title:"The Kite in the Mango Tree",
+ text:[
+  "On Saturday morning, Tunde carried his new red kite to the field behind his house. The wind was strong, so the kite shot up into the sky almost at once. Tunde laughed and let out more string.",
+  "Suddenly, a big gust pulled the string right out of his hands. The kite swooped down and caught in the tallest branches of the mango tree. Tunde felt his stomach drop. He tried jumping, but he could not reach it.",
+  "His neighbour, Mrs. Bello, heard him sighing and came outside with a long broom. She held it up high while Tunde stood on a plastic crate. Together they gently wiggled the string until the kite floated free.",
+  "\"Thank you!\" said Tunde. Mrs. Bello smiled. \"Next time, wrap the string around your wrist,\" she said. Tunde did exactly that, and the kite flew until sunset."
+ ],
+ qs:[
+  {q:"Where did the kite get stuck?",o:["In the tallest branches of the mango tree","On the roof of Mrs. Bello's house","On a wire at the back of the field","In a bush at the edge of the field"],e:"The kite caught in the tallest branches of the mango tree."},
+  {q:"What made the kite leave Tunde's hands?",o:["A big gust of wind pulled the string away","Tunde let go of it so he could laugh","The string snapped in the middle","Mrs. Bello grabbed the string from him"],e:"A big gust pulled the string right out of his hands."},
+  {q:"\"Tunde felt his stomach drop.\" What does this mean?",o:["He suddenly felt worried and disappointed","He felt so hungry that he could not wait","He felt ill because of the strong wind","He felt too sleepy to keep standing"],e:"The phrase describes a sudden sinking feeling of worry when the kite got stuck."},
+  {q:"What did Tunde and Mrs. Bello use to get the kite down?",o:["A long broom and a plastic crate","A ladder and a long piece of rope","A tall stool and a fishing net","A garden hose and a wooden chair"],e:"She held up a long broom while Tunde stood on a plastic crate."},
+  {q:"What did Tunde learn from this adventure?",o:["Wrapping the string around his wrist keeps the kite from flying away","Kites should only be flown on days when there is hardly any wind","He should never fly a kite anywhere near a tree","He must ask a neighbour before he flies a kite"],e:"Mrs. Bello advised him to wrap the string around his wrist, and he did."}
+ ]
+},
+{
+ title:"Ada's Volcano",
+ text:[
+  "Ada had worked on her science fair volcano for two weeks. She built it from clay and painted it brown and orange. On the morning of the fair, she carried it carefully into the school hall and set it on table seven.",
+  "When the judge, Mr. Okafor, arrived, Ada poured vinegar into the volcano's mouth and waited. Nothing happened. Her cheeks turned hot. She peeked inside and saw that the bowl of baking soda was still sitting beside her, untouched. She had forgotten to put it in!",
+  "Quickly, she spooned in the baking soda and poured in more vinegar. This time, white foam bubbled up and spilled down the sides. The crowd cheered. Mr. Okafor wrote something on his clipboard.",
+  "\"I liked how you stayed calm and fixed your mistake,\" he said. Ada grinned, even though her hands were still shaking."
+ ],
+ qs:[
+  {q:"How long did Ada work on her volcano?",o:["Two weeks","Two days","Five days","One month"],e:"The story says she had worked on it for two weeks."},
+  {q:"Why did nothing happen when Ada first poured in the vinegar?",o:["She had forgotten to add the baking soda","The vinegar was too old to work","The clay volcano had a crack in it","The judge arrived before it was ready"],e:"The bowl of baking soda was still untouched beside her."},
+  {q:"Which word best describes how Ada felt when nothing happened?",o:["Embarrassed","Sleepy","Jealous","Proud"],e:"Her cheeks turned hot, which shows she felt embarrassed."},
+  {q:"What did the judge like most about Ada?",o:["How calmly she fixed her mistake","How bright her paint colours were","How quickly she had built the volcano","How loudly the crowd cheered for her"],e:"Mr. Okafor said he liked how she stayed calm and fixed her mistake."},
+  {q:"Why were Ada's hands still shaking at the end?",o:["She was still nervous, even though it ended well","She was cold from touching the vinegar","She was tired from carrying the volcano","She was angry at the judge's comment"],e:"Her nerves had not settled yet, even though she was grinning."}
+ ]
+},
+{
+ title:"Kofi and the Storm",
+ text:[
+  "In a tall palm tree lived many weaver birds. Every spring, they built nests from grass and thin palm strips. Most of the birds worked fast. They tied a few knots, tucked in some grass, and flew off to play.",
+  "Kofi was different. He wove each strip tightly, checked every knot twice, and made his nest thick and round. The other birds teased him. \"Why are you so slow, Kofi? Come and play!\" they called. Kofi only smiled and kept working.",
+  "One night, a huge storm rolled in. The wind howled and the rain poured down. The quickly made nests came apart and tumbled to the ground. Kofi's nest swung back and forth, but it did not break.",
+  "In the morning, the other birds were wet and tired. Kofi invited them into his nest to dry off. \"Next year,\" said one bird quietly, \"I will take my time too.\""
+ ],
+ qs:[
+  {q:"What did the weaver birds build their nests from?",o:["Grass and thin palm strips","Mud and small stones","Leaves and thick sticks","Feathers and cotton"],e:"They built nests from grass and thin palm strips."},
+  {q:"How was Kofi different from the other birds?",o:["He worked slowly and carefully","He built his nest higher in the tree","He did not enjoy playing at all","He used stronger materials than they did"],e:"Kofi wove tightly and checked every knot twice, while the others hurried."},
+  {q:"What happened to the quickly made nests in the storm?",o:["They came apart and tumbled down","They floated away on the rain","They stayed dry and safe","They were blown into another tree"],e:"The quickly made nests came apart and tumbled to the ground."},
+  {q:"What does \"teased\" mean in the sentence \"The other birds teased him\"?",o:["Laughed at him and made fun of him","Wanted to learn from him","Felt sorry for him","Copied everything he did"],e:"They called out unkind questions about how slow he was."},
+  {q:"Which lesson does this story teach?",o:["Taking your time to do a job well pays off","Being fast is always better than being careful","You should never listen to your friends","Nests are safest when built together"],e:"Kofi's careful work survived the storm, which shows patience pays off."}
+ ]
+},
+{
+ title:"Chidi at the Market",
+ text:[
+  "Every Saturday, Chidi helped his grandmother sell oranges at the busy market. Grandma stacked them in neat pyramids while Chidi counted the money.",
+  "One afternoon, a man in a blue cap bought six oranges and handed Chidi a crisp note. Chidi gave him change and put the note in the tin. Later, when he counted again, he noticed something odd. The man's note was worth more than he had thought. He had given the man too little change!",
+  "Chidi's heart pounded. Grandma was busy with another customer, and the man had already walked far down the road. Chidi could have kept the extra money, but he did not want to. He ran through the crowd and tapped the man on the arm.",
+  "\"Sir, I made a mistake,\" he panted, handing back the money. The man smiled. \"You are an honest boy,\" he said. \"Your grandmother is lucky to have you.\""
+ ],
+ qs:[
+  {q:"What was Chidi's job at the stall?",o:["Counting the money","Stacking the oranges","Choosing the best fruit","Weighing the oranges"],e:"Grandma stacked the oranges while Chidi counted the money."},
+  {q:"What mistake did Chidi make?",o:["He gave the man too little change","He gave the man too many oranges","He charged the man too much","He lost the man's note"],e:"He noticed that he had given the man too little change."},
+  {q:"Why did Chidi run after the man?",o:["To give back the money he owed him","To sell him some more oranges","To ask him a question for Grandma","To thank him for shopping there"],e:"Chidi handed back the money after saying he had made a mistake."},
+  {q:"Which word best describes Chidi?",o:["Honest","Forgetful","Stubborn","Impatient"],e:"He chose to return the extra money, and the man called him an honest boy."},
+  {q:"Why did Chidi's heart pound when he found his mistake?",o:["He was nervous and worried about what he had done","He was excited about a happy surprise","He was frightened of the man in the blue cap","He was angry at his grandmother"],e:"He realised the man had walked far away and he felt worried."}
+ ]
+},
+{
+ title:"The Fennec Fox",
+ text:[
+  "The sun sets over the Sahara Desert, and the sand slowly cools. This is when a fennec fox wakes up. The fennec is the smallest fox in the world, no bigger than a house cat, but its ears are enormous. They can grow up to fifteen centimetres long.",
+  "These big ears help the fox in two ways. First, they let it hear insects and lizards moving under the sand. Second, they give off body heat so the fox stays cool.",
+  "Fennecs are nocturnal, which means they are active at night when the desert is not so hot. During the day, they rest in burrows they dig in the sand. A thick coat of pale fur keeps them warm on cold desert nights and reflects sunlight during the day."
+ ],
+ qs:[
+  {q:"What is the main idea of this passage?",o:["Fennec foxes have features that help them survive in the desert","Deserts are too hot for any animal to live in","Foxes use their ears mainly to fight enemies","The smallest animals always live in burrows"],e:"Every paragraph explains a feature, such as ears, burrows or fur, that helps the fennec live in the desert."},
+  {q:"What does \"nocturnal\" mean?",o:["Active mostly at night","Active mostly in the day","Living deep underground","Living all alone"],e:"The passage explains that nocturnal animals are active at night."},
+  {q:"How do the fennec's big ears help it stay cool?",o:["They give off body heat","They collect cool rainwater","They block the hot sunlight","They fan the air like wings"],e:"The ears give off body heat so the fox stays cool."},
+  {q:"Why do fennec foxes dig burrows?",o:["To rest during the hot day","To hunt insects at night","To store food for winter","To raise their babies in safety"],e:"During the day, they rest in burrows they dig in the sand."},
+  {q:"Which detail is a fact from the passage?",o:["A fennec's ears can grow up to fifteen centimetres long","Fennecs are the fastest foxes in the world","Fennecs live in every desert on Earth","Fennecs can hear thunder from far away"],e:"The first paragraph says the ears can grow up to fifteen centimetres long."}
+ ]
+},
+{
+ title:"The New Girl",
+ text:[
+  "On Monday, Maya walked into Room 12 holding her lunchbox tightly. It was her first day at Greenfield School, and she did not know anyone. The teacher, Mr. Adeyemi, showed her to a desk near the window. Maya kept her eyes on the floor.",
+  "At break time, she sat alone on a bench and unwrapped her sandwich. A girl with two braids walked over. \"Hi, I'm Sam,\" she said. \"We're playing tag. Want to join?\"",
+  "Maya shrugged. \"I'm not very fast,\" she said quietly. \"That's okay,\" said Sam. \"Neither am I. We're the ones who get caught first.\" Maya laughed for the first time all day. She put her sandwich down and followed Sam to the playground.",
+  "By the end of the week, Maya was no longer nervous about school at all. She even saved a seat for Sam at lunch."
+ ],
+ qs:[
+  {q:"Which room was Maya's class in?",o:["Room 12","Room 21","Room 8","Room 15"],e:"Maya walked into Room 12."},
+  {q:"How did Maya feel on her first morning?",o:["Nervous and shy","Bored and sleepy","Excited and loud","Proud and calm"],e:"She held her lunchbox tightly and kept her eyes on the floor."},
+  {q:"Why did Maya say, \"I'm not very fast\"?",o:["She was worried she would not be good at the game","She wanted to win the game by herself","She had hurt her leg on the playground","She wanted to be left alone to eat"],e:"She was unsure about joining and worried about being slow."},
+  {q:"Why did Maya laugh for the first time all day?",o:["Sam joked that they would both get caught first","Sam fell over while playing tag","Mr. Adeyemi told a funny story","A boy dropped his sandwich"],e:"Sam said they were the ones who get caught first, and Maya laughed."},
+  {q:"What does the last sentence of the story show?",o:["Maya has made a friend and feels comfortable","Maya still dislikes sitting at lunch","Maya wants to move to a new school","Sam is feeling lonely at lunchtime"],e:"Saving a seat for Sam shows that they had become friends."}
+ ]
+},
+{
+ title:"The Puppy in the Drain",
+ text:[
+  "It had been raining all morning, so Kemi and her brother Ibrahim were stuck inside. Around noon, the rain finally stopped, and they ran outside to splash in puddles.",
+  "Near the corner of the road, Ibrahim heard a thin, squeaky whimper. \"Did you hear that?\" he whispered. They followed the sound to a drain by the kerb. Down in the dark, a tiny brown puppy was shivering, its paws slipping on the wet stones.",
+  "Kemi lay on her stomach and reached in, but her fingers could not quite touch it. \"We need help,\" she said. Ibrahim sprinted home and returned with their father and a flat piece of wood. Father slid the wood down, and the puppy scrambled onto it.",
+  "They lifted it out and wrapped it in a dry towel. \"Can we keep him?\" Kemi asked. Father smiled. \"Let's find out if someone is missing him first.\""
+ ],
+ qs:[
+  {q:"What did Ibrahim hear near the corner of the road?",o:["A thin, squeaky whimper","A loud, angry bark","A splash in the water","His father calling them"],e:"He heard a thin, squeaky whimper."},
+  {q:"What happened right after Kemi found she could not reach the puppy?",o:["Ibrahim ran home to get help","Their father slid wood into the drain","They wrapped the puppy in a towel","They followed the whimper to the drain"],e:"Kemi said they needed help, and Ibrahim sprinted home."},
+  {q:"Why could Kemi not rescue the puppy by herself?",o:["Her fingers could not reach it","The drain was covered with a lid","The puppy kept running away","She was afraid of dogs"],e:"Her fingers could not quite touch the puppy."},
+  {q:"Why did Father want to find out if someone was missing the puppy?",o:["The puppy might already belong to someone","He did not like having dogs at home","He wanted to buy a bigger dog instead","He thought the puppy was too sick to keep"],e:"A puppy that was lost might have an owner looking for it."},
+  {q:"In the sentence \"the puppy scrambled onto it,\" what does scrambled mean?",o:["Climbed in a quick, clumsy way","Slid down slowly and softly","Waited there patiently","Jumped across without effort"],e:"The puppy's paws had been slipping, so it climbed up quickly and clumsily."}
+ ]
+},
+{
+ title:"Grandpa's Bean Seeds",
+ text:[
+  "Grandpa gave Leila three bean seeds and a small pot of soil. \"Plant them one finger deep,\" he said. Leila pressed the seeds into the soil, covered them, and watered the pot. Then she waited.",
+  "For days, nothing seemed to happen. Leila peeked every morning, but the soil stayed flat. \"Be patient,\" Grandpa said. \"The important work is happening where you cannot see it.\"",
+  "On the ninth day, a tiny green sprout pushed through the soil. Soon there were two more. Within a few weeks the plants had grown tall, and Leila helped Grandpa tie them to sticks so they could climb.",
+  "By the end of the month, small white flowers appeared. Later the flowers turned into long green pods. Leila picked the first bean, snapped it open, and ate it fresh. \"It tastes like all that waiting,\" she said."
+ ],
+ qs:[
+  {q:"How deep did Grandpa tell Leila to plant the seeds?",o:["One finger deep","One hand deep","Right on top of the soil","As deep as the pot"],e:"Grandpa said to plant them one finger deep."},
+  {q:"On which day did the first sprout appear?",o:["The ninth day","The third day","The fifth day","The twelfth day"],e:"On the ninth day, a tiny green sprout pushed through."},
+  {q:"What happened right after the small white flowers appeared?",o:["The flowers turned into long green pods","Leila tied the plants to sticks","The first sprout pushed through the soil","Leila ate her first bean"],e:"Later the flowers turned into long green pods, and only then did Leila pick a bean."},
+  {q:"What did Grandpa mean by \"The important work is happening where you cannot see it\"?",o:["The seeds are changing under the soil before any sprout shows","Leila should dig up the seeds to check on them","The best gardening is done after dark","Grandpa is busy with a secret project"],e:"The seeds were growing underground even though the soil looked flat."},
+  {q:"What did Leila mean when she said the bean \"tastes like all that waiting\"?",o:["It felt special because she had been patient","It tasted sour because it was fresh","She was bored of waiting and wanted to stop","It tasted like the soil in the pot"],e:"Her patience made the first bean feel like a special reward."}
+ ]
+},
+{
+ title:"The Relay Race",
+ text:[
+  "On sports day, Ben's team stood at the starting line of the relay race. There were five teams in all. Ben would run the third leg, and he was nervous because he had dropped the baton in practice.",
+  "The first runner, Zainab, shot out like an arrow and passed the baton to Femi in the lead. Femi ran hard, but a boy from the red team passed him. When Femi handed the baton to Ben, the team was in second place.",
+  "Ben gripped it tightly and sprinted. Halfway round, his hand slipped, and the baton fell to the track! Ben stopped, picked it up, and kept going. The crowd groaned. By the time he reached Amara, the last runner, the team was far behind.",
+  "Amara ran faster than she ever had and passed two teams. They finished third. Ben felt terrible, but his teammates crowded around him. \"You didn't give up,\" said Zainab. \"That's what matters.\" Ben finally smiled."
+ ],
+ qs:[
+  {q:"Which part of the relay did Ben run?",o:["The third leg","The first leg","The second leg","The last leg"],e:"The story says Ben would run the third leg."},
+  {q:"Why was Ben nervous before the race?",o:["He had dropped the baton in practice","He was feeling ill that morning","He had forgotten the rules of the race","He had never run in a race before"],e:"He remembered dropping the baton in practice."},
+  {q:"What did Ben do after he dropped the baton?",o:["He picked it up and kept going","He quit and walked off the track","He threw it to the next runner","He waited for the teacher to stop the race"],e:"Ben stopped, picked it up, and kept going."},
+  {q:"What place did Ben's team finish in?",o:["Third","Second","First","Fourth"],e:"Amara passed two teams and they finished third."},
+  {q:"What is the main message of this story?",o:["Trying again after a mistake matters more than winning","Only the fastest runner on a team really matters","Practising a lot always means that you will win","Teams should never let a nervous person run"],e:"Zainab told Ben that not giving up is what matters."}
+ ]
+},
+{
+ title:"The Case of the Missing Cookies",
+ text:[
+  "When Nia came home from school, the plate of cookies on the kitchen table was empty. Only a few crumbs were left. \"Who took my cookies?\" she cried.",
+  "She looked closely at the floor. A trail of crumbs led to the back door, and next to it were small, muddy paw prints. Nia also noticed that the back door was open a crack.",
+  "She thought about her suspects. Her brother Tobi had been at football practice all afternoon, so he could not have taken them. Her mother was at work. That left Biscuit, the family's golden dog, who was sleeping suspiciously under the porch.",
+  "Nia knelt down and found Biscuit with a few crumbs stuck to his whiskers. \"Aha!\" she said. Biscuit thumped his tail guiltily. Nia laughed. \"Next time,\" she said, shutting the door properly, \"I'll keep the cookies on a higher shelf.\""
+ ],
+ qs:[
+  {q:"What clue showed Nia that an animal had been in the kitchen?",o:["Muddy paw prints near the back door","A broken plate on the floor","A torn paper bag by the table","Scratch marks on the table legs"],e:"Small, muddy paw prints were next to the back door."},
+  {q:"Why could Tobi not have taken the cookies?",o:["He was at football practice all afternoon","He does not like cookies","He was asleep upstairs","He had gone to the shop"],e:"Tobi had been at football practice all afternoon."},
+  {q:"The story says Biscuit was \"sleeping suspiciously.\" What does this tell you?",o:["He looked like he was hiding something","He was sick and needed a rest","He was very tired from a long walk","He was waiting for Nia to come home"],e:"Suspiciously means in a way that makes you suspect something is wrong."},
+  {q:"What evidence proved that Biscuit took the cookies?",o:["Cookie crumbs were stuck to his whiskers","He ran away when Nia called him","His food bowl was found empty","He barked loudly at the back door"],e:"Nia found crumbs stuck to his whiskers."},
+  {q:"What will Nia probably do next time?",o:["Store the cookies somewhere the dog cannot reach","Ask Tobi to guard the plate","Give all of the cookies to Biscuit","Hide the cookies under the porch"],e:"She said she would keep the cookies on a higher shelf."}
+ ]
+}
 ];
 
-/* ---------- Quiz engine ---------- */
-const card = document.getElementById('card');
-let order, idx, score, missed;
-const L = ['A','B','C','D'];
+const $ = s => document.querySelector(s);
+const app = $('#app'), stats = $('#stats'), fill = $('#fill');
+const TOTAL = STORIES.reduce((n, s) => n + s.qs.length, 0);
+const LETTERS = ['A','B','C','D'];
+let S;
 
-function shuffle(a){ a = a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function fresh(view){
+  STORIES.forEach(st=>st.qs.forEach(q=>{q.opts=shuffle(q.o.map((t,i)=>({t,ok:i===0})));}));
+  S={view,s:0,q:0,picked:null,log:[]};
+}
+function score(){return S.log.filter(x=>x.ok).length;}
+function updateTop(){
+  const n=S.log.length;
+  stats.innerHTML = S.view==='quiz'
+    ? `<span>Question <b>${n + (S.picked===null?1:0)}</b> of ${TOTAL}</span><span>Score <b>${score()}</b></span>` : '';
+  fill.style.width = (S.view==='done' ? 100 : n/TOTAL*100) + '%';
+}
 
 function start(){
-  order = BANK.slice();            // textbook questions first, then extras (as in the workbook order)
-  idx = 0; score = 0; missed = [];
-  show();
+  app.innerHTML = `<section class="hero">
+    <h1>Read the story. Then answer the questions.</h1>
+    <p>There are ${STORIES.length} short stories and ${TOTAL} questions. Each story has 5 questions. You can look back at the story any time while you answer.</p>
+    <div class="chips"><span class="chip">${STORIES.length} stories</span><span class="chip">${TOTAL} questions</span><span class="chip">Grade 4</span></div>
+    <button class="btn" id="go">Start reading</button>
+  </section>
+  <ul class="shelf">${STORIES.map((s,i)=>`<li><span>Story ${i+1}</span>${s.title}</li>`).join('')}</ul>`;
+  $('#go').onclick=()=>{S.view='quiz';render();window.scrollTo(0,0);};
 }
 
-function show(){
-  const q = order[idx];
-  const opts = shuffle([q.a, ...q.d]);
-  card.innerHTML = `
-    <div class="bar"><div style="width:${(idx/order.length)*100}%"></div></div>
-    <div class="meta"><span>Question ${idx+1} of ${order.length}</span><span>Score: ${score}</span></div>
-    <span class="tag">${q.tag}</span>
-    <p class="q">${q.q}</p>
-    <div class="opts">
-      ${opts.map((o,i)=>`<button class="opt" data-v="${o}"><span class="l">${L[i]}</span><span>${o}</span></button>`).join('')}
-    </div>
-    <div class="fb" id="fb"></div>
-    <div class="nav" id="nav"><button class="btn" id="next">${idx===order.length-1?'See results':'Next question'}</button></div>`;
-  card.querySelectorAll('.opt').forEach(b=>b.onclick=()=>pick(b,q));
-  document.getElementById('next').onclick=()=>{ idx++; idx<order.length?show():finish(); };
-}
-
-function pick(btn,q){
-  const chosen = btn.dataset.v, right = chosen===q.a;
-  card.querySelectorAll('.opt').forEach(b=>{
-    b.disabled = true;
-    if(b.dataset.v===q.a) b.classList.add('ok');
+function quiz(){
+  const st=STORIES[S.s], q=st.qs[S.q], answered=S.picked!==null;
+  const last=S.s===STORIES.length-1 && S.q===st.qs.length-1;
+  const nextLabel = last ? 'See my results' : (S.q===st.qs.length-1 ? 'Next story' : 'Next question');
+  let fb='';
+  if(answered){
+    const ok=q.opts[S.picked].ok;
+    fb=`<div class="fb ${ok?'right':'wrong'}" role="status"><strong>${ok?'Correct!':'Not quite.'}</strong>${ok?'':'The right answer is '+LETTERS[q.opts.findIndex(o=>o.ok)]+'. '}${q.e}</div>`;
+  }
+  app.innerHTML = `<div class="quiz">
+    <article class="story">
+      <div class="tag">Story ${S.s+1} of ${STORIES.length}</div>
+      <h2>${st.title}</h2>
+      ${st.text.map(p=>`<p>${p}</p>`).join('')}
+    </article>
+    <section class="qcard">
+      <div class="tag">Question ${S.q+1} of ${st.qs.length}</div>
+      <h3>${q.q}</h3>
+      <ul class="opts">${q.opts.map((o,i)=>{
+        let c='opt';
+        if(answered){ if(o.ok) c+=' right'; else if(i===S.picked) c+=' wrong'; }
+        return `<li><button class="${c}" data-i="${i}" ${answered?'disabled':''}><span class="k">${LETTERS[i]}</span><span>${o.t}</span></button></li>`;
+      }).join('')}</ul>
+      ${fb}
+      <div class="nav"><span class="hint">${answered?'':'Pick one answer.'}</span>${answered?`<button class="btn" id="next">${nextLabel}</button>`:''}</div>
+    </section>
+  </div>`;
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    const i=+b.dataset.i;S.picked=i;S.log.push({s:S.s,q:S.q,pick:i,ok:q.opts[i].ok});render();
   });
-  if(!right) btn.classList.add('bad');
-  if(right) score++; else missed.push({q:q.q, yours:chosen, a:q.a, x:q.x});
-  const fb = document.getElementById('fb');
-  fb.className = 'fb show ' + (right?'ok':'bad');
-  fb.innerHTML = (right?'<b>Correct!</b> ':'<b>Not quite.</b> The answer is '+q.a+'. ') + q.x;
-  document.getElementById('nav').classList.add('show');
-}
-
-function finish(){
-  const pct = Math.round(score/order.length*100);
-  const msg = pct>=90?'Outstanding multiplying!':pct>=70?'Great work!':pct>=50?'Good effort. Keep practising!':'Keep going. Review the steps below and try again.';
-  card.innerHTML = `
-    <div class="center">
-      <div class="bar"><div style="width:100%"></div></div>
-      <h2 style="margin:8px 0 0">Quiz complete</h2>
-      <div class="big">${score} / ${order.length}</div>
-      <p style="margin:0;color:var(--muted)">${pct}% &middot; ${msg}</p>
-      <div class="row">
-        <button class="btn" id="again">Try again</button>
-        ${missed.length?'<button class="btn alt" id="retryMissed">Retry missed only</button>':''}
-      </div>
-    </div>
-    ${missed.length?`<div class="review"><h3>Questions to review (${missed.length})</h3>
-      ${missed.map(m=>`<div class="item"><div>${m.q}</div><div>You chose <span>${m.yours}</span> &middot; Correct: <b>${m.a}</b></div><div style="color:var(--muted);margin-top:4px">${m.x}</div></div>`).join('')}</div>`:''}`;
-  document.getElementById('again').onclick = start;
-  const r = document.getElementById('retryMissed');
-  if(r) r.onclick = () => {
-    const keep = new Set(missed.map(m=>m.q));
-    order = BANK.filter(b=>keep.has(b.q)); idx=0; score=0; missed=[]; show();
+  const nx=$('#next');
+  if(nx) nx.onclick=()=>{
+    S.picked=null;
+    if(S.q<st.qs.length-1) S.q++;
+    else if(S.s<STORIES.length-1){S.s++;S.q=0;window.scrollTo(0,0);}
+    else S.view='done';
+    render();
   };
 }
 
-start();
+function results(){
+  const sc=score(), pct=Math.round(sc/TOTAL*100);
+  const msg = pct>=90?'Outstanding reading! You noticed the details.':pct>=75?'Great job! You are a strong reader.':pct>=50?'Good effort. Re-read the stories you missed and try again.':'Keep going. Read each story slowly and look back for clues.';
+  const per=STORIES.map((s,i)=>{const n=S.log.filter(x=>x.s===i&&x.ok).length;return `<li><span>${s.title}</span><span class="m"><i style="width:${n/5*100}%"></i></span><span class="s">${n} / 5</span></li>`;}).join('');
+  const missed=S.log.filter(x=>!x.ok).map(x=>{
+    const st=STORIES[x.s],q=st.qs[x.q];
+    return `<div class="miss"><span class="tag">${st.title}</span><strong>${q.q}</strong><span><em>Your answer:</em> ${q.opts[x.pick].t}</span><span><u>Correct answer:</u> ${q.opts.find(o=>o.ok).t}</span><span class="hint">${q.e}</span></div>`;
+  }).join('');
+  app.innerHTML=`<section class="result">
+    <div class="big"><span class="tag">Your score</span><div class="n">${sc} / ${TOTAL}</div><div><b>${pct}%</b>. ${msg}</div></div>
+    <h2>Score for each story</h2>
+    <ul class="break">${per}</ul>
+    ${missed?`<h2>Questions to review</h2>${missed}`:'<h2>No mistakes. Perfect score!</h2>'}
+    <button class="btn" id="again">Try again with new answer order</button>
+  </section>`;
+  $('#again').onclick=()=>{fresh('quiz');render();window.scrollTo(0,0);};
+}
+
+function render(){
+  updateTop();
+  if(S.view==='start') start(); else if(S.view==='quiz') quiz(); else results();
+}
+fresh('start');render();
 </script>
-</body>
-</html>
